@@ -28,6 +28,7 @@ LIVE_MAGIC = 0x4E4E4C31
 soc, soccfg = D.connect()
 soccfg['tprocs'][0]['output_pins'].append(('trig', 11, 0, 'NN classify trigger (trig_11_o)'))
 CLS_PIN = len(soccfg['tprocs'][0]['output_pins']) - 1
+BANNER = next((l.strip() for l in str(soccfg).splitlines() if "built" in l), "?")   # firmware build line, saved with the results
 
 class P(AveragerProgramV2):
     def _initialize(self, cfg):
@@ -106,8 +107,8 @@ def main():
     if a.clip_dac:
         print(f"DAC clipping: {int((clipped > 0).sum())} shots, {int(clipped.sum())} samples capped at {maxv}")
     np.savez(ROOT / a.out, live_words=live_words, live_rec=live_rec, live_hdr=hdr, y=y, rows=rows,
-             box=box, fir=fir, window_eq_buffer=same, live_n=N_LIVE, dac_clipped=clipped)
-    print("saved", a.out)
+             box=box, fir=fir, window_eq_buffer=same, live_n=N_LIVE, dac_clipped=clipped, banner=BANNER)
+    print("saved", a.out, "|", BANNER)
 
 if __name__ == "__main__":
     main()

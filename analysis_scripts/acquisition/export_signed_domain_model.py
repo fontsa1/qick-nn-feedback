@@ -9,6 +9,13 @@ the firmware encoding and this transform must agree. Measured offline on 0528_X_
 The training set uses the label-free global domain map. Training runs several seeds and keeps the lowest val_loss,
 computed on the held-out 20% of the training pool (no test or acquired shot is used). Seed-to-seed spread on the
 acquired eval set is about +/-0.24 points.
+
+The three deployed networks (models/), run from the repository root:
+  NN_axi, FIR path, 770 samples:  export_signed_domain_model.py                       (rows 0:10000,110000:300000)
+  NN_live, FIR path, 576 samples: export_signed_domain_model.py --window 576          (same rows)
+  NN_live, boxcar path (v1.44):   export_signed_domain_model.py --window 576 --tag _box
+                                  --xcal 0528_X_train_box_calibrated.npy             (all 200,000 mapped rows)
+Without --rows or --n-train these are the defaults, so the commands above need no row argument.
 """
 import os
 os.environ["KERAS_BACKEND"] = "tensorflow"
@@ -125,14 +132,17 @@ def main():
                     help="train one model per seed and keep the one with the "
                          "lowest val_loss. Pass a single seed for one fixed-seed "
                          "model.")
-    ap.add_argument("--n-train", type=int, default=10000,
-                    help="training rows from the front of the pool (50000 "
-                         "measured +0.3 points over 10000)")
+    ap.add_argument("--n-train", type=int, default=None,
+                    help="train on rows [0, n) of the pool instead of the deployed "
+                         "ranges")
     ap.add_argument("--rows", default=None,
-                    help="training row ranges, e.g. '0:10000,110000:300000' "
-                         "(overrides --n-train). Use this to skip "
+                    help="training row ranges, e.g. '0:10000,110000:300000'. "
+                         "Default: the deployed recipe, 200,000 rows. On the full "
+                         "pool that is '0:10000,110000:300000', which skips "
                          "0528_X_train_0_770[10000:110000], the synthetic "
-                         "generator's fit pool (tools/verify_no_leakage.py E1/E4).")
+                         "generator's fit pool (tools/verify_no_leakage.py E1/E4); "
+                         "a mapped subset (--xcal from build_box_training_set.py) "
+                         "already holds those rows, so all of it is used.")
     ap.add_argument("--window", type=int, default=770,
                     help="classify on samples [0, window) only "
                          "(window_tradeoff.py chose 576). The model input is "
@@ -149,8 +159,12 @@ def main():
     sfx = ("" if a.window == 770 else f"_w{a.window}") + a.tag
     if a.rows:
         ranges = [tuple(int(v) for v in r.split(":")) for r in a.rows.split(",")]
-    else:
+    elif a.n_train is not None:
         ranges = [(0, a.n_train)]
+    elif a.xcal == "0528_X_train_0_770_loopback_calibrated.npy":
+        ranges = [(0, 10000), (110000, 300000)]        # the deployed recipe (results/last_export_seed.txt)
+    else:
+        ranges = [(0, len(np.load(base / a.xcal, mmap_mode="r")))]
     rows = np.concatenate([np.arange(lo, hi) for lo, hi in ranges])
 
     print("=" * 70)

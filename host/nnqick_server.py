@@ -218,6 +218,11 @@ class NNQickSoc(QickSoc):
         self.NN_axi_0.register_map.out_reset = 255 #1
         self.NN_axi_0.register_map.out_reset = 0
 
+    def board_uptime_s(self):
+        """Seconds since the board's Linux kernel booted (/proc/uptime): tells a cold start from a reload."""
+        with open("/proc/uptime") as f:
+            return float(f.read().split()[0])
+
     def nn_status(self):
         reg = self.NN_axi_0.register_map
         return {"out_offset": int(reg.out_offset), "out_offset_ctrl": int(reg.out_offset_ctrl), "trig_count": int(reg.trig_count)}

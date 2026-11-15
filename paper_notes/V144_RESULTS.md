@@ -5,7 +5,7 @@ which refuses any source that fails a build check. `--verify` fails if this file
 
 Build: `OG_build_v1.44.bit`, sha256 `986c861a83be8d01...`, banner `Nov  7 19:57:07 2026`.
 
-Status: **137 of 137 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
+Status: **159 of 159 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
 
 Evidence: **banner** = the v1.44 banner read from the board during that run; **bracketed** = banner logged before and after by the same uninterrupted runner; **build-file** = the report saved from the v1.44 build; **name+date** = named v1.44 and dated after the build, no banner (weakest).
 
@@ -102,6 +102,15 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | LDA, 576 samples, board B | 95.44% [95.14, 95.73], P(1|0) 2.80, P(0|1) 6.32, n = 19,400 | banner | `campaign_v144/final/analysis/linear_v144_B.json` |
 | LDA, 576 vs 640 samples, board B | 36 vs 49, exact p = 0.19, difference -0.067 [-0.160, +0.026] | banner | `campaign_v144/final/analysis/linear_v144_B.json` |
 | LDA, 770 vs 640 samples, board B | 51 vs 47, exact p = 0.76, difference +0.021 [-0.079, +0.121] | banner | `campaign_v144/final/analysis/linear_v144_B.json` |
+| LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots | 95.57%, -0.030 points, 241 vs 271, exact p = 0.20 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| LDA, window 576, board A, 99,400 rows, vs NN_live on the same shots | 95.52%, -0.023 points, 271 vs 294, exact p = 0.35 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots | 95.57%, -0.050 points, 237 vs 287, exact p = 0.03 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots | 95.65%, +0.051 points, 474 vs 423, exact p = 0.09 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots | 95.66%, +0.109 points, 530 vs 422, exact p = 0.0005 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| LDA, window 770, board B, 99,400 rows, vs NN_live on the same shots | 95.65%, +0.037 points, 483 vs 446, exact p = 0.24 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| matched filter, run 1, 99,400 rows, vs NN_live on the same shots | 95.49%, -0.107 points, 571 vs 677, exact p = 0.003 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| matched filter, board A, 99,400 rows, vs NN_live on the same shots | 95.50%, -0.049 points, 608 vs 657, exact p = 0.18 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| matched filter, board B, 99,400 rows, vs NN_live on the same shots | 95.48%, -0.136 points, 572 vs 707, exact p = 0.0002 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
 
 ## Drift, 3 h
 
@@ -123,6 +132,12 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Board B, boxcar path, qick, earliest clean margin | 340.3 ns at +35 ns, 100/100 fresh | banner | `campaign_v144/final/board2/B_tproc_box_v144.json` |
 | Board B, FIR path, same margin as the old L5 value | 447.6 ns | banner | `campaign_v144/final/board2/B_tproc_fir_v144.json` |
 | Gate saving over the tProc path: board A tProc minus L_50 (175.9), and its population worth at T1 = 32 us | 160 ns; 0.17 to 0.50 points | banner | `campaign_v144/final/board2/A_tproc_box_v144.json` |
+| Board A, FIR path (NN_live result), earliest clean margin | 439.6 ns at +30 ns, 40/40 fresh | banner | `campaign_v144/final/board2/A_tproc_fir_v144.json` |
+| Board A, QICK threshold feedback (read_and_jump), earliest clean margin | 521.4 ns at +100 ns, 40/40 fresh | banner | `campaign_v144/final/board3/A_tproc_thr_v144.json` |
+| Board A, QICK threshold feedback (no-jump form), earliest clean margin | 562.0 ns at +150 ns, 40/40 fresh | banner | `campaign_v144/final/board3/A_tproc_thr_v144.json` |
+| Board B, FIR path (NN_live result), earliest clean margin | 440.4 ns at +30 ns, 40/40 fresh | banner | `campaign_v144/final/board2/B_tproc_fir_v144.json` |
+| Board B, QICK threshold feedback (read_and_jump), earliest clean margin | 521.8 ns at +100 ns, 40/40 fresh | banner | `campaign_v144/final/board3/B_tproc_thr_v144.json` |
+| Board B, QICK threshold feedback (no-jump form), earliest clean margin | 561.6 ns at +150 ns, 40/40 fresh | banner | `campaign_v144/final/board3/B_tproc_thr_v144.json` |
 
 ## Safety and tests
 
@@ -218,6 +233,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | NN_axi clock (clk_pl_0) WNS | +0.187 ns | build-file | `paper_tables/table3/data/v1.44_routed_timing.rpt` |
 | NN_live LUT, rounded for prose | about 1,340 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
 | Failing endpoints: NN_live / its clock crossing / stock readouts 1 and 2 | 0 / 0 / 0 | build-file | `paper_tables/table3/data/v1.44_routed_timing.rpt` |
+| Real-time path LUT (NN_live + loop logic, Table III) | 3,303 (about 3,300) | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
 
 ## Loop latency
 
@@ -230,6 +246,17 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Our logic (S_NN + S_CDC + S_gate) / converters and cable (S_conv), rounded, 176 ns group | 37 / 102 ns | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Converters and cable, mean of the two load groups | 101.1 ns (100.1 and 102.1) | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Fig. 8(b), late at -66 ns, boards A / B, of 40 | 2 / 6 | banner | `campaign_v144/final/fig8b/A_gate_probe.log` |
+
+## Replay-channel augmentation
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| seg_mlp trained on augmented data vs LDA, board A replay, 16,000 shots | 95.79%, +0.26 points, b 73 vs c 31, p = 5e-05 | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
+| bin_mlp trained on augmented data vs LDA, board A replay, 16,000 shots | 95.81%, +0.28 points, b 72 vs c 27, p = 7e-06 | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
+| bin_gru trained on augmented data vs LDA, board A replay, 16,000 shots | 95.82%, +0.30 points, b 76 vs c 28, p = 3e-06 | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
+| cnn1d trained on augmented data vs LDA, board A replay, 16,000 shots | 95.70%, +0.18 points, b 57 vs c 28, p = 0.002 | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
+| Deployed 4-unit network: chip (clean) / retrained on augmented data | 95.56% / 95.52% | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
+| LDA on the same 16,000 shots | 95.52% | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
 
 ## Sources with weak build evidence
 

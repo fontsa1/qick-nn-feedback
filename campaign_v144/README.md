@@ -18,4 +18,9 @@ Power the boards off and on, wait for them to boot, then run once per power cycl
 
     bash campaign_v144/run_loads.sh campaign_v144/final/latency/cold c1
 
-The script reloads v1.44 and calibrates on each board.
+The script reloads v1.44 and calibrates on each board. `latency_protocol.py` records `board_uptime_s`, the seconds
+since the board booted (read from `/proc/uptime` by the server's `board_uptime_s()`), in each load's settings, which are
+printed in its `.log` and stored in its `.npz` and `.json`. A cold start reads a few minutes. A reload reads however
+long the board has been up. The server must be the version that has `board_uptime_s()`: deploy it with
+`board_tools/start_server.py <host> --restart`. Without it the field is `null`, as in the v1.44 cold starts in
+`final/latency/cold/`, which were run before the field existed.

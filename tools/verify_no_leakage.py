@@ -42,9 +42,10 @@ import numpy as np
 RAW_DIR = Path(__import__("os").environ.get("RAW_DATA_DIR", "."))   # 0528_X_all_{0,1}.npy
 CHUNK = 20000
 
-# The number of rows the classifier trains on (export_signed_domain_model.py and phase0_calibration_ablation.py);
-# the generator's fit pool starts at exactly TRAIN_N.
-TRAIN_N = 10000
+# The rows the deployed classifier trains on (export_signed_domain_model.py's default; results/last_export_seed.txt).
+# The generator's fit pool is exactly the gap between them.
+TRAIN_RANGES = [(0, 10000), (110000, 300000)]
+TRAIN_N = sum(hi - lo for lo, hi in TRAIN_RANGES)          # 200,000
 GEN_FIT_LO, GEN_FIT_HI = 10000, 110000   # as in tools/generate_synth_holdout_v2.py
 SCORED_N = 400          # --legacy-check-c: check C on rows 0:400 only
 CALIB_SLICE = (1000, 1600)
@@ -307,28 +308,29 @@ def main():
     print("\nE. synthetic generator fit pool "
           "(0528_X_train_0_770.npy[10000:110000], tools/generate_synth_holdout_v2.py)")
     FIT_LO, FIT_HI = GEN_FIT_LO, GEN_FIT_HI
-    h_train20k, _ = hash_file_rows("0528_X_train_0_770.npy", limit=TRAIN_N)
     Atr = np.load("0528_X_train_0_770.npy", mmap_mode="r")
+    h_train20k = set()                                     # every training row, both ranges
+    for lo, hi in TRAIN_RANGES:
+        for i in range(lo, hi, CHUNK):
+            h_train20k.update(row_hashes(np.asarray(Atr[i:min(i + CHUNK, hi)])))
     h_fit = set()
     for i in range(FIT_LO, min(FIT_HI, Atr.shape[0]), CHUNK):
         h_fit.update(row_hashes(np.asarray(Atr[i:min(i + CHUNK, FIT_HI)])))
     print(f"   fit pool rows hashed: {h_fit.__len__()} unique")
     tot_tr = len(h_fit & h_train20k)
     tot_te = len(h_fit & h_test20)
-    record(f"E1 generator fit pool vs the {TRAIN_N} rows the model trains on",
+    record(f"E1 generator fit pool vs the {TRAIN_N:,} rows the model trains on",
            tot_tr == 0, f"{tot_tr} overlaps")
     record("E2 generator fit pool vs the 20k real test subset",
            tot_te == 0, f"{tot_te} overlaps")
-    record("E4 the generator fit pool begins exactly where training ends",
-           GEN_FIT_LO == TRAIN_N,
-           f"training uses rows [0:{TRAIN_N}] and the generator fits on "
-           f"[{GEN_FIT_LO}:{GEN_FIT_HI}] -- a "
-           f"{'gap' if GEN_FIT_LO > TRAIN_N else 'OVERLAP'} of "
-           f"{abs(GEN_FIT_LO - TRAIN_N)} rows. An overlap is leakage; a gap "
-           f"wastes real shots. Reconcile the two constants.",
-           pass_detail=f"training [0:{TRAIN_N}], generator fit "
-                       f"[{GEN_FIT_LO}:{GEN_FIT_HI}] -- adjacent, no gap, no "
-                       f"overlap")
+    gap_lo, gap_hi = TRAIN_RANGES[0][1], TRAIN_RANGES[1][0]
+    record("E4 the generator fit pool is exactly the gap between the training ranges",
+           (GEN_FIT_LO, GEN_FIT_HI) == (gap_lo, gap_hi),
+           f"training uses rows {TRAIN_RANGES} and the generator fits on "
+           f"[{GEN_FIT_LO}:{GEN_FIT_HI}]; the gap between the ranges is [{gap_lo}:{gap_hi}]. "
+           f"An overlap is leakage; a gap wastes real shots. Reconcile the constants.",
+           pass_detail=f"training {TRAIN_RANGES}, generator fit "
+                       f"[{GEN_FIT_LO}:{GEN_FIT_HI}] -- the gap exactly, no overlap")
     record("E3 generator output in use is the clean one (x_synth_v2.npy)",
            Path("x_synth_v2.npy").exists(),
            "x_synth_v2.npy absent -- regenerate with "
@@ -392,7 +394,7 @@ def main():
            pass_detail="the recorded coefficients are the label-free global "
                        "fit; data/domain_calib_y.npy is present on disk but enters "
                        "no fitted quantity. The per-class alternative is "
-                       "worth +0.01 points (phase0_calibration_ablation.py), so nothing "
+                       "worth -0.01 points on the full window (phase0_calibration_ablation.py: 95.12% vs 95.13%), so nothing "
                        "is given up by not using it.")
 
     # ---------- verdict ------------------------------------------------------

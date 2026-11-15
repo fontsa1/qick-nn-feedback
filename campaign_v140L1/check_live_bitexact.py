@@ -28,7 +28,7 @@ MODEL = "models/model_v140_200k_seed20260904.h5"
 L3_W = ROOT / "neural_net4_live576" / "firmware" / "weights"
 L3_MODEL = "models/model_v140L3_w576_seed20260904.h5"
 # boxcar readout path: pass --box.
-BOX_W = ROOT / "neural_net4_live576box" / "firmware" / "weights"
+BOX_W = ROOT / "neural_net4_live576s" / "firmware" / "weights"   # the deployed NN_live weights (boxcar path)
 BOX_MODEL = "models/model_signed_domain_seed20260901_w576_box.h5"
 
 def load_txt(name):

@@ -1,0 +1,8 @@
+2026-11-14 02:56:51 A calibrated: [calib] active = 10.1.9.26 (board A)  |k|=0.23409 arg(k)=-79.87 deg
+2026-11-14 03:03:05 A threshold: qickthr: earliest clean margin: +0.100, L 521.4 ns;nobranch: earliest clean margin: +0.150, L 562.0 ns;
+2026-11-14 03:07:05 B calibrated: [calib] active = 10.1.4.105 (board B)  |k|=0.23292 arg(k)=+167.86 deg
+2026-11-14 03:13:28 B threshold: qickthr: earliest clean margin: +0.100, L 521.8 ns;nobranch: earliest clean margin: +0.150, L 561.6 ns;
+2026-11-14 03:13:28 B1_FINISHED
+2026-11-14 03:20:32 A threshold fine: qickthr: earliest clean margin: +0.100, L 522.5 ns;nobranch: earliest clean margin: none;
+2026-11-14 03:27:54 B threshold fine: qickthr: earliest clean margin: +0.100, L 521.3 ns;nobranch: earliest clean margin: none;
+2026-11-14 03:27:54 B1_FINE_FINISHED

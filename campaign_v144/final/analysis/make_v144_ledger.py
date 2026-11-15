@@ -35,10 +35,12 @@ MD = Path("paper_notes/V144_RESULTS.md")
 JS = Path("campaign_v144/final/analysis/v144_results.json")
 TEMPLATE = Path("campaign_v143/final/analysis/v143_results.json")
 BANNER = "Nov  7 19:57:07"
-BIT = Path("C:/qick_projects/top/OG_build_v1.44.bit")
+BIT = Path(os.environ.get("V144_BIT", "firmware_v1.44/OG_build_v1.44.bit"))    # the shipped bitstream; sha256 checked below
 BIT_SHA = "986c861a83be8d01d72db967af894e3d01de2b1c861021d1b5821bc183d7b7c6"
 BUILT = datetime(2026, 11, 7, 19, 57, 7).timestamp()
-REPORTS = Path("C:/qick_projects/top/v1.44_reports")     # the build kept the v1.43_* report names; the design there is v1.44
+# The Vivado project's own report folder (the build kept the v1.43_* report names; the design there is v1.44). Only on
+# the build machine: set V144_REPORTS to compare the copies in paper_tables/table3/data/ with it; otherwise skipped.
+REPORTS = Path(os.environ["V144_REPORTS"]) if os.environ.get("V144_REPORTS") else None
 D = "campaign_v144/final/"
 B2 = D + "board2/"
 LK = D + "leak_energy/"
@@ -78,7 +80,8 @@ def src(path, kind, log=None):
             assert json.load(open(need(f"{D}calib/{board}_{ph}.json")))["bit_sha256"] == BIT_SHA, ph
     elif kind == "build-file":
         name = Path(p).name.replace("v1.44_", "v1.43_", 1)
-        assert sha(p) == sha(REPORTS / name), f"differs from the report saved from the build: {p}"
+        if REPORTS is not None:
+            assert sha(p) == sha(REPORTS / name), f"differs from the report saved from the build: {p}"
     else:
         assert kind == "name+date", kind
     SRC[p] = dict(kind=kind, sha256=sha(p)[:16])
@@ -104,7 +107,7 @@ def pv(p):
 
 def pair(section, key, s, source, note=""):
     row(section, key, f"{s['A_only']} vs {s['B_only']}, exact p = {pv(s['p_exact'])}, difference {s['dF']:+.3f} [{s['dF_ci'][0]:+.3f}, {s['dF_ci'][1]:+.3f}]",
-        [str(s["A_only"]), str(s["B_only"]), pv(s["p_exact"]), f"{s['dF']:+.3f}"[1:], f"{s['dF_ci'][0]:+.3f}"[1:], f"{s['dF_ci'][1]:+.3f}"[1:]], source, note)
+        [str(s["A_only"]), str(s["B_only"]), pv(s["p_exact"]), f"{s['dF']:+.3f}"[1:], f"{s['dF_ci'][0]:+.3f}"[1:], f"{s['dF_ci'][1]:+.3f}"[1:], f"{s['p_exact']:.3f}", f"{s['dF_ci'][0]:+.2f}"[1:], f"{s['dF_ci'][1]:+.2f}"[1:]], source, note)
 
 def stats():
     """The analysis output, once the campaign data has been analysed. Checked against both boards' runners."""
@@ -284,7 +287,7 @@ def swap(t, lab):
 
 def swap_phase():
     ka, kb = (_f(src(f"{B2}swap_{t}_v144.npz", "banner", f"{B2}swap_{t}.log"))[1] for t in ("A_own", "B_own"))
-    row("Calibration swap", "Phase difference of the boards in that session", f"{abs(ka - kb):.1f} deg", [f"{abs(ka - kb):.0f}"], f"{B2}swap_B_own_v144.npz")
+    row("Calibration swap", "Phase difference of the boards in that session", f"{abs(ka - kb):.1f} deg", [f"{abs(ka - kb):.0f}", f"{abs(ka - kb):.1f}"], f"{B2}swap_B_own_v144.npz")
 
 def phrst():
     q = src(f"{B2}A_phrst_probe_v144.json", "banner"); J = json.load(open(q))
@@ -355,6 +358,9 @@ def implementation():
     row("Implementation", "WNS / failing setup endpoints", f"{wns:.3f} ns / {fails}", [f"{abs(wns):.3f}", fails], tt)
     m = re.search(r"^clk_pl_0\s+(-?[\d.]+)", t, flags=re.M)
     row("Implementation", "NN_axi clock (clk_pl_0) WNS", f"{float(m[1]):+.3f} ns", [m[1], f"{float(m[1]):.2f}"], tt)
+    _loop = ["boxcar_tap_0", "dac_gate_0", "live_gate_0", "live_res_cdc_0", "live_res_cdc_1", "trig_sync_0"]   # Table III's loop logic
+    _rt = live["lut"] + sum(blk[b]["lut"] for b in _loop)
+    row("Implementation", "Real-time path LUT (NN_live + loop logic, Table III)", f"{_rt:,} (about {round(_rt, -2):,})", [f"{_rt:,}", f"{round(_rt, -2):,}"], tu)
     row("Implementation", "NN_live LUT, rounded for prose", f"about {round(live['lut'], -1):,}", [f"{round(live['lut'], -1):,}"], tu)
     row("Implementation", "Failing endpoints: NN_live / its clock crossing / stock readouts 1 and 2", f"{fails} / {fails} / {fails}", [fails], tt, "zero failing setup endpoints in the whole design")
 
@@ -403,12 +409,61 @@ def tests(b):
     assert j["ERROR"] == 0, j
     row("Safety and tests", f"QICK functional suite, board {b}", f"{j['PASS']} pass, {j['WARN']} warning, {j['FAIL']} fail, {j['NOT WIRED']} not wired", [j["PASS"], j["WARN"], j["FAIL"]], p)
 
+
+# ----------------------------------------------------------------------- replay augmentation, linear baselines on 99,400 rows, threshold feedback
+def _clean(points, v=None):
+    return [x for x in points if (v is None or x["variant"] == v) and x.get("forced_ok", True) and x["fresh"] == x["n"] == x["br_eq_dec"] == x["played_eq_br"]]
+
+
+def tproc_fir_earliest(b):
+    q = src(f"{B2}{b}_tproc_fir_v144.json", "banner"); J = json.load(open(q))
+    g_ = _clean(J["points"], "nobranch")[0]
+    row("tProc path", f"Board {b}, FIR path (NN_live result), earliest clean margin", f"{g_['L_median']:.1f} ns at +{1e3 * g_['margin']:.0f} ns, {g_['fresh']}/{g_['n']} fresh", [f"{g_['L_median']:.1f}", f"{g_['L_median']:.0f}"], q)
+
+
+def tproc_thr(b):
+    """QICK's own threshold feedback: readout 0's averager into the tProc (analysis_scripts/diagnostics/tproc_threshold_v144.py)."""
+    q = src(f"{D}board3/{b}_tproc_thr_v144.json", "banner", f"{D}board3/{b}_tproc_thr.log"); J = json.load(open(q))
+    pts = [dict(x, _src=q) for x in J["points"]]
+    fine = f"{D}board3/{b}_tproc_thr_fine_v144.json"          # the +80..+100 ns pass, 5 ns steps
+    if Path(fine).exists():
+        q2 = src(fine, "banner", f"{D}board3/{b}_tproc_thr_fine.log"); pts += [dict(x, _src=q2) for x in json.load(open(q2))["points"]]
+    pts = sorted(pts, key=lambda x: x["margin"])                # stable: at equal margins the coarse pass comes first
+    for v, lab in (("qickthr", "read_and_jump"), ("nobranch", "no-jump form")):
+        g_ = _clean(pts, v)
+        if g_:
+            g_ = g_[0]; q = g_["_src"]
+            row("tProc path", f"Board {b}, QICK threshold feedback ({lab}), earliest clean margin", f"{g_['L_median']:.1f} ns at +{1e3 * g_['margin']:.0f} ns, {g_['fresh']}/{g_['n']} fresh", [f"{g_['L_median']:.1f}", f"{g_['L_median']:.0f}"], q)
+
+
+def s2_aug():
+    q = src(D + "analysis/s2/arch_aug_v144.json", "bracketed", "A"); J = json.load(open(q))
+    for arm in ("seg_mlp", "bin_mlp", "bin_gru", "cnn1d"):
+        r = J[f"{arm}_aug"]; v = r["vs_lda_clean"]
+        row("Replay-channel augmentation", f"{arm} trained on augmented data vs LDA, board A replay, 16,000 shots", f"{r['loop16k']:.2f}%, {v['delta']:+.2f} points, b {v['b']} vs c {v['c']}, p = {pv(v['p'])}",
+            [f"{r['loop16k']:.2f}", f"{abs(v['delta']):.2f}", pv(v["p"])], q)
+    row("Replay-channel augmentation", "Deployed 4-unit network: chip (clean) / retrained on augmented data", f"{J['t4_clean']:.2f}% / {J['t4_aug']:.2f}%", [f"{J['t4_clean']:.2f}", f"{J['t4_aug']:.2f}"], q)
+    row("Replay-channel augmentation", "LDA on the same 16,000 shots", f"{J['lda_clean']:.2f}%", [f"{J['lda_clean']:.2f}"], q)
+
+
+def s5_linear():
+    f = D + "analysis/s5_linear_99400_v144.json"
+    src(f, "bracketed", "A"); SRC.pop(f); q = src(f, "bracketed", "B"); J = json.load(open(q))
+    for k, lab in (("LDA_window576", "LDA, window 576"), ("LDA_window770", "LDA, window 770"), ("MF", "matched filter")):
+        for s_, slab in (("headline", "run 1, 99,400 rows"), ("A_all", "board A, 99,400 rows"), ("B_all", "board B, 99,400 rows")):
+            r = J[s_][k]; v = r["vs_NN_live"]
+            row("Linear baselines", f"{lab}, {slab}, vs NN_live on the same shots", f"{r['fid']['fid']:.2f}%, {v['dF']:+.3f} points, {v['A_only']} vs {v['B_only']}, exact p = {pv(v['p_exact'])}",
+                [f"{r['fid']['fid']:.2f}", f"{abs(v['dF']):.2f}", pv(v["p_exact"])], q)
+
+
 # ----------------------------------------------------------------------- run every group
 assert sha(BIT) == BIT_SHA
 for fn in (nn_live, replay_decisions, inloop, axi, timing_checks, emulator, leak, gate_saving, swap_phase, phrst, box_vs_fir, synthetic, nonlinear, channel, fig7, implementation, scaling, latency, fig8b):
     attempt(fn)
+for fn in (s2_aug, s5_linear):
+    attempt(fn)
 for b in "AB":
-    for fn in (linear, tproc_box, tproc_fir, boxcar_mr, tests):
+    for fn in (linear, tproc_box, tproc_fir, boxcar_mr, tests, tproc_fir_earliest, tproc_thr):
         attempt(fn, b)
 for h, b in HOSTS:
     attempt(drift, h, b)
@@ -448,8 +503,11 @@ for t in template:
         final.append(p); pending.append(p)
 extra = [r for r in ROWS if (r["section"], norm(r["key"])) not in names]
 for r in extra:                                     # results v1.44 has and v1.43 did not, at the end of their section
-    last = max(i for i, x in enumerate(final) if x["section"] == r["section"])
-    final.insert(last + 1, r)
+    same = [i for i, x in enumerate(final) if x["section"] == r["section"]]
+    if same:
+        final.insert(max(same) + 1, r)
+    else:                                           # a section v1.43 did not have: at the end
+        final.append(r)
 
 # ----------------------------------------------------------------------- output
 order = list(dict.fromkeys(r["section"] for r in final))

@@ -41,7 +41,7 @@ L = {
  "P133": {"176": ROUND, "25": CALC + ": 16.3 + 9.0 ns, both stated in Sec. VIII"}, "P135": {"11": DESIGN}, "P142": {"4423.68": DESIGN, "552.96": DESIGN, "16": DESIGN, "100.5": CALC, "11,": DESIGN, "−100": DESIGN, "16.3": DESIGN, "9.0": CALC},
  "P144": {"20": "shots in the capture", "−100": DESIGN, "11": DESIGN, "100": DESIGN}, "P145": {"16.3": DESIGN, "0.10": ROUND}, "P149": {"15.5": CALC, "552.96": DESIGN},
  "P154": {"160": ROUND + ": 337 minus 176", "176": ROUND}, "P155": {"576": DESIGN, "16.3": DESIGN, "63": DESIGN, "29": DESIGN, "16": DESIGN, "15": DESIGN, "491.52": DESIGN, "200": DESIGN, "256": DESIGN, "245.76": "QICK design constant: clk_core in firmware/projects/qick_tprocv2_4x2_standard/bd_2023-1.tcl at commit 779dffa", "204.8": "QICK design constant: clk_core in the same file on QICK main since 2026-09-16 (commit a24cc8e, merged in #432)", "552.96": DESIGN, "0.42": "QICK tProc IP alone, out-of-context place and route at c_clk 5.0 ns; a property of QICK's IP, not of a build of ours"},
- "P156": {"95": TEST}, "P82": {"23": "tools/verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v144/final/analysis/verify_no_leakage.log"},
+ "P156": {"95": TEST}, "P82": {"23": "tools/verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v143/final/analysis/verify_no_leakage.log"},
  "P162": {"2.03": DESIGN + ": tProc tick", "176": ROUND, "1.4": "v1.44 latency study: campaign_v144/final/latency", "0.6": "v1.44 latency study, same entry", "0.2": "v1.44 latency study, same entry"}, "P166": {"10": "equation number"},
  "P171": {"100": "shots per load", "40": "traces per slack", "17": "traces with decision 1", "−66": "slack value"},
  "P172": {"1039.9": CALC, "575": CALC, "1.216": CALC, "1.22": CALC, "1872": CALC, "176": ROUND, "91": CALC, "2.05": CALC}, "P177": {"1.808": DESIGN, "3.25": DATA},
@@ -77,7 +77,7 @@ _B = {
           "+0.37": "earlier build, offline: domain-map ablation of 2026-10-01 (analysis_scripts/analysis/phase0_calibration_ablation.py, results/phase0_calibration_ablation.json); said so in the text"},
  "P193": {"9,999": SIZE, "110,000": SIZE, "299,999": SIZE, "10,000": SIZE, "109,999": SIZE, "1,000": SIZE, "1,599": SIZE, "20": "validation split",
           "12": CALC + ": sum of the ledger's DAC-clipped shots, 7 + 5"},
- "P194": {"23": "tools/verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v144/final/analysis/verify_no_leakage.log", "1,000": SIZE, "1,599,": SIZE, "1,599": SIZE},
+ "P194": {"23": "tools/verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v143/final/analysis/verify_no_leakage.log", "1,000": SIZE, "1,599,": SIZE, "1,599": SIZE},
  "P195": {"95": TEST, "0.0030": ROUND + ": ledger 'Late-rate 95% upper bound'"},
  "P196": {"576": DESIGN, "640": "window length compared", "770": "window length compared"},
  "P198": {"200": "ledger 'Boxcar vs raw buffer', 200/200 per board", "400": "v1.44 tProc decision test, 400/400 per board (campaign_v144/final/tests/<board>_tproc_decision.json)",
@@ -88,6 +88,53 @@ for _d in (_A, _B):
     for _p, _x in _d.items():
         L.setdefault(_p, {}).update(_x)
 root = Path(__file__).resolve().parents[3]
+# Paragraph keys above follow an earlier numbering of the draft's paragraphs. remap_exempt_paras.py moves each
+# exemption to the paragraph that now holds it; exemptions whose number left the draft are dropped.
+_pm = Path(__file__).resolve().parent / "v144_exempt_pmap.json"
+if _pm.exists():
+    import json
+    _m = json.load(open(_pm, encoding="utf-8"))
+    for _t in (L, OPEN):
+        _nt = {}
+        for _p, _x in _t.items():
+            for _n, _why in _x.items():
+                if f"{_p}|{_n}" in _m:
+                    _nt.setdefault(_m[f"{_p}|{_n}"], {})[_n] = _why
+        _t.clear(); _t.update(_nt)
+# exemptions keyed by the current paragraph numbers
+_TP = ROUND + ": ledger 'tProc path', FIR path 447.6 / 450.0 ns"
+_F2 = "paper_figures/fig2/fig2_values.json (offline, real training data)"
+NEW = {
+ "P1": {"00": "IEEE template placeholder", "0000": "IEEE template placeholder"}, "P2": {"10.1109": "IEEE DOI prefix, template"},
+ "P7": {"450": _TP}, "P17": {"450": _TP}, "P155": {"450": _TP, "25": CALC + ": boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns",
+                                                  "114": CALC + ": 175.9 - 62 ns, ledger 'Loop latency'"},
+ "P175": {"25": CALC + ": boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns"},
+ "P188": {"100": ROUND + ": ledger 'Loop latency' S_conv of the two load groups, 100-102 ns"},
+ "P39": {"16": CALC + ": 10-90% rise of the 11-sample moving sum, 0.8 x 11 x 1.808 ns = 15.9 ns"},
+ "P62": {"50": DESIGN + ": 50 MHz carrier", "200": DESIGN + ": tProc core clock"},
+ "P77": {"3.86": _F2 + ": model_d.real_jit 3.861", "3.80": _F2 + ": real_d_range 3.797", "3.93": _F2 + ": real_d_range 3.927"},
+ "P85": {"1.5": OFF + ": common-mode offset ratio", "1.9": OFF + ": common-mode offset ratio"},
+ "P80": {"50,000": SIZE}, "P195": {"5,000": DATA + ": class-block length of the released test file (tools/make_test_subsets.py)"},
+ "P95": {"640": "window length compared", "1,035": CALC + ": 1.87 us / 1.808 ns"},
+ "P180": {"1.04": CALC + ": 576 x 1.808 ns", "1,035": CALC + ": 1.87 us / 1.808 ns", "1.87": CALC + ": 576 x 3.25 ns of recorded readout"},
+ "P134": {"120": DESIGN + ": QICK readout FIR length"},
+ "P145": {"−30": "threshold of the comparison band"},
+ "P151": {"0.35": "v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)", "2.00": DESIGN + ": set_bus_skew constraint"},
+ "P184": {"0.35": "v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)", "2.00": DESIGN + ": set_bus_skew constraint"},
+ "P157": {"0.32": "v1.44 routed timing, tProc clock domain slack in the full design (paper_tables/table3/data/v1.44_routed_timing.rpt, clk_core WNS)"},
+ "P166": {"400": SIZE + ": 4 loads x 100 shots"},
+ "P181": {"0.018": "earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text; campaign_v144/final/analysis/s2/arch_aug_v144.json repeats it on v1.44",
+          "16,000": "earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text",
+          "95.59": "earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text",
+          "0.2": OFF + ": campaign_v140L1/arch_sweep.json, raw traces"},
+ "P182": {"491.52": DESIGN, "+0.002": "scaling_study/FINDINGS.md: out-of-context runs of the classifier kernel (v1.41 RTL, unchanged in v1.44), not an SoC build", "32": "unit count that failed timing"},
+ "P186": {"0.2": OFF + ": the raw-trace gain of P181", "0.3": OFF + ": the raw-trace gain of P181",
+          "200": CALC + ": 0.2-0.3 points at the T1 = 32 us rate of t/T1 to t/(3 T1)", "300": CALC + ": same"},
+ "P202": {"95": TEST},
+ "P153": {"49,400": SIZE + ": board A run 1, rows 0-49,999 less the 600 map rows", "50,000": SIZE + ": board B run 1, rows 50,000-99,999"},
+}
+for _p, _x in NEW.items():
+    L.setdefault(_p, {}).update(_x)
 with open(root / "paper_notes" / "v144_exempt.tsv", "w", encoding="utf-8", newline="") as f:
     w = csv.writer(f, delimiter="\t", lineterminator="\n")
     f.write("# paragraph\tnumber\tclass\treason. Generated by campaign_v144/final/analysis/make_v144_exempt.py; edit that, not this.\n")

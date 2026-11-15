@@ -1,0 +1,5 @@
+A 0 rc=0 stream phase: R = 1 before alignment -> 1 (ALIGNED) stream phase at end of run: R = 769 (held)  pred[i]/y[i]     95.20%    96.61%    93.87%    95.24%   [94.17, 96.05]
+A 2000 rc=0 stream phase: R = 0 before alignment -> 0 (ALIGNED) stream phase at end of run: R = 768 (SLIPPED -- some shots were scored rotated)  pred[i]/y[i]     96.20%    98.44%    93.86%    96.15%   [95.27, 96.95]
+A 4000 rc=0 stream phase: R = 768 before alignment -> 1 (ALIGNED) stream phase at end of run: R = 768 (SLIPPED -- some shots were scored rotated)  pred[i]/y[i]     95.90%    97.64%    94.10%    95.87%   [94.94, 96.68]
+A 6000 rc=0 stream phase: R = 769 before alignment -> 769 (ALIGNED) stream phase at end of run: R = 768 (SLIPPED -- some shots were scored rotated)  pred[i]/y[i]     94.90%    96.41%    93.37%    94.89%   [93.85, 95.78]
+A 8000 rc=0 stream phase: R = 768 before alignment -> 1 (ALIGNED) stream phase at end of run: R = 769 (held)  pred[i]/y[i]     96.15%    97.97%    94.19%    96.08%   [95.21, 96.91]

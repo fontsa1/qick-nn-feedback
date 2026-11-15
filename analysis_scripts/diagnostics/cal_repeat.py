@@ -75,6 +75,8 @@ def main():
     ns = Pyro4.locateNS(host=HOST, port=8888)
     soc = Pyro4.Proxy(ns.lookup("myqick"))
     cfg = QickConfig(soc.get_cfg())
+    banner = P.banner(cfg)                     # the firmware build line, written into every output
+    print(f"[{HOST}] {banner}", flush=True)
     cfg["tprocs"][0]["output_pins"].append(("trig", 4, 0, "NN_trigger (trig_4_o)"))
     nn_pin = len(cfg["tprocs"][0]["output_pins"]) - 1
     rows = np.load("X_2_padded_11k.npy")[:500] * 8
@@ -98,9 +100,9 @@ def main():
         z = (s[:, 0::2] + 1j * s[:, 1::2]).astype(np.complex64)
         k, c_ = fit(z.mean(0), mr)
         rec = dict(rep=rep, t=t0, secs=time.time() - t0, probe_arg=pm, probe_sd=ps, probe_mag=pa, arg_k=float(np.degrees(np.angle(k))),
-                   abs_k=float(abs(k)), c_re=float(c_.real), c_im=float(c_.imag))
+                   abs_k=float(abs(k)), c_re=float(c_.real), c_im=float(c_.imag), banner=banner)
         out.append(rec)
-        np.savez_compressed(os.path.join(a.out_dir, f"cal_repeat_{HOST}_{rep}.npz"), z=z)
+        np.savez_compressed(os.path.join(a.out_dir, f"cal_repeat_{HOST}_{rep}.npz"), z=z, banner=banner)
         json.dump(out, open(path, "w"), indent=1)
         print(f"[{HOST}] rep {rep}: arg(k) {rec['arg_k']:.3f}  |k| {rec['abs_k']:.5f}  c {c_.real:+.2f}{c_.imag:+.2f}j  "
               f"probe {pm:.3f} sd {ps:.2f}  {rec['secs']:.0f}s", flush=True)

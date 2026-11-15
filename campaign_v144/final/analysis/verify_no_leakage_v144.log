@@ -1,0 +1,20 @@
+v1.44 supplement to tools/verify_no_leakage.py
+
+C44. v1.44 per-shot files index the test split with matching labels
+  [PASS] C44 NN_axi session, board A: 20,000 rows, each once, labels equal to the test split
+  [PASS] C44 NN_live run 1, board A: 50,000 rows, each once, labels equal to the test split
+  [PASS] C44 NN_live run 2, board A: 50,000 rows, each once, labels equal to the test split
+  [PASS] C44 NN_axi session, board B: 20,000 rows, each once, labels equal to the test split
+  [PASS] C44 NN_live run 1, board B: 50,000 rows, each once, labels equal to the test split
+  [PASS] C44 NN_live run 2, board B: 50,000 rows, each once, labels equal to the test split
+  [PASS] G44 NN_live runs 1 + 2, board A: every test row exactly once
+  [PASS] G44 NN_live runs 1 + 2, board B: every test row exactly once
+  [PASS] C44 the headline mask (r3_stats.calmask) drops exactly rows 1000:1600
+  [PASS] C44 no headline row has the content of a map-fit row
+
+F44. NN_live's map (calibration/box_domain_map.json): rows and labels
+  [PASS] F44 box_domain_map.json records calib_rows 1000:1600
+  [PASS] F44 the map's fitting code reads no label (no *_y file, no ['y'] field)
+  [PASS] F44 refitting from campaign_v140L1/box_part2000.partial.npz (rows 1000:1600, class-pooled means) gives the recorded map  -- 600 shots, k 0.30714+0.01028j, shift -0.25
+
+13 of 13 v1.44 checks pass

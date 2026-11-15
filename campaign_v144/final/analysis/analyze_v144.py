@@ -22,7 +22,7 @@ OUT = D / "analysis"
 sys.path[:0] = [str(ROOT / "audit_fixes" / "R3_R2"), str(ROOT / "analysis_scripts" / "analysis"), str(ROOT / "analysis_scripts" / "acquisition"), str(ROOT)]
 from r3_stats import fstats, paired, calmask  # noqa: E402
 
-W = ROOT / "neural_net4_live576box" / "firmware" / "weights"
+W = ROOT / "neural_net4_live576s" / "firmware" / "weights"   # the deployed NN_live weights (boxcar path)
 LIVE_MODEL = "models/model_signed_domain_seed20260901_w576_box.h5"
 EMU = "--no-emu" not in sys.argv
 

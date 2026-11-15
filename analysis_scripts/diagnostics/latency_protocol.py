@@ -149,7 +149,11 @@ def main():
     path_ns = float(box["A"]["saved_ns"])
     adv_ns = ticks * L.TICK * 1e3
     git = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
-    settings = dict(label=a.label, host=host, banner=banner, time=time.strftime("%Y-%m-%d %H:%M:%S"), git_head=git,
+    try:                                        # seconds since the board booted; small on a cold start
+        uptime = round(float(soc.board_uptime_s()), 1)
+    except Exception:                           # a server without board_uptime_s()
+        uptime = None
+    settings = dict(label=a.label, host=host, banner=banner, board_uptime_s=uptime, time=time.strftime("%Y-%m-%d %H:%M:%S"), git_head=git,
                     script_sha256=sha(__file__), bit_sha256=sha(a.bit) if a.bit else None, k_sha256=sha(f"calib/k_{host}.npy"),
                     c_sha256=sha(f"calib/c_{host}.npy"), nn_advance_us=a.nn_advance, expect_path_adv_ns=a.expect_path_adv, realised_ticks=ticks, realised_adv_ns=adv_ns,
                     tick_ns=L.TICK * 1e3, sample_ns=T, op_slack_us=a.slack, path_ns=path_ns, box_shift=7, box_m=11,

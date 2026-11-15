@@ -21,6 +21,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.stdout.reconfigure(encoding="utf-8")          # the dump and the ledger hold non-ASCII text (Windows consoles default to cp1252)
 L = json.load(open(ROOT / "campaign_v144/final/analysis/v144_results.json"))
 LED = {}
 for r in L["rows"]:
@@ -42,7 +43,10 @@ def collect(o, out):
 OLD = set()
 for f in ("campaign_v140L1/v141_100k_stats.json", "campaign_v140L1/v141_100k_swap_stats.json", "campaign_v140L1/A_v141_live_headline_19400.json",
           "audit_fixes/R18/r18_inloop_stats.json", "audit_fixes/R18_full/inloop_full_stats.json", "audit_fixes/R3_R2/r3_headlines.json", "audit_fixes/R3_R2/r3_linear.json"):
-    collect(json.load(open(ROOT / f)), OLD)
+    if not (ROOT / f).exists():                    # the STALE check needs these v1.40/v1.41 summaries
+        print(f"warning: {f} not found; STALE matches against it are disabled", file=sys.stderr)
+        continue
+    collect(json.load(open(ROOT / f, encoding="utf-8")), OLD)
 for v in ("95.53", "95.51", "1352", "137484", "197433", "0.213", "291", "107.8", "45.6", "0.78", "0.715"):
     OLD.add(v)
 # small round values are not evidence of anything

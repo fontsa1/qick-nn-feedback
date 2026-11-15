@@ -1,3 +1,7 @@
+// buffer.sv from QICK (https://github.com/openquantumhardware/qick), firmware/ip/axis_avg_buffer/src/buffer.sv at
+// commit 779dffa, unmodified below this header. Used only in RTL simulation (final_regression.sh, tb_lwg).
+// Copyright (c) Open Quantum Hardware. MIT licence: LICENSES/QICK-MIT.txt.
+//
 // Description: 
 // BUFFER block is a FSM that receives an input stream of samples (din), and controls the interface to a memory to capture and store them.
 // Capturing is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable.

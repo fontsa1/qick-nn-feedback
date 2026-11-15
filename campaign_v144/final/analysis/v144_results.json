@@ -133,7 +133,10 @@
     "0.05",
     "0.068",
     "0.136",
-    "0.000"
+    "0.000",
+    "0.052",
+    "0.14",
+    "0.00"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -243,7 +246,10 @@
     "0.53",
     "0.023",
     "0.045",
-    "0.092"
+    "0.092",
+    "0.527",
+    "0.05",
+    "0.09"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -351,7 +357,10 @@
     "0.02",
     "0.082",
     "0.149",
-    "0.014"
+    "0.014",
+    "0.019",
+    "0.15",
+    "0.01"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -434,7 +443,10 @@
     "0.31",
     "0.036",
     "0.032",
-    "0.105"
+    "0.105",
+    "0.314",
+    "0.03",
+    "0.10"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -466,7 +478,10 @@
     "0.44",
     "0.057",
     "0.074",
-    "0.187"
+    "0.187",
+    "0.439",
+    "0.07",
+    "0.19"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -482,7 +497,10 @@
     "0.07",
     "0.154",
     "0.010",
-    "0.318"
+    "0.318",
+    "0.074",
+    "0.01",
+    "0.32"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -514,7 +532,10 @@
     "0.63",
     "0.036",
     "0.164",
-    "0.091"
+    "0.091",
+    "0.634",
+    "0.16",
+    "0.09"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -530,7 +551,10 @@
     "0.86",
     "0.021",
     "0.191",
-    "0.149"
+    "0.149",
+    "0.859",
+    "0.19",
+    "0.15"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -546,7 +570,10 @@
     "0.24",
     "0.098",
     "0.057",
-    "0.253"
+    "0.253",
+    "0.240",
+    "0.06",
+    "0.25"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -610,7 +637,10 @@
     "0.04",
     "0.170",
     "0.331",
-    "0.009"
+    "0.009",
+    "0.044",
+    "0.33",
+    "0.01"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -658,7 +688,10 @@
     "0.86",
     "0.020",
     "0.147",
-    "0.187"
+    "0.187",
+    "0.860",
+    "0.15",
+    "0.19"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -750,7 +783,10 @@
     "0.008",
     "0.139",
     "0.239",
-    "0.040"
+    "0.040",
+    "0.008",
+    "0.24",
+    "0.04"
    ],
    "source": "campaign_v144/final/analysis/linear_v144_A.json",
    "kind": "banner",
@@ -766,7 +802,10 @@
     "0.31",
     "0.062",
     "0.171",
-    "0.047"
+    "0.047",
+    "0.307",
+    "0.17",
+    "0.05"
    ],
    "source": "campaign_v144/final/analysis/linear_v144_A.json",
    "kind": "banner",
@@ -846,7 +885,10 @@
     "0.19",
     "0.067",
     "0.160",
-    "0.026"
+    "0.026",
+    "0.193",
+    "0.16",
+    "0.03"
    ],
    "source": "campaign_v144/final/analysis/linear_v144_B.json",
    "kind": "banner",
@@ -862,10 +904,130 @@
     "0.76",
     "0.021",
     "0.079",
-    "0.121"
+    "0.121",
+    "0.762",
+    "0.08",
+    "0.12"
    ],
    "source": "campaign_v144/final/analysis/linear_v144_B.json",
    "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.57%, -0.030 points, 241 vs 271, exact p = 0.20",
+   "text": [
+    "95.57",
+    "0.03",
+    "0.20"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, window 576, board A, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.52%, -0.023 points, 271 vs 294, exact p = 0.35",
+   "text": [
+    "95.52",
+    "0.02",
+    "0.35"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.57%, -0.050 points, 237 vs 287, exact p = 0.03",
+   "text": [
+    "95.57",
+    "0.05",
+    "0.03"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.65%, +0.051 points, 474 vs 423, exact p = 0.09",
+   "text": [
+    "95.65",
+    "0.05",
+    "0.09"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.66%, +0.109 points, 530 vs 422, exact p = 0.0005",
+   "text": [
+    "95.66",
+    "0.11",
+    "0.0005"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, window 770, board B, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.65%, +0.037 points, 483 vs 446, exact p = 0.24",
+   "text": [
+    "95.65",
+    "0.04",
+    "0.24"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.49%, -0.107 points, 571 vs 677, exact p = 0.003",
+   "text": [
+    "95.49",
+    "0.11",
+    "0.003"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "matched filter, board A, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.50%, -0.049 points, 608 vs 657, exact p = 0.18",
+   "text": [
+    "95.50",
+    "0.05",
+    "0.18"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.48%, -0.136 points, 572 vs 707, exact p = 0.0002",
+   "text": [
+    "95.48",
+    "0.14",
+    "0.0002"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
    "note": ""
   },
   {
@@ -878,7 +1040,10 @@
     "0.85",
     "0.021",
     "0.142",
-    "0.183"
+    "0.183",
+    "0.852",
+    "0.14",
+    "0.18"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -894,7 +1059,10 @@
     "0.90",
     "0.015",
     "0.148",
-    "0.179"
+    "0.179",
+    "0.902",
+    "0.15",
+    "0.18"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -910,7 +1078,10 @@
     "0.33",
     "0.083",
     "0.240",
-    "0.074"
+    "0.074",
+    "0.335",
+    "0.24",
+    "0.07"
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
@@ -1090,6 +1261,78 @@
    "note": "t/(3 T1) and t/T1"
   },
   {
+   "section": "tProc path",
+   "key": "Board A, FIR path (NN_live result), earliest clean margin",
+   "value": "439.6 ns at +30 ns, 40/40 fresh",
+   "text": [
+    "439.6",
+    "440"
+   ],
+   "source": "campaign_v144/final/board2/A_tproc_fir_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Board A, QICK threshold feedback (read_and_jump), earliest clean margin",
+   "value": "521.4 ns at +100 ns, 40/40 fresh",
+   "text": [
+    "521.4",
+    "521"
+   ],
+   "source": "campaign_v144/final/board3/A_tproc_thr_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Board A, QICK threshold feedback (no-jump form), earliest clean margin",
+   "value": "562.0 ns at +150 ns, 40/40 fresh",
+   "text": [
+    "562.0",
+    "562"
+   ],
+   "source": "campaign_v144/final/board3/A_tproc_thr_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Board B, FIR path (NN_live result), earliest clean margin",
+   "value": "440.4 ns at +30 ns, 40/40 fresh",
+   "text": [
+    "440.4",
+    "440"
+   ],
+   "source": "campaign_v144/final/board2/B_tproc_fir_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Board B, QICK threshold feedback (read_and_jump), earliest clean margin",
+   "value": "521.8 ns at +100 ns, 40/40 fresh",
+   "text": [
+    "521.8",
+    "522"
+   ],
+   "source": "campaign_v144/final/board3/B_tproc_thr_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Board B, QICK threshold feedback (no-jump form), earliest clean margin",
+   "value": "561.6 ns at +150 ns, 40/40 fresh",
+   "text": [
+    "561.6",
+    "562"
+   ],
+   "source": "campaign_v144/final/board3/B_tproc_thr_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
    "section": "Calibration swap",
    "key": "Board A, own calibration, 2,000 shots, arg(k) -164.2 deg",
    "value": "95.95% [95.09, 96.82], P(1|0) 1.96, P(0|1) 6.14, n = 2,000",
@@ -1142,7 +1385,8 @@
    "key": "Phase difference of the boards in that session",
    "value": "21.5 deg",
    "text": [
-    "22"
+    "22",
+    "21.5"
    ],
    "source": "campaign_v144/final/board2/swap_B_own_v144.npz",
    "kind": "banner",
@@ -1208,7 +1452,10 @@
     "0.58",
     "0.036",
     "0.073",
-    "0.145"
+    "0.145",
+    "0.579",
+    "0.07",
+    "0.15"
    ],
    "source": "campaign_v144/final/analysis/box_vs_fir_v144.json",
    "kind": "banner",
@@ -1224,7 +1471,10 @@
     "0.0007",
     "0.085",
     "0.036",
-    "0.133"
+    "0.133",
+    "0.001",
+    "0.04",
+    "0.13"
    ],
    "source": "campaign_v144/final/analysis/box_vs_fir_v144.json",
    "kind": "banner",
@@ -1764,6 +2014,18 @@
    "note": "zero failing setup endpoints in the whole design"
   },
   {
+   "section": "Implementation",
+   "key": "Real-time path LUT (NN_live + loop logic, Table III)",
+   "value": "3,303 (about 3,300)",
+   "text": [
+    "3,303",
+    "3,300"
+   ],
+   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "kind": "build-file",
+   "note": ""
+  },
+  {
    "section": "Safety and tests",
    "key": "Binding fault test, board A",
    "value": "PASS",
@@ -1842,12 +2104,87 @@
    "source": "campaign_v144/final/tests/B_fail_safe.json",
    "kind": "banner",
    "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "seg_mlp trained on augmented data vs LDA, board A replay, 16,000 shots",
+   "value": "95.79%, +0.26 points, b 73 vs c 31, p = 5e-05",
+   "text": [
+    "95.79",
+    "0.26",
+    "5e-05"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "bin_mlp trained on augmented data vs LDA, board A replay, 16,000 shots",
+   "value": "95.81%, +0.28 points, b 72 vs c 27, p = 7e-06",
+   "text": [
+    "95.81",
+    "0.28",
+    "7e-06"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "bin_gru trained on augmented data vs LDA, board A replay, 16,000 shots",
+   "value": "95.82%, +0.30 points, b 76 vs c 28, p = 3e-06",
+   "text": [
+    "95.82",
+    "0.30",
+    "3e-06"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "cnn1d trained on augmented data vs LDA, board A replay, 16,000 shots",
+   "value": "95.70%, +0.18 points, b 57 vs c 28, p = 0.002",
+   "text": [
+    "95.70",
+    "0.18",
+    "0.002"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "Deployed 4-unit network: chip (clean) / retrained on augmented data",
+   "value": "95.56% / 95.52%",
+   "text": [
+    "95.56",
+    "95.52"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "LDA on the same 16,000 shots",
+   "value": "95.52%",
+   "text": [
+    "95.52"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
   }
  ],
  "sources": {
   "campaign_v144/final/inloop/A_inloop_0_100000.log": {
    "kind": "banner",
-   "sha256": "9a29ad7c2818b98f"
+   "sha256": "1922a79a7e2cab5c"
   },
   "campaign_v144/final/axi/A_axi_0.log": {
    "kind": "banner",
@@ -1855,7 +2192,7 @@
   },
   "campaign_v144/final/inloop/B_inloop_0_100000.log": {
    "kind": "banner",
-   "sha256": "2cccfbaaaadc20b8"
+   "sha256": "ec326abcb9231be0"
   },
   "campaign_v144/final/axi/B_axi_0.log": {
    "kind": "banner",
@@ -1961,6 +2298,14 @@
    "kind": "banner",
    "sha256": "aa00a603590ce3f0"
   },
+  "campaign_v144/final/analysis/s2/arch_aug_v144.json": {
+   "kind": "bracketed",
+   "sha256": "8c5025d2e709f43d"
+  },
+  "campaign_v144/final/analysis/s5_linear_99400_v144.json": {
+   "kind": "bracketed",
+   "sha256": "f6d89249bdde40f7"
+  },
   "campaign_v144/final/analysis/linear_v144_A.json": {
    "kind": "banner",
    "sha256": "6fa856e42f6e86a4"
@@ -1988,6 +2333,14 @@
   "campaign_v144/final/tests/A_functional.json": {
    "kind": "banner",
    "sha256": "fa922986b964c86d"
+  },
+  "campaign_v144/final/board3/A_tproc_thr_v144.json": {
+   "kind": "banner",
+   "sha256": "409ea2e5d669b832"
+  },
+  "campaign_v144/final/board3/A_tproc_thr_fine_v144.json": {
+   "kind": "banner",
+   "sha256": "6d55ce9b48194a25"
   },
   "campaign_v144/final/analysis/linear_v144_B.json": {
    "kind": "banner",
@@ -2021,6 +2374,14 @@
    "kind": "banner",
    "sha256": "60419b1da3256897"
   },
+  "campaign_v144/final/board3/B_tproc_thr_v144.json": {
+   "kind": "banner",
+   "sha256": "ad36dc61cf120a20"
+  },
+  "campaign_v144/final/board3/B_tproc_thr_fine_v144.json": {
+   "kind": "banner",
+   "sha256": "8f30e2850fd7e048"
+  },
   "campaign_v144/final/drift_full/drift_10.1.9.26.json": {
    "kind": "banner",
    "sha256": "bab61f3850acdf8a"
@@ -2036,5 +2397,5 @@
  },
  "pending": 0,
  "waiting_for": [],
- "md_sha256": "64df7a968843beb58c0d63fd7f294caf8c36f32a37fa86b82d3d548a2f454c3f"
+ "md_sha256": "cdcbe0137371fb7fd72a25035b04c9652b6f788ea1006cb67f8d37b3c886a22a"
 }

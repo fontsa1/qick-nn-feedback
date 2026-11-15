@@ -15,6 +15,7 @@ import calib                                    # noqa: E402  board-scoped k/c
 import acquire_classifier_input_captures as A   # noqa: E402  (brings up soc)
 
 soc, soccfg = A.soc, A.soccfg
+BANNER = next((l.strip() for l in str(soccfg).splitlines() if "built" in l), "?")   # firmware build line, saved with the results
 h = A.h
 Prog, CFG0 = A.Prog, A.CFG0
 CAPTURE_ARM = A.CAPTURE_ARM
@@ -241,6 +242,7 @@ def main():
     soc.nn_set_onset_threshold(a.onset_threshold)
     print(f"dataset={a.dataset} shots={a.shots} SF={a.scaling_factor} "
           f"onset={a.onset_threshold}")
+    print(f"BANNER: {BANNER}")
 
     X_all = np.load(xf, mmap_mode="r")
     Xfull = np.asarray(X_all[a.start:a.start + a.chunk])
@@ -317,7 +319,7 @@ def main():
         soc.nn_configure(10000, 0, a.scaling_factor)
 
     if a.save:
-        np.savez(a.save, idx=np.arange(a.start, a.start + n), probs=probs, y=Y,
+        np.savez(a.save, idx=np.arange(a.start, a.start + n), probs=probs, y=Y, banner=BANNER,
                  k=k, c=c, norm=a.norm, data_peak=data_peak or np.nan,
                  host=A.NS_HOST, dataset=a.dataset, extra_dma=a.extra_dma,
                  onset_threshold=a.onset_threshold, align=a.align,

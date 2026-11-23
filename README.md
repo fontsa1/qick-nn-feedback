@@ -47,7 +47,6 @@ Run every script from this folder's root; paths in the scripts are relative to i
 | `models/` | The three deployed networks: NN_live on the boxcar path (`..._w576_box`), NN_live on the FIR path (`..._w576`), NN_axi (`model_v140_200k_...`); and `model_v140L3_w576_...`, an earlier 576-sample network that `campaign_v140L1/check_live_bitexact.py --l3` checks |
 | `campaign_v144/final/analysis/` | Analysis of the v1.44 data, and the results ledger: `make_v144_ledger.py` writes `paper_notes/V144_RESULTS.md`, `check_paper_v144.py` checks a draft's numbers against it |
 | `campaign_v143/` | Files of the v1.43 campaign that the v1.44 scripts still read, among them the results ledger's row template (`final/analysis/v143_results.json`). The v1.43 ledger scripts here are kept for reference; most of their inputs are not shipped, so they do not run |
-| `paper_figures/`, `paper_tables/` | One generator per figure and table, with its values file and outputs. The folder numbers are not the paper's figure numbers: `paper_figures/README.md` maps them |
 
 ## Environment
 

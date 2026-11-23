@@ -1,0 +1,18 @@
+ECHO is off.
+ECHO is off.
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/sim_core_skew10100/xsim_script.tcl
+# xsim {sim_core_skew10100} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+M_PS 5000 SKEW_PS 10100 TOG_PS 0: sent 3000 received 3000 corrupted 71
+$finish called at time : 244582813 ps : File "C:/Users/fonte/coding/qick_project/campaign_v144/revision2/fpga/sim/tb_cdc_skew.sv" Line 34
+exit
+INFO: [Common 17-206] Exiting xsim at Mon Nov 16 00:21:22 2026...

@@ -1,0 +1,113 @@
+End-to-end check that no test information reaches the trained model.
+
+Re-derives every link in the data chain from the raw files and asserts disjointness:
+
+    0528_X_all_{0,1}.npy          real shots, 500k/class
+        |                         (the synthetic generator fits its cavity+noise model on train rows 10000:110000)
+        +-> 0528_X_train_0_770    900k real   -- classifier TRAIN pool
+        +-> 0528_X_test_0_770     100k real   -- held-out TEST pool
+                |
+                +-> test20k_real_X  20k, indices in data/test20k_real_manifest.json
+                        |
+                        +-> [0:20000]    scored (NN_axi, NN_live, emulators)
+                        |                 headline set = [0:20000] minus [1000:1600] (19,400)
+                        +-> [1000:1600]  domain_calib_* -- fits (k2, c2) and the boxcar-path map (kb, s, cb),
+                                          calibration/box_domain_map.json
+
+    (k2, c2) applied to all of 0528_X_train_0_770
+        -> 0528_X_train_0_770_loopback_calibrated  -- what the model trains on
+
+Checks, each fatal if it fails:
+
+  A  train pool and test pool share no shot (raw row bytes)
+  B  test20k_real_X is exactly 0528_X_test[source_indices], labels included, and the manifest's index checksum matches
+  C  the scored rows as stored per shot (test20k 0..19,999), and the 19,400-row headline set disjoint from the rows
+     used to fit (k2, c2) and (kb, s, cb)
+  D  the calibrated training file is the train pool under the recorded (k2, c2) and contains no test shot
+  E  the generator's fit pool is disjoint from both training and scored data
+  F  reports every place a test-set label is consumed by a fitting step
+  G  test100k_real (the whole test split as replayed for NN_live) is exactly 0528_X_test[source_indices] with its
+     manifest hashes, starts with test20k_real, shares no shot with the train pool, and its 99,400-row headline set
+     (rows 1000:1600 removed) shares no shot with the domain-map fit slices
+
+--legacy-check-c runs check C on the first SCORED_N rows only.
+
+==========================================================================
+
+A. train pool vs held-out test pool (raw row bytes)
+     train (900000, 1540)  unique rows 900000
+     test  (100000, 1540)  unique rows 100000
+  [PASS] A1 train pool and test pool are disjoint
+
+B. test20k_real_X provenance against its manifest
+  [PASS] B1 manifest index checksum is self-consistent  -- sha256 04cc56276b85fa9d... matches the manifest
+  [PASS] B2 test20k row count matches manifest
+  [PASS] B3 test20k X rows are exactly 0528_X_test[source_indices]  -- checked 500 spread-out rows byte-for-byte
+  [PASS] B4 test20k labels match 0528_y_test[source_indices]
+  [PASS] B5 no test20k shot appears in the train pool
+
+C. scored rows vs the rows used to fit the (k2, c2) domain map
+  [PASS] C1 domain_calib_raw_X is test20k_real_X[1000:1600]
+  [PASS] C2 boxcar-path map (calibration/box_domain_map.json) was fit on rows 1000:1600
+     NN_axi v1.40 (campaign_v140/aligned): 20000 rows [0..19999], unique True, labels == test20k True, calibration rows inside 600
+     NN_live L10 board A: 20000 rows [0..19999], unique True, labels == test20k True, calibration rows inside 600
+     boxcar/FIR emulator (19,400): 19400 rows [0..19999], unique True, labels == test20k True, calibration rows inside 0
+  [PASS] C3 scored per-shot files index test20k rows 0..19,999 with matching labels  -- union of scored rows = 20000 rows; the full 20k includes the 600 calibration rows (footnote set only)
+  [PASS] C4 the 19400-row headline set (rows outside 1000:1600) shares no shot with either domain-map fit slice  -- 0 shared rows by content (blake2b); the boxcar/FIR emulator file scores exactly these 19400 rows
+
+G. data/test100k_real (the full test split as replayed; NN_live headline n = 99,400)
+  [PASS] G1 data/test100k_real_X / _y match the sha256 recorded in the manifest  -- X 39140cab26c8d910..., y 60240ca402a6a1a2...
+  [PASS] G2 data/test100k_real is exactly 0528_X_test_0_770.npy[source_indices] (every row and label), indices unique  -- all 100000 rows byte-for-byte, labels equal; balance {'0.0': 50000, '1.0': 50000}
+  [PASS] G3 data/test100k_real rows 0..19999 are test20k_real in the same order
+  [PASS] G4 no data/test100k_real shot appears in the train pool  -- 100000 unique rows, 0 shared with the train pool
+     run 1, board A: 50000 rows [0..49999], labels == data/test100k_real True, calibration rows inside 600
+     run 1, board B: 50000 rows [50000..99999], labels == data/test100k_real True, calibration rows inside 0
+     run 2, board A: 50000 rows [50000..99999], labels == data/test100k_real True, calibration rows inside 0
+     run 2, board B: 50000 rows [0..49999], labels == data/test100k_real True, calibration rows inside 600
+  [PASS] G5 the 99400-row NN_live headline set (data/test100k_real minus rows 1000:1600) shares no shot with the domain-map fit slices; the campaign files index data/test100k_real with matching labels  -- 0 shared rows by content; 4 per-shot files, each run covers all 100,000 rows
+
+D. the calibrated training set the model actually consumes
+  [PASS] D1 calibrated training file has the same shape as the train pool
+  [PASS] D2 calibrated rows == k2*train_row + c2 (recorded k2/c2)  -- worst abs deviation over 200 rows: 7.396e-05 (float32 storage, so small nonzero is expected)
+  [PASS] D3 calibrated training rows are NOT byte-identical to raw test rows
+
+E. synthetic generator fit pool (0528_X_train_0_770.npy[10000:110000], tools/generate_synth_holdout_v2.py)
+   fit pool rows hashed: 100000 unique
+  [PASS] E1 generator fit pool vs the 200,000 rows the model trains on
+  [PASS] E2 generator fit pool vs the 20k real test subset
+  [PASS] E4 the generator fit pool is exactly the gap between the training ranges  -- training [(0, 10000), (110000, 300000)], generator fit [10000:110000] -- the gap exactly, no overlap
+  [PASS] E3 generator output in use is the clean one (x_synth_v2.npy)
+
+F. audit: does any fitting step consume a TEST-SET label?
+   recorded   k2 = 0.167813+0.006101j  c2 = 6.1238+2.3435j
+   label-free k  = 0.167813+0.006101j  c  = 6.1238+2.3435j   distance 0.00e+00
+   per-class  k  = 0.199950+0.004834j  c  = 3.4796+1.3567j   distance 7.88e-01
+  [PASS] F1 (k2, c2) is fit WITHOUT using test-set labels  -- the recorded coefficients are the label-free global fit; data/domain_calib_y.npy is present on disk but enters no fitted quantity. The per-class alternative is worth -0.01 points on the full window (phase0_calibration_ablation.py: 95.12% vs 95.13%), so nothing is given up by not using it.
+
+==========================================================================
+  PASS  A1 train pool and test pool are disjoint
+  PASS  B1 manifest index checksum is self-consistent
+  PASS  B2 test20k row count matches manifest
+  PASS  B3 test20k X rows are exactly 0528_X_test[source_indices]
+  PASS  B4 test20k labels match 0528_y_test[source_indices]
+  PASS  B5 no test20k shot appears in the train pool
+  PASS  C1 domain_calib_raw_X is test20k_real_X[1000:1600]
+  PASS  C2 boxcar-path map (calibration/box_domain_map.json) was fit on rows 1000:1600
+  PASS  C3 scored per-shot files index test20k rows 0..19,999 with matching labels
+  PASS  C4 the 19400-row headline set (rows outside 1000:1600) shares no shot with either domain-map fit slice
+  PASS  G1 data/test100k_real_X / _y match the sha256 recorded in the manifest
+  PASS  G2 data/test100k_real is exactly 0528_X_test_0_770.npy[source_indices] (every row and label), indices unique
+  PASS  G3 data/test100k_real rows 0..19999 are test20k_real in the same order
+  PASS  G4 no data/test100k_real shot appears in the train pool
+  PASS  G5 the 99400-row NN_live headline set (data/test100k_real minus rows 1000:1600) shares no shot with the domain-map fit slices; the campaign files index data/test100k_real with matching labels
+  PASS  D1 calibrated training file has the same shape as the train pool
+  PASS  D2 calibrated rows == k2*train_row + c2 (recorded k2/c2)
+  PASS  D3 calibrated training rows are NOT byte-identical to raw test rows
+  PASS  E1 generator fit pool vs the 200,000 rows the model trains on
+  PASS  E2 generator fit pool vs the 20k real test subset
+  PASS  E4 the generator fit pool is exactly the gap between the training ranges
+  PASS  E3 generator output in use is the clean one (x_synth_v2.npy)
+  PASS  F1 (k2, c2) is fit WITHOUT using test-set labels
+==========================================================================
+VERDICT: 23/23 checks passed
+exit code 0 after 255 s

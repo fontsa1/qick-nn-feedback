@@ -1,0 +1,4 @@
+headline_mosaic  n=99400: LDA fixed (csim) 95.473  float 95.472  (fixed - float +0.0010 pts, flips 1)  NN_live 95.600
+A_full           n=99400: LDA fixed (csim) 95.466  float 95.465  (fixed - float +0.0010 pts, flips 1)  NN_live 95.547
+B_full           n=99400: LDA fixed (csim) 95.475  float 95.475  (fixed - float +0.0000 pts, flips 0)  NN_live 95.616
+csim vs Python model: {'decision_mismatch': 0, 'logit_mismatch': 0}  csim vs float, all windows: {'flips': 1, 'frac': 5e-06}

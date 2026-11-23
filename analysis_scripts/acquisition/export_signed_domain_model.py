@@ -218,7 +218,7 @@ def main():
     hls_config = make_hls_config(model)
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    PROJECT_DIR = Path(r"C:\hls4ml_projects") / f"hls4ml_qubit_prj{sfx}_{stamp}"
+    PROJECT_DIR = Path(os.environ.get("HLS4ML_PROJECT_DIR", "build/hls4ml")) / f"hls4ml_qubit_prj{sfx}_{stamp}"
     print("Using output_dir:", PROJECT_DIR)
 
     hls_model = hls4ml.converters.convert_from_keras_model(
@@ -240,9 +240,9 @@ def main():
 
     model.save(base / f"models/model_signed_domain_seed20260901{sfx}.h5")
     print(f"Saved Keras model to models/model_signed_domain_seed20260901{sfx}.h5")
-    (base / f"last_export_seed{sfx}.txt").write_text(
+    (base / "results" / f"last_export_seed{sfx}.txt").write_text(
         f"{SEED_USED}\nval_loss={val_loss:.6f}\nrows={ranges}\n", encoding="utf-8")
-    print(f"Recorded the selected seed in results/last_export_seed.txt ({SEED_USED})")
+    print(f"Recorded the selected seed in results/last_export_seed{sfx}.txt ({SEED_USED}); the model file name keeps seed20260901 for every seed")
 
     if a.no_sanity:
         print("\n=== DONE (offline k2/c2 check skipped) ===")

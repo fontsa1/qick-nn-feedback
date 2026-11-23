@@ -1,9 +1,9 @@
 #!/bin/bash
 # v1.44 offline analyses, in dependency order. Log: campaign_v144/final/analysis/run_analyses.log. No board access.
 # Not here: loop_groups_data_v144.py (needs the cold-start data), make_v144_ledger.py, check_paper_v144.py.
-cd "${REPO_ROOT:-.}"
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
 export PYTHONIOENCODING=utf-8 OMP_NUM_THREADS=4 TF_NUM_INTRAOP_THREADS=4
-PY="${PYTHON:-python}"; A=campaign_v144/final/analysis; LOG=$PWD/$A/run_analyses.log   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
+PY="${PYTHON:-python}"; case $PY in */*) PY="$PWD/$PY";; esac; A=campaign_v144/final/analysis; LOG=$PWD/$A/run_analyses.log   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
 say () { echo "$(date '+%F %T') $*" >> $LOG; }
 step () { n=$1; shift; "$@" > $A/$n.log 2>&1 < /dev/null; say "$n rc=$?"; }
 say START
@@ -13,8 +13,8 @@ step linear_v144_B $PY $A/linear_v144.py B
 step box_vs_fir_v144 $PY $A/box_vs_fir_v144.py
 step box_vs_fir_delaymap $PY $A/box_vs_fir_delaymap_v144.py
 step scaling_v144 $PY $A/scaling_v144.py
-( cd campaign_v144/final/fig7 && ../../../$PY make_fig7_v144.py > ../analysis/fig7_v144.log 2>&1 < /dev/null; say "fig7 rc=$?" )
-( cd campaign_v144/final/fig8b && ../../../$PY make_fig8b_v144.py > ../analysis/fig8b_v144.log 2>&1 < /dev/null; say "fig8b rc=$?" )
+( cd campaign_v144/final/fig7 && "$PY" make_fig7_v144.py > ../analysis/fig7_v144.log 2>&1 < /dev/null; say "fig7 rc=$?" )
+( cd campaign_v144/final/fig8b && "$PY" make_fig8b_v144.py > ../analysis/fig8b_v144.log 2>&1 < /dev/null; say "fig8b rc=$?" )
 bash $A/r9/run_r9_v144.sh > $A/r9/run.log 2>&1 < /dev/null &
 R=$!
 ARCH_EVAL_X=$A/replay20k_A.npy ARCH_PRED=$A/arch/preds ARCH_OUT=$A/arch/arch_sweep2_src_v144.json $PY campaign_v140L1/arch_sweep2.py --src --arms seg_hgb,seg_mlp,bin_mlp,cnn1d,bin_gru > $A/arch/run.log 2>&1 < /dev/null

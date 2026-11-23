@@ -191,7 +191,7 @@ for setname, mask in (("19400", keep), ("20k", np.ones(len(yev), bool))):
                                               A_only_correct=mb, B_only_correct=mc, p_exact=mp)))
     out[setname] = dict(n_rows=int(len(idx)), groups=table, comparisons=comps)
 
-(__import__("pathlib").Path(__import__("os").environ.get("R9_STATS", str(HERE / "r9_stats.json")))).write_text(json.dumps(out, indent=1))
+(__import__("pathlib").Path(__import__("os").environ.get("R9_STATS", str(HERE / "r9_stats.json")))).write_text(json.dumps(out, indent=1, default=float))
 for setname in out:
     print(f"\n=== scored set {setname} (n = {out[setname]['n_rows']})")
     print(f"{'group':22s} {'fit':>9s} {'n_tr':>6s} {'runs':>4s} {'mean':>7s} {'sd':>5s} {'95% CI':>17s}  val-sel")

@@ -28,7 +28,7 @@ Pyro4.config.PICKLE_PROTOCOL_VERSION = 4
 
 from qick import QickConfig  # noqa: E402
 
-NS_HOST = __import__("os").environ.get("QICK_NS_HOST", "10.1.9.26")  # board B: 10.1.4.105
+NS_HOST = __import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address")
 NS_PORT = 8888
 PROXY_NAME = "myqick"
 
@@ -103,7 +103,7 @@ def verify_deployment(expect_banner_contains=None, onset_threshold=None,
     print("\nDeployment verification PASSED.")
     return True
 
-NAMESERVER_NB_PATH = "start nameserver.ipynb"
+NAMESERVER_NB_PATH = __import__("os").environ.get("QICK_SERVER_NB", "start nameserver.ipynb")
 
 def deploy_new_bitstream(local_bit_path, local_hwh_path, board_name_stem):
     """Upload .bit/.hwh, patch the notebook, restart the kernel, re-run the server cell.

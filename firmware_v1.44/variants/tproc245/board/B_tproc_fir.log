@@ -1,0 +1,16 @@
+BANNER: Firmware configuration (built Mon Nov 16 00:41:12 2026):
+BANNER: Mon Nov 16 00:41:12 2026
+readout path: {'sel': 0, 'shift': 7, 'm': 11, 'word': 2672}
+ nobranch margin +0.000: L 388.6 [385.1, 401.9]  forced 393.7 / 387.0  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.005: L 399.0 [397.5, 413.3]  forced 399.3 / 399.4  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.010: L 410.3 [397.7, 414.4]  forced 410.3 / 410.9  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.015: L 410.5 [397.8, 413.1]  forced 410.9 / 411.0  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.020: L 411.5 [409.6, 426.0]  forced 412.5 / 411.5  fresh 12/40  br==dec 12  played==br 40
+ nobranch margin +0.025: L 423.1 [409.5, 426.9]  forced 423.1 / 423.1  fresh 29/40  br==dec 29  played==br 40
+ nobranch margin +0.030: L 423.8 [422.0, 438.1]  forced 423.8 / 424.5  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.035: L 431.1 [422.1, 438.9]  forced 430.6 / 431.2  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.040: L 435.5 [422.2, 438.2]  forced 435.0 / 434.3  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.045: L 435.4 [434.1, 450.5]  forced 437.5 / 435.8  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.050: L 447.4 [434.2, 451.3]  forced 447.7 / 447.8  fresh 40/40  br==dec 40  played==br 40
+nobranch: earliest clean margin: +0.030, L 423.8 ns
+saved campaign_v144/revision2/rebuilds/build1_tproc245/board/B_tproc_fir_t245.json ; boxcar path restored

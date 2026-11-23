@@ -1,0 +1,62 @@
+BANNER: Firmware configuration (built Tue Nov 17 20:42:27 2026):
+SETTINGS {
+ "label": "b2",
+ "host": "10.1.9.26",
+ "banner": "Firmware configuration (built Tue Nov 17 20:42:27 2026):",
+ "time": "2026-11-18 11:12:23",
+ "git_head": "dac9b49babc6c21638f1009370bb52715f8875f7",
+ "script_sha256": "4cc9ef1cae5f0ce16ec779e74a43add065b66f147b980e38b6860f66f8d0ebb9",
+ "bit_sha256": "b2416b0665f34aa1009b4b61ebe5d275c0973fb1df592ab44de00b0ade6bd76c",
+ "k_sha256": "1c26dd0388bc1ef3bdc8c5be188f65789d83e1a550dc4b5ad6096a8353f962e5",
+ "c_sha256": "3aa5082693961b994e8705d8e490e6c155f03d7bb203db21eeea1a42ad7968b4",
+ "nn_advance_us": 0.1135,
+ "expect_path_adv_ns": 1.4,
+ "realised_ticks": 55,
+ "realised_adv_ns": 111.89778645833334,
+ "tick_ns": 2.0345052083333335,
+ "sample_ns": 1.808449074074074,
+ "op_slack_us": -0.064,
+ "path_ns": 114.76,
+ "box_shift": 7,
+ "box_m": 11,
+ "cp_gain": 0.6,
+ "cp_len_us": 0.2,
+ "cp_pre_us": 0.15,
+ "fb_margin_us": 0.035,
+ "rf_thr": 2048,
+ "live_n": "576",
+ "box_json": "campaign_v144/revision2/rebuilds/build2_lda_gate/board/A_b2.box_probe.json"
+}
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+DELAY 29
+            op: thr   973  100/100 with a pulse  L_50  173.62 (sd 1.56, sem 0.16)  counter  174.95  L_buf  175.52  L_50-counter -1.33  L_buf-L_50 +1.89  phase -167
+        slack0: thr   973  40/40 with a pulse  L_50  238.66 (sd 1.54, sem 0.24)  counter  239.89  L_buf  240.76  L_50-counter -1.23  L_buf-L_50 +2.11  phase -167
+     sens_base: thr   974  40/40 with a pulse  L_50  238.44 (sd 1.30, sem 0.20)  counter  240.34  L_buf  240.67  L_50-counter -1.90  L_buf-L_50 +2.23  phase -167
+     gain_0.15: thr   243  40/40 with a pulse  L_50  238.45 (sd 1.25, sem 0.20)  counter  239.57  L_buf  240.60  L_50-counter -1.12  L_buf-L_50 +2.14  phase -167
+      gain_0.3: thr   486  40/40 with a pulse  L_50  238.91 (sd 1.35, sem 0.21)  counter  240.34  L_buf  240.68  L_50-counter -1.43  L_buf-L_50 +1.77  phase -167
+      gain_0.9: thr  1460  40/40 with a pulse  L_50  238.72 (sd 1.61, sem 0.25)  counter  240.21  L_buf  240.64  L_50-counter -1.48  L_buf-L_50 +1.92  phase -167
+      phase_90: thr   973  40/40 with a pulse  L_50  238.91 (sd 1.48, sem 0.23)  counter  240.39  L_buf  240.85  L_50-counter -1.48  L_buf-L_50 +1.94  phase -77
+     phase_180: thr   973  40/40 with a pulse  L_50  238.36 (sd 1.23, sem 0.19)  counter  239.76  L_buf  240.32  L_50-counter -1.40  L_buf-L_50 +1.97  phase +13
+     phase_270: thr   973  40/40 with a pulse  L_50  238.56 (sd 1.23, sem 0.19)  counter  239.85  L_buf  240.24  L_50-counter -1.29  L_buf-L_50 +1.68  phase +103
+     zero_stim: thr   973  40/40 with a pulse  L_50  238.87 (sd 1.41, sem 0.22)  counter  240.03  L_buf  240.64  L_50-counter -1.16  L_buf-L_50 +1.77  phase -167
+
+closure checks:
+  FAIL  path_minus_adv: path 114.76 - advance 111.90 = 2.86 ns; expected 1.4 +/- 1.0
+  PASS  op_all_pulses: 100/100 (a shot with no pulse = late decision)
+  PASS  op_window_is_buffer: NN_live's window == buffer 1 on every shot
+  PASS  op_counter_is_samples: counter - edge rule on samples: [0]
+  PASS  op_nn_cycles: result - last: [9] cycles
+  PASS  op_thr_fraction: 0.500
+  PASS  op_l50_minus_counter: -1.33 ns; expected -0.9 +/- 0.96
+  FAIL  op_lbuf_minus_l50: +1.89 ns; path - advance on this load 2.86 +/- 0.85
+  PASS  op_segments_sum: segment sum 174.95, counter 174.95 ns
+  PASS  slack0_all_pulses: 40/40 (a shot with no pulse = late decision)
+  PASS  slack0_window_is_buffer: NN_live's window == buffer 1 on every shot
+  PASS  slack0_counter_is_samples: counter - edge rule on samples: [0]
+  PASS  slack0_nn_cycles: result - last: [9] cycles
+  PASS  slack0_thr_fraction: 0.500
+  PASS  slack0_l50_minus_counter: -1.23 ns; expected -0.9 +/- 1.10
+  PASS  slack0_lbuf_minus_l50: +2.11 ns; path - advance on this load 2.86 +/- 0.97
+  PASS  slack0_segments_sum: segment sum 239.89, counter 239.89 ns
+
+CHECKS FAILED: do not report this run; saved campaign_v144/revision2/rebuilds/build2_lda_gate/board/A_b2_latency.npz, campaign_v144/revision2/rebuilds/build2_lda_gate/board/A_b2_latency.json; gate left at word 0

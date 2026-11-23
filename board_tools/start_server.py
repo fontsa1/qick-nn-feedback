@@ -18,7 +18,7 @@ import Pyro4
 Pyro4.config.SERIALIZER = "pickle"
 Pyro4.config.PICKLE_PROTOCOL_VERSION = 4
 
-SERVER_NB = "start nameserver.ipynb"
+SERVER_NB = __import__("os").environ.get("QICK_SERVER_NB", "start nameserver.ipynb")
 
 def start(host, timeout=300, restart=False):
     jr.BOARD_HOST = host
@@ -80,5 +80,5 @@ def start(host, timeout=300, restart=False):
 
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if a != "--restart"]
-    host = args[0] if args else "10.1.9.26"
+    host = args[0] if args else __import__("os").environ.get("QICK_NS_HOST") or sys.exit("usage: start_server.py <board IP> [--restart]")
     start(host, restart="--restart" in sys.argv[1:])

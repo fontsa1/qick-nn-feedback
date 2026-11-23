@@ -1,0 +1,5 @@
+start Mon 11/16/2026 12:55:56.70 
+csim exit 9009 13:02:07.46 
+csynth exit 0 13:02:48.49 
+export exit 0 13:03:29.76 
+HLS_LDA_DONE 

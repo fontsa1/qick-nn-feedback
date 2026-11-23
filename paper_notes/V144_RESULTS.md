@@ -5,7 +5,7 @@ which refuses any source that fails a build check. `--verify` fails if this file
 
 Build: `OG_build_v1.44.bit`, sha256 `986c861a83be8d01...`, banner `Nov  7 19:57:07 2026`.
 
-Status: **159 of 159 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
+Status: **246 of 246 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
 
 Evidence: **banner** = the v1.44 banner read from the board during that run; **bracketed** = banner logged before and after by the same uninterrupted runner; **build-file** = the report saved from the v1.44 build; **name+date** = named v1.44 and dated after the build, no banner (weakest).
 
@@ -23,6 +23,9 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | All 99,400 traces on board B | 95.62% [95.49, 95.74], P(1|0) 2.84, P(0|1) 5.93, n = 99,400 | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
 | Boards A vs B, identical 99,400 traces | 560 vs 628, exact p = 0.05, difference -0.068 [-0.136, -0.000] | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
 | DAC-clipped shots, A / B | 7 / 5 | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
+| Logit and decision equal to the integer reference, both boards | 200,000/200,000 and 200,000/200,000 | name+date | `campaign_v144/final/tests/logit_check/d22_v144_logit.txt` |
+| Floating-point model's decisions equal to the chip's, same rule (logit >= 1/64), headline shots | 99,400/99,400 | name+date | `campaign_v144/final/analysis/offline/keras_vs_hls4ml.json` |
+| Floating-point vs fixed-point (hls4ml) probability, largest difference, headline shots | 0.005 | name+date | `campaign_v144/final/analysis/offline/keras_vs_hls4ml.json` |
 
 ## Replay channel
 
@@ -33,6 +36,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Share of error that belongs to the trace / to replay noise | 86% / 14% | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
 | Class SNR per sample, source / replayed board A (rms mean separation over rms noise) | 0.21 / 0.20 | banner | `campaign_v144/final/analysis/channel_v144.json` |
 | Capture delay against the aligned source, 4,000 shots | 4-7 samples | banner | `campaign_v144/final/analysis/channel_v144.json` |
+| Domain map fit on training rows vs test rows: headline change, 5 seeds | -0.016 ± 0.042 points | name+date | `campaign_v144/final/analysis/offline/map_trainrows_s20260905.json` |
 
 ## In the loop
 
@@ -60,6 +64,12 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Boards A vs B, 19,400 subset | 131 vs 127, exact p = 0.85, difference +0.021 [-0.142, +0.183] | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
 | Board A, vs gate-idle, 19,400 subset | 132 vs 129, exact p = 0.90, difference +0.015 [-0.148, +0.179] | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
 | Board B, vs gate-idle, 19,400 subset | 113 vs 129, exact p = 0.33, difference -0.083 [-0.240, +0.074] | bracketed | `campaign_v144/final/analysis/v144_stats.json` |
+| Board A, pulse-gain arms (15,000 rows): nominal / zero / max / gate off | 95.95% / 95.95% / 95.99% / 96.05%; smallest exact p vs nominal 0.29 | banner | `campaign_v144/final/inloop/arms/arms_analysis.json` |
+| Board B, pulse-gain arms (15,000 rows): nominal / zero / max / gate off | 95.91% / 95.96% / 95.90% / 96.03%; smallest exact p vs nominal 0.19 | banner | `campaign_v144/final/inloop/arms/arms_analysis.json` |
+| Board A, shortest clean shot period; record path kept up at every spacing | 11.5 µs; yes | banner | `campaign_v144/final/tests/spacing/A_spacing.json` |
+| Board B, shortest clean shot period; record path kept up at every spacing | 11.5 µs; yes | banner | `campaign_v144/final/tests/spacing/B_spacing.json` |
+| Shot spacing: shortest clean period A (coarse sweep) / B (fine sweep); longest failing period on B | 11.51 / 9.51 µs; 8.51 µs | banner | `campaign_v144/final/tests/spacing/B_spacing_fine.log` |
+| In-loop campaign: shot rate A / B; time between shots | 5.35 / 5.36 shots/s; 0.187–0.187 s | banner | `campaign_v144/final/inloop/A_inloop_0_100000.log` |
 
 ## NN_axi
 
@@ -111,6 +121,13 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | matched filter, run 1, 99,400 rows, vs NN_live on the same shots | 95.49%, -0.107 points, 571 vs 677, exact p = 0.003 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
 | matched filter, board A, 99,400 rows, vs NN_live on the same shots | 95.50%, -0.049 points, 608 vs 657, exact p = 0.18 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
 | matched filter, board B, 99,400 rows, vs NN_live on the same shots | 95.48%, -0.136 points, 572 vs 707, exact p = 0.0002 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| LDA on raw traces, first 320 recorded samples (1.04 µs) | 94.53% | name+date | `campaign_v144/final/analysis/s3/s3_live_window_lda.json` |
+| LDA on raw traces, first 576 recorded samples (1.87 µs) | 96.10% | name+date | `campaign_v144/final/analysis/s3/s3_live_window_lda.json` |
+| NN_live vs LDA (FIR-770, FIR-576, boxcar-576), each board, 99,400: largest 95% CI bound | 0.192 points (within 0.2) | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| LDA on raw traces, all 770 recorded samples, 100,000 test traces | 95.975% | name+date | `campaign_v144/final/analysis/s3/s3_live_window_lda.json` |
+| LDA at 576 samples, boxcar minus FIR path, headline 99,400; exact p | -0.0986 points, 225 vs 323, p = 3.3e-05 | name+date | `campaign_v144/final/analysis/offline/lda_box_vs_fir.json` |
+| LDA, fixed ridge 1e-2, 770 samples, run 1, 99,400 rows, vs NN_live on the same shots | 95.69%, +0.086 points, exact p = 0.0044 | bracketed | `campaign_v144/final/analysis/s5_linear_99400_v144.json` |
+| Augmented models vs the deployed 4-unit network, board A replay, 16,000 shots: gain range; largest p | 0.143–0.262 points; p ≤ 0.038 | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
 
 ## Drift, 3 h
 
@@ -138,6 +155,11 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Board B, FIR path (NN_live result), earliest clean margin | 440.4 ns at +30 ns, 40/40 fresh | banner | `campaign_v144/final/board2/B_tproc_fir_v144.json` |
 | Board B, QICK threshold feedback (read_and_jump), earliest clean margin | 521.8 ns at +100 ns, 40/40 fresh | banner | `campaign_v144/final/board3/B_tproc_thr_v144.json` |
 | Board B, QICK threshold feedback (no-jump form), earliest clean margin | 561.6 ns at +150 ns, 40/40 fresh | banner | `campaign_v144/final/board3/B_tproc_thr_v144.json` |
+| Boards A and B, QICK threshold feedback (FIR): latest unclean margin; max |r| (port vs own window sum) below the earliest clean margin; min r from it; earliest clean margin | 80 ns; 0.30; 1.00; 100 ns | banner | `campaign_v144/final/board3/threshold/A_threshold.json` |
+| tProc branch on the boxcar path, 245.76 MHz core (build 1), earliest clean margin, no-jump / jump form, A; B | 316.0 / 319.2 ns; 313.5 / 316.8 ns | name+date | `firmware_v1.44/variants/tproc245/board/A_tproc_box_t245.json` |
+| Measured saving against the tProc branch on the FIR path, A / B: total; boxcar path; gate (200 MHz); gate (245.76 MHz); tProc branch range at 200 MHz | 263.7 / 266.5; 103.3 / 105.3; 160.4 / 161.2; 139.8 / 139.7; 335.1–340.3 ns | banner | `campaign_v144/final/board2/A_tproc_box_v144.json` |
+| Gate saving 140 / 160 ns at T1 = 32 us: t/(3T1); t/(2T1), points | 0.146 / 0.167; 0.219 / 0.250 | banner | `campaign_v144/final/board2/A_tproc_box_v144.json` |
+| QICK threshold feedback fed from the boxcar path, earliest clean margin, A / B | 520.5 / 520.7 ns | banner | `campaign_v144/final/board3/threshold/A_threshold.json` |
 
 ## Safety and tests
 
@@ -155,6 +177,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | QICK functional suite, board A | 19 pass, 1 warning, 2 fail, 1 not wired | banner | `campaign_v144/final/tests/A_functional.json` |
 | QICK functional suite, board B | 20 pass, 1 warning, 1 fail, 1 not wired | banner | `campaign_v144/final/tests/B_functional.json` |
 | Fail-safe test, board B | PASS | banner | `campaign_v144/final/tests/B_fail_safe.json` |
+| Leaked energy, DELAY from the 2000-amplitude crossing, leads 2-4, both boards: mean range; largest upper 95% bound | 0.251–0.430%; 0.450% | banner | `campaign_v144/final/leak_energy/B_v144_leak_thr2000.json` |
 
 ## Calibration swap
 
@@ -221,6 +244,12 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Boxcar saves, board A | 108.0 ns | banner | `campaign_v144/final/fig7/fig7_capture_A_v144.json` |
 | QICK FIR path, mixer output to decimated edge: saving + boxcar path (9 cycles + group delay (M-1)/2 = 5 samples) | 133.3 ns | banner | `campaign_v144/final/fig7/fig7_capture_A_v144.json` |
 | Image rejection at M = 11, board A | -44.8 dB | banner | `campaign_v144/final/fig7/fig7_capture_A_v144.json` |
+| Board A, edge shift vs the 50 MHz carrier, carriers up to 4800 MHz | at most 0.32 ns | banner | `campaign_v144/final/latency/carrier/A_carrier.json` |
+| Board A, per-shot capture jitter, no recorded trace (s.d.) | 0.77 samples, 1.4 ns | banner | `campaign_v144/final/latency/jitter/A_jitter.json` |
+| Board B, edge shift vs the 50 MHz carrier, carriers up to 4800 MHz | at most 0.45 ns | banner | `campaign_v144/final/latency/carrier/B_carrier.json` |
+| Board B, per-shot capture jitter, no recorded trace (s.d.) | 0.81 samples, 1.5 ns | banner | `campaign_v144/final/latency/jitter/B_jitter.json` |
+| Edge s.d. at the 500 and 1,500 MHz carriers, both boards: samples; ns | 0.273–0.293; 0.493–0.530 | banner | `campaign_v144/final/latency/carrier/A_carrier.json` |
+| Boxcar minus FIR path, NN_live, board A, 99,400 rows (unrounded) | +0.0845 points | banner | `campaign_v144/final/analysis/box_vs_fir_v144.json` |
 
 ## Implementation
 
@@ -234,6 +263,10 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | NN_live LUT, rounded for prose | about 1,340 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
 | Failing endpoints: NN_live / its clock crossing / stock readouts 1 and 2 | 0 / 0 / 0 | build-file | `paper_tables/table3/data/v1.44_routed_timing.rpt` |
 | Real-time path LUT (NN_live + loop logic, Table III) | 3,303 (about 3,300) | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
+| Setup slack inside NN_live and on its outputs (v1.44 routed) | 1 to 31 ps | name+date | `firmware_v1.44/reports/v144_decision_path_slack.tsv` |
+| Out-of-context margins, deployed RTL N = 1, 2, 4 (pblock), 16 (device); variant T N = 8 | +0.171 / +0.103 / +0.002 / +0.002 / +0.029 | name+date | `scaling_study/v144/FINDINGS_v144.md` |
+| Integration cost: OOC N = 1 margin minus the worst NN_live-path slack in v1.44 | at least 0.140 ns | name+date | `scaling_study/v144/FINDINGS_v144.md` |
+| NN_axi LUTs: whole / window load loop / NN() | 160,861 / 105,328 / 54,923 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
 
 ## Loop latency
 
@@ -246,6 +279,12 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Our logic (S_NN + S_CDC + S_gate) / converters and cable (S_conv), rounded, 176 ns group | 37 / 102 ns | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Converters and cable, mean of the two load groups | 101.1 ns (100.1 and 102.1) | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Fig. 8(b), late at -66 ns, boards A / B, of 40 | 2 / 6 | banner | `campaign_v144/final/fig8b/A_gate_probe.log` |
+| Board A, 20 further loads: low / high group | 10 loads 173.66–174.28 ns / 10 loads 175.77–176.35 ns | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
+| Board B, 20 further loads: low / high group | 12 loads 174.03–174.33 ns / 8 loads 175.94–176.27 ns | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
+| Both boards, 40 further loads: low / high group, gap | 22 / 18 loads; 173.66–174.33 / 175.77–176.35 ns; gap 1.44 ns | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
+| Board A, one load, 20 runs: span, mean, s.d. | 110 min, 173.88 ns, s.d. 0.12 ns | banner | `campaign_v144/final/latency/stability/A_st20.json` |
+| Board B, one load, 20 runs: span, mean, s.d. | 111 min, 174.06 ns, s.d. 0.11 ns | banner | `campaign_v144/final/latency/stability/B_st20.json` |
+| Largest L_50 shift over all sensitivity sets (gain, carrier phase, no stimulus) | 0.766 ns (A_rv01.json, phase_90) | name+date | `campaign_v144/final/latency/reloads/A_rv01.json` |
 
 ## Replay-channel augmentation
 
@@ -258,7 +297,116 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Deployed 4-unit network: chip (clean) / retrained on augmented data | 95.56% / 95.52% | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
 | LDA on the same 16,000 shots | 95.52% | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
 
+## Paired statistics
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| NN_live vs LDA FIR-770, board A, 99,400 | -0.109 points, 422 vs 530, exact p = 0.0005 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| NN_axi emulated on the recorded FIR windows vs NN_live, board A, 99,400 | +0.108 points, 476 vs 369, exact p = 0.0003 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| NN_axi emulated on the recorded FIR windows vs NN_live, board B, 99,400 | +0.056 points, 435 vs 379, exact p = 0.05 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| Boxcar vs FIR, board A, the 80,000 unused rows | +0.096 points, 281 vs 204, exact p = 0.0005 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| Boxcar vs FIR, board B, the 80,000 unused rows | +0.138 points, 290 vs 180, exact p = 4e-07 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| Boxcar vs FIR on the 80,000 unused rows, bound over both boards | p ≤ 0.00055 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| NN_live, board A, the 80,000 unused rows | 95.585% | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| NN_live, board B, the 80,000 unused rows | 95.651% | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| Noise s.d. per sample, pooled over both states, I / Q (fit-pool traces) | 836.2 / 836.9 | name+date | `campaign_v144/final/analysis/stats/t5_estimators.json` |
+| Noise excess kurtosis, fit pool, pooled | -0.0108 | name+date | `campaign_v144/final/analysis/stats/t5_estimators.json` |
+| Noise s.d. per sample, largest deviation from its mean across the trace | ±1.57% | name+date | `campaign_v144/final/analysis/stats/t5_estimators.json` |
+| Common-mode offset vs white-noise prediction, both states pooled, I / Q | 1.546 / 1.801 | name+date | `campaign_v144/final/analysis/stats/t5_estimators.json` |
+| Holm over every p-value printed after pass 7: tests / survivors / largest surviving adjusted p | 36 / 9 / 0.0197 | name+date | `campaign_v144/final/analysis/stats/holm_pass7.json` |
+| Holm over every p-value printed after pass 8: tests / survivors / largest surviving adjusted p | 38 / 11 / 0.0197 | name+date | `campaign_v144/final/analysis/stats/holm_pass8.json` |
+| Holm over every p-value printed after pass 9: tests / survivors / largest surviving adjusted p | 42 / 12 / 0.0218 | name+date | `campaign_v144/final/analysis/stats/holm_pass9.json` |
+| Holm-adjusted p after pass 9: board B in-loop vs gate-idle; zero vs nominal gain, board A | 0.525; 0.660 | name+date | `campaign_v144/final/analysis/stats/holm_pass9.json` |
+| NN_live vs LDA FIR-770, board A, the 80,000 unused rows | -0.138 points, 328 vs 438, exact p = 8e-05 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| NN_live vs LDA FIR-770, board B, the 80,000 unused rows | -0.045 points, 342 vs 378, exact p = 0.19 | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| NN_live, board B − board A, 99,400 [95% CI] | +0.068 [+0.000, +0.136] | name+date | `campaign_v144/final/analysis/stats/t2346_paired.json` |
+| Holm over every p-value printed after pass 9b: tests / survivors / largest surviving adjusted p | 44 / 13 / 0.0225 | name+date | `campaign_v144/final/analysis/stats/holm_pass9b.json` |
+| Holm-adjusted p after pass 9b: board B in-loop vs gate-idle; zero vs nominal gain, board A | 0.543; 0.685 | name+date | `campaign_v144/final/analysis/stats/holm_pass9b.json` |
+| Holm over every p-value printed after pass 11: tests / survivors / largest surviving adjusted p | 51 / 17 / 0.0269 | name+date | `campaign_v144/final/analysis/stats/holm_pass11.json` |
+| Holm-adjusted p after pass 11: board B in-loop vs gate-idle; zero vs nominal gain, board A | 0.562; 0.709 | name+date | `campaign_v144/final/analysis/stats/holm_pass11.json` |
+
+## Data protocol
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| Fixed leakage audit (verify_no_leakage_fixed.py): checks passed | 29 of 29 | name+date | `campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log` |
+| Map refit on training rows 300,000-300,599 vs the deployed map, deployed seed, run-1 mix, 99,400 | -0.082 points, 207 vs 289, exact p = 0.0003 | name+date | `campaign_v144/final/analysis/protocol/task2_summary.json` |
+| Map refit on the map's test rows of the v1.44 capture vs the deployed map, deployed seed, run-1 mix, 99,400 | -0.071 points, 217 vs 288, exact p = 0.002 | name+date | `campaign_v144/final/analysis/protocol/task2_summary.json` |
+| Row roles read from the scripts: baselines 0-199,999; retrain of [16] 900,000 rows; map refit 300,000-300,599; augmentation channel fit on subset rows 0-3,999 | design constants | name+date | `campaign_v144/final/analysis/protocol/REPORT.md` |
+
+## Further measurements
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| Board A, longest shot period that failed | 6.51 µs | banner | `campaign_v144/final/tests/spacing/A_spacing.json` |
+| Board B, longest shot period that failed | 6.51 µs | banner | `campaign_v144/final/tests/spacing/B_spacing.json` |
+
+## Feed-forward loop
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| QICK stock front end inside S_fe (S_fe minus the boxcar path's 9 + 5 cycles), low / high group | 13.0 / 12.9 ns | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
+
+## Variant builds
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| Build 1 (tProc core at 245.76 MHz): design WNS | -35 ps | name+date | `firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt` |
+| Board A, tProc 245.76 MHz: QICK threshold feedback (FIR), earliest clean margin | 501.6 ns at +100 ns, 59/59 fresh | name+date | `firmware_v1.44/variants/tproc245/board/A_threshold_t245.json` |
+| Board A, tProc 245.76 MHz: gate loop L_50 (one load) | 176.16 ns | name+date | `firmware_v1.44/variants/tproc245/board/A_b1_latency.json` |
+| Board B, tProc 245.76 MHz: QICK threshold feedback (FIR), earliest clean margin | 501.0 ns at +100 ns, 59/59 fresh | name+date | `firmware_v1.44/variants/tproc245/board/B_threshold_t245.json` |
+| Board B, tProc 245.76 MHz: gate loop L_50 (one load) | 173.78 ns | name+date | `firmware_v1.44/variants/tproc245/board/B_b1_latency.json` |
+| QICK threshold feedback, 200 minus 245.76 MHz tProc, A / B; range over both clocks | 19.8 / 20.8 ns; 501.0–521.8 ns | banner | `campaign_v144/final/board3/A_tproc_thr_v144.json` |
+| LDA_live 1.1 in NN_live's slot (build 2b): routed LUTs | 361 | name+date | `firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt` |
+| Board A, LDA_live: gate loop L_50 (one load); result − last sample | 173.62 ns; result - last: [9] cycles | name+date | `firmware_v1.44/variants/lda_gate/board/A_b2_latency.json` |
+| Board B, LDA_live: gate loop L_50 (one load); result − last sample | 173.66 ns; result - last: [9] cycles | name+date | `firmware_v1.44/variants/lda_gate/board/B_b2_latency.json` |
+| LDA_live on the boards: shots bit-exact against lda_model.py (D, logit, decision) | 100,000 of 100,000 | name+date | `firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json` |
+| LDA_live on the boards, headline mosaic: LDA_live / NN_live (v1.44, same rows); NN − LDA, exact p | 95.54% / 95.60%; +0.063, p = 0.093 | name+date | `firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json` |
+| LDA_live model on the stored windows, headline mosaic: LDA; NN − LDA, exact p | 95.47%; +0.128, p = 1.0e-06 | name+date | `firmware_v1.44/variants/lda_gate/lda_csim_score.json` |
+| Board A, pulse-gain arms on 99,400 traces: zero − nominal [95% CI], exact p | -0.078 [-0.146, -0.011], p = 0.024 | name+date | `campaign_v144/final/inloop/arms/arms_full_analysis.json` |
+| Board B, pulse-gain arms on 99,400 traces: zero − nominal [95% CI], exact p | +0.002 [-0.066, +0.070], p = 0.977 | name+date | `campaign_v144/final/inloop/arms/arms_full_analysis.json` |
+| QICK threshold feedback over both tProc clocks and both boards: lowest; highest (earliest clean margins) | 501.0; 521.8 ns | name+date | `firmware_v1.44/variants/tproc245/board/B_threshold_t245.json` |
+| Build 2 (LDA_live 1.0, weights in logic): design WNS | -94 ps | name+date | `firmware_v1.44/variants/lda_gate/reports/v1.44lda_routed_timing.rpt` |
+| Same bit-exact LDA, headline mosaic: later board session minus stored v1.44 windows | +0.064 points | name+date | `firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json` |
+| Board A, nominal-gain arm vs gate-idle run 2 (rows 50,000-99,999): difference, exact p | +0.117, p = 0.018, n = 50,000 | name+date | `campaign_v144/final/inloop/arms/arms_full_analysis.json` |
+
 ## Sources with weak build evidence
 
 These carry no banner. Confirm them or re-measure before submission.
 
+- `campaign_v144/final/analysis/offline/keras_vs_hls4ml.json`
+- `campaign_v144/final/analysis/offline/lda_box_vs_fir.json`
+- `campaign_v144/final/analysis/offline/map_trainrows_s20260901.json`
+- `campaign_v144/final/analysis/offline/map_trainrows_s20260902.json`
+- `campaign_v144/final/analysis/offline/map_trainrows_s20260903.json`
+- `campaign_v144/final/analysis/offline/map_trainrows_s20260904.json`
+- `campaign_v144/final/analysis/offline/map_trainrows_s20260905.json`
+- `campaign_v144/final/analysis/protocol/REPORT.md`
+- `campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log`
+- `campaign_v144/final/analysis/protocol/task2_summary.json`
+- `campaign_v144/final/analysis/s3/s3_live_window_lda.json`
+- `campaign_v144/final/analysis/stats/holm_pass11.json`
+- `campaign_v144/final/analysis/stats/holm_pass7.json`
+- `campaign_v144/final/analysis/stats/holm_pass8.json`
+- `campaign_v144/final/analysis/stats/holm_pass9.json`
+- `campaign_v144/final/analysis/stats/holm_pass9b.json`
+- `campaign_v144/final/analysis/stats/t2346_paired.json`
+- `campaign_v144/final/analysis/stats/t5_estimators.json`
+- `campaign_v144/final/inloop/arms/arms_full_analysis.json`
+- `campaign_v144/final/latency/reloads/A_rv01.json`
+- `campaign_v144/final/tests/logit_check/d22_v144_logit.txt`
+- `firmware_v1.44/reports/v144_decision_path_slack.tsv`
+- `firmware_v1.44/variants/lda_gate/board/A_b2_latency.json`
+- `firmware_v1.44/variants/lda_gate/board/B_b2_latency.json`
+- `firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json`
+- `firmware_v1.44/variants/lda_gate/lda_csim_score.json`
+- `firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt`
+- `firmware_v1.44/variants/lda_gate/reports/v1.44lda_routed_timing.rpt`
+- `firmware_v1.44/variants/tproc245/board/A_b1_latency.json`
+- `firmware_v1.44/variants/tproc245/board/A_threshold_t245.json`
+- `firmware_v1.44/variants/tproc245/board/A_tproc_box_t245.json`
+- `firmware_v1.44/variants/tproc245/board/B_b1_latency.json`
+- `firmware_v1.44/variants/tproc245/board/B_threshold_t245.json`
+- `firmware_v1.44/variants/tproc245/board/B_tproc_box_t245.json`
+- `firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt`
+- `scaling_study/v144/FINDINGS_v144.md`

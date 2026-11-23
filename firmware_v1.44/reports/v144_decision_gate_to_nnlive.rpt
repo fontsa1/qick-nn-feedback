@@ -1,0 +1,874 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date              : Mon Nov 16 00:45:31 2026
+| Host              : Yugger running 64-bit major release  (build 9200)
+| Command           : report_timing -setup -from [get_cells -hier -filter {NAME =~ d_1_i/live_gate_0/* && IS_PRIMITIVE}] -to [get_cells -hier -filter {NAME =~ d_1_i/NN_live_0/* && IS_PRIMITIVE}] -max_paths 10 -nworst 1 -unique_pins -significant_digits 3 -input_pins -file C:/Users/fonte/coding/qick_project/campaign_v144/revision2/fpga/reports/v144_decision_gate_to_nnlive.rpt
+| Design            : d_1_wrapper
+| Device            : xczu48dr-ffvg1517
+| Speed File        : -2  PRODUCTION 1.32 01-31-2021
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.242ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/last_ok_fu_258_reg[0]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.340ns  (logic 0.288ns (21.491%)  route 1.052ns (78.509%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.201ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.003ns = ( 5.811 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.329ns (routing 0.155ns, distribution 1.174ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.314     4.741                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/valid_out[0]
+    SLICE_X104Y229                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/last_ok_fu_258[0]_i_2/I3
+    SLICE_X104Y229       LUT6 (Prop_H6LUT_SLICEM_I3_O)
+                                                      0.053     4.794 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/last_ok_fu_258[0]_i_2/O
+                         net (fo=1, routed)           0.260     5.054                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/last_ok_fu_258[0]_i_2_n_0
+    SLICE_X107Y226                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/last_ok_fu_258[0]_i_1/I3
+    SLICE_X107Y226       LUT5 (Prop_G5LUT_SLICEM_I3_O)
+                                                      0.068     5.122 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/last_ok_fu_258[0]_i_1/O
+                         net (fo=1, routed)           0.023     5.145                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U_n_56
+    SLICE_X107Y226       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/last_ok_fu_258_reg[0]/D
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.329     5.812                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_clk
+    SLICE_X107Y226       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/last_ok_fu_258_reg[0]/C
+                         clock pessimism             -0.399     5.413                           
+                         clock uncertainty           -0.051     5.361                           
+    SLICE_X107Y226       FDRE (Setup_GFF2_SLICEM_C_D)
+                                                      0.025     5.386    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/last_ok_fu_258_reg[0]
+  -------------------------------------------------------------------
+                         required time                          5.386                           
+                         arrival time                          -5.145                           
+  -------------------------------------------------------------------
+                         slack                                  0.242                           
+
+Slack (MET) :             0.288ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tlast_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/ap_CS_fsm_reg[13]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.283ns  (logic 0.336ns (26.183%)  route 0.947ns (73.817%))
+  Logic Levels:           2  (LUT3=1 LUT6=1)
+  Clock Path Skew:        -0.211ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.986ns = ( 5.794 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.798ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.539ns (routing 0.171ns, distribution 1.368ns)
+  Clock Net Delay (Destination): 1.312ns (routing 0.155ns, distribution 1.157ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.539     3.798                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X100Y259       FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tlast_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X100Y259       FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.079     3.877 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tlast_reg/Q
+                         net (fo=7, routed)           0.661     4.537                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_DRAIN_L_fu_270/flow_control_loop_pipe_sequential_init_U/in_r_TLAST[0]
+    SLICE_X105Y225                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_DRAIN_L_fu_270/flow_control_loop_pipe_sequential_init_U/ap_CS_fsm[15]_i_2/I0
+    SLICE_X105Y225       LUT3 (Prop_H5LUT_SLICEL_I0_O)
+                                                      0.133     4.670 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_DRAIN_L_fu_270/flow_control_loop_pipe_sequential_init_U/ap_CS_fsm[15]_i_2/O
+                         net (fo=2, routed)           0.236     4.906                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_DRAIN_L_fu_270/flow_control_loop_pipe_sequential_init_U/ap_done_reg1
+    SLICE_X105Y220                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_DRAIN_L_fu_270/flow_control_loop_pipe_sequential_init_U/ap_CS_fsm[13]_i_1/I1
+    SLICE_X105Y220       LUT6 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.124     5.030 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_DRAIN_L_fu_270/flow_control_loop_pipe_sequential_init_U/ap_CS_fsm[13]_i_1/O
+                         net (fo=1, routed)           0.051     5.081                         d_1_i/NN_live_0/inst/ap_NS_fsm__0[13]
+    SLICE_X105Y220       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/ap_CS_fsm_reg[13]/D
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.312     5.794                         d_1_i/NN_live_0/inst/ap_clk
+    SLICE_X105Y220       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/ap_CS_fsm_reg[13]/C
+                         clock pessimism             -0.399     5.395                           
+                         clock uncertainty           -0.051     5.344                           
+    SLICE_X105Y220       FDRE (Setup_HFF_SLICEL_C_D)
+                                                      0.025     5.369    pb_live                d_1_i/NN_live_0/inst/ap_CS_fsm_reg[13]
+  -------------------------------------------------------------------
+                         required time                          5.369                           
+                         arrival time                          -5.081                           
+  -------------------------------------------------------------------
+                         slack                                  0.288                           
+
+Slack (MET) :             0.309ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[9]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.276ns  (logic 0.388ns (30.415%)  route 0.888ns (69.585%))
+  Logic Levels:           3  (LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.198ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.006ns = ( 5.814 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.332ns (routing 0.155ns, distribution 1.177ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.212     4.638                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/valid_out[0]
+    SLICE_X106Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_2/I0
+    SLICE_X106Y230       LUT6 (Prop_H6LUT_SLICEL_I0_O)
+                                                      0.099     4.737 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_2/O
+                         net (fo=2, routed)           0.149     4.886                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_2_n_0
+    SLICE_X107Y229                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_1/I0
+    SLICE_X107Y229       LUT5 (Prop_D6LUT_SLICEM_I0_O)
+                                                      0.122     5.008 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_1/O
+                         net (fo=1, routed)           0.072     5.080                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246__0[9]
+    SLICE_X107Y229       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[9]/D
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.332     5.815                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_clk
+    SLICE_X107Y229       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[9]/C
+                         clock pessimism             -0.399     5.416                           
+                         clock uncertainty           -0.051     5.364                           
+    SLICE_X107Y229       FDRE (Setup_DFF_SLICEM_C_D)
+                                                      0.025     5.389    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[9]
+  -------------------------------------------------------------------
+                         required time                          5.389                           
+                         arrival time                          -5.080                           
+  -------------------------------------------------------------------
+                         slack                                  0.309                           
+
+Slack (MET) :             0.329ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236_ap_start_reg_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.249ns  (logic 0.266ns (21.300%)  route 0.983ns (78.700%))
+  Logic Levels:           2  (LUT4=1 LUT5=1)
+  Clock Path Skew:        -0.205ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.999ns = ( 5.807 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.325ns (routing 0.155ns, distribution 1.170ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 f  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    f  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 f  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.273     4.699                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/valid_out[0]
+    SLICE_X106Y228                                                    f  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/grp_NN_live_Pipeline_ACC_L_fu_236_ap_start_reg_i_1/I3
+    SLICE_X106Y228       LUT5 (Prop_H6LUT_SLICEL_I3_O)
+                                                      0.099     4.798 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/grp_NN_live_Pipeline_ACC_L_fu_236_ap_start_reg_i_1/O
+                         net (fo=1, routed)           0.255     5.053                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236_n_58
+    SLICE_X105Y228       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236_ap_start_reg_reg/D
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.325     5.807                         d_1_i/NN_live_0/inst/ap_clk
+    SLICE_X105Y228       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236_ap_start_reg_reg/C
+                         clock pessimism             -0.399     5.408                           
+                         clock uncertainty           -0.051     5.357                           
+    SLICE_X105Y228       FDRE (Setup_AFF2_SLICEL_C_D)
+                                                      0.025     5.382    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236_ap_start_reg_reg
+  -------------------------------------------------------------------
+                         required time                          5.382                           
+                         arrival time                          -5.053                           
+  -------------------------------------------------------------------
+                         slack                                  0.329                           
+
+Slack (MET) :             0.371ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_loop_exit_ready_pp0_iter8_reg_reg_srl8/D
+                            (rising edge-triggered cell SRL16E clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.141ns  (logic 0.204ns (17.873%)  route 0.937ns (82.127%))
+  Logic Levels:           2  (LUT4=2)
+  Clock Path Skew:        -0.185ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.019ns = ( 5.827 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.345ns (routing 0.155ns, distribution 1.190ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.114     4.540                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/valid_out[0]
+    SLICE_X104Y231                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/ap_loop_exit_ready_pp0_iter8_reg_reg_srl8_i_1/I3
+    SLICE_X104Y231       LUT4 (Prop_F6LUT_SLICEM_I3_O)
+                                                      0.037     4.577 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/ap_loop_exit_ready_pp0_iter8_reg_reg_srl8_i_1/O
+                         net (fo=1, routed)           0.369     4.946                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/grp_NN_live_Pipeline_ACC_L_fu_236_ap_ready
+    SLICE_X104Y231       SRL16E                                       r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_loop_exit_ready_pp0_iter8_reg_reg_srl8/D
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.345     5.828                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_clk
+    SLICE_X104Y231       SRL16E                                       r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_loop_exit_ready_pp0_iter8_reg_reg_srl8/CLK
+                         clock pessimism             -0.399     5.429                           
+                         clock uncertainty           -0.051     5.377                           
+    SLICE_X104Y231       SRL16E (Setup_A6LUT_SLICEM_CLK_D)
+                                                     -0.060     5.317    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_loop_exit_ready_pp0_iter8_reg_reg_srl8
+  -------------------------------------------------------------------
+                         required time                          5.317                           
+                         arrival time                          -4.946                           
+  -------------------------------------------------------------------
+                         slack                                  0.371                           
+
+Slack (MET) :             0.381ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[10]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.093ns  (logic 0.167ns (15.274%)  route 0.926ns (84.726%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        -0.223ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.981ns = ( 5.790 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.307ns (routing 0.155ns, distribution 1.152ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.472     4.898                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/valid_out[0]
+    SLICE_X102Y237       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[10]/CE
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.307     5.790                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/ap_clk
+    SLICE_X102Y237       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[10]/C
+                         clock pessimism             -0.399     5.391                           
+                         clock uncertainty           -0.051     5.339                           
+    SLICE_X102Y237       FDRE (Setup_DFF_SLICEL_C_CE)
+                                                     -0.060     5.279    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[10]
+  -------------------------------------------------------------------
+                         required time                          5.279                           
+                         arrival time                          -4.898                           
+  -------------------------------------------------------------------
+                         slack                                  0.381                           
+
+Slack (MET) :             0.381ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[12]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.093ns  (logic 0.167ns (15.274%)  route 0.926ns (84.726%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        -0.223ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.981ns = ( 5.790 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.307ns (routing 0.155ns, distribution 1.152ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.472     4.898                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/valid_out[0]
+    SLICE_X102Y237       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[12]/CE
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.307     5.790                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/ap_clk
+    SLICE_X102Y237       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[12]/C
+                         clock pessimism             -0.399     5.391                           
+                         clock uncertainty           -0.051     5.339                           
+    SLICE_X102Y237       FDRE (Setup_CFF_SLICEL_C_CE)
+                                                     -0.060     5.279    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[12]
+  -------------------------------------------------------------------
+                         required time                          5.279                           
+                         arrival time                          -4.898                           
+  -------------------------------------------------------------------
+                         slack                                  0.381                           
+
+Slack (MET) :             0.387ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[6]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.094ns  (logic 0.167ns (15.265%)  route 0.927ns (84.735%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        -0.216ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.988ns = ( 5.797 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.314ns (routing 0.155ns, distribution 1.159ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.472     4.899                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/valid_out[0]
+    SLICE_X103Y238       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[6]/CE
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.314     5.797                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/ap_clk
+    SLICE_X103Y238       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[6]/C
+                         clock pessimism             -0.399     5.398                           
+                         clock uncertainty           -0.051     5.346                           
+    SLICE_X103Y238       FDRE (Setup_DFF_SLICEM_C_CE)
+                                                     -0.061     5.285    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[6]
+  -------------------------------------------------------------------
+                         required time                          5.285                           
+                         arrival time                          -4.899                           
+  -------------------------------------------------------------------
+                         slack                                  0.387                           
+
+Slack (MET) :             0.387ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[7]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.094ns  (logic 0.167ns (15.265%)  route 0.927ns (84.735%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        -0.216ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.988ns = ( 5.797 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.314ns (routing 0.155ns, distribution 1.159ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.472     4.899                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/valid_out[0]
+    SLICE_X103Y238       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[7]/CE
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.314     5.797                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/ap_clk
+    SLICE_X103Y238       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[7]/C
+                         clock pessimism             -0.399     5.398                           
+                         clock uncertainty           -0.051     5.346                           
+    SLICE_X103Y238       FDRE (Setup_CFF_SLICEM_C_CE)
+                                                     -0.061     5.285    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/WROM_U/q0_reg[7]
+  -------------------------------------------------------------------
+                         required time                          5.285                           
+                         arrival time                          -4.899                           
+  -------------------------------------------------------------------
+                         slack                                  0.387                           
+
+Slack (MET) :             0.405ns  (required time - arrival time)
+  Source:                 d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Destination:            d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[8]/D
+                            (rising edge-triggered cell FDRE clocked by clk_out1_d_1_clk_adc0_x2_0  {rise@0.000ns fall@0.904ns period=1.809ns})
+  Path Group:             clk_out1_d_1_clk_adc0_x2_0
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            1.809ns  (clk_out1_d_1_clk_adc0_x2_0 rise@1.809ns - clk_out1_d_1_clk_adc0_x2_0 rise@0.000ns)
+  Data Path Delay:        1.172ns  (logic 0.356ns (30.383%)  route 0.816ns (69.617%))
+  Logic Levels:           3  (LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.206ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.998ns = ( 5.807 - 1.809 ) 
+    Source Clock Delay      (SCD):    3.805ns
+    Clock Pessimism Removal (CPR):    -0.399ns
+  Clock Uncertainty:      0.051ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.074ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      1.546ns (routing 0.171ns, distribution 1.375ns)
+  Clock Net Delay (Destination): 1.324ns (routing 0.155ns, distribution 1.169ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    PBlock               Netlist Resource(s)
+  -------------------------------------------------------------------    ----------------------------------------
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      0.000     0.000 r                       
+    RFADC_X0Y0           RFADC                        0.000     0.000 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.150     0.150 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.246     0.396                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.130     0.526 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.587     2.113                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                     -0.127     1.986 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.245     2.231                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     2.259 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.546     3.805                         d_1_i/live_gate_0/inst/aclk
+    SLICE_X97Y255        FDRE                                         r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/C
+  -------------------------------------------------------------------    ----------------------------------------
+    SLICE_X97Y255        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     3.883 r  pb_live              d_1_i/live_gate_0/inst/m_axis_tvalid_reg/Q
+                         net (fo=4, routed)           0.455     4.337                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/in_r_TVALID
+    SLICE_X104Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/I0
+    SLICE_X104Y230       LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.089     4.426 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/frp_pipeline_valid_U_i_1/O
+                         net (fo=31, routed)          0.212     4.638                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/valid_out[0]
+    SLICE_X106Y230                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_2/I0
+    SLICE_X106Y230       LUT6 (Prop_H6LUT_SLICEL_I0_O)
+                                                      0.099     4.737 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_2/O
+                         net (fo=2, routed)           0.100     4.837                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[9]_i_2_n_0
+    SLICE_X106Y229                                                    r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[8]_i_1/I2
+    SLICE_X106Y229       LUT6 (Prop_B6LUT_SLICEL_I2_O)
+                                                      0.090     4.927 r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/flow_control_loop_pipe_sequential_init_U/n_fu_246[8]_i_1/O
+                         net (fo=1, routed)           0.049     4.976                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246__0[8]
+    SLICE_X106Y229       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[8]/D
+  -------------------------------------------------------------------    ----------------------------------------
+
+                         (clock clk_out1_d_1_clk_adc0_x2_0 rise edge)
+                                                      1.809     1.809 r                       
+    RFADC_X0Y0           RFADC                        0.000     1.809 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/INTERNAL_FBRC_DIV1_MUX
+    RFADC_X0Y0           RFADC (Prop_RFADC_INTERNAL_FBRC_DIV1_MUX_CLK_ADC)
+                                                      0.122     1.931 r                       d_1_i/usp_rf_data_converter_0/inst/d_1_usp_rf_data_converter_0_0_rf_wrapper_i/rx0_u_adc/CLK_ADC
+                         net (fo=2, routed)           0.150     2.081                         d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt_0
+    BUFG_GT_X1Y20                                                     r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/I
+    BUFG_GT_X1Y20        BUFG_GT (Prop_BUFG_GT_I_O)
+                                                      0.114     2.195 r                       d_1_i/usp_rf_data_converter_0/inst/i_d_1_usp_rf_data_converter_0_0_bufg_gt_ctrl/adc0_bufg_gt/O
+                         net (fo=35, routed)          1.419     3.614                         d_1_i/clk_adc0_x2/inst/clk_in1
+    MMCM_X0Y3                                                         r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKIN1
+    MMCM_X0Y3            MMCME4_ADV (Prop_MMCM_CLKIN1_CLKOUT0)
+                                                      0.630     4.244 r                       d_1_i/clk_adc0_x2/inst/mmcme4_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.215     4.459                         d_1_i/clk_adc0_x2/inst/clk_out1_d_1_clk_adc0_x2_0
+    BUFGCE_X0Y76                                                      r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/I
+    BUFGCE_X0Y76         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     4.483 r                       d_1_i/clk_adc0_x2/inst/clkout1_buf/O
+    X4Y3 (CLOCK_ROOT)    net (fo=55571, routed)       1.324     5.807                         d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/ap_clk
+    SLICE_X106Y229       FDRE                                         r  pb_live              d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[8]/C
+                         clock pessimism             -0.399     5.408                           
+                         clock uncertainty           -0.051     5.356                           
+    SLICE_X106Y229       FDRE (Setup_BFF_SLICEL_C_D)
+                                                      0.025     5.381    pb_live                d_1_i/NN_live_0/inst/grp_NN_live_Pipeline_ACC_L_fu_236/n_fu_246_reg[8]
+  -------------------------------------------------------------------
+                         required time                          5.381                           
+                         arrival time                          -4.976                           
+  -------------------------------------------------------------------
+                         slack                                  0.405                           
+
+
+
+

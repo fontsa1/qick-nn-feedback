@@ -1,0 +1,6 @@
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+magic ok; frame errors 0 -> 0
+live window == boxcar buffer (ch1), sample for sample: 1000/1000
+NN_live fidelity (boxcar path, 1000 shots): 93.70%
+DAC clipping: 0 shots, 0 samples capped at 32766
+saved campaign_v144/revision/d22/A_d22_20000.npz

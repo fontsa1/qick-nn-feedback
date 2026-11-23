@@ -1,0 +1,17 @@
+BANNER: Firmware configuration (built Tue Nov 17 20:42:27 2026):
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+marker -> pulse at the gate input: [33] cycles
+E_pass - E_off: median 2.374e+07 (per-shot spread 0.001 of it); E_off median 7250
+
+ lead DELAY  leak fraction: median  mean [95% CI of the mean]   max shot
+  -36    69  +0.16881  +0.16651 [+0.16308, +0.16994]  +0.17923
+  -24    57  +0.02149  +0.02171 [+0.02092, +0.02250]  +0.02547
+  -12    45  +0.00120  +0.00117 [+0.00106, +0.00127]  +0.00209
+   -6    39  +0.00014  +0.00017 [+0.00011, +0.00024]  +0.00091
+    0    33  +0.00005  +0.00006 [+0.00000, +0.00011]  +0.00044
+    2    31  -0.00002  -0.00001 [-0.00007, +0.00005]  +0.00046
+    3    30  -0.00001  +0.00001 [-0.00004, +0.00007]  +0.00060
+    4    29  -0.00003  -0.00002 [-0.00008, +0.00003]  +0.00037
+
+leads 2-4: largest upper 95% bound on the leaked fraction +0.00007; positive control (negative leads) resolves a leak: True  (gate left disabled)
+saved campaign_v144/revision2/rebuilds/build2_lda_gate/board/B_leak_thr8.json

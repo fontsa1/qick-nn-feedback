@@ -1,0 +1,9 @@
+dac2_skew4050: M_PS 2034 SKEW_PS 4050 TOG_PS 0: sent 3000 received 3000 corrupted 0
+dac2_skew4068: M_PS 2034 SKEW_PS 4068 TOG_PS 0: sent 3000 received 3000 corrupted 0
+dac2_skew4075: M_PS 2034 SKEW_PS 4075 TOG_PS 0: sent 3000 received 3000 corrupted 0
+dac2_skew4100: M_PS 2034 SKEW_PS 4100 TOG_PS 0: sent 3000 received 3000 corrupted 0
+dac2_skew4250: M_PS 2034 SKEW_PS 4250 TOG_PS 0: sent 3000 received 3000 corrupted 0
+dac2_tog4000: M_PS 2034 SKEW_PS 0 TOG_PS 4000: sent 3000 received 3000 corrupted 0
+core_skew9900: M_PS 5000 SKEW_PS 9900 TOG_PS 0: sent 3000 received 3000 corrupted 0
+core_skew10100: M_PS 5000 SKEW_PS 10100 TOG_PS 0: sent 3000 received 3000 corrupted 71
+core_skew10500: M_PS 5000 SKEW_PS 10500 TOG_PS 0: sent 3000 received 3000 corrupted 333

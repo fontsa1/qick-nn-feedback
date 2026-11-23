@@ -18,7 +18,7 @@ Pyro4.config.PICKLE_PROTOCOL_VERSION = 4
 
 from qick import QickConfig  # noqa: E402
 
-NS_HOST = "10.1.9.26"
+NS_HOST = __import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address")
 NS_PORT = 8888
 PROXY_NAME = "myqick"
 

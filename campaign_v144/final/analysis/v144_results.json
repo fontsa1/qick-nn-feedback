@@ -154,6 +154,40 @@
    "note": ""
   },
   {
+   "section": "NN_live",
+   "key": "Logit and decision equal to the integer reference, both boards",
+   "value": "200,000/200,000 and 200,000/200,000",
+   "text": [
+    "200,000"
+   ],
+   "source": "campaign_v144/final/tests/logit_check/d22_v144_logit.txt",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "NN_live",
+   "key": "Floating-point model's decisions equal to the chip's, same rule (logit >= 1/64), headline shots",
+   "value": "99,400/99,400",
+   "text": [
+    "99,400",
+    "99,400"
+   ],
+   "source": "campaign_v144/final/analysis/offline/keras_vs_hls4ml.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "NN_live",
+   "key": "Floating-point vs fixed-point (hls4ml) probability, largest difference, headline shots",
+   "value": "0.005",
+   "text": [
+    "0.005"
+   ],
+   "source": "campaign_v144/final/analysis/offline/keras_vs_hls4ml.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
    "section": "Replay channel",
    "key": "Decisions agree between boards",
    "value": "98.80%",
@@ -1031,6 +1065,92 @@
    "note": ""
   },
   {
+   "section": "Linear baselines",
+   "key": "LDA on raw traces, first 320 recorded samples (1.04 \u00b5s)",
+   "value": "94.53%",
+   "text": [
+    "94.53",
+    "1.04"
+   ],
+   "source": "campaign_v144/final/analysis/s3/s3_live_window_lda.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA on raw traces, first 576 recorded samples (1.87 \u00b5s)",
+   "value": "96.10%",
+   "text": [
+    "96.10",
+    "1.87"
+   ],
+   "source": "campaign_v144/final/analysis/s3/s3_live_window_lda.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "NN_live vs LDA (FIR-770, FIR-576, boxcar-576), each board, 99,400: largest 95% CI bound",
+   "value": "0.192 points (within 0.2)",
+   "text": [
+    "0.19",
+    "0.2"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA on raw traces, all 770 recorded samples, 100,000 test traces",
+   "value": "95.975%",
+   "text": [
+    "95.98"
+   ],
+   "source": "campaign_v144/final/analysis/s3/s3_live_window_lda.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA at 576 samples, boxcar minus FIR path, headline 99,400; exact p",
+   "value": "-0.0986 points, 225 vs 323, p = 3.3e-05",
+   "text": [
+    "0.10",
+    "3e-5",
+    "576"
+   ],
+   "source": "campaign_v144/final/analysis/offline/lda_box_vs_fir.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "LDA, fixed ridge 1e-2, 770 samples, run 1, 99,400 rows, vs NN_live on the same shots",
+   "value": "95.69%, +0.086 points, exact p = 0.0044",
+   "text": [
+    "95.69",
+    "0.004",
+    "770"
+   ],
+   "source": "campaign_v144/final/analysis/s5_linear_99400_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Linear baselines",
+   "key": "Augmented models vs the deployed 4-unit network, board A replay, 16,000 shots: gain range; largest p",
+   "value": "0.143\u20130.262 points; p \u2264 0.038",
+   "text": [
+    "0.14",
+    "0.26",
+    "0.04"
+   ],
+   "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+   "kind": "bracketed",
+   "note": ""
+  },
+  {
    "section": "In the loop",
    "key": "Boards A vs B, 19,400 subset",
    "value": "131 vs 127, exact p = 0.85, difference +0.021 [-0.142, +0.183]",
@@ -1085,6 +1205,84 @@
    ],
    "source": "campaign_v144/final/analysis/v144_stats.json",
    "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "In the loop",
+   "key": "Board A, pulse-gain arms (15,000 rows): nominal / zero / max / gate off",
+   "value": "95.95% / 95.95% / 95.99% / 96.05%; smallest exact p vs nominal 0.29",
+   "text": [
+    "95.95",
+    "95.95",
+    "95.99",
+    "96.05",
+    "0.29",
+    "15,000"
+   ],
+   "source": "campaign_v144/final/inloop/arms/arms_analysis.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "In the loop",
+   "key": "Board B, pulse-gain arms (15,000 rows): nominal / zero / max / gate off",
+   "value": "95.91% / 95.96% / 95.90% / 96.03%; smallest exact p vs nominal 0.19",
+   "text": [
+    "95.91",
+    "95.96",
+    "95.90",
+    "96.03",
+    "0.19",
+    "15,000"
+   ],
+   "source": "campaign_v144/final/inloop/arms/arms_analysis.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "In the loop",
+   "key": "Board A, shortest clean shot period; record path kept up at every spacing",
+   "value": "11.5 \u00b5s; yes",
+   "text": [
+    "11.5"
+   ],
+   "source": "campaign_v144/final/tests/spacing/A_spacing.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "In the loop",
+   "key": "Board B, shortest clean shot period; record path kept up at every spacing",
+   "value": "11.5 \u00b5s; yes",
+   "text": [
+    "11.5"
+   ],
+   "source": "campaign_v144/final/tests/spacing/B_spacing.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "In the loop",
+   "key": "Shot spacing: shortest clean period A (coarse sweep) / B (fine sweep); longest failing period on B",
+   "value": "11.51 / 9.51 \u00b5s; 8.51 \u00b5s",
+   "text": [
+    "11.5",
+    "9.5",
+    "8.5"
+   ],
+   "source": "campaign_v144/final/tests/spacing/B_spacing_fine.log",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "In the loop",
+   "key": "In-loop campaign: shot rate A / B; time between shots",
+   "value": "5.35 / 5.36 shots/s; 0.187\u20130.187 s",
+   "text": [
+    "0.19"
+   ],
+   "source": "campaign_v144/final/inloop/A_inloop_0_100000.log",
+   "kind": "banner",
    "note": ""
   },
   {
@@ -1329,6 +1527,76 @@
     "562"
    ],
    "source": "campaign_v144/final/board3/B_tproc_thr_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Boards A and B, QICK threshold feedback (FIR): latest unclean margin; max |r| (port vs own window sum) below the earliest clean margin; min r from it; earliest clean margin",
+   "value": "80 ns; 0.30; 1.00; 100 ns",
+   "text": [
+    "80",
+    "0.30",
+    "1.00",
+    "100"
+   ],
+   "source": "campaign_v144/final/board3/threshold/A_threshold.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "tProc branch on the boxcar path, 245.76 MHz core (build 1), earliest clean margin, no-jump / jump form, A; B",
+   "value": "316.0 / 319.2 ns; 313.5 / 316.8 ns",
+   "text": [
+    "316.0",
+    "313.5",
+    "313",
+    "319"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/board/A_tproc_box_t245.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Measured saving against the tProc branch on the FIR path, A / B: total; boxcar path; gate (200 MHz); gate (245.76 MHz); tProc branch range at 200 MHz",
+   "value": "263.7 / 266.5; 103.3 / 105.3; 160.4 / 161.2; 139.8 / 139.7; 335.1\u2013340.3 ns",
+   "text": [
+    "265",
+    "103",
+    "105",
+    "160",
+    "140",
+    "340"
+   ],
+   "source": "campaign_v144/final/board2/A_tproc_box_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "Gate saving 140 / 160 ns at T1 = 32 us: t/(3T1); t/(2T1), points",
+   "value": "0.146 / 0.167; 0.219 / 0.250",
+   "text": [
+    "0.15",
+    "0.17",
+    "0.22",
+    "0.25"
+   ],
+   "source": "campaign_v144/final/board2/A_tproc_box_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "tProc path",
+   "key": "QICK threshold feedback fed from the boxcar path, earliest clean margin, A / B",
+   "value": "520.5 / 520.7 ns",
+   "text": [
+    "520.5",
+    "520.7"
+   ],
+   "source": "campaign_v144/final/board3/threshold/A_threshold.json",
    "kind": "banner",
    "note": ""
   },
@@ -1805,6 +2073,18 @@
    "note": ""
   },
   {
+   "section": "Replay channel",
+   "key": "Domain map fit on training rows vs test rows: headline change, 5 seeds",
+   "value": "-0.016 \u00b1 0.042 points",
+   "text": [
+    "0.016",
+    "0.042"
+   ],
+   "source": "campaign_v144/final/analysis/offline/map_trainrows_s20260905.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
    "section": "Readout path",
    "key": "Boxcar saves, board A",
    "value": "108.0 ns",
@@ -1834,6 +2114,79 @@
     "44.8"
    ],
    "source": "campaign_v144/final/fig7/fig7_capture_A_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Readout path",
+   "key": "Board A, edge shift vs the 50 MHz carrier, carriers up to 4800 MHz",
+   "value": "at most 0.32 ns",
+   "text": [
+    "0.32",
+    "4800"
+   ],
+   "source": "campaign_v144/final/latency/carrier/A_carrier.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Readout path",
+   "key": "Board A, per-shot capture jitter, no recorded trace (s.d.)",
+   "value": "0.77 samples, 1.4 ns",
+   "text": [
+    "0.77",
+    "1.4"
+   ],
+   "source": "campaign_v144/final/latency/jitter/A_jitter.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Readout path",
+   "key": "Board B, edge shift vs the 50 MHz carrier, carriers up to 4800 MHz",
+   "value": "at most 0.45 ns",
+   "text": [
+    "0.45",
+    "4800"
+   ],
+   "source": "campaign_v144/final/latency/carrier/B_carrier.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Readout path",
+   "key": "Board B, per-shot capture jitter, no recorded trace (s.d.)",
+   "value": "0.81 samples, 1.5 ns",
+   "text": [
+    "0.81",
+    "1.5"
+   ],
+   "source": "campaign_v144/final/latency/jitter/B_jitter.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Readout path",
+   "key": "Edge s.d. at the 500 and 1,500 MHz carriers, both boards: samples; ns",
+   "value": "0.273\u20130.293; 0.493\u20130.530",
+   "text": [
+    "0.27",
+    "0.29",
+    "0.49",
+    "0.53"
+   ],
+   "source": "campaign_v144/final/latency/carrier/A_carrier.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Readout path",
+   "key": "Boxcar minus FIR path, NN_live, board A, 99,400 rows (unrounded)",
+   "value": "+0.0845 points",
+   "text": [
+    "0.08"
+   ],
+   "source": "campaign_v144/final/analysis/box_vs_fir_v144.json",
    "kind": "banner",
    "note": ""
   },
@@ -1992,6 +2345,89 @@
    "note": ""
   },
   {
+   "section": "Loop latency",
+   "key": "Board A, 20 further loads: low / high group",
+   "value": "10 loads 173.66\u2013174.28 ns / 10 loads 175.77\u2013176.35 ns",
+   "text": [
+    "10",
+    "10",
+    "173.66",
+    "176.35"
+   ],
+   "source": "campaign_v144/final/latency/reloads/summary_A.md",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
+   "key": "Board B, 20 further loads: low / high group",
+   "value": "12 loads 174.03\u2013174.33 ns / 8 loads 175.94\u2013176.27 ns",
+   "text": [
+    "12",
+    "8",
+    "174.03",
+    "176.27"
+   ],
+   "source": "campaign_v144/final/latency/reloads/summary_A.md",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
+   "key": "Both boards, 40 further loads: low / high group, gap",
+   "value": "22 / 18 loads; 173.66\u2013174.33 / 175.77\u2013176.35 ns; gap 1.44 ns",
+   "text": [
+    "40",
+    "22",
+    "18",
+    "173.66",
+    "174.33",
+    "175.77",
+    "176.35",
+    "1.44"
+   ],
+   "source": "campaign_v144/final/latency/reloads/summary_A.md",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
+   "key": "Board A, one load, 20 runs: span, mean, s.d.",
+   "value": "110 min, 173.88 ns, s.d. 0.12 ns",
+   "text": [
+    "110",
+    "173.88",
+    "0.12"
+   ],
+   "source": "campaign_v144/final/latency/stability/A_st20.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
+   "key": "Board B, one load, 20 runs: span, mean, s.d.",
+   "value": "111 min, 174.06 ns, s.d. 0.11 ns",
+   "text": [
+    "111",
+    "174.06",
+    "0.11"
+   ],
+   "source": "campaign_v144/final/latency/stability/B_st20.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
+   "key": "Largest L_50 shift over all sensitivity sets (gain, carrier phase, no stimulus)",
+   "value": "0.766 ns (A_rv01.json, phase_90)",
+   "text": [
+    "0.8"
+   ],
+   "source": "campaign_v144/final/latency/reloads/A_rv01.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
    "section": "Implementation",
    "key": "NN_live LUT, rounded for prose",
    "value": "about 1,340",
@@ -2020,6 +2456,56 @@
    "text": [
     "3,303",
     "3,300"
+   ],
+   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "kind": "build-file",
+   "note": ""
+  },
+  {
+   "section": "Implementation",
+   "key": "Setup slack inside NN_live and on its outputs (v1.44 routed)",
+   "value": "1 to 31 ps",
+   "text": [
+    "1",
+    "31"
+   ],
+   "source": "firmware_v1.44/reports/v144_decision_path_slack.tsv",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Implementation",
+   "key": "Out-of-context margins, deployed RTL N = 1, 2, 4 (pblock), 16 (device); variant T N = 8",
+   "value": "+0.171 / +0.103 / +0.002 / +0.002 / +0.029",
+   "text": [
+    "0.17",
+    "0.10",
+    "0.002",
+    "0.029"
+   ],
+   "source": "scaling_study/v144/FINDINGS_v144.md",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Implementation",
+   "key": "Integration cost: OOC N = 1 margin minus the worst NN_live-path slack in v1.44",
+   "value": "at least 0.140 ns",
+   "text": [
+    "0.14"
+   ],
+   "source": "scaling_study/v144/FINDINGS_v144.md",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Implementation",
+   "key": "NN_axi LUTs: whole / window load loop / NN()",
+   "value": "160,861 / 105,328 / 54,923",
+   "text": [
+    "160,861",
+    "105,328",
+    "54,923"
    ],
    "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
@@ -2106,6 +2592,19 @@
    "note": ""
   },
   {
+   "section": "Safety and tests",
+   "key": "Leaked energy, DELAY from the 2000-amplitude crossing, leads 2-4, both boards: mean range; largest upper 95% bound",
+   "value": "0.251\u20130.430%; 0.450%",
+   "text": [
+    "0.25",
+    "0.43",
+    "0.45"
+   ],
+   "source": "campaign_v144/final/leak_energy/B_v144_leak_thr2000.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
    "section": "Replay-channel augmentation",
    "key": "seg_mlp trained on augmented data vs LDA, board A replay, 16,000 shots",
    "value": "95.79%, +0.26 points, b 73 vs c 31, p = 5e-05",
@@ -2179,24 +2678,594 @@
    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
    "kind": "bracketed",
    "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_live vs LDA FIR-770, board A, 99,400",
+   "value": "-0.109 points, 422 vs 530, exact p = 0.0005",
+   "text": [
+    "0.11",
+    "0.0005"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_axi emulated on the recorded FIR windows vs NN_live, board A, 99,400",
+   "value": "+0.108 points, 476 vs 369, exact p = 0.0003",
+   "text": [
+    "0.11",
+    "0.0003"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_axi emulated on the recorded FIR windows vs NN_live, board B, 99,400",
+   "value": "+0.056 points, 435 vs 379, exact p = 0.05",
+   "text": [
+    "0.06",
+    "0.05"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Boxcar vs FIR, board A, the 80,000 unused rows",
+   "value": "+0.096 points, 281 vs 204, exact p = 0.0005",
+   "text": [
+    "0.10",
+    "0.0005"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Boxcar vs FIR, board B, the 80,000 unused rows",
+   "value": "+0.138 points, 290 vs 180, exact p = 4e-07",
+   "text": [
+    "0.14",
+    "4e-07"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Boxcar vs FIR on the 80,000 unused rows, bound over both boards",
+   "value": "p \u2264 0.00055",
+   "text": [
+    "0.0006"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_live, board A, the 80,000 unused rows",
+   "value": "95.585%",
+   "text": [
+    "95.59"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_live, board B, the 80,000 unused rows",
+   "value": "95.651%",
+   "text": [
+    "95.65"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Noise s.d. per sample, pooled over both states, I / Q (fit-pool traces)",
+   "value": "836.2 / 836.9",
+   "text": [
+    "836",
+    "837"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t5_estimators.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Noise excess kurtosis, fit pool, pooled",
+   "value": "-0.0108",
+   "text": [
+    "0.01"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t5_estimators.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Noise s.d. per sample, largest deviation from its mean across the trace",
+   "value": "\u00b11.57%",
+   "text": [
+    "1.6"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t5_estimators.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Common-mode offset vs white-noise prediction, both states pooled, I / Q",
+   "value": "1.546 / 1.801",
+   "text": [
+    "1.5",
+    "1.8"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t5_estimators.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm over every p-value printed after pass 7: tests / survivors / largest surviving adjusted p",
+   "value": "36 / 9 / 0.0197",
+   "text": [
+    "36",
+    "0.02"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass7.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm over every p-value printed after pass 8: tests / survivors / largest surviving adjusted p",
+   "value": "38 / 11 / 0.0197",
+   "text": [
+    "38",
+    "0.02"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass8.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm over every p-value printed after pass 9: tests / survivors / largest surviving adjusted p",
+   "value": "42 / 12 / 0.0218",
+   "text": [
+    "42",
+    "0.022"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass9.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm-adjusted p after pass 9: board B in-loop vs gate-idle; zero vs nominal gain, board A",
+   "value": "0.525; 0.660",
+   "text": [
+    "0.52",
+    "0.66"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass9.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_live vs LDA FIR-770, board A, the 80,000 unused rows",
+   "value": "-0.138 points, 328 vs 438, exact p = 8e-05",
+   "text": [
+    "0.14",
+    "8e-5"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_live vs LDA FIR-770, board B, the 80,000 unused rows",
+   "value": "-0.045 points, 342 vs 378, exact p = 0.19",
+   "text": [
+    "0.04",
+    "0.19"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "NN_live, board B \u2212 board A, 99,400 [95% CI]",
+   "value": "+0.068 [+0.000, +0.136]",
+   "text": [
+    "0.07",
+    "0.00",
+    "0.14"
+   ],
+   "source": "campaign_v144/final/analysis/stats/t2346_paired.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm over every p-value printed after pass 9b: tests / survivors / largest surviving adjusted p",
+   "value": "44 / 13 / 0.0225",
+   "text": [
+    "44",
+    "0.023"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass9b.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm-adjusted p after pass 9b: board B in-loop vs gate-idle; zero vs nominal gain, board A",
+   "value": "0.543; 0.685",
+   "text": [
+    "0.54",
+    "0.68"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass9b.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm over every p-value printed after pass 11: tests / survivors / largest surviving adjusted p",
+   "value": "51 / 17 / 0.0269",
+   "text": [
+    "51",
+    "0.027"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass11.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Paired statistics",
+   "key": "Holm-adjusted p after pass 11: board B in-loop vs gate-idle; zero vs nominal gain, board A",
+   "value": "0.562; 0.709",
+   "text": [
+    "0.56",
+    "0.71"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass11.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Data protocol",
+   "key": "Fixed leakage audit (verify_no_leakage_fixed.py): checks passed",
+   "value": "29 of 29",
+   "text": [
+    "29"
+   ],
+   "source": "campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Data protocol",
+   "key": "Map refit on training rows 300,000-300,599 vs the deployed map, deployed seed, run-1 mix, 99,400",
+   "value": "-0.082 points, 207 vs 289, exact p = 0.0003",
+   "text": [
+    "0.08",
+    "0.0003"
+   ],
+   "source": "campaign_v144/final/analysis/protocol/task2_summary.json",
+   "kind": "name+date",
+   "note": "rows 300,000-300,599 from the refit's capture names"
+  },
+  {
+   "section": "Data protocol",
+   "key": "Map refit on the map's test rows of the v1.44 capture vs the deployed map, deployed seed, run-1 mix, 99,400",
+   "value": "-0.071 points, 217 vs 288, exact p = 0.002",
+   "text": [
+    "0.07",
+    "0.002"
+   ],
+   "source": "campaign_v144/final/analysis/protocol/task2_summary.json",
+   "kind": "name+date",
+   "note": "rows 300,000-300,599 from the refit's capture names"
+  },
+  {
+   "section": "Data protocol",
+   "key": "Row roles read from the scripts: baselines 0-199,999; retrain of [16] 900,000 rows; map refit 300,000-300,599; augmentation channel fit on subset rows 0-3,999",
+   "value": "design constants",
+   "text": [
+    "199,999",
+    "900,000",
+    "300,000",
+    "300,599",
+    "3,999"
+   ],
+   "source": "campaign_v144/final/analysis/protocol/REPORT.md",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Further measurements",
+   "key": "Board A, longest shot period that failed",
+   "value": "6.51 \u00b5s",
+   "text": [
+    "6.5"
+   ],
+   "source": "campaign_v144/final/tests/spacing/A_spacing.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Further measurements",
+   "key": "Board B, longest shot period that failed",
+   "value": "6.51 \u00b5s",
+   "text": [
+    "6.5"
+   ],
+   "source": "campaign_v144/final/tests/spacing/B_spacing.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Feed-forward loop",
+   "key": "QICK stock front end inside S_fe (S_fe minus the boxcar path's 9 + 5 cycles), low / high group",
+   "value": "13.0 / 12.9 ns",
+   "text": [
+    "13"
+   ],
+   "source": "campaign_v144/final/analysis/loop_groups_values_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Build 1 (tProc core at 245.76 MHz): design WNS",
+   "value": "-35 ps",
+   "text": [
+    "35"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board A, tProc 245.76 MHz: QICK threshold feedback (FIR), earliest clean margin",
+   "value": "501.6 ns at +100 ns, 59/59 fresh",
+   "text": [
+    "501.6"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/board/A_threshold_t245.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board A, tProc 245.76 MHz: gate loop L_50 (one load)",
+   "value": "176.16 ns",
+   "text": [
+    "176.2"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/board/A_b1_latency.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board B, tProc 245.76 MHz: QICK threshold feedback (FIR), earliest clean margin",
+   "value": "501.0 ns at +100 ns, 59/59 fresh",
+   "text": [
+    "501.0"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/board/B_threshold_t245.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board B, tProc 245.76 MHz: gate loop L_50 (one load)",
+   "value": "173.78 ns",
+   "text": [
+    "173.8"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/board/B_b1_latency.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "QICK threshold feedback, 200 minus 245.76 MHz tProc, A / B; range over both clocks",
+   "value": "19.8 / 20.8 ns; 501.0\u2013521.8 ns",
+   "text": [
+    "20",
+    "500",
+    "520"
+   ],
+   "source": "campaign_v144/final/board3/A_tproc_thr_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "LDA_live 1.1 in NN_live's slot (build 2b): routed LUTs",
+   "value": "361",
+   "text": [
+    "361"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board A, LDA_live: gate loop L_50 (one load); result \u2212 last sample",
+   "value": "173.62 ns; result - last: [9] cycles",
+   "text": [
+    "173.6",
+    "9 cycles"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/board/A_b2_latency.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board B, LDA_live: gate loop L_50 (one load); result \u2212 last sample",
+   "value": "173.66 ns; result - last: [9] cycles",
+   "text": [
+    "173.7",
+    "9 cycles"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/board/B_b2_latency.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "LDA_live on the boards: shots bit-exact against lda_model.py (D, logit, decision)",
+   "value": "100,000 of 100,000",
+   "text": [
+    "100,000"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "LDA_live on the boards, headline mosaic: LDA_live / NN_live (v1.44, same rows); NN \u2212 LDA, exact p",
+   "value": "95.54% / 95.60%; +0.063, p = 0.093",
+   "text": [
+    "95.54",
+    "95.60",
+    "0.09"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "LDA_live model on the stored windows, headline mosaic: LDA; NN \u2212 LDA, exact p",
+   "value": "95.47%; +0.128, p = 1.0e-06",
+   "text": [
+    "95.47",
+    "0.13",
+    "1.0e-6"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/lda_csim_score.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board A, pulse-gain arms on 99,400 traces: zero \u2212 nominal [95% CI], exact p",
+   "value": "-0.078 [-0.146, -0.011], p = 0.024",
+   "text": [
+    "0.08",
+    "0.024",
+    "0.15",
+    "0.01"
+   ],
+   "source": "campaign_v144/final/inloop/arms/arms_full_analysis.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board B, pulse-gain arms on 99,400 traces: zero \u2212 nominal [95% CI], exact p",
+   "value": "+0.002 [-0.066, +0.070], p = 0.977",
+   "text": [
+    "0.00",
+    "0.98",
+    "0.07",
+    "0.07"
+   ],
+   "source": "campaign_v144/final/inloop/arms/arms_full_analysis.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "QICK threshold feedback over both tProc clocks and both boards: lowest; highest (earliest clean margins)",
+   "value": "501.0; 521.8 ns",
+   "text": [
+    "501",
+    "522"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/board/B_threshold_t245.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Build 2 (LDA_live 1.0, weights in logic): design WNS",
+   "value": "-94 ps",
+   "text": [
+    "94"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/reports/v1.44lda_routed_timing.rpt",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Same bit-exact LDA, headline mosaic: later board session minus stored v1.44 windows",
+   "value": "+0.064 points",
+   "text": [
+    "0.06"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Board A, nominal-gain arm vs gate-idle run 2 (rows 50,000-99,999): difference, exact p",
+   "value": "+0.117, p = 0.018, n = 50,000",
+   "text": [
+    "0.12",
+    "0.02",
+    "50,000"
+   ],
+   "source": "campaign_v144/final/inloop/arms/arms_full_analysis.json",
+   "kind": "name+date",
+   "note": ""
   }
  ],
  "sources": {
   "campaign_v144/final/inloop/A_inloop_0_100000.log": {
    "kind": "banner",
-   "sha256": "1922a79a7e2cab5c"
+   "sha256": "03b61cfafb122c97"
   },
   "campaign_v144/final/axi/A_axi_0.log": {
    "kind": "banner",
-   "sha256": "c3b93586aabb079f"
+   "sha256": "43a9978dadee25cc"
   },
   "campaign_v144/final/inloop/B_inloop_0_100000.log": {
    "kind": "banner",
-   "sha256": "ec326abcb9231be0"
+   "sha256": "b00c720576736b82"
   },
   "campaign_v144/final/axi/B_axi_0.log": {
    "kind": "banner",
-   "sha256": "dfe973aee29391bc"
+   "sha256": "1e334721a07eb5d9"
   },
   "campaign_v144/final/analysis/merged_live.npz": {
    "kind": "bracketed",
@@ -2204,31 +3273,31 @@
   },
   "campaign_v144/final/analysis/v144_stats.json": {
    "kind": "bracketed",
-   "sha256": "45a7edfe27857ce7"
+   "sha256": "fea253ee6079b96d"
   },
   "campaign_v144/final/analysis/axi_emu_v144.json": {
    "kind": "banner",
-   "sha256": "3ec37bb5b00f4e2b"
+   "sha256": "2b26ab726eb43dea"
   },
   "campaign_v144/final/leak_energy/A_v144_leak_thr8.json": {
    "kind": "banner",
-   "sha256": "bbebc46afafebc42"
+   "sha256": "10739c19a4a0502d"
   },
   "campaign_v144/final/leak_energy/A_v144_leak_thr2000.json": {
    "kind": "banner",
-   "sha256": "523313e16deee907"
+   "sha256": "264f6f682dae001a"
   },
   "campaign_v144/final/leak_energy/B_v144_leak_thr8.json": {
    "kind": "banner",
-   "sha256": "b7d992544d1cfc63"
+   "sha256": "0945fca9da2ac912"
   },
   "campaign_v144/final/leak_energy/B_v144_leak_thr2000.json": {
    "kind": "banner",
-   "sha256": "688475a68c6469f0"
+   "sha256": "8db8d98818b4ee84"
   },
   "campaign_v144/final/board2/A_tproc_box_v144.json": {
    "kind": "banner",
-   "sha256": "528e902b3dd75b50"
+   "sha256": "10139513f25eb1cc"
   },
   "campaign_v144/final/board2/swap_A_own_v144.npz": {
    "kind": "banner",
@@ -2240,43 +3309,43 @@
   },
   "campaign_v144/final/board2/A_phrst_probe_v144.json": {
    "kind": "banner",
-   "sha256": "01275920f6172778"
+   "sha256": "b49d07e47f17071a"
   },
   "campaign_v144/final/analysis/box_vs_fir_v144.json": {
    "kind": "banner",
-   "sha256": "c5cde1fca59cc5e1"
+   "sha256": "d706de7044dcf916"
   },
   "campaign_v144/final/analysis/r9/r9_stats_v144.json": {
    "kind": "banner",
-   "sha256": "e4bc68812c608fb5"
+   "sha256": "0fa81cfe135c6889"
   },
   "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json": {
    "kind": "banner",
-   "sha256": "866e0be513b5f5a4"
+   "sha256": "352bfac52b43e8d2"
   },
   "campaign_v144/final/analysis/channel_v144.json": {
    "kind": "banner",
-   "sha256": "a4e56c4d9ea3fcaa"
+   "sha256": "8c249fefa247cdad"
   },
   "campaign_v144/final/fig7/fig7_capture_A_v144.json": {
    "kind": "banner",
-   "sha256": "facaffb61c80e314"
+   "sha256": "ab200532b2c0cba8"
   },
   "campaign_v144/final/fig7/fig7_capture_B_v144.json": {
    "kind": "banner",
-   "sha256": "bc31e4a49a405428"
+   "sha256": "9d688aab5ea28d98"
   },
   "campaign_v144/final/fig7/fig7_sweep_A_v144.json": {
    "kind": "banner",
-   "sha256": "4e86fc1455e65be0"
+   "sha256": "9a0b254379eeeb72"
   },
   "campaign_v144/final/fig7/fig7_sweep_B_v144.json": {
    "kind": "banner",
-   "sha256": "56ffd680c9fb5b40"
+   "sha256": "c500b1856a7b9268"
   },
   "paper_tables/table3/data/v1.44_routed_timing.rpt": {
    "kind": "build-file",
-   "sha256": "1ebbeaef81ce1387"
+   "sha256": "31c65d1a52a705bc"
   },
   "paper_tables/table3/data/v1.44_routed_util_hier.rpt": {
    "kind": "build-file",
@@ -2288,107 +3357,459 @@
   },
   "campaign_v144/final/analysis/loop_groups_values_v144.json": {
    "kind": "banner",
-   "sha256": "9a0d0acf83d0e6e1"
+   "sha256": "378826afda6e03c6"
   },
   "campaign_v144/final/fig8b/A_gate_probe.log": {
    "kind": "banner",
-   "sha256": "046616953cafcd20"
+   "sha256": "d7e48eff3b1f2d4e"
   },
   "campaign_v144/final/fig8b/B_gate_probe.log": {
    "kind": "banner",
-   "sha256": "aa00a603590ce3f0"
+   "sha256": "af684e02e72b9653"
   },
   "campaign_v144/final/analysis/s2/arch_aug_v144.json": {
    "kind": "bracketed",
-   "sha256": "8c5025d2e709f43d"
+   "sha256": "339672fd79d9a8d3"
   },
   "campaign_v144/final/analysis/s5_linear_99400_v144.json": {
    "kind": "bracketed",
-   "sha256": "f6d89249bdde40f7"
+   "sha256": "e06e928ad981dc48"
+  },
+  "campaign_v144/final/latency/reloads/summary_A.md": {
+   "kind": "banner",
+   "sha256": "b03130cc96feab0f"
+  },
+  "campaign_v144/final/latency/stability/A_st01.json": {
+   "kind": "banner",
+   "sha256": "59c4db42cf51f70f"
+  },
+  "campaign_v144/final/latency/stability/A_st02.json": {
+   "kind": "banner",
+   "sha256": "7b3db3ca94ad78ab"
+  },
+  "campaign_v144/final/latency/stability/A_st03.json": {
+   "kind": "banner",
+   "sha256": "ea2fc9047cfa862d"
+  },
+  "campaign_v144/final/latency/stability/A_st04.json": {
+   "kind": "banner",
+   "sha256": "66f91e972eaeed72"
+  },
+  "campaign_v144/final/latency/stability/A_st05.json": {
+   "kind": "banner",
+   "sha256": "9d5041b99f961943"
+  },
+  "campaign_v144/final/latency/stability/A_st06.json": {
+   "kind": "banner",
+   "sha256": "e5af7ddb7c70b0a4"
+  },
+  "campaign_v144/final/latency/stability/A_st07.json": {
+   "kind": "banner",
+   "sha256": "223a560c6e344bab"
+  },
+  "campaign_v144/final/latency/stability/A_st08.json": {
+   "kind": "banner",
+   "sha256": "44629970b846797e"
+  },
+  "campaign_v144/final/latency/stability/A_st09.json": {
+   "kind": "banner",
+   "sha256": "7e203f4e8367a0eb"
+  },
+  "campaign_v144/final/latency/stability/A_st10.json": {
+   "kind": "banner",
+   "sha256": "d8e69b0cf29753cb"
+  },
+  "campaign_v144/final/latency/stability/A_st11.json": {
+   "kind": "banner",
+   "sha256": "02e2cc9c7c8f9e12"
+  },
+  "campaign_v144/final/latency/stability/A_st12.json": {
+   "kind": "banner",
+   "sha256": "df55c09d021c7212"
+  },
+  "campaign_v144/final/latency/stability/A_st13.json": {
+   "kind": "banner",
+   "sha256": "a2c3d00bb87a0942"
+  },
+  "campaign_v144/final/latency/stability/A_st14.json": {
+   "kind": "banner",
+   "sha256": "7c88704ce03675cb"
+  },
+  "campaign_v144/final/latency/stability/A_st15.json": {
+   "kind": "banner",
+   "sha256": "018bfced837e3491"
+  },
+  "campaign_v144/final/latency/stability/A_st16.json": {
+   "kind": "banner",
+   "sha256": "a74de6d0059678f5"
+  },
+  "campaign_v144/final/latency/stability/A_st17.json": {
+   "kind": "banner",
+   "sha256": "f51ae7b56bf35ec1"
+  },
+  "campaign_v144/final/latency/stability/A_st18.json": {
+   "kind": "banner",
+   "sha256": "b9b3cf919328f78d"
+  },
+  "campaign_v144/final/latency/stability/A_st19.json": {
+   "kind": "banner",
+   "sha256": "62669cdb91132703"
+  },
+  "campaign_v144/final/latency/stability/A_st20.json": {
+   "kind": "banner",
+   "sha256": "fdf3b8c5edd0899c"
+  },
+  "campaign_v144/final/latency/stability/B_st01.json": {
+   "kind": "banner",
+   "sha256": "22b4c8717443c62e"
+  },
+  "campaign_v144/final/latency/stability/B_st02.json": {
+   "kind": "banner",
+   "sha256": "4d0b3ad0539b06aa"
+  },
+  "campaign_v144/final/latency/stability/B_st03.json": {
+   "kind": "banner",
+   "sha256": "c8d9f302fd9036cc"
+  },
+  "campaign_v144/final/latency/stability/B_st04.json": {
+   "kind": "banner",
+   "sha256": "3ce98c175c4fa7ce"
+  },
+  "campaign_v144/final/latency/stability/B_st05.json": {
+   "kind": "banner",
+   "sha256": "2471fd14f68b58ad"
+  },
+  "campaign_v144/final/latency/stability/B_st06.json": {
+   "kind": "banner",
+   "sha256": "80c6e5085c27f560"
+  },
+  "campaign_v144/final/latency/stability/B_st07.json": {
+   "kind": "banner",
+   "sha256": "705eca7a45a12d4f"
+  },
+  "campaign_v144/final/latency/stability/B_st08.json": {
+   "kind": "banner",
+   "sha256": "260168dcba6ac7bf"
+  },
+  "campaign_v144/final/latency/stability/B_st09.json": {
+   "kind": "banner",
+   "sha256": "f66fafdc10b4d6a7"
+  },
+  "campaign_v144/final/latency/stability/B_st10.json": {
+   "kind": "banner",
+   "sha256": "776897a3f7aba77a"
+  },
+  "campaign_v144/final/latency/stability/B_st11.json": {
+   "kind": "banner",
+   "sha256": "784cbfd09c41fd47"
+  },
+  "campaign_v144/final/latency/stability/B_st12.json": {
+   "kind": "banner",
+   "sha256": "f4174db3cb99d2bb"
+  },
+  "campaign_v144/final/latency/stability/B_st13.json": {
+   "kind": "banner",
+   "sha256": "bf1f2eee62d5335f"
+  },
+  "campaign_v144/final/latency/stability/B_st14.json": {
+   "kind": "banner",
+   "sha256": "37cba6f293b1d251"
+  },
+  "campaign_v144/final/latency/stability/B_st15.json": {
+   "kind": "banner",
+   "sha256": "fb200d12c4b80601"
+  },
+  "campaign_v144/final/latency/stability/B_st16.json": {
+   "kind": "banner",
+   "sha256": "6f49e944d96080ec"
+  },
+  "campaign_v144/final/latency/stability/B_st17.json": {
+   "kind": "banner",
+   "sha256": "eb063a007cfa93d4"
+  },
+  "campaign_v144/final/latency/stability/B_st18.json": {
+   "kind": "banner",
+   "sha256": "90c9bf71fe4cbcbf"
+  },
+  "campaign_v144/final/latency/stability/B_st19.json": {
+   "kind": "banner",
+   "sha256": "93740f51b0da5508"
+  },
+  "campaign_v144/final/latency/stability/B_st20.json": {
+   "kind": "banner",
+   "sha256": "01b78f9b3be0456c"
+  },
+  "campaign_v144/final/inloop/arms/arms_analysis.json": {
+   "kind": "banner",
+   "sha256": "3c47900d7e9ac4ca"
+  },
+  "campaign_v144/final/latency/carrier/A_carrier.json": {
+   "kind": "banner",
+   "sha256": "e6f0996b8ad4fbd6"
+  },
+  "campaign_v144/final/latency/jitter/A_jitter.json": {
+   "kind": "banner",
+   "sha256": "1da45c7479203669"
+  },
+  "campaign_v144/final/tests/spacing/A_spacing.json": {
+   "kind": "banner",
+   "sha256": "3289e3d24e49ed38"
+  },
+  "campaign_v144/final/latency/carrier/B_carrier.json": {
+   "kind": "banner",
+   "sha256": "0efa69be8e3187aa"
+  },
+  "campaign_v144/final/latency/jitter/B_jitter.json": {
+   "kind": "banner",
+   "sha256": "7bcff207f022d745"
+  },
+  "campaign_v144/final/tests/spacing/B_spacing.json": {
+   "kind": "banner",
+   "sha256": "ba9de25d4345fc39"
+  },
+  "campaign_v144/final/tests/logit_check/d22_v144_logit.txt": {
+   "kind": "name+date",
+   "sha256": "84b80294e1975edd"
+  },
+  "campaign_v144/final/analysis/offline/keras_vs_hls4ml.json": {
+   "kind": "name+date",
+   "sha256": "10686120e21ed2ff"
+  },
+  "campaign_v144/final/analysis/offline/map_trainrows_s20260901.json": {
+   "kind": "name+date",
+   "sha256": "62e59e88ff0ec4b5"
+  },
+  "campaign_v144/final/analysis/offline/map_trainrows_s20260902.json": {
+   "kind": "name+date",
+   "sha256": "bc52ffb26f3fc622"
+  },
+  "campaign_v144/final/analysis/offline/map_trainrows_s20260903.json": {
+   "kind": "name+date",
+   "sha256": "9c0f3aae89c86458"
+  },
+  "campaign_v144/final/analysis/offline/map_trainrows_s20260904.json": {
+   "kind": "name+date",
+   "sha256": "bdda32a9696dc42b"
+  },
+  "campaign_v144/final/analysis/offline/map_trainrows_s20260905.json": {
+   "kind": "name+date",
+   "sha256": "1cc28ac890ce82b4"
+  },
+  "campaign_v144/final/analysis/s3/s3_live_window_lda.json": {
+   "kind": "name+date",
+   "sha256": "122cb2f1a43aa8a1"
+  },
+  "campaign_v144/final/analysis/stats/t2346_paired.json": {
+   "kind": "name+date",
+   "sha256": "46d2fced1c7aac54"
+  },
+  "campaign_v144/final/analysis/stats/t5_estimators.json": {
+   "kind": "name+date",
+   "sha256": "47a5badd5f0e2755"
+  },
+  "campaign_v144/final/analysis/stats/holm_pass7.json": {
+   "kind": "name+date",
+   "sha256": "576814bb499d33f0"
+  },
+  "campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log": {
+   "kind": "name+date",
+   "sha256": "a22db89134caf45b"
+  },
+  "campaign_v144/final/analysis/protocol/task2_summary.json": {
+   "kind": "name+date",
+   "sha256": "47f6c43154ef41dd"
+  },
+  "campaign_v144/final/analysis/protocol/REPORT.md": {
+   "kind": "name+date",
+   "sha256": "d981f679731f5478"
+  },
+  "firmware_v1.44/reports/v144_decision_path_slack.tsv": {
+   "kind": "name+date",
+   "sha256": "75af06c8a6f3474c"
+  },
+  "scaling_study/v144/FINDINGS_v144.md": {
+   "kind": "name+date",
+   "sha256": "31dbcd0b6390f45b"
+  },
+  "campaign_v144/final/analysis/stats/holm_pass8.json": {
+   "kind": "name+date",
+   "sha256": "c60bb06a9d8a78a5"
   },
   "campaign_v144/final/analysis/linear_v144_A.json": {
    "kind": "banner",
-   "sha256": "6fa856e42f6e86a4"
+   "sha256": "4b86f785e5fef4f5"
   },
   "campaign_v144/final/board2/A_tproc_fir_v144.json": {
    "kind": "banner",
-   "sha256": "cf1ed52535c24cd1"
+   "sha256": "2e0b46dbe16b3fc1"
   },
   "campaign_v144/final/board2/A_boxcar_mr_v144.json": {
    "kind": "banner",
-   "sha256": "af15f25d9bc4f9bb"
+   "sha256": "89fa8cd84a1847a7"
   },
   "campaign_v144/final/tests/A_binding_fault.json": {
    "kind": "banner",
-   "sha256": "c11fa34db80cf9d0"
+   "sha256": "f5e86f9f26fb3e2c"
   },
   "campaign_v144/final/tests/A_fail_safe.json": {
    "kind": "banner",
-   "sha256": "a7194b2b8040c987"
+   "sha256": "b821c10396b412e0"
   },
   "campaign_v144/final/tests/A_tproc_decision.json": {
    "kind": "banner",
-   "sha256": "785fddc3754c5f18"
+   "sha256": "53e2d77fa1c61ff1"
   },
   "campaign_v144/final/tests/A_functional.json": {
    "kind": "banner",
-   "sha256": "fa922986b964c86d"
+   "sha256": "020682d7e516ccec"
   },
   "campaign_v144/final/board3/A_tproc_thr_v144.json": {
    "kind": "banner",
-   "sha256": "409ea2e5d669b832"
+   "sha256": "2a7dd13c94ace808"
   },
   "campaign_v144/final/board3/A_tproc_thr_fine_v144.json": {
    "kind": "banner",
-   "sha256": "6d55ce9b48194a25"
+   "sha256": "98cca3ae5205282c"
   },
   "campaign_v144/final/analysis/linear_v144_B.json": {
    "kind": "banner",
-   "sha256": "d8af95721eb5e0f9"
+   "sha256": "97bdfdc9fea7b27b"
   },
   "campaign_v144/final/board2/B_tproc_box_v144.json": {
    "kind": "banner",
-   "sha256": "0eb5255152794802"
+   "sha256": "f5ac3a20f24aff24"
   },
   "campaign_v144/final/board2/B_tproc_fir_v144.json": {
    "kind": "banner",
-   "sha256": "cf38e57c1a2e6979"
+   "sha256": "2cde0fab915c7c2a"
   },
   "campaign_v144/final/board2/B_boxcar_mr_v144.json": {
    "kind": "banner",
-   "sha256": "e9cc382965fee9f3"
+   "sha256": "d10ad963d32efeda"
   },
   "campaign_v144/final/tests/B_binding_fault.json": {
    "kind": "banner",
-   "sha256": "e8764e968eafa5d0"
+   "sha256": "ddf248a660c02c9a"
   },
   "campaign_v144/final/tests/B_fail_safe.json": {
    "kind": "banner",
-   "sha256": "9f3203a2ee5a920d"
+   "sha256": "491ea8735e9f27af"
   },
   "campaign_v144/final/tests/B_tproc_decision.json": {
    "kind": "banner",
-   "sha256": "87be25aee1aa7123"
+   "sha256": "09194c9ffce824d9"
   },
   "campaign_v144/final/tests/B_functional.json": {
    "kind": "banner",
-   "sha256": "60419b1da3256897"
+   "sha256": "548796aa04cd35ea"
   },
   "campaign_v144/final/board3/B_tproc_thr_v144.json": {
    "kind": "banner",
-   "sha256": "ad36dc61cf120a20"
+   "sha256": "3172d2278ea7f531"
   },
   "campaign_v144/final/board3/B_tproc_thr_fine_v144.json": {
    "kind": "banner",
-   "sha256": "8f30e2850fd7e048"
+   "sha256": "b1789e33313f468f"
   },
   "campaign_v144/final/drift_full/drift_10.1.9.26.json": {
    "kind": "banner",
-   "sha256": "bab61f3850acdf8a"
+   "sha256": "ee84836267b43327"
   },
   "campaign_v144/final/drift_full/drift_10.1.4.105.json": {
    "kind": "banner",
-   "sha256": "52753091e7c614fa"
+   "sha256": "fbac2f012bb3324d"
+  },
+  "firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt": {
+   "kind": "name+date",
+   "sha256": "33142f417be07776"
+  },
+  "firmware_v1.44/variants/tproc245/board/A_threshold_t245.json": {
+   "kind": "name+date",
+   "sha256": "67de8835f7054961"
+  },
+  "firmware_v1.44/variants/tproc245/board/A_b1_latency.json": {
+   "kind": "name+date",
+   "sha256": "a7f4bd5e894fdf7d"
+  },
+  "firmware_v1.44/variants/tproc245/board/B_threshold_t245.json": {
+   "kind": "name+date",
+   "sha256": "46b6f4619f9eff7f"
+  },
+  "firmware_v1.44/variants/tproc245/board/B_b1_latency.json": {
+   "kind": "name+date",
+   "sha256": "b7daec3f61f0c03e"
+  },
+  "firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt": {
+   "kind": "name+date",
+   "sha256": "da8f984b7769be2b"
+  },
+  "firmware_v1.44/variants/lda_gate/board/A_b2_latency.json": {
+   "kind": "name+date",
+   "sha256": "67d81ff5a9877f0d"
+  },
+  "firmware_v1.44/variants/lda_gate/board/B_b2_latency.json": {
+   "kind": "name+date",
+   "sha256": "b1e6ce142f3a93ee"
+  },
+  "firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json": {
+   "kind": "name+date",
+   "sha256": "2403bc6324556463"
+  },
+  "firmware_v1.44/variants/lda_gate/lda_csim_score.json": {
+   "kind": "name+date",
+   "sha256": "b51d749e5c6e17ae"
+  },
+  "campaign_v144/final/inloop/arms/arms_full_analysis.json": {
+   "kind": "name+date",
+   "sha256": "8cd06a7fe7198e62"
+  },
+  "campaign_v144/final/analysis/stats/holm_pass9.json": {
+   "kind": "name+date",
+   "sha256": "3f44807ffa47d398"
+  },
+  "campaign_v144/final/board3/threshold/A_threshold.json": {
+   "kind": "banner",
+   "sha256": "fbdf9335f4c46dab"
+  },
+  "campaign_v144/final/board3/threshold/B_threshold.json": {
+   "kind": "banner",
+   "sha256": "da32bd853041b6b4"
+  },
+  "campaign_v144/final/analysis/stats/holm_pass9b.json": {
+   "kind": "name+date",
+   "sha256": "aaf354b4d2ea4e98"
+  },
+  "campaign_v144/final/tests/spacing/A_spacing.log": {
+   "kind": "banner",
+   "sha256": "e9afeeacfee163a3"
+  },
+  "campaign_v144/final/tests/spacing/B_spacing_fine.log": {
+   "kind": "banner",
+   "sha256": "ac3564f6f066c257"
+  },
+  "campaign_v144/final/analysis/offline/lda_box_vs_fir.json": {
+   "kind": "name+date",
+   "sha256": "71a8c3b7cac3f01d"
+  },
+  "firmware_v1.44/variants/tproc245/board/A_tproc_box_t245.json": {
+   "kind": "name+date",
+   "sha256": "83846eb98b47a233"
+  },
+  "firmware_v1.44/variants/tproc245/board/B_tproc_box_t245.json": {
+   "kind": "name+date",
+   "sha256": "c678dee45021ec08"
+  },
+  "campaign_v144/final/latency/reloads/A_rv01.json": {
+   "kind": "name+date",
+   "sha256": "62b5ce460be127c3"
+  },
+  "firmware_v1.44/variants/lda_gate/reports/v1.44lda_routed_timing.rpt": {
+   "kind": "name+date",
+   "sha256": "721127e4bb613671"
+  },
+  "campaign_v144/final/analysis/stats/holm_pass11.json": {
+   "kind": "name+date",
+   "sha256": "61a5349082f7e93f"
   },
   "campaign_v144/final/board2/swap_B_on_A_calibration_v144.npz": {
    "kind": "banner",
@@ -2397,5 +3818,5 @@
  },
  "pending": 0,
  "waiting_for": [],
- "md_sha256": "cdcbe0137371fb7fd72a25035b04c9652b6f788ea1006cb67f8d37b3c886a22a"
+ "md_sha256": "3f804845e43f4f2d046fcf85f9cbe8437cb4ee0405e24d5dc5734478e688d767"
 }

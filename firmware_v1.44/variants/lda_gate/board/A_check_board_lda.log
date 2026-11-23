@@ -1,0 +1,4 @@
+headline_mosaic: n=99400 LDA_live (board) 95.537  NN_live v1.44 95.600
+A_full: n=49400 LDA_live (board) 95.615  NN_live v1.44 95.636
+B_full: n=50000 LDA_live (board) 95.459  NN_live v1.44 95.565
+bit-exact vs lda_model: {'D': 0, 'logit': 0, 'dec': 0, 'n': 100000}

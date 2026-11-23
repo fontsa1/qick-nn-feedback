@@ -1,0 +1,74 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date              : Mon Nov 16 00:38:32 2026
+| Host              : Yugger running 64-bit major release  (build 9200)
+| Command           : report_cdc -from [get_clocks -of_objects [get_pins d_1_i/live_res_cdc_1/s_aclk]] -to [get_clocks -of_objects [get_pins d_1_i/live_res_cdc_0/m_aclk]] -details -file C:/Users/fonte/coding/qick_project/campaign_v144/revision2/fpga/reports/v144_cdc_adc0x2_to_core.rpt
+| Design            : d_1_wrapper
+| Device            : xczu48dr-ffvg1517
+| Speed File        : -2  PRODUCTION 1.32 01-31-2021
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CDC Report
+
+ID      Severity  Count  Description
+------  --------  -----  ----------------------------------------------
+CDC-3   Info          1  1-bit synchronized with ASYNC_REG property
+CDC-15  Warning      46  Clock enable controlled CDC structure detected
+
+Source Clock: clk_out1_d_1_clk_adc0_x2_0
+Destination Clock: clk_out1_d_1_clk_core_0
+CDC Type: No Common Primary Clock
+
+Row  ID      Severity  Description                                     Depth  Exception            Source (From)                             Destination (To)
+---  ------  --------  ----------------------------------------------  -----  -------------------  ----------------------------------------  ------------------------------------------------
+  1  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[0]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[0]/D
+  2  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[1]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[1]/D
+  3  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[2]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[2]/D
+  4  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[3]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[3]/D
+  5  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[4]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[4]/D
+  6  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[5]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[5]/D
+  7  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[6]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[6]/D
+  8  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[7]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[7]/D
+  9  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[8]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[8]/D
+ 10  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[9]/C   d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[9]/D
+ 11  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[10]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[10]/D
+ 12  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[11]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[11]/D
+ 13  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[12]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[12]/D
+ 14  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[13]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[13]/D
+ 15  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[14]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[14]/D
+ 16  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[31]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[31]/D
+ 17  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[32]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[32]/D
+ 18  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[33]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[33]/D
+ 19  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[34]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[34]/D
+ 20  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[35]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[35]/D
+ 21  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[36]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[36]/D
+ 22  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[37]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[37]/D
+ 23  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[38]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[38]/D
+ 24  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[39]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[39]/D
+ 25  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[40]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[40]/D
+ 26  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[41]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[41]/D
+ 27  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[42]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[42]/D
+ 28  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[43]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[43]/D
+ 29  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[44]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[44]/D
+ 30  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[45]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[45]/D
+ 31  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[46]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[46]/D
+ 32  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[47]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[47]/D
+ 33  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[48]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[48]/D
+ 34  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[49]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[49]/D
+ 35  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[50]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[50]/D
+ 36  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[51]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[51]/D
+ 37  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[52]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[52]/D
+ 38  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[53]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[53]/D
+ 39  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[54]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[54]/D
+ 40  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[55]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[55]/D
+ 41  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[56]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[56]/D
+ 42  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[57]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[57]/D
+ 43  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[58]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[58]/D
+ 44  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[59]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[59]/D
+ 45  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[60]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[60]/D
+ 46  CDC-15  Warning   Clock enable controlled CDC structure detected      0  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/hold_reg[63]/C  d_1_i/live_res_cdc_0/inst/m_axis_tdata_reg[63]/D
+ 47  CDC-3   Info      1-bit synchronized with ASYNC_REG property          2  Asynch Clock Groups  d_1_i/live_res_cdc_0/inst/tog_reg/C       d_1_i/live_res_cdc_0/inst/tog_sync_reg[0]/D
+

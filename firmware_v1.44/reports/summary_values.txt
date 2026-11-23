@@ -1,0 +1,5 @@
+dcp	C:/qick_projects/fromqick_build/nnq/v1.43_routed.dcp
+dcp_size	254416239
+clock_src_adc0x2	clk_out1_d_1_clk_adc0_x2_0 period 1.809
+clock_dst_dac2	RFDAC2_CLK period 2.035
+clock_dst_core	clk_out1_d_1_clk_core_0 period 5.001

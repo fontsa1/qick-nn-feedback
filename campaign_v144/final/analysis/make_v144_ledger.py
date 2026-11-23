@@ -14,14 +14,18 @@ The rules that keep other results out:
   4. A result whose source does not exist yet is shown as PENDING with no value. A source that exists and fails a check
      stops the script. --verify fails while anything is pending, so a partial file cannot pass for a finished one.
 
+  .venv/Scripts/python.exe campaign_v144/final/analysis/make_v144_ledger.py [--verify]
 """
+import functools
 import glob
 import hashlib
 import json
+import math
 import os
 import re
 import sys
 from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 import numpy as np
@@ -39,7 +43,7 @@ BIT = Path(os.environ.get("V144_BIT", "firmware_v1.44/OG_build_v1.44.bit"))    #
 BIT_SHA = "986c861a83be8d01d72db967af894e3d01de2b1c861021d1b5821bc183d7b7c6"
 BUILT = datetime(2026, 11, 7, 19, 57, 7).timestamp()
 # The Vivado project's own report folder (the build kept the v1.43_* report names; the design there is v1.44). Only on
-# the build machine: set V144_REPORTS to compare the copies in paper_tables/table3/data/ with it; otherwise skipped.
+# the build machine: set V144_REPORTS to compare the shipped reports with it, and to check file dates.
 REPORTS = Path(os.environ["V144_REPORTS"]) if os.environ.get("V144_REPORTS") else None
 D = "campaign_v144/final/"
 B2 = D + "board2/"
@@ -47,18 +51,30 @@ LK = D + "leak_energy/"
 TR = "paper_tables/table3/data/"
 HOSTS = (("10.1.9.26", "A"), ("10.1.4.105", "B"))
 
+
 class Pending(Exception):
     """A source does not exist yet."""
+
 
 def need(path):
     if not Path(path).exists():
         raise Pending(str(path))
     return path
 
+
+TEXT = {".json", ".log", ".md", ".txt", ".rpt", ".tsv", ".csv", ".py", ".sh"}
+
+
 def sha(p):
-    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+    """sha256 of the file; text files with line endings normalised, so a checkout's CRLF/LF conversion changes nothing."""
+    b = Path(p).read_bytes()
+    if Path(p).suffix in TEXT:
+        b = b.replace(b"\r\n", b"\n")
+    return hashlib.sha256(b).hexdigest()
+
 
 SRC, ROWS, BLOCKED = {}, [], []
+
 
 def src(path, kind, log=None):
     """Admits a source file, raises Pending if it does not exist yet, or stops. Returns the path."""
@@ -68,7 +84,8 @@ def src(path, kind, log=None):
     need(p)
     assert re.search(r"v144|v1\.44", p), f"path does not name v1.44: {p}"
     assert not re.search(r"v1\.?4[0-3]|v1\.?3\d", Path(p).name), f"file name names another build: {p}"
-    assert Path(p).stat().st_mtime > BUILT, f"older than the v1.44 build: {p}"
+    if REPORTS is not None:   # on the build machine only: file dates survive there, not in a checkout
+        assert Path(p).stat().st_mtime > BUILT, f"older than the v1.44 build: {p}"
     if kind == "banner":
         t = Path(need(log or p)).read_text(encoding="utf-8", errors="ignore")
         assert BANNER in t, f"no v1.44 banner in {log or p}"
@@ -87,6 +104,7 @@ def src(path, kind, log=None):
     SRC[p] = dict(kind=kind, sha256=sha(p)[:16])
     return p
 
+
 def attempt(fn, *args):
     """Runs one group of rows. Rows finished before a missing source stay in the ledger."""
     try:
@@ -94,20 +112,25 @@ def attempt(fn, *args):
     except Pending as e:
         BLOCKED.append(str(e))
 
+
 def row(section, key, value, text, source, note=""):
     """text = every form the value may take in the paper, e.g. ['95.55']."""
     ROWS.append(dict(section=section, key=key, value=value, text=[str(t) for t in (text if isinstance(text, list) else [text])], source=source, kind=SRC[source]["kind"], note=note))
+
 
 def fid(section, key, s, source, note=""):
     row(section, key, f"{s['fid']:.2f}% [{s['fid_ci'][0]:.2f}, {s['fid_ci'][1]:.2f}], P(1|0) {s['p10']:.2f}, P(0|1) {s['p01']:.2f}, n = {s['n']:,}",
         [f"{s['fid']:.2f}", f"{s['fid_ci'][0]:.2f}", f"{s['fid_ci'][1]:.2f}", f"{s['p10']:.2f}", f"{s['p01']:.2f}", f"{s['n']:,}"], source, note)
 
+
 def pv(p):
     return f"{p:.2f}" if p >= 0.01 else f"{p:.1g}"
+
 
 def pair(section, key, s, source, note=""):
     row(section, key, f"{s['A_only']} vs {s['B_only']}, exact p = {pv(s['p_exact'])}, difference {s['dF']:+.3f} [{s['dF_ci'][0]:+.3f}, {s['dF_ci'][1]:+.3f}]",
         [str(s["A_only"]), str(s["B_only"]), pv(s["p_exact"]), f"{s['dF']:+.3f}"[1:], f"{s['dF_ci'][0]:+.3f}"[1:], f"{s['dF_ci'][1]:+.3f}"[1:], f"{s['p_exact']:.3f}", f"{s['dF_ci'][0]:+.2f}"[1:], f"{s['dF_ci'][1]:+.2f}"[1:]], source, note)
+
 
 def stats():
     """The analysis output, once the campaign data has been analysed. Checked against both boards' runners."""
@@ -121,13 +144,16 @@ def stats():
     src(f, "bracketed", "B")
     return f, json.load(open(f))
 
+
 def merged():
     f = D + "analysis/merged_live.npz"
     src(f, "bracketed", "A")
     return np.load(f)
 
+
 def loop_groups():
     return json.load(open(need(D + "analysis/loop_groups_values_v144.json")))
+
 
 # ----------------------------------------------------------------------- the analysis output
 def nn_live():
@@ -148,6 +174,7 @@ def nn_live():
     pair("NN_live", "Boards A vs B, identical 99,400 traces", L["A_vs_B"], f)
     row("NN_live", "DAC-clipped shots, A / B", f"{L['dac_clipped_shots']['A']} / {L['dac_clipped_shots']['B']}", [L["dac_clipped_shots"]["A"]], f)
 
+
 def replay_decisions():
     f, _ = stats()
     M = merged()
@@ -159,6 +186,7 @@ def replay_decisions():
     row("Replay channel", "Decisions agree between boards", f"{agree:.2f}%", [f"{agree:.2f}"], f)
     row("Replay channel", "Wrong on both boards / on at least one", f"{both:.2f}% / {either:.2f}%", [f"{both:.2f}", f"{either:.2f}"], f)
     row("Replay channel", "Share of error that belongs to the trace / to replay noise", f"{trace:.0f}% / {100 - trace:.0f}%", [f"{trace:.0f}", f"{100 - trace:.0f}"], f)
+
 
 def inloop():
     f, S = stats()
@@ -182,6 +210,7 @@ def inloop():
     for b in "AB":
         pair("In the loop", f"Board {b}, vs gate-idle, 19,400 subset", S["inloop"][b]["inloop_vs_gate_idle_subset19400"], f)
 
+
 def axi():
     f, S = stats()
     for b in "AB":
@@ -192,6 +221,7 @@ def axi():
     pair("NN_axi", "Boards A vs B", S["axi"]["A_vs_B"], f)
     fid("NN_axi", "Both boards pooled, 38,800 shots", S["axi"]["both_boards_pooled"], f)
 
+
 def timing_checks():
     """Timing argument in the paper: NN_live vs NN_axi on the same 20,000 rows of one board."""
     f, _ = stats()
@@ -200,12 +230,15 @@ def timing_checks():
         I, P, Y = [], [], []
         for g in glob.glob(f"{D}axi/{b}_axi_*.npz"):
             z = np.load(g, allow_pickle=True); I.append(z["idx"]); P.append(z["probs"]); Y.append(z["y"])
+        if not I:
+            raise Pending(f"{D}axi/{b}_axi_*.npz")
         I = np.concatenate(I); o = np.argsort(I); dx = (np.concatenate(P)[o] > .5).astype(int); yx = np.concatenate(Y)[o].astype(int)
         assert len(I) == 20000, (b, len(I))
         dl = M[f"dec_{b}"][:20000]
         fid("Timing checks", f"Board {b}, NN_live, same 20,000 rows", fstats(dl, yx), f)
         fid("Timing checks", f"Board {b}, NN_axi, same 20,000 rows", fstats(dx, yx), f)
         pair("Timing checks", f"Board {b}, NN_live vs NN_axi, 20,000 rows", paired(dl, dx, yx), f)
+
 
 # ----------------------------------------------------------------------- NN_axi vs its emulator, and the linear baselines on v1.44 replays
 def emulator():
@@ -215,6 +248,7 @@ def emulator():
     for b in "AB":
         fid("NN_axi", f"Emulator, board {b}, 19,400 rows", AE[b]["emu_subset19400"], ae)
 
+
 def linear(b):
     q = src(D + f"analysis/linear_v144_{b}.json", "banner", D + f"axi/{b}_axi_0.log"); Q = json.load(open(q))
     fid("Linear baselines", f"Matched filter, board {b}", Q["linear_baselines"]["200000"]["MF"]["h19400"], q)
@@ -223,6 +257,7 @@ def linear(b):
     fid("Linear baselines", f"LDA, 576 samples, board {b}", W_["576"]["h19400"], q)
     pair("Linear baselines", f"LDA, 576 vs 640 samples, board {b}", W_["576"]["vs640"]["h19400"], q)
     pair("Linear baselines", f"LDA, 770 vs 640 samples, board {b}", W_["770"]["vs640"]["h19400"], q)
+
 
 # ----------------------------------------------------------------------- drift
 def drift(h, b):
@@ -240,6 +275,7 @@ def drift(h, b):
     q = paired(c, a, y)
     row("Drift, 3 h", f"Board {b}, end minus start, 6,000 paired shots", f"{q['dF']:+.2f} points, {q['B_only']} vs {q['A_only']}, p = {pv(q['p_exact'])}", [f"{q['dF']:+.2f}"[1:], "6,000"], p)
 
+
 # ----------------------------------------------------------------------- tProc path, safety, swap, phase
 def tproc_box(b):
     q = src(f"{B2}{b}_tproc_box_v144.json", "banner"); J = json.load(open(q))
@@ -247,14 +283,17 @@ def tproc_box(b):
         g_ = [x for x in J["points"] if x["variant"] == v and x["fresh"] == x["n"] == x["br_eq_dec"] == x["played_eq_br"]][0]
         row("tProc path", f"Board {b}, boxcar path, {v}, earliest clean margin", f"{g_['L_median']:.1f} ns at +{1e3 * g_['margin']:.0f} ns, {g_['fresh']}/{g_['n']} fresh", [f"{g_['L_median']:.1f}", f"{g_['L_median']:.0f}"], q)
 
+
 def tproc_fir(b):
     q = src(f"{B2}{b}_tproc_fir_v144.json", "banner"); J = json.load(open(q))
     g_ = [x for x in J["points"] if abs(x["margin"] - 0.035) < 1e-6][0]
     row("tProc path", f"Board {b}, FIR path, same margin as the old L5 value", f"{g_['L_median']:.1f} ns", [f"{g_['L_median']:.1f}"], q)
 
+
 def boxcar_mr(b):
     q = src(f"{B2}{b}_boxcar_mr_v144.json", "banner", f"{B2}{b}_boxcar_mr_v144.log"); J = json.load(open(q))
     row("Safety and tests", f"Boxcar vs raw buffer, board {b}, with banner", f"{J['shots_exact']}/{J['shots']} shots exact, {J['verdict']}", [], q)
+
 
 def leak():
     """Leaked energy over blanked shots, Gaussian conditional pulse (analysis_scripts/diagnostics/leak_energy_check.py)."""
@@ -271,29 +310,35 @@ def leak():
     row("Safety and tests", "Leaked energy with DELAY from the 2000-amplitude crossing (nz_thr 2000), lead 4 mean, A / B",
         f"{m['A']:.3f}% / {m['B']:.3f}%", [f"{m['A']:.2f}", f"{m['B']:.2f}"], lk["A", 2000][0], "B's file is " + lk["B", 2000][0])
 
+
 def gate_saving():
     q = src(f"{B2}A_tproc_box_v144.json", "banner")
     La = [x for x in json.load(open(q))["points"] if x["variant"] == "nobranch" and x["fresh"] == x["n"]][0]["L_median"]
     L = loop_groups()["high"]["L_50"]
     row("tProc path", f"Gate saving over the tProc path: board A tProc minus L_50 ({L:.1f}), and its population worth at T1 = 32 us", f"{La - L:.0f} ns; {(La - L) / 960:.2f} to {(La - L) / 320:.2f} points", [f"{La - L:.0f}", f"{(La - L) / 960:.2f}", f"{(La - L) / 320:.2f}"], q, "t/(3 T1) and t/T1")
 
+
 def _f(path):
     z = np.load(path, allow_pickle=True); y = z["y"].astype(int); d = (z["live_rec"][:, 7] & 1).astype(int)
     return fstats(d, y), float(np.degrees(np.angle(complex(z["k"]))))
+
 
 def swap(t, lab):
     q = src(f"{B2}swap_{t}_v144.npz", "banner", f"{B2}swap_{t}.log"); fs, ang = _f(q)
     fid("Calibration swap", f"{lab}, 2,000 shots, arg(k) {ang:.1f} deg", fs, q)
 
+
 def swap_phase():
     ka, kb = (_f(src(f"{B2}swap_{t}_v144.npz", "banner", f"{B2}swap_{t}.log"))[1] for t in ("A_own", "B_own"))
     row("Calibration swap", "Phase difference of the boards in that session", f"{abs(ka - kb):.1f} deg", [f"{abs(ka - kb):.0f}", f"{abs(ka - kb):.1f}"], f"{B2}swap_B_own_v144.npz")
+
 
 def phrst():
     q = src(f"{B2}A_phrst_probe_v144.json", "banner"); J = json.load(open(q))
     assert len(J["loads"]) == 4 and all(BANNER in l["banner"] for l in J["loads"])
     for m_ in ("none", "both"):
         row("Phase across loads", f"Board A, 4 loads, mode {m_}: mean per load", ", ".join(f"{float(np.degrees(np.angle(np.exp(1j * np.radians(l['modes'][m_]['shots'])).mean()))):.0f}" for l in J["loads"]) + " deg", [], q)
+
 
 # ----------------------------------------------------------------------- offline analyses of the v1.44 data
 def box_vs_fir():
@@ -304,10 +349,12 @@ def box_vs_fir():
     pair("Boxcar vs FIR", "Boxcar vs FIR, 19,400", J["subset19400"]["paired"], q)
     pair("Boxcar vs FIR", "Boxcar vs FIR, 99,400", J["all99400"]["paired"], q)
 
+
 def synthetic():
     q = src(D + "analysis/r9/r9_stats_v144.json", "banner", D + "axi/A_axi_0.log"); J = json.load(open(q))["19400"]
     for c_ in J["comparisons"]:
         row("Synthetic data", f"{c_['A']} minus {c_['B']}", f"{c_['diff']:+.2f} [{c_['ci95'][0]:+.2f}, {c_['ci95'][1]:+.2f}]", [f"{c_['diff']:+.2f}"[1:], f"{c_['ci95'][0]:+.2f}"[1:], f"{c_['ci95'][1]:+.2f}"[1:]], q)
+
 
 def nonlinear():
     q = src(D + "analysis/arch/arch_sweep2_src_v144.json", "banner", D + "axi/A_axi_0.log"); J = json.load(open(q))
@@ -316,10 +363,12 @@ def nonlinear():
         v_ = J[k_]; t_ = v_["loop20k_vs_t4"]
         row("Nonlinear models", f"{k_}: raw / replayed, vs LDA", f"{v_['src20k']:.2f}% / {v_['loop20k']:.2f}%, {t_['delta']:+.2f}, p = {pv(t_['p'])}", [f"{v_['src20k']:.2f}", f"{v_['loop20k']:.2f}", f"{abs(t_['delta']):.2f}", pv(t_["p"])], q)
 
+
 def channel():
     q = src(D + "analysis/channel_v144.json", "banner", D + "axi/A_axi_0.log"); J = json.load(open(q))
     row("Replay channel", "Class SNR per sample, source / replayed board A (rms mean separation over rms noise)", f"{J['snr_source']:.2f} / {J['snr_A']:.2f}", [f"{J['snr_source']:.2f}", f"{J['snr_A']:.2f}"], q)
     row("Replay channel", "Capture delay against the aligned source, 4,000 shots", f"{min(J['lags'], key=int)}-{max(J['lags'], key=int)} samples", [], q)
+
 
 # ----------------------------------------------------------------------- Fig. 7
 def fig7():
@@ -333,10 +382,12 @@ def fig7():
     row("Readout path", "QICK FIR path, mixer output to decimated edge: saving + boxcar path (9 cycles + group delay (M-1)/2 = 5 samples)", f"{_fir:.1f} ns", [f"{_fir:.0f}"], fv, "check: FIR core C_LATENCY 67 cycles + 120-tap group delay 59.5/4423.68 us = 134.6 ns")
     row("Readout path", "Image rejection at M = 11, board A", f"{im[11]:.1f} dB", [f"{abs(im[11]):.1f}"], fv)
 
+
 # ----------------------------------------------------------------------- Table III
 sys.path.insert(0, "paper_tables/table3")
 import v141_reports as R3  # noqa: E402
 R3.HIER, R3.FLAT, R3.TIMING = (Path(TR) / f"v1.44_{r}.rpt" for r in ("routed_util_hier", "routed_utilization", "routed_timing"))
+
 
 def summary(path):
     """WNS, failing setup endpoints and total endpoints from the Design Timing Summary; requires timing met."""
@@ -344,6 +395,7 @@ def summary(path):
     assert "All user specified timing constraints are met." in t, "v1.44 report does not state timing met"
     v = re.search(r"WNS\(ns\).*?\n\s*-+.*?\n\s*(-?[\d.]+)\s+(-?[\d.]+)\s+(\d+)\s+(\d+)", t, flags=re.S)
     return float(v[1]), int(v[3]), int(v[4]), t
+
 
 def implementation():
     for r in ("routed_timing", "routed_util_hier", "routed_utilization"):
@@ -364,6 +416,7 @@ def implementation():
     row("Implementation", "NN_live LUT, rounded for prose", f"about {round(live['lut'], -1):,}", [f"{round(live['lut'], -1):,}"], tu)
     row("Implementation", "Failing endpoints: NN_live / its clock crossing / stock readouts 1 and 2", f"{fails} / {fails} / {fails}", [fails], tt, "zero failing setup endpoints in the whole design")
 
+
 def scaling():
     f = "scaling_study/resource_scaling_v144.json"
     _rs = json.load(open(need(f)))
@@ -371,6 +424,7 @@ def scaling():
     assert _rs["per_unit"]["classifier"]["lut"] == sum(R3.blocks()[n]["lut"] for n in ("NN_live_0", "boxcar_tap_0", "live_gate_0", "live_res_cdc_0", "live_res_cdc_1", "trig_sync_0"))
     _n = [v["n_max"] for k, v in _rs["n_max"].items() if "front end none" not in k]
     row("Implementation", "Classifier units that fit with a per-tone front end (scaling_study/resource_scaling.py, SCALING_OUT=resource_scaling_v144.json)", f"{min(_n)} to {max(_n)}", [min(_n), max(_n)], tu)
+
 
 # ----------------------------------------------------------------------- loop latency and tests
 def latency():
@@ -390,12 +444,14 @@ def latency():
     _sc = (G["low"]["segs"]["S_conv"] + _h["S_conv"]) / 2
     row("Loop latency", "Converters and cable, mean of the two load groups", f"{_sc:.1f} ns ({G['low']['segs']['S_conv']:.1f} and {_h['S_conv']:.1f})", [f"{_sc:.0f}"], g)
 
+
 def fig8b():
     _b = src(D + "fig8b/A_gate_probe.log", "banner")
     src(D + "fig8b/B_gate_probe.log", "banner")
     _v = json.load(open(need(D + "fig8b/fig8b_values_v144.json")))
     _l = {b: [x for x in _v[b] if x["slack_ns"] == -66.0][0]["late"] for b in "AB"}
     row("Loop latency", "Fig. 8(b), late at -66 ns, boards A / B, of 40", f"{_l['A']} / {_l['B']}", [_l["A"], _l["B"]], _b)
+
 
 def tests(b):
     for name, stem in (("Binding fault test", "binding_fault"), ("Fail-safe test", "fail_safe"), ("tProc decision test", "tproc_decision")):
@@ -410,7 +466,7 @@ def tests(b):
     row("Safety and tests", f"QICK functional suite, board {b}", f"{j['PASS']} pass, {j['WARN']} warning, {j['FAIL']} fail, {j['NOT WIRED']} not wired", [j["PASS"], j["WARN"], j["FAIL"]], p)
 
 
-# ----------------------------------------------------------------------- replay augmentation, linear baselines on 99,400 rows, threshold feedback
+# ----------------------------------------------------------------------- offline analyses added after the main campaign
 def _clean(points, v=None):
     return [x for x in points if (v is None or x["variant"] == v) and x.get("forced_ok", True) and x["fresh"] == x["n"] == x["br_eq_dec"] == x["played_eq_br"]]
 
@@ -422,7 +478,7 @@ def tproc_fir_earliest(b):
 
 
 def tproc_thr(b):
-    """QICK's own threshold feedback: readout 0's averager into the tProc (analysis_scripts/diagnostics/tproc_threshold_v144.py)."""
+    """B1: QICK's own threshold feedback, readout 0's averager into the tProc (analysis_scripts/diagnostics/tproc_threshold_v144.py)."""
     q = src(f"{D}board3/{b}_tproc_thr_v144.json", "banner", f"{D}board3/{b}_tproc_thr.log"); J = json.load(open(q))
     pts = [dict(x, _src=q) for x in J["points"]]
     fine = f"{D}board3/{b}_tproc_thr_fine_v144.json"          # the +80..+100 ns pass, 5 ns steps
@@ -456,19 +512,416 @@ def s5_linear():
                 [f"{r['fid']['fid']:.2f}", f"{abs(v['dF']):.2f}", pv(v["p_exact"])], q)
 
 
+# ----------------------------------------------------------------------- measurements added after the main campaign
+
+
+def rev_reloads():
+    """#26: 20 further bitstream loads per board; L_50 per load from the protocol summary."""
+    loads = {}
+    q = src("campaign_v144/final/latency/reloads/summary_A.md", "banner")      # the last summary written; it holds both boards' tables
+    for part in re.split(r"^## ", Path(q).read_text(encoding="utf-8"), flags=re.M)[1:]:
+        host = part.split(":", 1)[0].strip()
+        b = dict(HOSTS)[host]
+        loads[b] = [float(m) for m in re.findall(r"^\| rv\d+ \| pass \| 100/100 \| ([\d.]+) ±", part, re.M)]
+    for b in "AB":
+        v = loads[b]
+        assert len(v) == 20, (b, len(v))
+        lo, hi = [x for x in v if x < 175], [x for x in v if x >= 175]
+        row("Loop latency", f"Board {b}, 20 further loads: low / high group", f"{len(lo)} loads {min(lo):.2f}–{max(lo):.2f} ns / {len(hi)} loads {min(hi):.2f}–{max(hi):.2f} ns",
+            [str(len(lo)), str(len(hi)), f"{min(lo):.2f}", f"{max(hi):.2f}"], q)
+    allv = loads["A"] + loads["B"]
+    lo, hi = [x for x in allv if x < 175], [x for x in allv if x >= 175]
+    row("Loop latency", "Both boards, 40 further loads: low / high group, gap", f"{len(lo)} / {len(hi)} loads; {min(lo):.2f}–{max(lo):.2f} / {min(hi):.2f}–{max(hi):.2f} ns; gap {min(hi) - max(lo):.2f} ns",
+        ["40", str(len(lo)), str(len(hi)), f"{min(lo):.2f}", f"{max(lo):.2f}", f"{min(hi):.2f}", f"{max(hi):.2f}", f"{min(hi) - max(lo):.2f}"], q)
+
+
+def rev_stability():
+    """#78: one load per board measured 20 times over about 110 min."""
+    for b in "AB":
+        v, t = [], []
+        for f in sorted(glob.glob(f"campaign_v144/final/latency/stability/{b}_st*.json")):
+            q = src(f.replace("\\", "/"), "banner")
+            J = json.load(open(q))
+            v.append(J["points"]["op"]["L_50"]["mean"]); t.append(datetime.strptime(J["settings"]["time"], "%Y-%m-%d %H:%M:%S"))
+        assert len(v) == 20, (b, len(v))
+        span = (max(t) - min(t)).total_seconds() / 60
+        row("Loop latency", f"Board {b}, one load, 20 runs: span, mean, s.d.", f"{span:.0f} min, {np.mean(v):.2f} ns, s.d. {np.std(v, ddof=1):.2f} ns",
+            [f"{span:.0f}", f"{np.mean(v):.2f}", f"{np.std(v, ddof=1):.2f}"], q)
+
+
+def rev_arms():
+    """#27: in-loop fidelity with the conditional pulse at gain 0, 0.6 (nominal), 1.0 and with the gate off."""
+    q = src("campaign_v144/final/inloop/arms/arms_analysis.json", "banner")
+    J = json.load(open(q))
+    for b in "AB":
+        A = J[b]["arms"]
+        f = {k: A[k]["all"]["fid"] for k in ("nominal", "zero", "max", "gateoff")}
+        ps = [v["p_exact"] for v in J[b]["paired_vs_nominal"].values()]
+        row("In the loop", f"Board {b}, pulse-gain arms ({J[b]['n']:,} rows): nominal / zero / max / gate off",
+            " / ".join(f"{v:.2f}%" for v in f.values()) + (f"; smallest exact p vs nominal {min(ps):.2f}" if ps else ""),
+            [f"{v:.2f}" for v in f.values()] + ([f"{min(ps):.2f}"] if ps else []) + [f"{J[b]['n']:,}"], q)
+
+
+def rev_carrier_jitter_spacing():
+    """#39 converter latency vs carrier; #66 capture jitter; #75 minimum clean shot period."""
+    for b in "AB":
+        q = src(f"campaign_v144/final/latency/carrier/{b}_carrier.json", "banner"); J = json.load(open(q))
+        d = [abs(r["minus_50MHz_ns"]) for r in J["runs"].values()]
+        top = max(float(c) for c in J["runs"])
+        row("Readout path", f"Board {b}, edge shift vs the 50 MHz carrier, carriers up to {top:.0f} MHz", f"at most {max(d):.2f} ns", [f"{max(d):.2f}", f"{top:.0f}"], q)
+        q = src(f"campaign_v144/final/latency/jitter/{b}_jitter.json", "banner"); J = json.load(open(q))
+        r = J["runs"]["box"]["host"]
+        row("Readout path", f"Board {b}, per-shot capture jitter, no recorded trace (s.d.)", f"{r['sd_samples']:.2f} samples, {r['sd_ns']:.1f} ns", [f"{r['sd_samples']:.2f}", f"{r['sd_ns']:.1f}"], q)
+        q = src(f"campaign_v144/final/tests/spacing/{b}_spacing.json", "banner"); J = json.load(open(q))
+        clean = [p["period_us_nominal"] for p in J["points"] if p["clean"]]
+        kept = all(p[t]["n_new"] == J["reps"] and p[t]["frame_err"] == 0 and p[t]["consecutive"] for p in J["points"] for t in ("t0", "t1"))
+        row("In the loop", f"Board {b}, shortest clean shot period; record path kept up at every spacing", f"{min(clean):.1f} µs; {'yes' if kept else 'no'}",
+            [f"{min(clean):.1f}"], q)
+
+
+def rev_logit():
+    """#22: the chip's logit and decision against an integer reference on every v1.44 capture."""
+    q = src("campaign_v144/final/tests/logit_check/d22_v144_logit.txt", "name+date")
+    S = json.loads(re.search(r"SUMMARY (\{.*\})", Path(q).read_text(encoding="utf-8")).group(1))
+    assert S["logit_mismatch"] == 0 and S["decision_mismatch"] == 0
+    row("NN_live", "Logit and decision equal to the integer reference, both boards", f"{S['shots'] - S['logit_mismatch']:,}/{S['shots']:,} and {S['shots'] - S['decision_mismatch']:,}/{S['shots']:,}",
+        [f"{S['shots']:,}"], q)
+
+
+def rev_keras():
+    """#71: the floating-point Keras model against the chip, on the chip's own input windows (headline, 99,400 shots)."""
+    q = src("campaign_v144/final/analysis/offline/keras_vs_hls4ml.json", "name+date"); H = json.load(open(q))["headline"]
+    row("NN_live", "Floating-point model's decisions equal to the chip's, same rule (logit >= 1/64), headline shots",
+        f"{H['float_vs_chip_decisions_agree']:,}/{H['n']:,}", [f"{H['float_vs_chip_decisions_agree']:,}", f"{H['n']:,}"], q)
+    row("NN_live", "Floating-point vs fixed-point (hls4ml) probability, largest difference, headline shots",
+        f"{H['prob_absdiff_max']:.3f}", [f"{H['prob_absdiff_max']:.3f}"], q)
+
+
+def rev_map_trainrows():
+    """#13: the boxcar domain map refit on 600 training rows; deployed recipe retrained with each map, 5 seeds."""
+    d = []
+    for f in sorted(glob.glob("campaign_v144/final/analysis/offline/map_trainrows_s2026090[1-5].json")):
+        q = src(f.replace("\\", "/"), "name+date")
+        d.append(json.load(open(q))["trainrow_vs_deployed_map"]["dF"])
+    assert len(d) == 5
+    row("Replay channel", "Domain map fit on training rows vs test rows: headline change, 5 seeds", f"{np.mean(d):+.3f} ± {np.std(d, ddof=1):.3f} points",
+        [f"{np.mean(d):+.3f}"[1:], f"{np.std(d, ddof=1):.3f}"], q)
+
+
+def rev_live_window():
+    """#12 (S3): LDA on raw traces at live-readout window lengths (100,000 test rows)."""
+    q = src(D + "analysis/s3/s3_live_window_lda.json", "name+date"); J = json.load(open(q))
+    for n in ("320", "576"):
+        r = J["points"][n]
+        row("Linear baselines", f"LDA on raw traces, first {n} recorded samples ({r['qubit_time_us']:.2f} µs)", f"{r['test']['fid']:.2f}%",
+            [f"{r['test']['fid']:.2f}", f"{r['qubit_time_us']:.2f}"], q)
+
+
+# ----------------------------------------------------------------------- offline checks added with text pass 7
+def rev2_stats():
+    """Paired statistics (campaign_v144/final/analysis/stats/): per-board NN_live vs LDA, NN_axi emulated on the full split, the 80,000 unused rows."""
+    q = src("campaign_v144/final/analysis/stats/t2346_paired.json", "name+date"); J = json.load(open(q))
+    g = lambda p: functools.reduce(lambda d, k: d[k], p.split("/"), J)
+    m = max(abs(x) for k in ("NN_live-LDA_fir770", "NN_live-LDA_fir576", "NN_live-LDA_box576") for b in "AB" for c in ("ci95_normal", "ci95_boot") for x in g(f"{k}/all/{b}/diff")[c])
+    row("Linear baselines", "NN_live vs LDA (FIR-770, FIR-576, boxcar-576), each board, 99,400: largest 95% CI bound", f"{m:.3f} points (within 0.2)", [f"{m:.2f}", "0.2"], q)
+    for path, lab in (("NN_live-LDA_fir770/all/A/diff", "NN_live vs LDA FIR-770, board A, 99,400"), ("NN_axi_emu-NN_live/all/A/diff", "NN_axi emulated on the recorded FIR windows vs NN_live, board A, 99,400"),
+                      ("NN_axi_emu-NN_live/all/B/diff", "NN_axi emulated on the recorded FIR windows vs NN_live, board B, 99,400"),
+                      ("boxcar-FIR/fresh/A/diff", "Boxcar vs FIR, board A, the 80,000 unused rows"), ("boxcar-FIR/fresh/B/diff", "Boxcar vs FIR, board B, the 80,000 unused rows")):
+        d = g(path)
+        row("Paired statistics", lab, f"{d['dF']:+.3f} points, {d['A_only']} vs {d['B_only']}, exact p = {pv(d['p_exact'])}", [f"{abs(d['dF']):.2f}", pv(d["p_exact"])], q)
+    pb = max(g("boxcar-FIR/fresh/A/diff")["p_exact"], g("boxcar-FIR/fresh/B/diff")["p_exact"])
+    row("Paired statistics", "Boxcar vs FIR on the 80,000 unused rows, bound over both boards", f"p ≤ {pb:.2g}", [f"{math.ceil(pb * 1e4) / 1e4:.4f}"], q)
+    for b in "AB":
+        f = g(f"fidelity/fresh/{b}/nn")["fid"]; ft = str(Decimal(repr(f)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+        row("Paired statistics", f"NN_live, board {b}, the 80,000 unused rows", f"{f:.3f}%", [ft], q)
+    q = src("campaign_v144/final/analysis/stats/t5_estimators.json", "name+date"); T = json.load(open(q))
+    row("Paired statistics", "Noise s.d. per sample, pooled over both states, I / Q (fit-pool traces)", f"{T['sigma']['E2_pooled_I']:.1f} / {T['sigma']['E2_pooled_Q']:.1f}",
+        [f"{T['sigma']['E2_pooled_I']:.0f}", f"{T['sigma']['E2_pooled_Q']:.0f}"], q)
+    k = T["kurtosis"]["K1_P20_pooled_IQ"]; st = T["stationarity"]; o = T["offset_ratio"]
+    dev = 100 * max(st["S1_P20_I_max_over_mean"] - 1, 1 - st["S1_P20_I_min_over_mean"])
+    row("Paired statistics", "Noise excess kurtosis, fit pool, pooled", f"{k:+.4f}", [f"{abs(k):.2f}"], q)
+    row("Paired statistics", "Noise s.d. per sample, largest deviation from its mean across the trace", f"±{dev:.2f}%", [f"{dev:.1f}"], q)
+    row("Paired statistics", "Common-mode offset vs white-noise prediction, both states pooled, I / Q", f"{o['O2_P20_pooled_I']:.3f} / {o['O2_P20_pooled_Q']:.3f}",
+        [f"{o['O2_P20_pooled_I']:.1f}", f"{o['O2_P20_pooled_Q']:.1f}"], q)
+    q = src("campaign_v144/final/analysis/stats/holm_pass7.json", "name+date"); H = json.load(open(q))
+    mh = max(t["holm"] for t in H["tests"] if t["holm"] < 0.05)
+    row("Paired statistics", "Holm over every p-value printed after pass 7: tests / survivors / largest surviving adjusted p", f"{H['n']} / {H['survivors']} / {mh:.4f}",
+        [H["n"], f"{math.ceil(mh * 100) / 100:.2f}"], q)
+
+
+def rev2_protocol():
+    """Data protocol (campaign_v144/final/analysis/protocol/REPORT.md): the fixed audit, the per-board map refit, the row roles."""
+    q = src("campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log", "name+date")
+    m = re.search(r"VERDICT: (\d+)/(\d+) checks passed, 0 failed, 0 blocked", Path(q).read_text(encoding="utf-8", errors="ignore"))
+    assert m and m[1] == m[2]
+    row("Data protocol", "Fixed leakage audit (verify_no_leakage_fixed.py): checks passed", f"{m[1]} of {m[2]}", [m[1]], q)
+    q = src("campaign_v144/final/analysis/protocol/task2_summary.json", "name+date"); T = json.load(open(q))
+    for arm, lab in (("trainrow", "training rows 300,000-300,599"), ("v144testrow", "the map's test rows of the v1.44 capture")):
+        s = T["mosaic"][arm]["vs_deployed_selected_models"]
+        row("Data protocol", f"Map refit on {lab} vs the deployed map, deployed seed, run-1 mix, 99,400", f"{s['dF']:+.3f} points, {s['A_only']} vs {s['B_only']}, exact p = {pv(s['p_exact'])}",
+            [f"{abs(s['dF']):.2f}", pv(s["p_exact"])], q, "rows 300,000-300,599 from the refit's capture names")
+    q = src("campaign_v144/final/analysis/protocol/REPORT.md", "name+date"); t = Path(q).read_text(encoding="utf-8")
+    assert "| Matched filter, linear-baselines LDA | 0:200000 |" in t and "all 900,000 rows" in t and "300000:300600" in t and "replayed test rows 0:3999" in t
+    row("Data protocol", "Row roles read from the scripts: baselines 0-199,999; retrain of [16] 900,000 rows; map refit 300,000-300,599; augmentation channel fit on subset rows 0-3,999",
+        "design constants", ["199,999", "900,000", "300,000", "300,599", "3,999"], q)
+
+
+def rev2_fpga():
+    """FPGA checks (firmware_v1.44/reports/): decision-path slack, out-of-context scaling margins."""
+    q = src("firmware_v1.44/reports/v144_decision_path_slack.tsv", "name+date")
+    T = {(c[0], c[1]): float(c[2]) for c in (l.split("\t") for l in Path(q).read_text().splitlines()[1:])}
+    sl = [T[(s, "setup")] for s in ("nnlive_internal", "nnlive_to_cdc0", "nnlive_to_cdc1")]
+    row("Implementation", "Setup slack inside NN_live and on its outputs (v1.44 routed)", f"{min(sl) * 1000:.0f} to {max(sl) * 1000:.0f} ps", [f"{min(sl) * 1000:.0f}", f"{max(sl) * 1000:.0f}"], q)
+    f = src("scaling_study/v144/FINDINGS_v144.md", "name+date"); t = Path(f).read_text(encoding="utf-8")
+    ooc = {(m[1], m[2], m[3]): float(m[4]) for m in re.finditer(r"^\| (\d+) \| (\w+) \| ([\w.]+) \| ([+-]?[\d.]+) \|", t, flags=re.M)}
+    vals = [ooc[("1", "pb", "v1.41")], ooc[("2", "pb", "v1.41")], ooc[("4", "pb", "v1.41")], ooc[("16", "free", "v1.41")], ooc[("8", "pb", "T")]]
+    row("Implementation", "Out-of-context margins, deployed RTL N = 1, 2, 4 (pblock), 16 (device); variant T N = 8", " / ".join(f"{v:+.3f}" for v in vals),
+        [f"{vals[0]:.2f}", f"{vals[1]:.2f}", f"{vals[2]:.3f}", f"{vals[4]:.3f}"], f)
+    pen = vals[0] - max(sl)
+    row("Implementation", "Integration cost: OOC N = 1 margin minus the worst NN_live-path slack in v1.44", f"at least {pen:.3f} ns", [f"{pen:.2f}"], f)
+
+
+def rev2_pass8():
+    """Numbers pass 8 adds: shot spacing, the stock front end's share of S_fe, the Holm recount after pass 8."""
+    for b in "AB":
+        q = src(f"campaign_v144/final/tests/spacing/{b}_spacing.json", "name+date")
+        J = json.load(open(q)); bad = [p["period_us_nominal"] for p in J["points"] if not p["clean"]]
+        row("Further measurements", f"Board {b}, longest shot period that failed", f"{max(bad):.2f} µs", [f"{max(bad):.1f}"], q)
+    q = src(D + "analysis/loop_groups_values_v144.json", "name+date"); J = json.load(open(q)); box = (9 + 5) / 552.96e-3
+    v = [J[g]["segs"]["S_fe"] - box for g in ("low", "high")]
+    row("Feed-forward loop", "QICK stock front end inside S_fe (S_fe minus the boxcar path's 9 + 5 cycles), low / high group", f"{v[0]:.1f} / {v[1]:.1f} ns", [f"{round(v[0]):.0f}"], q)
+    q = src("campaign_v144/final/analysis/stats/holm_pass8.json", "name+date"); H = json.load(open(q))
+    mh = max(t["holm"] for t in H["tests"] if t["holm"] < 0.05)
+    row("Paired statistics", "Holm over every p-value printed after pass 8: tests / survivors / largest surviving adjusted p", f"{H['n']} / {H['survivors']} / {mh:.4f}",
+        [H["n"], f"{math.ceil(mh * 100) / 100:.2f}"], q)
+
+
+def rev2_board():
+    """Board runs of the variant builds (firmware_v1.44/variants/RESULTS_BOARD_2026-11-18.md): tProc at 245.76 MHz (build 1), the LDA core through
+    the gate (build 2b), the pulse-gain arms on the full split, the Holm recount after pass 9."""
+    B1, B2 = "firmware_v1.44/variants/tproc245/", "firmware_v1.44/variants/lda_gate/"
+    q = src(B1 + "reports/v1.44t245_routed_timing.rpt", "name+date"); t = Path(q).read_text(encoding="utf-8", errors="ignore")
+    wns = float(re.search(r"WNS\(ns\).*\n.*\n\s+([-\d.]+)", t)[1])
+    row("Variant builds", "Build 1 (tProc core at 245.76 MHz): design WNS", f"{wns * 1000:.0f} ps", [f"{-wns * 1000:.0f}"], q)
+    thr = {}
+    for b in "AB":
+        q = src(f"{B1}board/{b}_threshold_t245.json", "name+date"); e = json.load(open(q))["threshold"]["fir"]["earliest_clean"]
+        thr[b] = e["L_median"]
+        row("Variant builds", f"Board {b}, tProc 245.76 MHz: QICK threshold feedback (FIR), earliest clean margin",
+            f"{e['L_median']:.1f} ns at +{1e3 * e['margin']:.0f} ns, {e['fresh']}/{e['n'] - 1} fresh", [f"{e['L_median']:.1f}"], q)
+        q = src(f"{B1}board/{b}_b1_latency.json", "name+date"); L = json.load(open(q))["points"]["op"]["L_50"]["mean"]
+        row("Variant builds", f"Board {b}, tProc 245.76 MHz: gate loop L_50 (one load)", f"{L:.2f} ns", [f"{L:.1f}"], q)
+    q200 = {b: f"{D}board3/{b}_tproc_thr_v144.json" for b in "AB"}
+    t200 = {}
+    for r_ in ROWS:   # the 200 MHz rows of tproc_thr(), which runs before this group
+        m_ = re.match(r"Board ([AB]), QICK threshold feedback \(read_and_jump\), earliest clean margin$", r_["key"])
+        if m_:
+            t200[m_[1]] = float(r_["value"].split()[0])
+    if len(t200) == 2:
+        dl = [t200[b] - thr[b] for b in "AB"]; lo = min(min(thr.values()), *t200.values()); hi = max(max(thr.values()), *t200.values())
+        row("Variant builds", "QICK threshold feedback, 200 minus 245.76 MHz tProc, A / B; range over both clocks",
+            f"{dl[0]:.1f} / {dl[1]:.1f} ns; {lo:.1f}–{hi:.1f} ns", [f"{round(sum(dl) / 2):.0f}", f"{round(lo, -1):.0f}", f"{round(hi, -1):.0f}"], src(q200["A"], "name+date"))
+    q = src(B2 + "reports/v1.44lda11_routed_util_hier.rpt", "name+date")
+    m = re.search(r"^\|\s+NN_live_0\s+\|\s+\S+\s+\|\s+(\d+)", Path(q).read_text(encoding="utf-8", errors="ignore"), flags=re.M)
+    row("Variant builds", "LDA_live 1.1 in NN_live's slot (build 2b): routed LUTs", f"{int(m[1]):,}", [f"{int(m[1]):,}"], q)
+    for b in "AB":
+        q = src(f"{B2}board/{b}_b2_latency.json", "name+date"); J = json.load(open(q))
+        cyc = next(c["detail"] for c in J["checks"] if c["name"] == "op_nn_cycles")
+        L = J["points"]["op"]["L_50"]["mean"]
+        row("Variant builds", f"Board {b}, LDA_live: gate loop L_50 (one load); result − last sample", f"{L:.2f} ns; {cyc}", [f"{L:.1f}", "9 cycles"], q)
+    q = src(B2 + "board/live/check_board_lda.json", "name+date"); C = json.load(open(q))
+    bx = C["bit_exact_vs_lda_model"]; assert bx["D"] == bx["logit"] == bx["dec"] == 0
+    row("Variant builds", "LDA_live on the boards: shots bit-exact against lda_model.py (D, logit, decision)", f"{bx['n']:,} of {bx['n']:,}", [f"{bx['n']:,}"], q)
+    h = C["sets"]["headline_mosaic"]; pr = h["NN_live_vs_LDA_live"]
+    row("Variant builds", "LDA_live on the boards, headline mosaic: LDA_live / NN_live (v1.44, same rows); NN − LDA, exact p",
+        f"{h['LDA_live_board']['fid']:.2f}% / {h['NN_live_v144_same_rows']['fid']:.2f}%; {pr['dF']:+.3f}, p = {pr['p_exact']:.3f}",
+        [f"{h['LDA_live_board']['fid']:.2f}", f"{h['NN_live_v144_same_rows']['fid']:.2f}", f"{pr['p_exact']:.2f}"], q)
+    q = src(B2 + "lda_csim_score.json", "name+date"); h = json.load(open(q))["sets"]["headline_mosaic"]; pr = h["NN_live_vs_LDA_fixed"]
+    row("Variant builds", "LDA_live model on the stored windows, headline mosaic: LDA; NN − LDA, exact p",
+        f"{h['LDA_fixed_csim']['fid']:.2f}%; {pr['dF']:+.3f}, p = {pr['p_exact']:.1e}",
+        [f"{h['LDA_fixed_csim']['fid']:.2f}", f"{pr['dF']:.2f}", f"{pr['p_exact']:.1e}".replace("e-0", "e-")], q)
+    q = src("campaign_v144/final/inloop/arms/arms_full_analysis.json", "name+date"); A = json.load(open(q))
+    for b in "AB":
+        z = A[b]["paired_vs_nominal"]["zero"]
+        row("Variant builds", f"Board {b}, pulse-gain arms on 99,400 traces: zero − nominal [95% CI], exact p",
+            f"{z['dF']:+.3f} [{z['dF_ci'][0]:+.3f}, {z['dF_ci'][1]:+.3f}], p = {z['p_exact']:.3f}",
+            [f"{abs(z['dF']):.2f}", f"{z['p_exact']:.3f}" if z["p_exact"] < 0.1 else f"{z['p_exact']:.2f}",
+             f"{abs(z['dF_ci'][0]):.2f}", f"{abs(z['dF_ci'][1]):.2f}"], q)
+    q = src("campaign_v144/final/analysis/stats/holm_pass9.json", "name+date"); H = json.load(open(q))
+    mh = max(t["holm"] for t in H["tests"] if t["holm"] < 0.05)
+    adj = {t["test"]: t["holm"] for t in H["tests"]}
+    row("Paired statistics", "Holm over every p-value printed after pass 9: tests / survivors / largest surviving adjusted p", f"{H['n']} / {H['survivors']} / {mh:.4f}",
+        [H["n"], f"{math.ceil(mh * 1000) / 1000:.3f}"], q)
+    a1, a2 = adj["In the loop: Board B, vs its gate-idle run"], adj["zero vs nominal pulse gain, board A, 99,400"]
+    row("Paired statistics", "Holm-adjusted p after pass 9: board B in-loop vs gate-idle; zero vs nominal gain, board A", f"{a1:.3f}; {a2:.3f}", [f"{a1:.2f}", f"{a2:.2f}"], q)
+
+
+def pass9b():
+    """Numbers text pass 9b adds from results already on hand."""
+    sd = []
+    for b in "AB":   # P68: edge scatter at the 500 and 1,500 MHz carriers
+        q = src(f"campaign_v144/final/latency/carrier/{b}_carrier.json", "banner"); J = json.load(open(q))
+        sd += [(J["runs"][c]["edge_sd"], J["runs"][c]["edge_sd"] * 1e3 / J["fs_decimated_mhz"]) for c in ("500.0", "1500.0")]
+    lo, hi = min(sd), max(sd)
+    row("Readout path", "Edge s.d. at the 500 and 1,500 MHz carriers, both boards: samples; ns", f"{lo[0]:.3f}–{hi[0]:.3f}; {min(s[1] for s in sd):.3f}–{max(s[1] for s in sd):.3f}",
+        [f"{lo[0]:.2f}", f"{hi[0]:.2f}", f"{min(s[1] for s in sd):.2f}", f"{max(s[1] for s in sd):.2f}"], src("campaign_v144/final/latency/carrier/A_carrier.json", "banner"))
+    tu = src(f"{TR}v1.44_routed_util_hier.rpt", "build-file"); t = Path(tu).read_text(encoding="utf-8", errors="ignore")
+    lut = lambda n: int(re.search(r"^\|\s+" + re.escape(n) + r"\s+\|\s+\S+\s+\|\s+(\d+)", t, flags=re.M)[1])
+    a, ld, nn = lut("NN_axi_0"), lut("grp_NN_axi_Pipeline_LOAD_L_fu_569"), lut("grp_NN_fu_597")
+    row("Implementation", "NN_axi LUTs: whole / window load loop / NN()", f"{a:,} / {ld:,} / {nn:,}", [f"{a:,}", f"{ld:,}", f"{nn:,}"], tu)
+    # below the earliest clean margin the port value does not track the shot's own window sum (|r| ~ 0), so the
+    # 'fresh' count there is chance agreement, not a count of stale shots; the paper prints the correlation instead
+    lo, hi, cl, q0 = [], [], set(), None
+    for b in "AB":
+        q = src(f"campaign_v144/final/board3/threshold/{b}_threshold.json", "banner"); J = json.load(open(q))["threshold"]["fir"]; q0 = q0 or q
+        m0 = J["earliest_clean"]["margin"]; cl.add(m0)
+        lo += [abs(p["r_port_host"]) for p in J["points"] if p["margin"] < m0]
+        hi += [p["r_port_host"] for p in J["points"] if p["margin"] >= m0]
+        late = max(p["margin"] for p in J["points"] if p["margin"] < m0)
+    assert len(cl) == 1; m0 = 1e3 * cl.pop()
+    row("tProc path", "Boards A and B, QICK threshold feedback (FIR): latest unclean margin; max |r| (port vs own window sum) below the earliest clean margin; min r from it; earliest clean margin",
+        f"{1e3 * late:.0f} ns; {max(lo):.2f}; {min(hi):.2f}; {m0:.0f} ns", [f"{1e3 * late:.0f}", f"{max(lo):.2f}", f"{min(hi):.2f}", f"{m0:.0f}"], q0)
+    q = src(D + "analysis/s3/s3_live_window_lda.json", "name+date"); s = json.load(open(q))["points"]["770"]["test"]
+    row("Linear baselines", "LDA on raw traces, all 770 recorded samples, 100,000 test traces", f"{s['fid']:.3f}%",
+        [str(Decimal(repr(round(s['fid'], 6))).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))], q)
+    q = src("campaign_v144/final/analysis/stats/t2346_paired.json", "name+date"); J = json.load(open(q))
+    for b in "AB":
+        d = J["NN_live-LDA_fir770"]["fresh"][b]["diff"]
+        row("Paired statistics", f"NN_live vs LDA FIR-770, board {b}, the 80,000 unused rows", f"{d['dF']:+.3f} points, {d['A_only']} vs {d['B_only']}, exact p = {d['p_exact']:.2g}",
+            [f"{abs(d['dF']):.2f}", f"{d['p_exact']:.0e}".replace("e-0", "e-") if d["p_exact"] < 1e-3 else f"{d['p_exact']:.2f}"], q)
+    d = J["B_minus_A"]["NN_live"]["all"]
+    row("Paired statistics", "NN_live, board B − board A, 99,400 [95% CI]", f"{d['dF']:+.3f} [{d['ci95_normal'][0]:+.3f}, {d['ci95_normal'][1]:+.3f}]",
+        [f"{d['dF']:.2f}", f"{d['ci95_normal'][0]:.2f}", f"{d['ci95_normal'][1]:.2f}"], q)
+    q = src("campaign_v144/final/analysis/stats/holm_pass9b.json", "name+date"); H = json.load(open(q))
+    mh = max(t["holm"] for t in H["tests"] if t["holm"] < 0.05)
+    row("Paired statistics", "Holm over every p-value printed after pass 9b: tests / survivors / largest surviving adjusted p", f"{H['n']} / {H['survivors']} / {mh:.4f}",
+        [H["n"], f"{math.ceil(mh * 1000) / 1000:.3f}"], q)
+    adj = {t["test"]: t["holm"] for t in H["tests"]}
+    a1, a2 = adj["In the loop: Board B, vs its gate-idle run"], adj["zero vs nominal pulse gain, board A, 99,400"]
+    row("Paired statistics", "Holm-adjusted p after pass 9b: board B in-loop vs gate-idle; zero vs nominal gain, board A", f"{a1:.3f}; {a2:.3f}", [f"{a1:.2f}", f"{a2:.2f}"], q)
+
+
 # ----------------------------------------------------------------------- run every group
 assert sha(BIT) == BIT_SHA
 for fn in (nn_live, replay_decisions, inloop, axi, timing_checks, emulator, leak, gate_saving, swap_phase, phrst, box_vs_fir, synthetic, nonlinear, channel, fig7, implementation, scaling, latency, fig8b):
     attempt(fn)
-for fn in (s2_aug, s5_linear):
+def pass11():
+    """Numbers text pass 11 adds, from results already on hand."""
+    # P128, P156, P181, P184: shot spacing; board B's fine sweep is the only one between 6.5 and 11.5 us
+    per = {}
+    for b, f in (("A", "A_spacing.log"), ("B", "B_spacing_fine.log")):
+        q = src(f"campaign_v144/final/tests/spacing/{f}", "banner"); t = Path(q).read_text(encoding="utf-8", errors="ignore")
+        pts = [(float(m[1]), m[2] == "CLEAN") for m in re.finditer(r"period ~([\d.]+) us\): (CLEAN|NOT CLEAN)", t)]
+        per[b] = (min(p for p, c in pts if c), max(p for p, c in pts if not c))
+    row("In the loop", "Shot spacing: shortest clean period A (coarse sweep) / B (fine sweep); longest failing period on B",
+        f"{per['A'][0]:.2f} / {per['B'][0]:.2f} µs; {per['B'][1]:.2f} µs", [f"{per['A'][0]:.1f}", f"{per['B'][0]:.1f}", f"{per['B'][1]:.1f}"], src("campaign_v144/final/tests/spacing/B_spacing_fine.log", "banner"))
+    rate = []
+    for b in "AB":
+        q = src(f"{D}inloop/{b}_inloop_0_100000.log", "banner")
+        rate.append(float(re.findall(r"([\d.]+) shots/s", Path(q).read_text(encoding="utf-8", errors="ignore"))[-1]))
+    row("In the loop", "In-loop campaign: shot rate A / B; time between shots", f"{rate[0]:.2f} / {rate[1]:.2f} shots/s; {1 / max(rate):.3f}–{1 / min(rate):.3f} s",
+        [f"{1 / (sum(rate) / 2):.2f}"], src(f"{D}inloop/A_inloop_0_100000.log", "banner"))
+    # P139: the boxcar path's cost, to NN_live and to LDA at 576 samples
+    q = src(D + "analysis/box_vs_fir_v144.json", "name+date"); dF = json.load(open(q))["all99400"]["paired"]["dF"]
+    row("Readout path", "Boxcar minus FIR path, NN_live, board A, 99,400 rows (unrounded)", f"{dF:+.4f} points", [f"{dF:.2f}"], q)
+    q = src("campaign_v144/final/analysis/offline/lda_box_vs_fir.json", "name+date"); r = json.load(open(q))["headline_mosaic"]["box576-fir576"]
+    row("Linear baselines", "LDA at 576 samples, boxcar minus FIR path, headline 99,400; exact p", f"{r['dF']:+.4f} points, {r['a_only']} vs {r['b_only']}, p = {r['p_exact']:.2g}",
+        [f"{abs(r['dF']):.2f}", f"{r['p_exact']:.0e}".replace("e-0", "e-"), "576"], q)
+    # P152, P179, P182, P185: the tProc routes at both core clocks, earliest margin with every shot fresh
+    B1 = "firmware_v1.44/variants/tproc245/board/"
+
+    def first(q, v):
+        for p in json.load(open(q))["points"]:
+            if p["variant"] == v and p["fresh"] == p["n"]:
+                return p["L_median"]
+    L = {}
+    for b in "AB":
+        for clk, q in (("200", src(f"{D}board2/{b}_tproc_box_v144.json", "banner")), ("245", src(f"{B1}{b}_tproc_box_t245.json", "name+date"))):
+            L[b, clk, "nb"], L[b, clk, "j"] = first(q, "nobranch"), first(q, "qick")
+        L[b, "fir"] = first(src(f"{D}board2/{b}_tproc_fir_v144.json", "banner"), "nobranch")
+        L[b, "b1"] = json.load(open(src(f"{B1}{b}_b1_latency.json", "name+date")))["points"]["op"]["L_50"]["mean"]
+    row("tProc path", "tProc branch on the boxcar path, 245.76 MHz core (build 1), earliest clean margin, no-jump / jump form, A; B",
+        f"{L['A', '245', 'nb']:.1f} / {L['A', '245', 'j']:.1f} ns; {L['B', '245', 'nb']:.1f} / {L['B', '245', 'j']:.1f} ns",
+        [f"{L['A', '245', 'nb']:.1f}", f"{L['B', '245', 'nb']:.1f}", f"{min(L[b, '245', 'nb'] for b in 'AB'):.0f}", f"{max(L[b, '245', 'j'] for b in 'AB'):.0f}"], src(f"{B1}A_tproc_box_t245.json", "name+date"))
+    lo200 = min(L[b, "200", "nb"] for b in "AB"); hi200 = max(L[b, "200", "j"] for b in "AB")
+    l50 = {"A": 175.9, "B": 173.9}   # each board's campaign L_50 group (latency rows above): A upper, B lower
+    box = [L[b, "fir"] - L[b, "200", "nb"] for b in "AB"]; gate = [L[b, "200", "nb"] - l50[b] for b in "AB"]
+    g245 = [L[b, "245", "nb"] - L[b, "b1"] for b in "AB"]; tot = [L[b, "fir"] - l50[b] for b in "AB"]
+    row("tProc path", "Measured saving against the tProc branch on the FIR path, A / B: total; boxcar path; gate (200 MHz); gate (245.76 MHz); tProc branch range at 200 MHz",
+        f"{tot[0]:.1f} / {tot[1]:.1f}; {box[0]:.1f} / {box[1]:.1f}; {gate[0]:.1f} / {gate[1]:.1f}; {g245[0]:.1f} / {g245[1]:.1f}; {lo200:.1f}–{hi200:.1f} ns",
+        [f"{5 * round(sum(tot) / 10):.0f}", f"{min(box):.0f}", f"{max(box):.0f}", f"{10 * round(sum(gate) / 20):.0f}", f"{10 * round(sum(g245) / 20):.0f}", f"{hi200:.0f}"],
+        src(f"{D}board2/A_tproc_box_v144.json", "banner"))
+    w = [(t, t / (3 * 32000) * 100, t / (2 * 32000) * 100) for t in (140, 160)]
+    row("tProc path", "Gate saving 140 / 160 ns at T1 = 32 us: t/(3T1); t/(2T1), points", f"{w[0][1]:.3f} / {w[1][1]:.3f}; {w[0][2]:.3f} / {w[1][2]:.3f}",
+        [f"{w[0][1]:.2f}", f"{w[1][1]:.2f}", f"{w[0][2]:.2f}", f"{w[1][2]:.2f}"], src(f"{D}board2/A_tproc_box_v144.json", "banner"))
+    thb = {}
+    for b in "AB":
+        q = src(f"campaign_v144/final/board3/threshold/{b}_threshold.json", "banner"); thb[b] = json.load(open(q))["threshold"]["box"]["earliest_clean"]["L_median"]
+    row("tProc path", "QICK threshold feedback fed from the boxcar path, earliest clean margin, A / B", f"{thb['A']:.1f} / {thb['B']:.1f} ns",
+        [f"{thb['A']:.1f}", f"{thb['B']:.1f}"], src("campaign_v144/final/board3/threshold/A_threshold.json", "banner"))
+    q = src(f"{B1}B_threshold_t245.json", "name+date"); t245 = json.load(open(q))["threshold"]["fir"]["earliest_clean"]["L_median"]
+    row("Variant builds", "QICK threshold feedback over both tProc clocks and both boards: lowest; highest (earliest clean margins)",
+        f"{t245:.1f}; 521.8 ns", [f"{t245:.0f}", "522"], q)
+    # P156, P198: leaked energy, DELAY from the 2000-amplitude crossing, over the three leads of the measurement
+    fr, ub = [], []
+    for b in "AB":
+        q = src(f"{D}leak_energy/{b}_v144_leak_thr2000.json", "banner"); J = json.load(open(q))
+        for k in ("2", "3", "4"):
+            fr.append(100 * J["leads"][k]["frac_mean"]); ub.append(100 * J["leads"][k]["frac_ci"][1])
+    row("Safety and tests", "Leaked energy, DELAY from the 2000-amplitude crossing, leads 2-4, both boards: mean range; largest upper 95% bound",
+        f"{min(fr):.3f}–{max(fr):.3f}%; {max(ub):.3f}%", [f"{min(fr):.2f}", f"{max(fr):.2f}", f"{max(ub):.2f}"], src(f"{D}leak_energy/B_v144_leak_thr2000.json", "banner"))
+    # P163: the largest L_50 shift over every sensitivity set (gain, phase, no stimulus) of the reloads and cold starts
+    sh = []
+    for f in sorted(glob.glob("campaign_v144/final/latency/reloads/*.json")) + sorted(glob.glob(D + "latency/cold/*.json")):
+        s = json.load(open(f)).get("sensitivity") or {}
+        if "base" in s:
+            sh += [(abs(v["L_50"]["mean"] - s["base"]["L_50"]["mean"]), f.replace("\\", "/"), k) for k, v in s.items() if k != "base" and isinstance(v, dict) and "L_50" in v]
+    m = max(sh); q = src(m[1], "name+date")
+    row("Loop latency", "Largest L_50 shift over all sensitivity sets (gain, carrier phase, no stimulus)", f"{m[0]:.3f} ns ({Path(m[1]).name}, {m[2]})", [f"{m[0]:.1f}"], q)
+    # P178: the fixed-ridge LDA on all 770 samples; the augmented models against the deployed network
+    q = src(D + "analysis/s5_linear_99400_v144.json", "name+date"); r = json.load(open(q))["headline"]["LDA_ridge0.01"]
+    row("Linear baselines", "LDA, fixed ridge 1e-2, 770 samples, run 1, 99,400 rows, vs NN_live on the same shots",
+        f"{r['fid']['fid']:.2f}%, {r['vs_NN_live']['dF']:+.3f} points, exact p = {r['vs_NN_live']['p_exact']:.2g}",
+        [f"{r['fid']['fid']:.2f}", f"{r['vs_NN_live']['p_exact']:.3f}", "770"], q)
+    q = src(D + "analysis/s2/arch_aug_v144.json", "name+date"); P = json.load(open(q))["paired_vs_t4"]
+    dd = [P[f"{m_}_aug_vs_t4_clean"] for m_ in ("seg_mlp", "bin_mlp", "bin_gru", "cnn1d")]
+    row("Linear baselines", "Augmented models vs the deployed 4-unit network, board A replay, 16,000 shots: gain range; largest p",
+        f"{min(x['delta'] for x in dd):.3f}–{max(x['delta'] for x in dd):.3f} points; p ≤ {max(x['p'] for x in dd):.3f}",
+        [f"{min(x['delta'] for x in dd):.2f}", f"{max(x['delta'] for x in dd):.2f}", f"{math.ceil(max(x['p'] for x in dd) * 100) / 100:.2f}"], q)
+    # P180: the first LDA build (weights in logic)
+    q = src("firmware_v1.44/variants/lda_gate/reports/v1.44lda_routed_timing.rpt", "name+date")
+    wns = float(re.search(r"WNS\(ns\).*\n.*\n\s+([-\d.]+)", Path(q).read_text(encoding="utf-8", errors="ignore"))[1])
+    row("Variant builds", "Build 2 (LDA_live 1.0, weights in logic): design WNS", f"{wns * 1000:.0f} ps", [f"{-wns * 1000:.0f}"], q)
+    # P152, P201: the session shift of the same bit-exact LDA; board A's nominal arm against its gate-idle run 2
+    a = json.load(open(src("firmware_v1.44/variants/lda_gate/lda_csim_score.json", "name+date")))["sets"]["headline_mosaic"]["LDA_fixed_csim"]["fid"]
+    q = src("firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json", "name+date")
+    b_ = json.load(open(q))["sets"]["headline_mosaic"]["LDA_live_board"]["fid"]
+    row("Variant builds", "Same bit-exact LDA, headline mosaic: later board session minus stored v1.44 windows", f"{b_ - a:+.3f} points", [f"{b_ - a:.2f}"], q)
+    q = src("campaign_v144/final/inloop/arms/arms_full_analysis.json", "name+date"); r = json.load(open(q))["A"]["final_run2"]
+    pr = r["paired"]["nominal"]
+    row("Variant builds", "Board A, nominal-gain arm vs gate-idle run 2 (rows 50,000-99,999): difference, exact p",
+        f"{pr['dF']:+.3f}, p = {pr['p_exact']:.3f}, n = {r['n']:,}", [f"{pr['dF']:.2f}", f"{pr['p_exact']:.2f}", f"{r['n']:,}"], q)
+    q = src("campaign_v144/final/analysis/stats/holm_pass11.json", "name+date"); H = json.load(open(q))
+    row("Paired statistics", "Holm over every p-value printed after pass 11: tests / survivors / largest surviving adjusted p",
+        f"{H['n']} / {H['survivors']} / {H['max_surviving_adjusted']:.4f}", [H["n"], f"{math.ceil(H['max_surviving_adjusted'] * 1000) / 1000:.3f}"], q)
+    a1, a2 = H["adj_p201"]["boardB_inloop"], H["adj_p201"]["boardA_zero"]
+    row("Paired statistics", "Holm-adjusted p after pass 11: board B in-loop vs gate-idle; zero vs nominal gain, board A", f"{a1:.3f}; {a2:.3f}", [f"{a1:.2f}", f"{a2:.2f}"], q)
+
+
+for fn in (s2_aug, s5_linear, rev_reloads, rev_stability, rev_arms, rev_carrier_jitter_spacing, rev_logit, rev_keras, rev_map_trainrows, rev_live_window,
+           rev2_stats, rev2_protocol, rev2_fpga, rev2_pass8):
     attempt(fn)
 for b in "AB":
     for fn in (linear, tproc_box, tproc_fir, boxcar_mr, tests, tproc_fir_earliest, tproc_thr):
         attempt(fn, b)
 for h, b in HOSTS:
     attempt(drift, h, b)
+attempt(rev2_board)
+attempt(pass9b)
+attempt(pass11)
 for t, lab in (("A_own", "Board A, own calibration"), ("B_own", "Board B, own calibration"), ("B_on_A_calibration", "Board B on board A's calibration")):
     attempt(swap, t, lab)
+
 
 # ----------------------------------------------------------------------- the v1.43 ledger sets the rows and their order
 def norm(k):
@@ -479,6 +932,7 @@ def norm(k):
     k = re.sub(r", rounded, \d+ ns group", ", rounded", k)
     return re.sub(r"SCALING_OUT=resource_scaling_v14\d", "SCALING_OUT=resource_scaling", k)
 
+
 def expected(s, key):
     """Where a pending row's source will be."""
     if key.startswith("Classifier units"):
@@ -488,6 +942,7 @@ def expected(s, key):
                   (r"v1\.43_", "v1.44_")):
         s = re.sub(a, b_, s)
     return s.replace("v143", "v144")
+
 
 have = {(r["section"], norm(r["key"])): r for r in ROWS}
 assert len(have) == len(ROWS), "two rows share a name"
@@ -530,7 +985,8 @@ text = "\n".join(out)
 payload = dict(rows=final, sources=SRC, pending=len(pending), waiting_for=sorted(set(BLOCKED)), md_sha256=hashlib.sha256(text.encode()).hexdigest())
 if "--verify" in sys.argv:
     old = json.load(open(JS))
-    bad = [p for p, v in old["sources"].items() if sha(p)[:16] != v["sha256"]]
+    bad = [p + (" (missing: see DATA_MANIFEST.csv)" if not Path(p).exists() else "") for p, v in old["sources"].items()
+           if not Path(p).exists() or sha(p)[:16] != v["sha256"]]
     if MD.read_text(encoding="utf-8") != text or old["md_sha256"] != payload["md_sha256"]:
         bad.append(str(MD))
     if pending:

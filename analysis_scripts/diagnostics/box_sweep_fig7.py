@@ -107,7 +107,7 @@ def main():
         soc.box_config(sel=cfg0['sel'], shift=cfg0['shift'], m=cfg0['m'])
         print(f"[{a.board}] boxcar cfg restored: {soc.box_get()}", flush=True)
         OUTDIR.mkdir(parents=True, exist_ok=True)
-        stem = OUTDIR / f"fig7_sweep_{a.board}_{__import__("os").environ.get("QICK_TAG", "v143")}"
+        stem = OUTDIR / f"fig7_sweep_{a.board}_{__import__("os").environ.get("QICK_TAG", "v144")}"
         arrays["f_MHz"] = np.array(F_LIST[:len(rows) // len(MS)])
         np.savez_compressed(str(stem) + ".npz", **arrays)
         Path(str(stem) + ".json").write_text(json.dumps(dict(board=a.board, banner=BANNER, fs_MHz=FS,

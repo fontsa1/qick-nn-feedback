@@ -1,0 +1,17 @@
+BANNER: Firmware configuration (built Tue Nov 17 20:42:27 2026):
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+marker -> pulse at the gate input: [52, 53, 54] cycles
+E_pass - E_off: median 2.381e+07 (per-shot spread 0.001 of it); E_off median 7986
+
+ lead DELAY  leak fraction: median  mean [95% CI of the mean]   max shot
+  -36    88  +0.74777  +0.74544 [+0.74087, +0.75001]  +0.76523
+  -24    76  +0.35648  +0.35195 [+0.34643, +0.35748]  +0.37656
+  -12    64  +0.07256  +0.07582 [+0.07360, +0.07805]  +0.08859
+   -6    58  +0.02640  +0.02671 [+0.02587, +0.02756]  +0.03099
+    0    52  +0.00682  +0.00693 [+0.00666, +0.00720]  +0.00866
+    2    50  +0.00438  +0.00430 [+0.00408, +0.00451]  +0.00534
+    3    49  +0.00331  +0.00332 [+0.00314, +0.00350]  +0.00441
+    4    48  +0.00247  +0.00248 [+0.00235, +0.00261]  +0.00324
+
+leads 2-4: largest upper 95% bound on the leaked fraction +0.00451; positive control (negative leads) resolves a leak: True  (gate left disabled)
+saved campaign_v144/revision2/rebuilds/build2_lda_gate/board/B_leak_thr2000.json

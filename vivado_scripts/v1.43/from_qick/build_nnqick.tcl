@@ -25,11 +25,9 @@ foreach f {neural_net4_live576/rtl/live_rec_wreg.v neural_net4_live576/rtl/dac_g
     if {[file exists $p]} { puts $PROV "src [file size $p] [file mtime $p] $f" } else { puts $PROV "src MISSING $f" }
 }
 if {[catch {
-    set dp [open ${TAG}_uncommitted.diff w]
-    puts $dp [exec git -C $REPO diff]
-    close $dp
-    puts $PROV "uncommitted diff saved to ${TAG}_uncommitted.diff"
-} e]} { puts $PROV "git diff: unavailable ($e)" }
+    exec git -C $REPO diff --output=${TAG}_uncommitted.diff
+    puts $PROV "uncommitted diff saved to ${TAG}_uncommitted.diff (not part of the release)"
+} e]} { puts $PROV "git diff: unavailable ([string range [lindex [split $e "\n"] 0] 0 120])" }
 close $PROV
 puts "STEP: provenance written to ${TAG}_provenance.txt"
 

@@ -1,0 +1,18 @@
+BANNER: Firmware configuration (built Tue Nov 17 20:42:27 2026):
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+[calib] WARNING: root k.npy/c.npy hold 10.1.4.105, not 10.1.9.26
+marker -> pulse at the gate input: [52, 53, 54] cycles
+E_pass - E_off: median 2.371e+07 (per-shot spread 0.001 of it); E_off median 9106
+
+ lead DELAY  leak fraction: median  mean [95% CI of the mean]   max shot
+  -36    88  +0.75306  +0.74833 [+0.74370, +0.75295]  +0.76725
+  -24    76  +0.36148  +0.35565 [+0.35018, +0.36113]  +0.37632
+  -12    64  +0.07860  +0.07950 [+0.07741, +0.08159]  +0.08870
+   -6    58  +0.02497  +0.02581 [+0.02484, +0.02677]  +0.03093
+    0    52  +0.00718  +0.00723 [+0.00689, +0.00757]  +0.00943
+    2    50  +0.00440  +0.00432 [+0.00413, +0.00451]  +0.00558
+    3    49  +0.00331  +0.00335 [+0.00319, +0.00351]  +0.00435
+    4    48  +0.00275  +0.00259 [+0.00241, +0.00276]  +0.00341
+
+leads 2-4: largest upper 95% bound on the leaked fraction +0.00451; positive control (negative leads) resolves a leak: True  (gate left disabled)
+saved campaign_v144/revision2/rebuilds/build2_lda_gate/board/A_leak_thr2000.json

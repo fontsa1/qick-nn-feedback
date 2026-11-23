@@ -15,7 +15,7 @@ USAGE
     from calib import load_kc, save_kc, activate            # board_tools on path
 
     k, c = load_kc()                    # host from QICK_NS_HOST, verified
-    k, c = load_kc(host="10.1.4.105")   # explicit
+    k, c = load_kc(host="192.168.1.20")   # explicit
     save_kc(k, c, host)                 # writes scoped pair + activates it
 
 Switching boards from the shell, without recalibrating:
@@ -36,13 +36,14 @@ ACTIVE = CALDIR / "ACTIVE"
 LEGACY_K = ROOT / "calibration/k.npy"
 LEGACY_C = ROOT / "calibration/c.npy"
 
-DEFAULT_HOST = "10.1.9.26"          # board A
-KNOWN = {"10.1.9.26": "board A", "10.1.4.105": "board B"}
+KNOWN = {os.environ[v]: f"board {v[-1]}" for v in ("QICK_BOARD_A", "QICK_BOARD_B") if os.environ.get(v)}   # names for messages only
 
 def host_from_env(host=None):
-    """The board this process is talking to: explicit argument, else
-    QICK_NS_HOST, else board A (which is what every script defaults to)."""
-    return host or os.environ.get("QICK_NS_HOST") or DEFAULT_HOST
+    """The board this process is talking to: the explicit argument, else QICK_NS_HOST."""
+    h = host or os.environ.get("QICK_NS_HOST")
+    if not h:
+        sys.exit("set QICK_NS_HOST to the board's IP address")
+    return h
 
 def paths(host=None):
     h = host_from_env(host)

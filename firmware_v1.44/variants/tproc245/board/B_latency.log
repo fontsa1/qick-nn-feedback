@@ -1,0 +1,54 @@
+BANNER: Firmware configuration (built Mon Nov 16 00:41:12 2026):
+SETTINGS {
+ "label": "b1",
+ "host": "10.1.4.105",
+ "banner": "Firmware configuration (built Mon Nov 16 00:41:12 2026):",
+ "time": "2026-11-17 20:39:48",
+ "git_head": "dac9b49babc6c21638f1009370bb52715f8875f7",
+ "script_sha256": "d085911fba4263c5530c060d32b1e90bb8c07da7224ba1d05f305dfdea4e8a60",
+ "bit_sha256": "0b5c89e82cc09944530e20914cf98983c8135e38930db42b561dae5482c79346",
+ "k_sha256": "751599e602fe8f54bf97c45e48295f4ce527192ba9da6ebd4be8113fa2c23413",
+ "c_sha256": "4cc654a1d8ca00b868c9076aa6176c33acc55ef93943ed39c0e4645d02409f11",
+ "nn_advance_us": 0.1135,
+ "expect_path_adv_ns": 1.4,
+ "realised_ticks": 55,
+ "realised_adv_ns": 111.89778645833334,
+ "tick_ns": 2.0345052083333335,
+ "sample_ns": 1.808449074074074,
+ "op_slack_us": -0.064,
+ "path_ns": 113.22,
+ "box_shift": 7,
+ "box_m": 11,
+ "cp_gain": 0.6,
+ "cp_len_us": 0.2,
+ "cp_pre_us": 0.15,
+ "fb_margin_us": 0.035,
+ "rf_thr": 2048,
+ "live_n": "576",
+ "box_json": "campaign_v144/revision2/rebuilds/build1_tproc245/board/B_b1.box_probe.json"
+}
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+DELAY 29
+            op: thr  1081  100/100 with a pulse  L_50  173.78 (sd 1.30, sem 0.13)  counter  174.86  L_buf  175.25  L_50-counter -1.08  L_buf-L_50 +1.47  phase -64
+        slack0: thr  1080  40/40 with a pulse  L_50  239.05 (sd 1.56, sem 0.25)  counter  240.07  L_buf  240.52  L_50-counter -1.02  L_buf-L_50 +1.47  phase -64
+
+closure checks:
+  PASS  path_minus_adv: path 113.22 - advance 111.90 = 1.32 ns; expected 1.4 +/- 1.0
+  PASS  op_all_pulses: 100/100 (a shot with no pulse = late decision)
+  PASS  op_window_is_buffer: NN_live's window == buffer 1 on every shot
+  PASS  op_counter_is_samples: counter - edge rule on samples: [0]
+  PASS  op_nn_cycles: result - last: [9] cycles
+  PASS  op_thr_fraction: 0.500
+  PASS  op_l50_minus_counter: -1.08 ns; expected -0.9 +/- 0.84
+  PASS  op_lbuf_minus_l50: +1.47 ns; path - advance on this load 1.32 +/- 0.80
+  PASS  op_segments_sum: segment sum 174.86, counter 174.86 ns
+  PASS  slack0_all_pulses: 40/40 (a shot with no pulse = late decision)
+  PASS  slack0_window_is_buffer: NN_live's window == buffer 1 on every shot
+  PASS  slack0_counter_is_samples: counter - edge rule on samples: [0]
+  PASS  slack0_nn_cycles: result - last: [9] cycles
+  PASS  slack0_thr_fraction: 0.500
+  PASS  slack0_l50_minus_counter: -1.02 ns; expected -0.9 +/- 0.93
+  PASS  slack0_lbuf_minus_l50: +1.47 ns; path - advance on this load 1.32 +/- 0.93
+  PASS  slack0_segments_sum: segment sum 240.07, counter 240.07 ns
+
+ALL CHECKS PASSED; saved campaign_v144/revision2/rebuilds/build1_tproc245/board/B_b1_latency.npz, campaign_v144/revision2/rebuilds/build1_tproc245/board/B_b1_latency.json; gate left at word 0

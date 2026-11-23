@@ -68,7 +68,7 @@ def main():
     if outp.exists():
         raise RuntimeError("%s already exists -- refusing to overwrite (no-resume guard)" % outp)
 
-    ns = Pyro4.locateNS(host="10.1.9.26", port=8888)
+    ns = Pyro4.locateNS(host=__import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address"), port=8888)
     soc = Pyro4.Proxy(ns.lookup("myqick"))
     soccfg = QickConfig(soc.get_cfg())
     print("Connected.")

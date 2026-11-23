@@ -1,0 +1,35 @@
+Fixed copy of the release audit (to_publish/tools/verify_no_leakage.py, sha256 in logs/audit_script_sha256.txt),
+for review round 2 (R2-027, D4, R2-102). The original is not edited. Run from a directory in the release layout
+(stage_release/, built by stage_release_layout.py + stage_fixed_extra.py). Every check prints what it tests.
+
+Changes against the release script:
+  B3/B4  every one of the 20,000 rows, not 500 spread-out rows.
+  C3     the scored sets are read from the v1.44 per-shot files (campaign_v144/final/{axi,live,inloop}), not the v1.40/
+         v1.41 ones; C5 (new) re-derives the v1.44 ledger fidelities from those files with rows 1000:1600 removed and
+         compares them with campaign_v144/final/analysis/v144_stats.json, i.e. it checks that the reported numbers are
+         the masked sets.
+  D      D2  the FIR-path file (0528_X_train_0_770_loopback_calibrated.npy, NN_axi) on EVERY row, not 200;
+         D2b (new) the boxcar-path file NN_live trains on (0528_X_train_box_calibrated.npy + _rows.npy), every row,
+             against kb*MA_M(x)[n-s]+cb from calibration/box_domain_map.json, with the builder's own filter code;
+         D3  (rewritten) searches each mapped training file for any row equal, within a tolerance, to a TEST row
+             pushed through the same map (or to a raw test row): mapped rows and test rows are compared in the same
+             dtype and domain, so the check can fail. The release D3 compared blake2b hashes of float32 mapped rows
+             with hashes of float64 raw test rows (always disjoint) on the first 20,000 rows only.
+         --d3-file / --d3-selftest run D3 alone on a given (e.g. deliberately corrupted) file.
+  F      F2 (new) the boxcar-path map equals the label-free refit from its recorded capture and differs from the
+         per-class fit (which needs labels).
+  G      G5 reads the v1.44 NN_live runs (each board: run 1 + run 2 = every row once).
+  R2-102 every input is checked up front; a check whose inputs are missing is recorded BLOCKED, not a traceback.
+
+==========================================================================
+planted: {7: ('test rows through the same map', 5), 12345: ('raw test rows', 77)} in C:\Users\fonte\coding\qick_project\campaign_v144\revision2\protocol\tmp\corrupted_box_train_head20000.npy
+     D3 corrupted copy (fixed D3): 20000 training rows searched against test rows through the same map (100000 rows), raw test rows (100000 rows); tol 0.001; 26 candidate pairs after fingerprints; 2 hits
+  [**FAIL**] D3 corrupted_box_train_head20000.npy (deliberately corrupted): no row equals a test row, raw or through the same map  -- 2 hits: [(7, 'test rows through the same map', 5, 0.0), (12345, 'raw test rows', 77, 0.0)]
+           tests: the fixed D3 itself, run on the corrupted copy: it must FAIL here
+  [PASS] D3-selftest fixed D3 flags both planted test rows in the corrupted copy (so this run FAILS D3)  -- hits [(7, 'test rows through the same map', 5, 0.0), (12345, 'raw test rows', 77, 0.0)]
+           tests: the fixed D3 can fail: it finds a mapped test row and a raw test row planted in a training file
+  [PASS] D3-selftest release D3 on the same corrupted copy reports no hit (it cannot fail)  -- 0 hits although 2 test rows are planted
+           tests: release D3 compares blake2b of float32 rows with blake2b of float64 rows; disjoint by construction
+
+D3 self-test: fixed D3 FAILS (as it must); corrupted copy deleted
+exit 0

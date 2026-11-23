@@ -3,10 +3,11 @@
 # after a dropped connection and scores TLAST windows with --no-align. Output in final/drift_full. Boards as loaded, no redeploy.
 #   bash campaign_v144/run_drift_full.sh A|B
 set -u
-cd "$(dirname "$0")/.."
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
+source campaign_v144/env.sh
 B=$1
-case $B in A) H=10.1.9.26;; B) H=10.1.4.105;; *) echo "board A or B"; exit 2;; esac
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; D=campaign_v144/final   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
+H=$(host_of $B) || exit 2
+DG=analysis_scripts/diagnostics; D=campaign_v144/final
 SILENCE=900
 OUT=$D/drift_full
 mkdir -p $OUT $D/logs
@@ -46,7 +47,7 @@ calibrate() {
   $PY - "$B" "$H" "$ph" > $D/calib/${B}_${ph}.json <<'EOF'
 import datetime, hashlib, json, subprocess, sys
 print(json.dumps(dict(board=sys.argv[1], host=sys.argv[2], phase=sys.argv[3], time=datetime.datetime.now().isoformat(),
-    bit_sha256=hashlib.sha256(open("C:/qick_projects/top/OG_build_v1.44.bit", "rb").read()).hexdigest(),
+    bit_sha256=hashlib.sha256(open("$TOP/OG_build_v1.44.bit", "rb").read()).hexdigest(),
     git_head=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()), indent=1))
 EOF
   say "calibrated for $ph: $(grep -E 'k ?=|\|k\|' "$log" | tail -1 | cut -c1-100)"

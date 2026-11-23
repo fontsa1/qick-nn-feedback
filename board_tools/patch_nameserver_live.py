@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import jupyter_remote as J  # noqa: E402
 
-NB = "start nameserver.ipynb"
+NB = __import__("os").environ.get("QICK_SERVER_NB", "start nameserver.ipynb")
 
 INIT_ANCHOR = "self._nn_bram_mmio = MMIO(bram_info['phys_addr'], bram_info['addr_range'])"
 INIT_ADD = """

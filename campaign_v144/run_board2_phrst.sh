@@ -2,9 +2,10 @@
 # Four fresh v1.44 loads of board A (deploy_and_verify), phrst_probe on each. The probe's none mode runs first on each
 # load, before any phase reset.
 set -u
-cd "$(dirname "$0")/.."
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; D=campaign_v144/final/board2; TOP=C:/qick_projects/top; V43="Nov  7 19:57:07"   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
-export QICK_NS_HOST=10.1.9.26 QICK_LIVE_N=576
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
+source campaign_v144/env.sh
+DG=analysis_scripts/diagnostics; D=campaign_v144/final/board2; V43="$BANNER"
+export QICK_NS_HOST=$(host_of A) QICK_LIVE_N=576
 rm -f $D/A_phrst_probe_v144.json
 for L in 0 1 2 3; do
   r=$D/A_phrst_load$L

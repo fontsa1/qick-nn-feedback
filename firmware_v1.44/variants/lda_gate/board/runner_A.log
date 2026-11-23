@@ -1,0 +1,22 @@
+2026-11-18 07:39:10 START build2 on A (10.1.9.26), phases: core live1 latency restore, bit sha256 b2416b0665f34aa1
+2026-11-18 07:39:47 banner confirmed: Nov 17 20:42:27
+2026-11-18 07:40:01 functional rc=0
+2026-11-18 07:43:28 calibration core rc=0 [calib] active = 10.1.9.26 (board A)  |k|=0.22517 arg(k)=-169.29 deg
+2026-11-18 07:44:04 binding_fault rc=0
+2026-11-18 07:44:39 fail_safe rc=0
+2026-11-18 07:46:06 tproc_decision rc=0
+2026-11-18 07:47:29 leak_thr2000 rc=0
+2026-11-18 07:48:50 leak_thr8 rc=0
+2026-11-18 07:50:36 gate_sweep rc=0
+2026-11-18 07:50:57 smoke OK: pulse == gate == NN_live decision (correct): 20/20; stale 0; late 0; unsafe 0; fresh 20; binding rejects 0; DAC-clipped shots 0
+2026-11-18 07:56:56 calibration live1 rc=0 [calib] active = 10.1.9.26 (board A)  |k|=0.22245 arg(k)=-169.35 deg
+2026-11-18 11:05:07 live run1 done
+2026-11-18 11:12:07 calibration latency rc=0 [calib] active = 10.1.9.26 (board A)  |k|=0.22664 arg(k)=-169.37 deg
+2026-11-18 11:12:21 box_probe rc=0
+2026-11-18 11:14:11 latency rc=3
+2026-11-18 11:14:11 gate loop:             op: thr   973  100/100 with a pulse  L_50  173.62 (sd 1.56, sem 0.16)  counter  174.95  L_buf  175.52  L_50-counter -1.33  L_buf-L_50 +1.89  phase -167
+  FAIL  path_minus_adv: path 114.76 - advance 111.90 = 2.86 ns; expected 1.4 +/- 1.0
+  FAIL  op_lbuf_minus_l50: +1.89 ns; path - advance on this load 2.86 +/- 0.85
+2026-11-18 11:21:02 calibration restore_v144 rc=0 [calib] active = 10.1.9.26 (board A)  |k|=0.23108 arg(k)=+161.19 deg
+2026-11-18 11:21:06 check: A_full: n=49400 LDA_live (board) 95.615  NN_live v1.44 95.636 B_full: n=50000 LDA_live (board) 95.459  NN_live v1.44 95.565 bit-exact vs lda_model: {'D': 0, 'logit': 0, 'dec': 0, 'n': 100000} 
+2026-11-18 11:21:06 DONE build2 on A

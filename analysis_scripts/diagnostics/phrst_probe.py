@@ -35,8 +35,8 @@ import jupyter_remote as J                      # noqa: E402
 from qick import QickConfig                     # noqa: E402
 from qick.asm_v2 import AveragerProgramV2       # noqa: E402
 
-NS_HOST = __import__("os").environ.get("QICK_NS_HOST", "10.1.9.26")
-SERVER_NB = "start nameserver.ipynb"
+NS_HOST = __import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address")
+SERVER_NB = __import__("os").environ.get("QICK_SERVER_NB", "start nameserver.ipynb")
 MODES = {"none": (None, None), "gen": (1, None), "ro": (None, 1), "both": (1, 1)}
 
 def connect(tries=60, wait=3.0):

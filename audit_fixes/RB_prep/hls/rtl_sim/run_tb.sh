@@ -4,8 +4,8 @@
 set -e
 HLSV=$1/NN_live_prj/solution1/syn/verilog
 TAG=$(basename $1)
-V=/c/embedded-software/Vivado/2023.1/bin
-QBUF=C:/qick_projects/qick_project/openquantumhardware-qick-779dffa/firmware/ip/axis_avg_buffer/src/buffer.sv
+V="${VIVADO_BIN:?set VIVADO_BIN to the bin folder of Vivado 2023.1}"
+QBUF="${QICK_ROOT:?set QICK_ROOT to a QICK checkout at commit 779dffa}/firmware/ip/axis_avg_buffer/src/buffer.sv"
 cp -f $HLSV/*.dat .
 $V/xvlog.bat --sv tb_live.sv ../../neural_net4_live/rtl/live_window_gate.v $QBUF $HLSV/*.v > xvlog_$TAG.txt 2>&1 || { echo XVLOG FAILED; exit 1; }
 $V/xelab.bat -debug off -timescale 1ps/1ps tb_live -s tb_live_sim > xelab_$TAG.txt 2>&1 || { echo XELAB FAILED; exit 1; }

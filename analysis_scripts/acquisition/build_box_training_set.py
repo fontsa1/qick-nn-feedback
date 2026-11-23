@@ -69,7 +69,7 @@ def main():
     ap.add_argument("--rows", default="0:10000,110000:300000")
     ap.add_argument("--out", default="0528_X_train_box_calibrated.npy")
     ap.add_argument("--fit-only", action="store_true")
-    ap.add_argument("--host", default="10.1.9.26", help="board whose calibration c primes the filter (checkpoint input only)")
+    ap.add_argument("--host", default=__import__("os").environ.get("QICK_NS_HOST"), help="board whose calibration c primes the filter (checkpoint input only)")
     a = ap.parse_args()
 
     caps = []

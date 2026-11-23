@@ -1,0 +1,6 @@
+ph114_skew4000: OFF_PS 114 M_PS 2034 SKEW_PS 4000 TOG_PS 0: sent 3000 received 3000 corrupted 0
+ph114_skew4060: OFF_PS 114 M_PS 2034 SKEW_PS 4060 TOG_PS 0: sent 3000 received 3000 corrupted 0
+ph114_skew4080: OFF_PS 114 M_PS 2034 SKEW_PS 4080 TOG_PS 0: sent 3000 received 3000 corrupted 352
+ph114_skew4250: OFF_PS 114 M_PS 2034 SKEW_PS 4250 TOG_PS 0: sent 3000 received 3000 corrupted 352
+ph313_skew4268: OFF_PS 313 M_PS 2034 SKEW_PS 4268 TOG_PS 0: sent 3000 received 3000 corrupted 0
+ph313_skew4270: OFF_PS 313 M_PS 2034 SKEW_PS 4270 TOG_PS 0: sent 3000 received 3000 corrupted 352

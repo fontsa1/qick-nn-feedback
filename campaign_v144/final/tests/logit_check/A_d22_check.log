@@ -1,0 +1,5 @@
+A_d22_20000.npz: 1000 shots, scaled-sum word mismatches 3000 of 4000 (shots with any mismatch 1000); record shot step == 1 on 999/999
+  first mismatch: shot 0 got [59321, 54767, 213324, 54600] want [-67359, -58477, 213324, -55508]
+A_d22_21000.npz: 1000 shots, scaled-sum word mismatches 3000 of 4000 (shots with any mismatch 1000); record shot step == 1 on 999/999
+  first mismatch: shot 0 got [34918, 38485, -28039, 32577] want [86014, 88733, -28039, 84229]
+SUMMARY {"shots": 2000, "words": 8000, "mismatch_words": 6000, "mismatch_shots": 2000, "shot_steps_ok": 1998}

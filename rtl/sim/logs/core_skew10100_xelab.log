@@ -1,0 +1,16 @@
+ECHO is off.
+ECHO is off.
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:/embedded-software/Vivado/2023.1/bin/unwrapped/win64.o/xelab.exe -f logs/core_skew10100_xelab.opt 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.live_res_cdc_skew(SKEW_PS=10100)
+Compiling module work.tb_cdc_skew(M_PS=5000,SKEW_PS=10...
+Built simulation snapshot sim_core_skew10100

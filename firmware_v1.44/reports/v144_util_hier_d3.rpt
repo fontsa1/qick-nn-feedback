@@ -1,0 +1,195 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date         : Mon Nov 16 00:48:31 2026
+| Host         : Yugger running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 3 -file C:/Users/fonte/coding/qick_project/campaign_v144/revision2/fpga/reports/v144_util_hier_d3.rpt
+| Design       : d_1_wrapper
+| Device       : xczu48dr-ffvg1517-2-e
+| Speed File   : -2
+| Design State : Physopt postRoute
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-------------------------------+-----------------------------------------------------------------------------+------------+------------+---------+-------+--------+--------+--------+------+------------+
+|            Instance           |                                    Module                                   | Total LUTs | Logic LUTs | LUTRAMs |  SRLs |   FFs  | RAMB36 | RAMB18 | URAM | DSP Blocks |
++-------------------------------+-----------------------------------------------------------------------------+------------+------------+---------+-------+--------+--------+--------+------+------------+
+| d_1_wrapper                   |                                                                       (top) |     252806 |     232837 |    6224 | 13745 | 285071 |    493 |     14 |    0 |        542 |
+|   (d_1_wrapper)               |                                                                       (top) |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|   d_1_i                       |                                                                         d_1 |     252368 |     232419 |    6204 | 13745 | 284330 |    493 |     14 |    0 |        542 |
+|     (d_1_i)                   |                                                                         d_1 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     NN_axi_0                  |                                                              d_1_NN_axi_0_0 |     160861 |     160861 |       0 |     0 | 148120 |      0 |      1 |    0 |         14 |
+|       inst                    |                                                       d_1_NN_axi_0_0_NN_axi |     160861 |     160861 |       0 |     0 | 148120 |      0 |      1 |    0 |         14 |
+|     NN_live_0                 |                                                             d_1_NN_live_0_0 |       1343 |       1339 |       0 |     4 |   1221 |      0 |      1 |    0 |          4 |
+|       inst                    |                                                     d_1_NN_live_0_0_NN_live |       1343 |       1339 |       0 |     4 |   1221 |      0 |      1 |    0 |          4 |
+|     axi_bram_ctrl_0           |                                                       d_1_axi_bram_ctrl_0_0 |         15 |         15 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|       U0                      |                                         d_1_axi_bram_ctrl_0_0_axi_bram_ctrl |         15 |         15 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|     axi_bram_ctrl_0_bram      |                                                  d_1_axi_bram_ctrl_0_bram_0 |          8 |          6 |       0 |     2 |     10 |      2 |      0 |    0 |          0 |
+|       U0                      |                               d_1_axi_bram_ctrl_0_bram_0_blk_mem_gen_v8_4_6 |          8 |          6 |       0 |     2 |     10 |      2 |      0 |    0 |          0 |
+|     axi_bram_ctrl_gate        |                                                    d_1_axi_bram_ctrl_gate_0 |         15 |         15 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|       U0                      |                                      d_1_axi_bram_ctrl_gate_0_axi_bram_ctrl |         15 |         15 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|     axi_bram_ctrl_gate_bram   |                                               d_1_axi_bram_ctrl_gate_bram_0 |          8 |          6 |       0 |     2 |     10 |      2 |      0 |    0 |          0 |
+|       U0                      |                            d_1_axi_bram_ctrl_gate_bram_0_blk_mem_gen_v8_4_6 |          8 |          6 |       0 |     2 |     10 |      2 |      0 |    0 |          0 |
+|     axi_bram_ctrl_live        |                                                    d_1_axi_bram_ctrl_live_0 |         15 |         15 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|       U0                      |                                      d_1_axi_bram_ctrl_live_0_axi_bram_ctrl |         15 |         15 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|     axi_bram_ctrl_live_bram   |                                               d_1_axi_bram_ctrl_live_bram_0 |          8 |          6 |       0 |     2 |     10 |      8 |      0 |    0 |          0 |
+|       U0                      |                            d_1_axi_bram_ctrl_live_bram_0_blk_mem_gen_v8_4_6 |          8 |          6 |       0 |     2 |     10 |      8 |      0 |    0 |          0 |
+|     axi_bram_ctrl_seg         |                                                     d_1_axi_bram_ctrl_seg_0 |         14 |         14 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|       U0                      |                                       d_1_axi_bram_ctrl_seg_0_axi_bram_ctrl |         14 |         14 |       0 |     0 |     12 |      0 |      0 |    0 |          0 |
+|     axi_bram_ctrl_seg_bram    |                                                d_1_axi_bram_ctrl_seg_bram_0 |          8 |          6 |       0 |     2 |     10 |      2 |      0 |    0 |          0 |
+|       U0                      |                             d_1_axi_bram_ctrl_seg_bram_0_blk_mem_gen_v8_4_6 |          8 |          6 |       0 |     2 |     10 |      2 |      0 |    0 |          0 |
+|     axi_dma_avg               |                                                           d_1_axi_dma_avg_0 |       1109 |       1022 |       8 |    79 |   1673 |      1 |      1 |    0 |          0 |
+|       (axi_dma_avg)           |                                                           d_1_axi_dma_avg_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                   d_1_axi_dma_avg_0_axi_dma |       1109 |       1022 |       8 |    79 |   1673 |      1 |      1 |    0 |          0 |
+|     axi_dma_buf               |                                                           d_1_axi_dma_buf_0 |        895 |        809 |       8 |    78 |   1365 |      1 |      0 |    0 |          0 |
+|       (axi_dma_buf)           |                                                           d_1_axi_dma_buf_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                   d_1_axi_dma_buf_0_axi_dma |        895 |        809 |       8 |    78 |   1365 |      1 |      0 |    0 |          0 |
+|     axi_dma_gen               |                                                           d_1_axi_dma_gen_0 |        461 |        429 |       0 |    32 |    751 |      1 |      0 |    0 |          0 |
+|       (axi_dma_gen)           |                                                           d_1_axi_dma_gen_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                   d_1_axi_dma_gen_0_axi_dma |        461 |        429 |       0 |    32 |    751 |      1 |      0 |    0 |          0 |
+|     axi_dma_mr                |                                                            d_1_axi_dma_mr_0 |        900 |        814 |       8 |    78 |   1365 |      1 |      0 |    0 |          0 |
+|       (axi_dma_mr)            |                                                            d_1_axi_dma_mr_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                    d_1_axi_dma_mr_0_axi_dma |        900 |        814 |       8 |    78 |   1365 |      1 |      0 |    0 |          0 |
+|     axi_dma_tproc             |                                                         d_1_axi_dma_tproc_0 |       2629 |       2503 |      32 |    94 |   4064 |      7 |      2 |    0 |          0 |
+|       (axi_dma_tproc)         |                                                         d_1_axi_dma_tproc_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                 d_1_axi_dma_tproc_0_axi_dma |       2629 |       2503 |      32 |    94 |   4064 |      7 |      2 |    0 |          0 |
+|     axi_intc_0                |                                                            d_1_axi_intc_0_0 |        132 |        132 |       0 |     0 |    127 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                   d_1_axi_intc_0_0_axi_intc |        132 |        132 |       0 |     0 |    127 |      0 |      0 |    0 |          0 |
+|     axi_smc                   |                                                               d_1_axi_smc_0 |       6368 |       4409 |    1876 |    83 |   9813 |      0 |      0 |    0 |          0 |
+|       (axi_smc)               |                                                               d_1_axi_smc_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                       d_1_axi_smc_0_bd_5915 |       6368 |       4409 |    1876 |    83 |   9813 |      0 |      0 |    0 |          0 |
+|     axis_avg_buffer_0         |                                                     d_1_axis_avg_buffer_0_0 |        887 |        787 |     100 |     0 |   1469 |     42 |      2 |    0 |          0 |
+|       inst                    |                                     d_1_axis_avg_buffer_0_0_axis_avg_buffer |        887 |        787 |     100 |     0 |   1469 |     42 |      2 |    0 |          0 |
+|     axis_avg_buffer_1         |                                                     d_1_axis_avg_buffer_1_0 |        890 |        790 |     100 |     0 |   1485 |     42 |      2 |    0 |          0 |
+|       inst                    |                                     d_1_axis_avg_buffer_1_0_axis_avg_buffer |        890 |        790 |     100 |     0 |   1485 |     42 |      2 |    0 |          0 |
+|     axis_broadcaster_0        |                                                    d_1_axis_broadcaster_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_broadcaster_0_0_top_d_1_axis_broadcaster_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     axis_broadcaster_1        |                                                    d_1_axis_broadcaster_1_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_broadcaster_1_0_top_d_1_axis_broadcaster_1_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     axis_broadcaster_2        |                                                    d_1_axis_broadcaster_2_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_broadcaster_2_0_top_d_1_axis_broadcaster_2_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     axis_broadcaster_clean    |                                                d_1_axis_broadcaster_clean_0 |          3 |          3 |       0 |     0 |      2 |      0 |      0 |    0 |          0 |
+|       inst                    |               d_1_axis_broadcaster_clean_0_top_d_1_axis_broadcaster_clean_0 |          3 |          3 |       0 |     0 |      2 |      0 |      0 |    0 |          0 |
+|     axis_cc_avg_0             |                                                         d_1_axis_cc_avg_0_0 |         99 |         59 |      40 |     0 |    220 |      0 |      0 |    0 |          0 |
+|       inst                    |       d_1_axis_cc_avg_0_0_axis_clock_converter_v1_1_29_axis_clock_converter |         99 |         59 |      40 |     0 |    220 |      0 |      0 |    0 |          0 |
+|     axis_cc_avg_1             |                                                         d_1_axis_cc_avg_1_0 |         99 |         59 |      40 |     0 |    220 |      0 |      0 |    0 |          0 |
+|       inst                    |       d_1_axis_cc_avg_1_0_axis_clock_converter_v1_1_29_axis_clock_converter |         99 |         59 |      40 |     0 |    220 |      0 |      0 |    0 |          0 |
+|     axis_cc_avg_2             |                                                         d_1_axis_cc_avg_2_0 |        101 |         61 |      40 |     0 |    220 |      0 |      0 |    0 |          0 |
+|       inst                    |       d_1_axis_cc_avg_2_0_axis_clock_converter_v1_1_29_axis_clock_converter |        101 |         61 |      40 |     0 |    220 |      0 |      0 |    0 |          0 |
+|     axis_cdcsync_v1_0         |                                                     d_1_axis_cdcsync_v1_0_0 |        281 |         69 |     212 |     0 |    587 |      0 |      0 |    0 |          0 |
+|       inst                    |                                     d_1_axis_cdcsync_v1_0_0_axis_cdcsync_v1 |        281 |         69 |     212 |     0 |    587 |      0 |      0 |    0 |          0 |
+|     axis_data_fifo_clean      |                                                  d_1_axis_data_fifo_clean_0 |         59 |         59 |       0 |     0 |     57 |      1 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_data_fifo_clean_0_axis_data_fifo_v2_0_10_top |         59 |         59 |       0 |     0 |     57 |      1 |      0 |    0 |          0 |
+|     axis_dyn_readout_v1_0     |                                                 d_1_axis_dyn_readout_v1_0_0 |       6259 |       1594 |      48 |  4617 |  11891 |     16 |      0 |    0 |        157 |
+|       (axis_dyn_readout_v1_0) |                                                 d_1_axis_dyn_readout_v1_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                             d_1_axis_dyn_readout_v1_0_0_axis_dyn_readout_v1 |       6259 |       1594 |      48 |  4617 |  11891 |     16 |      0 |    0 |        157 |
+|     axis_dyn_readout_v1_1     |                                                 d_1_axis_dyn_readout_v1_1_0 |       1951 |       1593 |      48 |   310 |   4228 |     16 |      0 |    0 |         35 |
+|       (axis_dyn_readout_v1_1) |                                                 d_1_axis_dyn_readout_v1_1_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                             d_1_axis_dyn_readout_v1_1_0_axis_dyn_readout_v1 |       1951 |       1593 |      48 |   310 |   4228 |     16 |      0 |    0 |         35 |
+|     axis_dyn_readout_v1_2     |                                                 d_1_axis_dyn_readout_v1_2_0 |       6259 |       1594 |      48 |  4617 |  11980 |     16 |      0 |    0 |        157 |
+|       (axis_dyn_readout_v1_2) |                                                 d_1_axis_dyn_readout_v1_2_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                             d_1_axis_dyn_readout_v1_2_0_axis_dyn_readout_v1 |       6259 |       1594 |      48 |  4617 |  11980 |     16 |      0 |    0 |        157 |
+|     axis_register_slice_0     |                                                 d_1_axis_register_slice_0_0 |        384 |        128 |       0 |   256 |    522 |      0 |      0 |    0 |          0 |
+|       U0                      |                          d_1_axis_register_slice_0_0_axis_register_slice_nb |        384 |        128 |       0 |   256 |    522 |      0 |      0 |    0 |          0 |
+|     axis_register_slice_1     |                                                 d_1_axis_register_slice_1_0 |        364 |        128 |       0 |   236 |    515 |      0 |      0 |    0 |          0 |
+|       U0                      |                          d_1_axis_register_slice_1_0_axis_register_slice_nb |        364 |        128 |       0 |   236 |    515 |      0 |      0 |    0 |          0 |
+|     axis_register_slice_2     |                                                 d_1_axis_register_slice_2_0 |        138 |        138 |       0 |     0 |    470 |      0 |      0 |    0 |          0 |
+|       inst                    | d_1_axis_register_slice_2_0_axis_register_slice_v1_1_28_axis_register_slice |        138 |        138 |       0 |     0 |    470 |      0 |      0 |    0 |          0 |
+|     axis_register_slice_3     |                                                 d_1_axis_register_slice_3_0 |        137 |        137 |       0 |     0 |    518 |      0 |      0 |    0 |          0 |
+|       inst                    | d_1_axis_register_slice_3_0_axis_register_slice_v1_1_28_axis_register_slice |        137 |        137 |       0 |     0 |    518 |      0 |      0 |    0 |          0 |
+|     axis_register_slice_4     |                                                 d_1_axis_register_slice_4_0 |        136 |        136 |       0 |     0 |    486 |      0 |      0 |    0 |          0 |
+|       inst                    | d_1_axis_register_slice_4_0_axis_register_slice_v1_1_28_axis_register_slice |        136 |        136 |       0 |     0 |    486 |      0 |      0 |    0 |          0 |
+|     axis_signal_gen_v6_0      |                                                  d_1_axis_signal_gen_v6_0_0 |       6191 |       5326 |      80 |   785 |   9835 |     96 |      0 |    0 |         83 |
+|       inst                    |                               d_1_axis_signal_gen_v6_0_0_axis_signal_gen_v6 |       6191 |       5326 |      80 |   785 |   9835 |     96 |      0 |    0 |         83 |
+|     axis_signal_gen_v6_1      |                                                  d_1_axis_signal_gen_v6_1_0 |       6251 |       5386 |      80 |   785 |  10020 |     96 |      0 |    0 |         83 |
+|       inst                    |                               d_1_axis_signal_gen_v6_1_0_axis_signal_gen_v6 |       6251 |       5386 |      80 |   785 |  10020 |     96 |      0 |    0 |         83 |
+|     axis_switch_avg           |                                                       d_1_axis_switch_avg_0 |        213 |        213 |       0 |     0 |    224 |      0 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_switch_avg_0_axis_switch_v1_1_28_axis_switch |        213 |        213 |       0 |     0 |    224 |      0 |      0 |    0 |          0 |
+|     axis_switch_buf           |                                                       d_1_axis_switch_buf_0 |        150 |        150 |       0 |     0 |    224 |      0 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_switch_buf_0_axis_switch_v1_1_28_axis_switch |        150 |        150 |       0 |     0 |    224 |      0 |      0 |    0 |          0 |
+|     axis_switch_ddr4          |                                                      d_1_axis_switch_ddr4_0 |        100 |        100 |       0 |     0 |    212 |      0 |      0 |    0 |          0 |
+|       inst                    |                      d_1_axis_switch_ddr4_0_axis_switch_v1_1_28_axis_switch |        100 |        100 |       0 |     0 |    212 |      0 |      0 |    0 |          0 |
+|     axis_switch_gen           |                                                       d_1_axis_switch_gen_0 |        450 |        450 |       0 |     0 |    412 |      0 |      0 |    0 |          0 |
+|       inst                    |                       d_1_axis_switch_gen_0_axis_switch_v1_1_28_axis_switch |        450 |        450 |       0 |     0 |    412 |      0 |      0 |    0 |          0 |
+|     axis_switch_mr            |                                                        d_1_axis_switch_mr_0 |        323 |        323 |       0 |     0 |    212 |      0 |      0 |    0 |          0 |
+|       inst                    |                        d_1_axis_switch_mr_0_axis_switch_v1_1_28_axis_switch |        323 |        323 |       0 |     0 |    212 |      0 |      0 |    0 |          0 |
+|     axis_weighted_buffer_0    |                                                d_1_axis_weighted_buffer_0_0 |       1003 |        885 |     100 |    18 |   1876 |     46 |      2 |    0 |          4 |
+|       inst                    |                           d_1_axis_weighted_buffer_0_0_axis_weighted_buffer |       1003 |        885 |     100 |    18 |   1876 |     46 |      2 |    0 |          4 |
+|     boxcar_tap_0              |                                                          d_1_boxcar_tap_0_0 |       1071 |       1071 |       0 |     0 |   1705 |      0 |      0 |    0 |          0 |
+|       inst                    |                                               d_1_boxcar_tap_0_0_boxcar_tap |       1071 |       1071 |       0 |     0 |   1705 |      0 |      0 |    0 |          0 |
+|     clk_adc0_x2               |                                                           d_1_clk_adc0_x2_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                   d_1_clk_adc0_x2_0_clk_wiz |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     clk_core                  |                                                              d_1_clk_core_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                      d_1_clk_core_0_clk_wiz |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     dac_gate_0                |                                                            d_1_dac_gate_0_0 |        873 |        873 |       0 |     0 |   2388 |      0 |      0 |    0 |          0 |
+|       (dac_gate_0)            |                                                            d_1_dac_gate_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                   d_1_dac_gate_0_0_dac_gate |        873 |        873 |       0 |     0 |   2388 |      0 |      0 |    0 |          0 |
+|     ddr4                      |                                                             ddr4_imp_WWAZVX |      24996 |      20265 |    3116 |  1615 |  37513 |     32 |      2 |    0 |          3 |
+|       axis_buffer_ddr_0       |                                                     d_1_axis_buffer_ddr_0_0 |       1195 |       1195 |       0 |     0 |   2849 |      7 |      1 |    0 |          0 |
+|       axis_clock_converter_0  |                                                d_1_axis_clock_converter_0_0 |        360 |         64 |     296 |     0 |   1118 |      0 |      0 |    0 |          0 |
+|       axis_dwidth_converter_0 |                                               d_1_axis_dwidth_converter_0_0 |         22 |         22 |       0 |     0 |    564 |      0 |      0 |    0 |          0 |
+|       ddr4_0                  |                                                                d_1_ddr4_0_0 |      14236 |      12856 |     816 |   564 |  17723 |     25 |      1 |    0 |          3 |
+|       rst_ddr4                |                                                              d_1_rst_ddr4_0 |         14 |         13 |       0 |     1 |     35 |      0 |      0 |    0 |          0 |
+|       smartconnect_0          |                                                        d_1_smartconnect_0_0 |       9172 |       6118 |    2004 |  1050 |  15224 |      0 |      0 |    0 |          0 |
+|     live_gate_0               |                                                           d_1_live_gate_0_0 |         12 |         12 |       0 |     0 |     57 |      0 |      0 |    0 |          0 |
+|       inst                    |                                          d_1_live_gate_0_0_live_window_gate |         12 |         12 |       0 |     0 |     57 |      0 |      0 |    0 |          0 |
+|     live_rec_wreg_0           |                                                       d_1_live_rec_wreg_0_0 |          0 |          0 |       0 |     0 |     50 |      0 |      0 |    0 |          0 |
+|       inst                    |                                         d_1_live_rec_wreg_0_0_live_rec_wreg |          0 |          0 |       0 |     0 |     50 |      0 |      0 |    0 |          0 |
+|     live_res_cdc_0            |                                                        d_1_live_res_cdc_0_0 |          2 |          2 |       0 |     0 |     97 |      0 |      0 |    0 |          0 |
+|       (live_res_cdc_0)        |                                                        d_1_live_res_cdc_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |                                           d_1_live_res_cdc_0_0_live_res_cdc |          2 |          2 |       0 |     0 |     97 |      0 |      0 |    0 |          0 |
+|     live_res_cdc_1            |                                                        d_1_live_res_cdc_1_0 |          2 |          2 |       0 |     0 |     97 |      0 |      0 |    0 |          0 |
+|       inst                    |                                           d_1_live_res_cdc_1_0_live_res_cdc |          2 |          2 |       0 |     0 |     97 |      0 |      0 |    0 |          0 |
+|     mr_buffer_et_0            |                                                        d_1_mr_buffer_et_0_0 |        664 |        484 |     180 |     0 |    719 |      8 |      0 |    0 |          0 |
+|       U0                      |                                         d_1_mr_buffer_et_0_0_mr_buffer_v1_0 |        664 |        484 |     180 |     0 |    719 |      8 |      0 |    0 |          0 |
+|     ps8_0_axi_periph          |                                                      d_1_ps8_0_axi_periph_0 |       2286 |       2201 |      40 |    45 |   2046 |      0 |      0 |    0 |          0 |
+|       s00_couplers            |                                                      s00_couplers_imp_4LOF0 |       1237 |       1152 |      40 |    45 |   1353 |      0 |      0 |    0 |          0 |
+|       tier2_xbar_0            |                                                          d_1_tier2_xbar_0_0 |        235 |        235 |       0 |     0 |    136 |      0 |      0 |    0 |          0 |
+|       tier2_xbar_1            |                                                          d_1_tier2_xbar_1_0 |        270 |        270 |       0 |     0 |    143 |      0 |      0 |    0 |          0 |
+|       tier2_xbar_2            |                                                          d_1_tier2_xbar_2_0 |        236 |        236 |       0 |     0 |    142 |      0 |      0 |    0 |          0 |
+|       tier2_xbar_3            |                                                          d_1_tier2_xbar_3_0 |        107 |        107 |       0 |     0 |    134 |      0 |      0 |    0 |          0 |
+|       xbar                    |                                                                  d_1_xbar_0 |        201 |        201 |       0 |     0 |    138 |      0 |      0 |    0 |          0 |
+|     qick_processor_0          |                                                      d_1_qick_processor_0_0 |       8041 |       8041 |       0 |     0 |   7196 |     57 |      1 |    0 |          2 |
+|       inst                    |                                  d_1_qick_processor_0_0_axis_qick_processor |       8041 |       8041 |       0 |     0 |   7196 |     57 |      1 |    0 |          2 |
+|     rf_tap_0                  |                                                              d_1_rf_tap_0_0 |        179 |        179 |       0 |     0 |    156 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                       d_1_rf_tap_0_0_rf_tap |        179 |        179 |       0 |     0 |    156 |      0 |      0 |    0 |          0 |
+|     rst_100                   |                                                               d_1_rst_100_0 |         17 |         16 |       0 |     1 |     38 |      0 |      0 |    0 |          0 |
+|       U0                      |                                                d_1_rst_100_0_proc_sys_reset |         17 |         16 |       0 |     1 |     38 |      0 |      0 |    0 |          0 |
+|     rst_adc0                  |                                                              d_1_rst_adc0_0 |         14 |         13 |       0 |     1 |     33 |      0 |      0 |    0 |          0 |
+|       U0                      |                                               d_1_rst_adc0_0_proc_sys_reset |         14 |         13 |       0 |     1 |     33 |      0 |      0 |    0 |          0 |
+|     rst_adc0_x2               |                                                           d_1_rst_adc0_x2_0 |         87 |         86 |       0 |     1 |     99 |      0 |      0 |    0 |          0 |
+|       U0                      |                                            d_1_rst_adc0_x2_0_proc_sys_reset |         87 |         86 |       0 |     1 |     99 |      0 |      0 |    0 |          0 |
+|     rst_core                  |                                                              d_1_rst_core_0 |         14 |         13 |       0 |     1 |     48 |      0 |      0 |    0 |          0 |
+|       U0                      |                                               d_1_rst_core_0_proc_sys_reset |         14 |         13 |       0 |     1 |     48 |      0 |      0 |    0 |          0 |
+|     rst_dac2                  |                                                              d_1_rst_dac2_0 |         14 |         13 |       0 |     1 |     33 |      0 |      0 |    0 |          0 |
+|       U0                      |                                               d_1_rst_dac2_0_proc_sys_reset |         14 |         13 |       0 |     1 |     33 |      0 |      0 |    0 |          0 |
+|     seg_stamp_0               |                                                           d_1_seg_stamp_0_0 |        309 |        309 |       0 |     0 |    919 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                 d_1_seg_stamp_0_0_seg_stamp |        309 |        309 |       0 |     0 |    919 |      0 |      0 |    0 |          0 |
+|     sg_translator_0           |                                                       d_1_sg_translator_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     sg_translator_1           |                                                       d_1_sg_translator_1_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     sg_translator_2           |                                                       d_1_sg_translator_2_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     sg_translator_3           |                                                       d_1_sg_translator_3_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     sg_translator_4           |                                                       d_1_sg_translator_4_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     trig_sync_0               |                                                           d_1_trig_sync_0_0 |          0 |          0 |       0 |     0 |      3 |      0 |      0 |    0 |          0 |
+|       inst                    |                                                 d_1_trig_sync_0_0_trig_sync |          0 |          0 |       0 |     0 |      3 |      0 |      0 |    0 |          0 |
+|     usp_rf_data_converter_0   |                                               d_1_usp_rf_data_converter_0_0 |       6313 |       6313 |       0 |     0 |   4661 |      0 |      0 |    0 |          0 |
+|       inst                    |                                         d_1_usp_rf_data_converter_0_0_block |       6313 |       6313 |       0 |     0 |   4661 |      0 |      0 |    0 |          0 |
+|     xlconcat_intc             |                                                         d_1_xlconcat_intc_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     zynq_ultra_ps_e_0         |                                                     d_1_zynq_ultra_ps_e_0_0 |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|       inst                    |              d_1_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_5_0_zynq_ultra_ps_e |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|   dbg_hub                     |                                                                     dbg_hub |        443 |        423 |      20 |     0 |    741 |      0 |      0 |    0 |          0 |
+|     (dbg_hub)                 |                                                                     dbg_hub |          0 |          0 |       0 |     0 |      0 |      0 |      0 |    0 |          0 |
+|     inst                      |                                                  dbg_hub_xsdbm_v3_0_0_xsdbm |        443 |        423 |      20 |     0 |    741 |      0 |      0 |    0 |          0 |
+|       BSCANID.u_xsdbm_id      |                                               dbg_hub_xsdbm_v3_0_0_xsdbm_id |        443 |        423 |      20 |     0 |    741 |      0 |      0 |    0 |          0 |
++-------------------------------+-----------------------------------------------------------------------------+------------+------------+---------+-------+--------+--------+--------+------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

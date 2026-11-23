@@ -1,0 +1,1130 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Mon Nov 16 00:24:29 2026
+# Process ID: 28688
+# Current directory: C:/qick_projects/r2_rebuilds/b1log
+# Command line: vivado.exe -mode batch -nojournal -log nnq_make_b1.log -source C:/Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build1_tproc245/nnqick_from_qick_tproc245.tcl -tclargs C:/qick_projects/r2_rebuilds/q/firmware/projects/qick_tprocv2_4x2_standard/top/top.xpr C:/qick_projects/r2_rebuilds/b1
+# Log file: C:/qick_projects/r2_rebuilds/b1log/nnq_make_b1.log
+# Journal file: 
+# Running On: Yugger, OS: Windows, CPU Frequency: 3294 MHz, CPU Physical cores: 16, Host memory: 29734 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/fonte/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+Vivado_init.tcl: set general.maxThreads = 6
+source C:/Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build1_tproc245/nnqick_from_qick_tproc245.tcl
+# proc nnq_main {here argv} {
+#     set repo C:/Users/fonte/coding/qick_project   ;# R2 rebuild copy: repo root fixed (script lives in campaign_v144/revision2/rebuilds/build1_tproc245)
+#     if {[llength $argv] != 2} { puts "usage: -tclargs <QICK top.xpr> <new project folder>"; exit 1 }
+#     lassign $argv qick_xpr outdir
+#     set outdir [file normalize $outdir]
+#     if {[file exists $outdir/nnqick.xpr]} { puts "FATAL: $outdir/nnqick.xpr already exists"; exit 1 }
+# 
+#     puts "STEP: opening QICK project $qick_xpr"
+#     open_project $qick_xpr
+#     set bds [lsearch -all -inline -not [get_files -quiet -of_objects [get_filesets sources_1] *.bd] */ip/*]   ;# top-level design only, not IP-internal BDs
+#     if {[llength $bds] != 1} { puts "FATAL: expected one block design in the QICK project, found: $bds"; exit 1 }
+#     puts "STEP: saving it as $outdir/nnqick.xpr (the QICK project is left as it was)"
+#     save_project_as nnqick $outdir
+#     # Open the block design first: opening it after the IP install and RTL additions below can fail inside Vivado
+#     # 2023.1's block-automation scripts ("couldn't read file").
+#     set bds [lsearch -all -inline -not [get_files -quiet -of_objects [get_filesets sources_1] *.bd] */ip/*]
+#     open_bd_design [lindex $bds 0]
+# 
+#     puts "STEP: installing NN_live 1.5 and NN_axi 1.41"
+#     set iprepo $outdir/nnqick_ip
+#     file mkdir $iprepo
+#     set src [get_filesets sources_1]
+#     set_property ip_repo_paths [concat [get_property ip_repo_paths $src] [list $iprepo]] $src
+#     update_ip_catalog -rebuild
+#     foreach z {neural_net4_live576s/NN_live_prj/solution1/impl/ip/xilinx_com_hls_NN_live_1_5.zip
+#                neural_net4_tlast/NN_axi_prj/solution1/impl/ip/xilinx_com_hls_NN_axi_1_41.zip} {
+#         update_ip_catalog -add_ip $repo/$z -repo_path $iprepo
+#     }
+#     update_ip_catalog -rebuild
+#     foreach v {xilinx.com:hls:NN_live:1.5 xilinx.com:hls:NN_axi:1.41} {
+#         if {[llength [get_ipdefs -quiet $v]] != 1} { puts "FATAL: $v not in the IP catalog after install"; exit 1 }
+#     }
+# 
+#     puts "STEP: adding our RTL and constraint"
+#     set rtl {}
+#     foreach f {neural_net4_live/rtl/live_window_gate.v neural_net4_live576/rtl/trig_sync.v neural_net4_live576/rtl/rf_tap.v
+#                neural_net4_live576/rtl/dac_gate.v neural_net4_live576/rtl/boxcar_tap.v neural_net4_live576/rtl/live_rec_wreg.v
+#                neural_net4_live576/rtl/live_res_cdc.v neural_net4_live576/rtl/seg_stamp.v} {
+#         if {![file exists $repo/$f]} { puts "FATAL: $repo/$f not found"; exit 1 }
+#         lappend rtl $repo/$f
+#     }
+#     add_files -norecurse -fileset $src $rtl
+#     update_compile_order -fileset sources_1
+#     set xdc $repo/neural_net4_live576/constraints/live_res_cdc.xdc
+#     add_files -norecurse -fileset constrs_1 $xdc
+#     set xf [get_files $xdc]
+#     set_property USED_IN_SYNTHESIS false $xf
+#     set_property USED_IN_IMPLEMENTATION true $xf
+#     set_property SCOPED_TO_REF live_res_cdc $xf
+#     set_property PROCESSING_ORDER LATE $xf
+# 
+#     # Vivado 2023.1 file reads can fail briefly after RTL is added ("couldn't read file" for existing files). Wait
+#     # until a read works again.
+#     for {set i 0} {$i < 60} {incr i} {
+#         if {![catch {set fh [open $here/nnqick_bd_delta_tproc245.tcl r]; close $fh} e]} { break }
+#         puts "WAIT: file read failed ($::errorCode); retrying"
+#         after 2000
+#     }
+#     after 5000
+#     puts "STEP: editing the block design"
+#     uplevel #0 [list source $here/nnqick_bd_delta_tproc245.tcl]
+#     if {[nnqick_apply_delta] != 0} { puts "FATAL: nnqick_apply_delta failed"; exit 1 }
+#     validate_bd_design -force
+#     save_bd_design
+#     close_bd_design [current_bd_design]
+#     close_project
+#     puts "NNQICK_PROJECT_DONE $outdir/nnqick.xpr"
+# }
+# nnq_main [file dirname [file normalize [info script]]] $argv
+STEP: opening QICK project C:/qick_projects/r2_rebuilds/q/firmware/projects/qick_tprocv2_4x2_standard/top/top.xpr
+INFO: [Project 1-313] Project file moved from 'C:/qick_projects/fromqick_build/firmware/projects/qick_tprocv2_4x2_standard/top' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/qick_projects/r2_rebuilds/q/firmware/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/embedded-software/Vivado/2023.1/data/ip'.
+WARNING: [filemgmt 56-443] The ECC Algorithm string is empty. Setting the Memory Map to default ECC value to ECC_NONE.
+WARNING: [filemgmt 56-443] The ECC Algorithm string is empty. Setting the Memory Map to default ECC value to ECC_NONE.
+open_project: Time (s): cpu = 00:00:35 ; elapsed = 00:00:42 . Memory (MB): peak = 607.125 ; gain = 309.355
+STEP: saving it as C:/qick_projects/r2_rebuilds/b1/nnqick.xpr (the QICK project is left as it was)
+WARNING: [filemgmt 56-443] The ECC Algorithm string is empty. Setting the Memory Map to default ECC value to ECC_NONE.
+WARNING: [filemgmt 56-443] The ECC Algorithm string is empty. Setting the Memory Map to default ECC value to ECC_NONE.
+Reading block design file <C:/qick_projects/r2_rebuilds/b1/nnqick.srcs/sources_1/bd/d_1/d_1.bd>...
+Adding component instance block -- xilinx.com:ip:axi_intc:4.1 - axi_intc_0
+Adding component instance block -- QICK:QICK:axis_cdcsync_v1:1.0 - axis_cdcsync_v1_0
+Adding component instance block -- QICK:QICK:axis_dyn_readout_v1:1.0 - axis_dyn_readout_v1_0
+Adding component instance block -- QICK:QICK:axis_dyn_readout_v1:1.0 - axis_dyn_readout_v1_1
+Adding component instance block -- QICK:QICK:axis_register_slice_nb:1.0 - axis_register_slice_0
+Adding component instance block -- QICK:QICK:axis_register_slice_nb:1.0 - axis_register_slice_1
+Adding component instance block -- QICK:QICK:axis_signal_gen_v6:1.0 - axis_signal_gen_v6_0
+Adding component instance block -- QICK:QICK:axis_signal_gen_v6:1.0 - axis_signal_gen_v6_1
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_100
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_adc0
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_adc0_x2
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_core
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_dac2
+Adding component instance block -- QICK:QICK:sg_translator:1.0 - sg_translator_0
+Adding component instance block -- QICK:QICK:sg_translator:1.0 - sg_translator_1
+Adding component instance block -- QICK:QICK:sg_translator:1.0 - sg_translator_2
+Adding component instance block -- QICK:QICK:sg_translator:1.0 - sg_translator_3
+Adding component instance block -- xilinx.com:ip:xlconcat:2.1 - xlconcat_intc
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_ddr4
+Adding component instance block -- QICK:QICK:axis_buffer_ddr:1.1 - axis_buffer_ddr_0
+Adding component instance block -- xilinx.com:ip:axis_clock_converter:1.1 - axis_clock_converter_0
+Adding component instance block -- xilinx.com:ip:axis_dwidth_converter:1.1 - axis_dwidth_converter_0
+Adding component instance block -- xilinx.com:ip:ddr4:2.2 - ddr4_0
+Adding component instance block -- xilinx.com:ip:smartconnect:1.0 - smartconnect_0
+Adding component instance block -- xilinx.com:ip:axi_dma:7.1 - axi_dma_avg
+Adding component instance block -- xilinx.com:ip:axi_dma:7.1 - axi_dma_buf
+Adding component instance block -- xilinx.com:ip:axi_dma:7.1 - axi_dma_gen
+Adding component instance block -- xilinx.com:ip:axi_dma:7.1 - axi_dma_mr
+Adding component instance block -- xilinx.com:ip:axi_dma:7.1 - axi_dma_tproc
+Adding component instance block -- xilinx.com:ip:smartconnect:1.0 - axi_smc
+Adding component instance block -- xilinx.com:ip:axis_broadcaster:1.1 - axis_broadcaster_0
+Adding component instance block -- xilinx.com:ip:axis_broadcaster:1.1 - axis_broadcaster_1
+Adding component instance block -- xilinx.com:ip:axis_clock_converter:1.1 - axis_cc_avg_0
+Adding component instance block -- xilinx.com:ip:axis_clock_converter:1.1 - axis_cc_avg_1
+Adding component instance block -- xilinx.com:ip:axis_register_slice:1.1 - axis_register_slice_2
+Adding component instance block -- xilinx.com:ip:axis_register_slice:1.1 - axis_register_slice_3
+Adding component instance block -- xilinx.com:ip:axis_switch:1.1 - axis_switch_avg
+Adding component instance block -- xilinx.com:ip:axis_switch:1.1 - axis_switch_buf
+Adding component instance block -- xilinx.com:ip:axis_switch:1.1 - axis_switch_ddr4
+Adding component instance block -- xilinx.com:ip:axis_switch:1.1 - axis_switch_gen
+Adding component instance block -- xilinx.com:ip:axis_switch:1.1 - axis_switch_mr
+Adding component instance block -- xilinx.com:ip:clk_wiz:6.0 - clk_adc0_x2
+Adding component instance block -- xilinx.com:ip:clk_wiz:6.0 - clk_core
+Adding component instance block -- xilinx.com:ip:axi_interconnect:2.1 - ps8_0_axi_periph
+Adding component instance block -- xilinx.com:ip:axi_crossbar:2.1 - xbar
+Adding component instance block -- xilinx.com:ip:axi_crossbar:2.1 - tier2_xbar_0
+Adding component instance block -- xilinx.com:ip:axi_crossbar:2.1 - tier2_xbar_1
+Adding component instance block -- xilinx.com:ip:axi_crossbar:2.1 - tier2_xbar_2
+Adding component instance block -- xilinx.com:ip:axi_dwidth_converter:2.1 - auto_ds
+Adding component instance block -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc
+Adding component instance block -- xilinx.com:ip:usp_rf_data_converter:2.6 - usp_rf_data_converter_0
+INFO: Ultrascale+ RF Data Converter instance: Clock port 'adc0_clk' frequency is set to 276480000
+INFO: Ultrascale+ RF Data Converter instance: Clock port 'adc2_clk' frequency is set to 276480000
+INFO: Ultrascale+ RF Data Converter instance: Clock port 'dac0_clk' frequency is set to 491520000
+INFO: Ultrascale+ RF Data Converter instance: Clock port 'dac2_clk' frequency is set to 491520000
+Adding component instance block -- xilinx.com:ip:zynq_ultra_ps_e:3.5 - zynq_ultra_ps_e_0
+Adding component instance block -- QICK:QICK:mr_buffer_et:1.1 - mr_buffer_et_0
+Adding component instance block -- QICK:QICK:qick_processor:2.0 - qick_processor_0
+Adding component instance block -- xilinx.com:ip:axis_register_slice:1.1 - axis_register_slice_4
+Adding component instance block -- QICK:QICK:axis_dyn_readout_v1:1.0 - axis_dyn_readout_v1_2
+Adding component instance block -- xilinx.com:ip:axis_broadcaster:1.1 - axis_broadcaster_2
+Adding component instance block -- QICK:QICK:sg_translator:1.0 - sg_translator_4
+Adding component instance block -- xilinx.com:ip:axis_clock_converter:1.1 - axis_cc_avg_2
+Adding component instance block -- QICK:QICK:qick_time_tagger:1.0 - qick_time_tagger_0
+Adding component instance block -- xilinx.com:ip:axi_dma:7.1 - axi_dma_tt
+Adding component instance block -- xilinx.com:ip:axis_register_slice:1.1 - axis_register_slice_5
+Adding component instance block -- QICK:QICK:axis_avg_buffer:1.2 - axis_avg_buffer_0
+Adding component instance block -- QICK:QICK:axis_avg_buffer:1.2 - axis_avg_buffer_1
+Adding component instance block -- QICK:QICK:axis_weighted_buffer:1.3 - axis_weighted_buffer_0
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tt/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tt/Data_S2MM.
+Successfully read diagram <d_1> from block design file <C:/qick_projects/r2_rebuilds/b1/nnqick.srcs/sources_1/bd/d_1/d_1.bd>
+open_bd_design: Time (s): cpu = 00:00:03 ; elapsed = 00:00:10 . Memory (MB): peak = 711.402 ; gain = 87.410
+STEP: installing NN_live 1.5 and NN_axi 1.41
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/qick_projects/r2_rebuilds/q/firmware/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/qick_projects/r2_rebuilds/b1/nnqick_ip'.
+INFO: [IP_Flow 19-949] Unzipped 'C:/Users/fonte/coding/qick_project/neural_net4_live576s/NN_live_prj/solution1/impl/ip/xilinx_com_hls_NN_live_1_5.zip' into repository 'c:/qick_projects/r2_rebuilds/b1/nnqick_ip'.
+INFO: [IP_Flow 19-725] Reloaded user IP repository 'c:/qick_projects/r2_rebuilds/b1/nnqick_ip'
+INFO: [IP_Flow 19-949] Unzipped 'C:/Users/fonte/coding/qick_project/neural_net4_tlast/NN_axi_prj/solution1/impl/ip/xilinx_com_hls_NN_axi_1_41.zip' into repository 'c:/qick_projects/r2_rebuilds/b1/nnqick_ip'.
+INFO: [IP_Flow 19-725] Reloaded user IP repository 'c:/qick_projects/r2_rebuilds/b1/nnqick_ip'
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/qick_projects/r2_rebuilds/q/firmware/ip'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/qick_projects/r2_rebuilds/b1/nnqick_ip'.
+STEP: adding our RTL and constraint
+STEP: editing the block design
+## proc nnq_disconnect_net {o} { set n [get_bd_nets -quiet -of_objects $o]; if {$n ne ""} { disconnect_bd_net $n $o } }
+## proc nnq_disconnect_intf {o} { set n [get_bd_intf_nets -quiet -of_objects $o]; if {$n ne ""} { disconnect_bd_intf_net $n $o } }
+## proc nnqick_apply_delta {} {
+##   current_bd_instance /
+##   if {[llength [get_bd_cells -quiet qick_processor_0]] != 1 || [llength [get_bd_cells -quiet NN_live_0]] != 0} {
+##     error "nnqick_apply_delta: the open block design is not an unmodified qick_tprocv2_4x2_standard design"
+##   }
+## 
+##   # ---- 1. QICK blocks this design does not use (time tagger and its DMA path)
+##   delete_bd_objs [get_bd_cells {axi_dma_tt axis_register_slice_5 qick_time_tagger_0}]
+## 
+##   # ---- 2. QICK blocks reconfigured
+##   # /ddr4/axis_buffer_ddr_0: DATA_WIDTH (default) -> {512}
+##   set_property -dict [list CONFIG.DATA_WIDTH {512}] [get_bd_cells /ddr4/axis_buffer_ddr_0]
+##   # /axi_smc: NUM_SI {7} -> {6}
+##   set_property -dict [list CONFIG.NUM_SI {6}] [get_bd_cells /axi_smc]
+##   # /axis_broadcaster_0: NUM_MI (default) -> {3}
+##   set_property -dict [list CONFIG.NUM_MI {3}] [get_bd_cells /axis_broadcaster_0]
+##   # /clk_core: CLKOUT1_JITTER {85.052} -> {186.982}, CLKOUT1_PHASE_ERROR {77.902} -> {353.086}, CLKOUT1_REQUESTED_OUT_FREQ {245.76} -> {200}, MMCM_CLKFBOUT_MULT_F {4.875} -> {78.125}, MMCM_CLKOUT0_DIVIDE_F {4.875} -> {6.000}, MMCM_DIVCLK_DIVIDE {2} -> {32}
+##   # R2-022 rebuild (build1_tproc245): the clk_core change above is NOT applied; clk_core keeps QICK's stock
+##   # 245.76 MHz settings (CLKOUT1_REQUESTED_OUT_FREQ 245.76, MMCM_CLKFBOUT_MULT_F 4.875, CLKOUT0_DIVIDE_F 4.875, DIVCLK 2).
+##   # Original line: set_property -dict [list CONFIG.CLKOUT1_JITTER {186.982} CONFIG.CLKOUT1_PHASE_ERROR {353.086} CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {200} CONFIG.MMCM_CLKFBOUT_MULT_F {78.125} CONFIG.MMCM_CLKOUT0_DIVIDE_F {6.000} CONFIG.MMCM_DIVCLK_DIVIDE {32}] [get_bd_cells /clk_core]
+##   # /ps8_0_axi_periph: NUM_MI {22} -> {27}
+##   set_property -dict [list CONFIG.NUM_MI {27}] [get_bd_cells /ps8_0_axi_periph]
+##   # /qick_processor_0: IN_PORT_QTY {3} -> {4}
+##   set_property -dict [list CONFIG.IN_PORT_QTY {4}] [get_bd_cells /qick_processor_0]
+## 
+##   # ---- 3. added blocks (from the v1.43 export, unchanged)
+##   # Create instance: NN_axi_0, and set properties
+##   set NN_axi_0 [ create_bd_cell -type ip -vlnv xilinx.com:hls:NN_axi:1.41 NN_axi_0 ]
+## 
+##   # Create instance: NN_live_0, and set properties
+##   set NN_live_0 [ create_bd_cell -type ip -vlnv xilinx.com:hls:NN_live:1.5 NN_live_0 ]
+## 
+##   # Create instance: axi_bram_ctrl_0, and set properties
+##   set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
+##   set_property -dict [list \
+##     CONFIG.PROTOCOL {AXI4LITE} \
+##     CONFIG.SINGLE_PORT_BRAM {1} \
+##   ] $axi_bram_ctrl_0
+## 
+##   # Create instance: axi_bram_ctrl_0_bram, and set properties
+##   set axi_bram_ctrl_0_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 axi_bram_ctrl_0_bram ]
+##   set_property CONFIG.Memory_Type {True_Dual_Port_RAM} $axi_bram_ctrl_0_bram
+## 
+##   # Create instance: axi_bram_ctrl_gate, and set properties
+##   set axi_bram_ctrl_gate [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_gate ]
+##   set_property -dict [list \
+##     CONFIG.PROTOCOL {AXI4LITE} \
+##     CONFIG.SINGLE_PORT_BRAM {1} \
+##   ] $axi_bram_ctrl_gate
+## 
+##   # Create instance: axi_bram_ctrl_gate_bram, and set properties
+##   set axi_bram_ctrl_gate_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 axi_bram_ctrl_gate_bram ]
+##   set_property CONFIG.Memory_Type {True_Dual_Port_RAM} $axi_bram_ctrl_gate_bram
+## 
+##   # Create instance: axi_bram_ctrl_live, and set properties
+##   set axi_bram_ctrl_live [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_live ]
+##   set_property -dict [list \
+##     CONFIG.PROTOCOL {AXI4LITE} \
+##     CONFIG.SINGLE_PORT_BRAM {1} \
+##   ] $axi_bram_ctrl_live
+## 
+##   # Create instance: axi_bram_ctrl_live_bram, and set properties
+##   set axi_bram_ctrl_live_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 axi_bram_ctrl_live_bram ]
+##   set_property CONFIG.Memory_Type {True_Dual_Port_RAM} $axi_bram_ctrl_live_bram
+## 
+##   # Create instance: axi_bram_ctrl_seg, and set properties
+##   set axi_bram_ctrl_seg [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_seg ]
+##   set_property -dict [list \
+##     CONFIG.PROTOCOL {AXI4LITE} \
+##     CONFIG.SINGLE_PORT_BRAM {1} \
+##   ] $axi_bram_ctrl_seg
+## 
+##   # Create instance: axi_bram_ctrl_seg_bram, and set properties
+##   set axi_bram_ctrl_seg_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 axi_bram_ctrl_seg_bram ]
+##   set_property CONFIG.Memory_Type {True_Dual_Port_RAM} $axi_bram_ctrl_seg_bram
+## 
+##   # Create instance: axis_broadcaster_clean, and set properties
+##   set axis_broadcaster_clean [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_broadcaster:1.1 axis_broadcaster_clean ]
+##   set_property -dict [list \
+##     CONFIG.HAS_TREADY {1} \
+##     CONFIG.M_TDATA_NUM_BYTES {4} \
+##     CONFIG.NUM_MI {2} \
+##     CONFIG.S_TDATA_NUM_BYTES {4} \
+##   ] $axis_broadcaster_clean
+## 
+##   # Create instance: axis_data_fifo_clean, and set properties
+##   set axis_data_fifo_clean [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_data_fifo:2.0 axis_data_fifo_clean ]
+##   set_property -dict [list \
+##     CONFIG.FIFO_DEPTH {1024} \
+##     CONFIG.IS_ACLK_ASYNC {0} \
+##     CONFIG.TDATA_NUM_BYTES {4} \
+##   ] $axis_data_fifo_clean
+## 
+##   # Create instance: boxcar_tap_0, and set properties
+##   set block_name boxcar_tap
+##   set block_cell_name boxcar_tap_0
+##   if { [catch {set boxcar_tap_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $boxcar_tap_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # Create instance: dac_gate_0, and set properties
+##   set block_name dac_gate
+##   set block_cell_name dac_gate_0
+##   if { [catch {set dac_gate_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $dac_gate_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+##     set_property -dict [list \
+##     CONFIG.CFG_SAFE {0} \
+##     CONFIG.EARLY_BLANK {1} \
+##     CONFIG.FAIL_SAFE {1} \
+##     CONFIG.SHOT_BIND {1} \
+##   ] $dac_gate_0
+## 
+##   # Create instance: live_gate_0, and set properties
+##   set block_name live_window_gate
+##   set block_cell_name live_gate_0
+##   if { [catch {set live_gate_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $live_gate_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+##     set_property CONFIG.N {576} $live_gate_0
+## 
+##   # Create instance: live_rec_wreg_0, and set properties
+##   set block_name live_rec_wreg
+##   set block_cell_name live_rec_wreg_0
+##   if { [catch {set live_rec_wreg_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $live_rec_wreg_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # Create instance: live_res_cdc_0, and set properties
+##   set block_name live_res_cdc
+##   set block_cell_name live_res_cdc_0
+##   if { [catch {set live_res_cdc_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $live_res_cdc_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # Create instance: live_res_cdc_1, and set properties
+##   set block_name live_res_cdc
+##   set block_cell_name live_res_cdc_1
+##   if { [catch {set live_res_cdc_1 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $live_res_cdc_1 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # Create instance: nn_axi_trigger_tieoff, and set properties
+##   set nn_axi_trigger_tieoff [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 nn_axi_trigger_tieoff ]
+##   set_property -dict [list \
+##     CONFIG.CONST_VAL {1} \
+##     CONFIG.CONST_WIDTH {1} \
+##   ] $nn_axi_trigger_tieoff
+## 
+##   # Create instance: rf_tap_0, and set properties
+##   set block_name rf_tap
+##   set block_cell_name rf_tap_0
+##   if { [catch {set rf_tap_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $rf_tap_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # Create instance: seg_stamp_0, and set properties
+##   set block_name seg_stamp
+##   set block_cell_name seg_stamp_0
+##   if { [catch {set seg_stamp_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $seg_stamp_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # Create instance: trig_sync_0, and set properties
+##   set block_name trig_sync
+##   set block_cell_name trig_sync_0
+##   if { [catch {set trig_sync_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    } elseif { $trig_sync_0 eq "" } {
+##      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+##      return 1
+##    }
+## 
+##   # ---- interface connections: 5 QICK intf_nets change, 30 intf_nets made
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_avg_buffer_0/m1_axis]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_broadcaster_1/S_AXIS]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_dyn_readout_v1_0/m0_axis]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_dyn_readout_v1_1/m1_axis]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_register_slice_0/m_axis]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_register_slice_2/S_AXIS]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_switch_buf/S00_AXIS]
+##   nnq_disconnect_intf [get_bd_intf_pins /axis_switch_mr/S00_AXIS]
+##   nnq_disconnect_intf [get_bd_intf_pins /usp_rf_data_converter_0/m00_axis]
+##   nnq_disconnect_intf [get_bd_intf_pins /usp_rf_data_converter_0/s00_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /NN_axi_0/in_r] [get_bd_intf_pins /axis_data_fifo_clean/M_AXIS]
+##   connect_bd_intf_net [get_bd_intf_pins /NN_axi_0/out_r_PORTA] [get_bd_intf_pins /axi_bram_ctrl_0_bram/BRAM_PORTB]
+##   connect_bd_intf_net [get_bd_intf_pins /NN_axi_0/s_axi_config] [get_bd_intf_pins /ps8_0_axi_periph/M22_AXI]
+##   connect_bd_intf_net [get_bd_intf_pins /NN_live_0/in_r] [get_bd_intf_pins /live_gate_0/m_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /NN_live_0/out_r_PORTA] [get_bd_intf_pins /live_rec_wreg_0/s_bram]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_0/BRAM_PORTA] [get_bd_intf_pins /axi_bram_ctrl_0_bram/BRAM_PORTA]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins /ps8_0_axi_periph/M23_AXI]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_gate/BRAM_PORTA] [get_bd_intf_pins /axi_bram_ctrl_gate_bram/BRAM_PORTA]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_gate/S_AXI] [get_bd_intf_pins /ps8_0_axi_periph/M26_AXI]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_gate_bram/BRAM_PORTB] [get_bd_intf_pins /dac_gate_0/BRAM_PORT]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_live/BRAM_PORTA] [get_bd_intf_pins /axi_bram_ctrl_live_bram/BRAM_PORTA]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_live/S_AXI] [get_bd_intf_pins /ps8_0_axi_periph/M24_AXI]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_live_bram/BRAM_PORTB] [get_bd_intf_pins /live_rec_wreg_0/m_bram]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_seg/BRAM_PORTA] [get_bd_intf_pins /axi_bram_ctrl_seg_bram/BRAM_PORTA]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_seg/S_AXI] [get_bd_intf_pins /ps8_0_axi_periph/M25_AXI]
+##   connect_bd_intf_net [get_bd_intf_pins /axi_bram_ctrl_seg_bram/BRAM_PORTB] [get_bd_intf_pins /seg_stamp_0/BRAM_PORT]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_avg_buffer_0/m1_axis] [get_bd_intf_pins /axis_broadcaster_clean/S_AXIS]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_broadcaster_0/M02_AXIS] [get_bd_intf_pins /boxcar_tap_0/s_fir]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_broadcaster_1/S_AXIS] [get_bd_intf_pins /boxcar_tap_0/m_box_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_broadcaster_clean/M00_AXIS] [get_bd_intf_pins /axis_switch_buf/S00_AXIS]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_broadcaster_clean/M01_AXIS] [get_bd_intf_pins /axis_data_fifo_clean/S_AXIS]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_dyn_readout_v1_0/m0_axis] [get_bd_intf_pins /boxcar_tap_0/s_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_register_slice_0/m_axis] [get_bd_intf_pins /dac_gate_0/s_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_register_slice_2/S_AXIS] [get_bd_intf_pins /rf_tap_0/m_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /axis_switch_mr/S00_AXIS] [get_bd_intf_pins /boxcar_tap_0/m_mr_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /boxcar_tap_0/m_nn] [get_bd_intf_pins /live_gate_0/s_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /dac_gate_0/dec_axis] [get_bd_intf_pins /live_res_cdc_1/m_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /dac_gate_0/m_axis] [get_bd_intf_pins /usp_rf_data_converter_0/s00_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /live_res_cdc_0/m_axis] [get_bd_intf_pins /qick_processor_0/s3_axis]
+##   connect_bd_intf_net [get_bd_intf_pins /rf_tap_0/s_axis] [get_bd_intf_pins /usp_rf_data_converter_0/m00_axis]
+##   # ---- port connections: 11 QICK nets change, 22 nets made
+##   nnq_disconnect_net [get_bd_ports /PMOD0_6]
+##   nnq_disconnect_net [get_bd_ports /PMOD0_7]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_avg/axi_resetn]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_avg/m_axi_s2mm_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_avg/s_axi_lite_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_buf/axi_resetn]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_buf/m_axi_s2mm_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_buf/s_axi_lite_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_gen/axi_resetn]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_gen/m_axi_mm2s_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_gen/s_axi_lite_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_mr/axi_resetn]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_mr/m_axi_s2mm_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_mr/s_axi_lite_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_tproc/axi_resetn]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_tproc/m_axi_mm2s_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_tproc/m_axi_s2mm_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_dma_tproc/s_axi_lite_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_intc_0/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_intc_0/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axi_smc/aclk]
+##   nnq_disconnect_net [get_bd_pins /axi_smc/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_0/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_0/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_0/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_0/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_0/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_0/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_avg_buffer_1/trigger]
+##   nnq_disconnect_net [get_bd_pins /axis_broadcaster_0/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_broadcaster_0/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_broadcaster_1/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_broadcaster_1/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_broadcaster_2/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_broadcaster_2/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_0/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_0/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_0/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_0/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_1/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_1/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_1/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_1/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_2/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_2/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_2/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cc_avg_2/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cdcsync_v1_0/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cdcsync_v1_0/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_cdcsync_v1_0/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_cdcsync_v1_0/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_dyn_readout_v1_0/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_dyn_readout_v1_0/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_dyn_readout_v1_1/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_dyn_readout_v1_1/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_dyn_readout_v1_2/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_dyn_readout_v1_2/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_0/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_0/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_1/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_1/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_2/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_2/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_3/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_3/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_4/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_register_slice_4/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_0/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_0/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_0/s0_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_0/s0_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_0/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_0/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_1/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_1/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_1/s0_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_1/s0_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_1/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_signal_gen_v6_1/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_avg/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_avg/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_avg/s_axi_ctrl_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_avg/s_axi_ctrl_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_buf/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_buf/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_buf/s_axi_ctrl_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_buf/s_axi_ctrl_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_ddr4/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_ddr4/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_ddr4/s_axi_ctrl_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_ddr4/s_axi_ctrl_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_gen/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_gen/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_gen/s_axi_ctrl_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_gen/s_axi_ctrl_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_mr/aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_mr/aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_mr/s_axi_ctrl_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_switch_mr/s_axi_ctrl_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_weighted_buffer_0/m_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_weighted_buffer_0/m_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_weighted_buffer_0/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_weighted_buffer_0/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /axis_weighted_buffer_0/s_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /axis_weighted_buffer_0/s_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /clk_adc0_x2/clk_out1]
+##   nnq_disconnect_net [get_bd_pins /clk_core/clk_in1]
+##   nnq_disconnect_net [get_bd_pins /clk_core/clk_out1]
+##   nnq_disconnect_net [get_bd_pins /clk_core/resetn]
+##   nnq_disconnect_net [get_bd_pins /ddr4/aclk]
+##   nnq_disconnect_net [get_bd_pins /ddr4/aresetn]
+##   nnq_disconnect_net [get_bd_pins /ddr4/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /ddr4/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /mr_buffer_et_0/m00_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /mr_buffer_et_0/m00_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /mr_buffer_et_0/s00_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /mr_buffer_et_0/s00_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /mr_buffer_et_0/s00_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /mr_buffer_et_0/s00_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M00_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M00_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M01_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M01_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M02_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M02_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M03_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M03_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M04_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M04_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M05_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M05_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M06_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M06_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M07_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M07_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M08_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M08_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M09_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M09_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M10_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M10_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M11_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M11_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M12_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M12_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M13_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M13_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M14_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M14_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M15_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M15_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M16_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M16_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M17_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M17_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M18_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M18_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M19_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M19_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M20_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M20_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M21_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/M21_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/S00_ACLK]
+##   nnq_disconnect_net [get_bd_pins /ps8_0_axi_periph/S00_ARESETN]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/c_clk_i]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/c_resetn]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/ps_clk_i]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/ps_resetn]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/t_clk_i]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/t_resetn]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/trig_10_o]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/trig_11_o]
+##   nnq_disconnect_net [get_bd_pins /qick_processor_0/trig_1_o]
+##   nnq_disconnect_net [get_bd_pins /rst_100/peripheral_aresetn]
+##   nnq_disconnect_net [get_bd_pins /rst_100/slowest_sync_clk]
+##   nnq_disconnect_net [get_bd_pins /rst_adc0_x2/peripheral_aresetn]
+##   nnq_disconnect_net [get_bd_pins /rst_adc0_x2/slowest_sync_clk]
+##   nnq_disconnect_net [get_bd_pins /rst_core/peripheral_aresetn]
+##   nnq_disconnect_net [get_bd_pins /rst_core/slowest_sync_clk]
+##   nnq_disconnect_net [get_bd_pins /rst_dac2/peripheral_aresetn]
+##   nnq_disconnect_net [get_bd_pins /rst_dac2/slowest_sync_clk]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_0/aclk]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_0/aresetn]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_1/aclk]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_1/aresetn]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_2/aclk]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_2/aresetn]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_3/aclk]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_3/aresetn]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_4/aclk]
+##   nnq_disconnect_net [get_bd_pins /sg_translator_4/aresetn]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/clk_dac2]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/m0_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/m0_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/m2_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/m2_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/s0_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/s0_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/s2_axis_aclk]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/s2_axis_aresetn]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/s_axi_aclk]
+##   nnq_disconnect_net [get_bd_pins /usp_rf_data_converter_0/s_axi_aresetn]
+##   nnq_disconnect_net [get_bd_pins /zynq_ultra_ps_e_0/maxihpm0_fpd_aclk]
+##   nnq_disconnect_net [get_bd_pins /zynq_ultra_ps_e_0/pl_clk0]
+##   nnq_disconnect_net [get_bd_pins /zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
+##   connect_bd_net [get_bd_pins /NN_axi_0/ap_clk] [get_bd_pins /axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins /axi_bram_ctrl_gate/s_axi_aclk] [get_bd_pins /axi_bram_ctrl_live/s_axi_aclk] [get_bd_pins /axi_bram_ctrl_seg/s_axi_aclk] [get_bd_pins /axi_dma_avg/m_axi_s2mm_aclk] [get_bd_pins /axi_dma_avg/s_axi_lite_aclk] [get_bd_pins /axi_dma_buf/m_axi_s2mm_aclk] [get_bd_pins /axi_dma_buf/s_axi_lite_aclk] [get_bd_pins /axi_dma_gen/m_axi_mm2s_aclk] [get_bd_pins /axi_dma_gen/s_axi_lite_aclk] [get_bd_pins /axi_dma_mr/m_axi_s2mm_aclk] [get_bd_pins /axi_dma_mr/s_axi_lite_aclk] [get_bd_pins /axi_dma_tproc/m_axi_mm2s_aclk] [get_bd_pins /axi_dma_tproc/m_axi_s2mm_aclk] [get_bd_pins /axi_dma_tproc/s_axi_lite_aclk] [get_bd_pins /axi_intc_0/s_axi_aclk] [get_bd_pins /axi_smc/aclk] [get_bd_pins /axis_avg_buffer_0/m_axis_aclk] [get_bd_pins /axis_avg_buffer_0/s_axi_aclk] [get_bd_pins /axis_avg_buffer_1/m_axis_aclk] [get_bd_pins /axis_avg_buffer_1/s_axi_aclk] [get_bd_pins /axis_broadcaster_clean/aclk] [get_bd_pins /axis_cc_avg_0/s_axis_aclk] [get_bd_pins /axis_cc_avg_1/s_axis_aclk] [get_bd_pins /axis_cc_avg_2/s_axis_aclk] [get_bd_pins /axis_data_fifo_clean/s_axis_aclk] [get_bd_pins /axis_signal_gen_v6_0/s0_axis_aclk] [get_bd_pins /axis_signal_gen_v6_0/s_axi_aclk] [get_bd_pins /axis_signal_gen_v6_1/s0_axis_aclk] [get_bd_pins /axis_signal_gen_v6_1/s_axi_aclk] [get_bd_pins /axis_switch_avg/aclk] [get_bd_pins /axis_switch_avg/s_axi_ctrl_aclk] [get_bd_pins /axis_switch_buf/aclk] [get_bd_pins /axis_switch_buf/s_axi_ctrl_aclk] [get_bd_pins /axis_switch_ddr4/s_axi_ctrl_aclk] [get_bd_pins /axis_switch_gen/aclk] [get_bd_pins /axis_switch_gen/s_axi_ctrl_aclk] [get_bd_pins /axis_switch_mr/s_axi_ctrl_aclk] [get_bd_pins /axis_weighted_buffer_0/m_axis_aclk] [get_bd_pins /axis_weighted_buffer_0/s_axi_aclk] [get_bd_pins /ddr4/s_axi_aclk] [get_bd_pins /mr_buffer_et_0/m00_axis_aclk] [get_bd_pins /mr_buffer_et_0/s00_axi_aclk] [get_bd_pins /ps8_0_axi_periph/ACLK] [get_bd_pins /ps8_0_axi_periph/M00_ACLK] [get_bd_pins /ps8_0_axi_periph/M01_ACLK] [get_bd_pins /ps8_0_axi_periph/M02_ACLK] [get_bd_pins /ps8_0_axi_periph/M03_ACLK] [get_bd_pins /ps8_0_axi_periph/M04_ACLK] [get_bd_pins /ps8_0_axi_periph/M05_ACLK] [get_bd_pins /ps8_0_axi_periph/M06_ACLK] [get_bd_pins /ps8_0_axi_periph/M07_ACLK] [get_bd_pins /ps8_0_axi_periph/M08_ACLK] [get_bd_pins /ps8_0_axi_periph/M09_ACLK] [get_bd_pins /ps8_0_axi_periph/M10_ACLK] [get_bd_pins /ps8_0_axi_periph/M11_ACLK] [get_bd_pins /ps8_0_axi_periph/M12_ACLK] [get_bd_pins /ps8_0_axi_periph/M13_ACLK] [get_bd_pins /ps8_0_axi_periph/M14_ACLK] [get_bd_pins /ps8_0_axi_periph/M15_ACLK] [get_bd_pins /ps8_0_axi_periph/M16_ACLK] [get_bd_pins /ps8_0_axi_periph/M17_ACLK] [get_bd_pins /ps8_0_axi_periph/M18_ACLK] [get_bd_pins /ps8_0_axi_periph/M19_ACLK] [get_bd_pins /ps8_0_axi_periph/M20_ACLK] [get_bd_pins /ps8_0_axi_periph/M21_ACLK] [get_bd_pins /ps8_0_axi_periph/M22_ACLK] [get_bd_pins /ps8_0_axi_periph/M23_ACLK] [get_bd_pins /ps8_0_axi_periph/M24_ACLK] [get_bd_pins /ps8_0_axi_periph/M25_ACLK] [get_bd_pins /ps8_0_axi_periph/M26_ACLK] [get_bd_pins /ps8_0_axi_periph/S00_ACLK] [get_bd_pins /qick_processor_0/ps_clk_i] [get_bd_pins /rst_100/slowest_sync_clk] [get_bd_pins /usp_rf_data_converter_0/s_axi_aclk] [get_bd_pins /zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins /zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins /zynq_ultra_ps_e_0/saxihpc0_fpd_aclk]
+##   connect_bd_net [get_bd_pins /NN_axi_0/ap_rst_n] [get_bd_pins /axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins /axi_bram_ctrl_gate/s_axi_aresetn] [get_bd_pins /axi_bram_ctrl_live/s_axi_aresetn] [get_bd_pins /axi_bram_ctrl_seg/s_axi_aresetn] [get_bd_pins /axi_dma_avg/axi_resetn] [get_bd_pins /axi_dma_buf/axi_resetn] [get_bd_pins /axi_dma_gen/axi_resetn] [get_bd_pins /axi_dma_mr/axi_resetn] [get_bd_pins /axi_dma_tproc/axi_resetn] [get_bd_pins /axi_intc_0/s_axi_aresetn] [get_bd_pins /axi_smc/aresetn] [get_bd_pins /axis_avg_buffer_0/m_axis_aresetn] [get_bd_pins /axis_avg_buffer_0/s_axi_aresetn] [get_bd_pins /axis_avg_buffer_1/m_axis_aresetn] [get_bd_pins /axis_avg_buffer_1/s_axi_aresetn] [get_bd_pins /axis_broadcaster_clean/aresetn] [get_bd_pins /axis_cc_avg_0/s_axis_aresetn] [get_bd_pins /axis_cc_avg_1/s_axis_aresetn] [get_bd_pins /axis_cc_avg_2/s_axis_aresetn] [get_bd_pins /axis_data_fifo_clean/s_axis_aresetn] [get_bd_pins /axis_signal_gen_v6_0/s0_axis_aresetn] [get_bd_pins /axis_signal_gen_v6_0/s_axi_aresetn] [get_bd_pins /axis_signal_gen_v6_1/s0_axis_aresetn] [get_bd_pins /axis_signal_gen_v6_1/s_axi_aresetn] [get_bd_pins /axis_switch_avg/aresetn] [get_bd_pins /axis_switch_avg/s_axi_ctrl_aresetn] [get_bd_pins /axis_switch_buf/aresetn] [get_bd_pins /axis_switch_buf/s_axi_ctrl_aresetn] [get_bd_pins /axis_switch_ddr4/s_axi_ctrl_aresetn] [get_bd_pins /axis_switch_gen/aresetn] [get_bd_pins /axis_switch_gen/s_axi_ctrl_aresetn] [get_bd_pins /axis_switch_mr/s_axi_ctrl_aresetn] [get_bd_pins /axis_weighted_buffer_0/m_axis_aresetn] [get_bd_pins /axis_weighted_buffer_0/s_axi_aresetn] [get_bd_pins /ddr4/s_axi_aresetn] [get_bd_pins /mr_buffer_et_0/m00_axis_aresetn] [get_bd_pins /mr_buffer_et_0/s00_axi_aresetn] [get_bd_pins /ps8_0_axi_periph/ARESETN] [get_bd_pins /ps8_0_axi_periph/M00_ARESETN] [get_bd_pins /ps8_0_axi_periph/M01_ARESETN] [get_bd_pins /ps8_0_axi_periph/M02_ARESETN] [get_bd_pins /ps8_0_axi_periph/M03_ARESETN] [get_bd_pins /ps8_0_axi_periph/M04_ARESETN] [get_bd_pins /ps8_0_axi_periph/M05_ARESETN] [get_bd_pins /ps8_0_axi_periph/M06_ARESETN] [get_bd_pins /ps8_0_axi_periph/M07_ARESETN] [get_bd_pins /ps8_0_axi_periph/M08_ARESETN] [get_bd_pins /ps8_0_axi_periph/M09_ARESETN] [get_bd_pins /ps8_0_axi_periph/M10_ARESETN] [get_bd_pins /ps8_0_axi_periph/M11_ARESETN] [get_bd_pins /ps8_0_axi_periph/M12_ARESETN] [get_bd_pins /ps8_0_axi_periph/M13_ARESETN] [get_bd_pins /ps8_0_axi_periph/M14_ARESETN] [get_bd_pins /ps8_0_axi_periph/M15_ARESETN] [get_bd_pins /ps8_0_axi_periph/M16_ARESETN] [get_bd_pins /ps8_0_axi_periph/M17_ARESETN] [get_bd_pins /ps8_0_axi_periph/M18_ARESETN] [get_bd_pins /ps8_0_axi_periph/M19_ARESETN] [get_bd_pins /ps8_0_axi_periph/M20_ARESETN] [get_bd_pins /ps8_0_axi_periph/M21_ARESETN] [get_bd_pins /ps8_0_axi_periph/M22_ARESETN] [get_bd_pins /ps8_0_axi_periph/M23_ARESETN] [get_bd_pins /ps8_0_axi_periph/M24_ARESETN] [get_bd_pins /ps8_0_axi_periph/M25_ARESETN] [get_bd_pins /ps8_0_axi_periph/M26_ARESETN] [get_bd_pins /ps8_0_axi_periph/S00_ARESETN] [get_bd_pins /qick_processor_0/ps_resetn] [get_bd_pins /rst_100/peripheral_aresetn] [get_bd_pins /usp_rf_data_converter_0/s_axi_aresetn]
+##   connect_bd_net [get_bd_pins /NN_axi_0/trigger] [get_bd_pins /nn_axi_trigger_tieoff/dout]
+##   connect_bd_net [get_bd_pins /NN_live_0/ap_clk] [get_bd_pins /axis_avg_buffer_0/s_axis_aclk] [get_bd_pins /axis_avg_buffer_1/s_axis_aclk] [get_bd_pins /axis_broadcaster_0/aclk] [get_bd_pins /axis_broadcaster_1/aclk] [get_bd_pins /axis_broadcaster_2/aclk] [get_bd_pins /axis_cdcsync_v1_0/m_axis_aclk] [get_bd_pins /axis_dyn_readout_v1_0/aclk] [get_bd_pins /axis_dyn_readout_v1_1/aclk] [get_bd_pins /axis_dyn_readout_v1_2/aclk] [get_bd_pins /axis_register_slice_2/aclk] [get_bd_pins /axis_register_slice_3/aclk] [get_bd_pins /axis_register_slice_4/aclk] [get_bd_pins /axis_switch_ddr4/aclk] [get_bd_pins /axis_switch_mr/aclk] [get_bd_pins /axis_weighted_buffer_0/s_axis_aclk] [get_bd_pins /boxcar_tap_0/aclk] [get_bd_pins /clk_adc0_x2/clk_out1] [get_bd_pins /ddr4/aclk] [get_bd_pins /live_gate_0/aclk] [get_bd_pins /live_res_cdc_0/s_aclk] [get_bd_pins /live_res_cdc_1/s_aclk] [get_bd_pins /mr_buffer_et_0/s00_axis_aclk] [get_bd_pins /rf_tap_0/aclk] [get_bd_pins /rst_adc0_x2/slowest_sync_clk] [get_bd_pins /seg_stamp_0/aclk] [get_bd_pins /sg_translator_2/aclk] [get_bd_pins /sg_translator_3/aclk] [get_bd_pins /sg_translator_4/aclk] [get_bd_pins /trig_sync_0/aclk] [get_bd_pins /usp_rf_data_converter_0/m0_axis_aclk] [get_bd_pins /usp_rf_data_converter_0/m2_axis_aclk]
+##   connect_bd_net [get_bd_pins /NN_live_0/ap_rst_n] [get_bd_pins /axis_avg_buffer_0/s_axis_aresetn] [get_bd_pins /axis_avg_buffer_1/s_axis_aresetn] [get_bd_pins /axis_broadcaster_0/aresetn] [get_bd_pins /axis_broadcaster_1/aresetn] [get_bd_pins /axis_broadcaster_2/aresetn] [get_bd_pins /axis_cdcsync_v1_0/m_axis_aresetn] [get_bd_pins /axis_dyn_readout_v1_0/aresetn] [get_bd_pins /axis_dyn_readout_v1_1/aresetn] [get_bd_pins /axis_dyn_readout_v1_2/aresetn] [get_bd_pins /axis_register_slice_2/aresetn] [get_bd_pins /axis_register_slice_3/aresetn] [get_bd_pins /axis_register_slice_4/aresetn] [get_bd_pins /axis_switch_ddr4/aresetn] [get_bd_pins /axis_switch_mr/aresetn] [get_bd_pins /axis_weighted_buffer_0/s_axis_aresetn] [get_bd_pins /boxcar_tap_0/aresetn] [get_bd_pins /ddr4/aresetn] [get_bd_pins /live_gate_0/aresetn] [get_bd_pins /live_res_cdc_0/s_aresetn] [get_bd_pins /live_res_cdc_1/s_aresetn] [get_bd_pins /mr_buffer_et_0/s00_axis_aresetn] [get_bd_pins /rst_adc0_x2/peripheral_aresetn] [get_bd_pins /seg_stamp_0/aresetn] [get_bd_pins /sg_translator_2/aresetn] [get_bd_pins /sg_translator_3/aresetn] [get_bd_pins /sg_translator_4/aresetn] [get_bd_pins /usp_rf_data_converter_0/m0_axis_aresetn] [get_bd_pins /usp_rf_data_converter_0/m2_axis_aresetn]
+##   connect_bd_net [get_bd_pins /NN_live_0/res_o] [get_bd_pins /live_res_cdc_0/res_o] [get_bd_pins /live_res_cdc_1/res_o]
+##   connect_bd_net [get_bd_pins /NN_live_0/res_o_ap_vld] [get_bd_pins /live_res_cdc_0/res_o_ap_vld] [get_bd_pins /live_res_cdc_1/res_o_ap_vld] [get_bd_pins /seg_stamp_0/res_vld]
+##   connect_bd_net [get_bd_ports /PMOD0_6] [get_bd_pins /dac_gate_0/marker] [get_bd_pins /qick_processor_0/trig_10_o]
+##   connect_bd_net [get_bd_ports /PMOD0_7] [get_bd_pins /dac_gate_0/cls_trig] [get_bd_pins /qick_processor_0/trig_11_o] [get_bd_pins /trig_sync_0/trig_in]
+##   connect_bd_net [get_bd_pins /axis_avg_buffer_1/trigger] [get_bd_pins /live_gate_0/trigger] [get_bd_pins /trig_sync_0/trig_out]
+##   connect_bd_net [get_bd_pins /axis_cc_avg_0/m_axis_aclk] [get_bd_pins /axis_cc_avg_1/m_axis_aclk] [get_bd_pins /axis_cc_avg_2/m_axis_aclk] [get_bd_pins /clk_core/clk_out1] [get_bd_pins /live_res_cdc_0/m_aclk] [get_bd_pins /qick_processor_0/c_clk_i] [get_bd_pins /rst_core/slowest_sync_clk]
+##   connect_bd_net [get_bd_pins /axis_cc_avg_0/m_axis_aresetn] [get_bd_pins /axis_cc_avg_1/m_axis_aresetn] [get_bd_pins /axis_cc_avg_2/m_axis_aresetn] [get_bd_pins /live_res_cdc_0/m_aresetn] [get_bd_pins /qick_processor_0/c_resetn] [get_bd_pins /rst_core/peripheral_aresetn]
+##   connect_bd_net [get_bd_pins /axis_cdcsync_v1_0/s_axis_aclk] [get_bd_pins /axis_register_slice_0/aclk] [get_bd_pins /axis_register_slice_1/aclk] [get_bd_pins /axis_signal_gen_v6_0/aclk] [get_bd_pins /axis_signal_gen_v6_1/aclk] [get_bd_pins /clk_core/clk_in1] [get_bd_pins /dac_gate_0/aclk] [get_bd_pins /live_res_cdc_1/m_aclk] [get_bd_pins /qick_processor_0/t_clk_i] [get_bd_pins /rst_dac2/slowest_sync_clk] [get_bd_pins /sg_translator_0/aclk] [get_bd_pins /sg_translator_1/aclk] [get_bd_pins /usp_rf_data_converter_0/clk_dac2] [get_bd_pins /usp_rf_data_converter_0/s0_axis_aclk] [get_bd_pins /usp_rf_data_converter_0/s2_axis_aclk]
+##   connect_bd_net [get_bd_pins /axis_cdcsync_v1_0/s_axis_aresetn] [get_bd_pins /axis_register_slice_0/aresetn] [get_bd_pins /axis_register_slice_1/aresetn] [get_bd_pins /axis_signal_gen_v6_0/aresetn] [get_bd_pins /axis_signal_gen_v6_1/aresetn] [get_bd_pins /clk_core/resetn] [get_bd_pins /dac_gate_0/aresetn] [get_bd_pins /live_res_cdc_1/m_aresetn] [get_bd_pins /qick_processor_0/t_resetn] [get_bd_pins /rst_dac2/peripheral_aresetn] [get_bd_pins /sg_translator_0/aresetn] [get_bd_pins /sg_translator_1/aresetn] [get_bd_pins /usp_rf_data_converter_0/s0_axis_aresetn] [get_bd_pins /usp_rf_data_converter_0/s2_axis_aresetn]
+##   connect_bd_net [get_bd_pins /boxcar_tap_0/cfg] [get_bd_pins /seg_stamp_0/cfg]
+##   connect_bd_net [get_bd_pins /live_gate_0/dbg_data] [get_bd_pins /seg_stamp_0/dbg_data]
+##   connect_bd_net [get_bd_pins /live_gate_0/dbg_dvalid] [get_bd_pins /seg_stamp_0/dbg_dvalid]
+##   connect_bd_net [get_bd_pins /live_gate_0/dbg_first] [get_bd_pins /seg_stamp_0/dbg_first]
+##   connect_bd_net [get_bd_pins /live_gate_0/dbg_last] [get_bd_pins /seg_stamp_0/dbg_last]
+##   connect_bd_net [get_bd_pins /live_gate_0/dbg_trig] [get_bd_pins /seg_stamp_0/dbg_trig]
+##   connect_bd_net [get_bd_pins /rf_tap_0/hit] [get_bd_pins /seg_stamp_0/rf_hit]
+##   connect_bd_net [get_bd_pins /rf_tap_0/thr] [get_bd_pins /seg_stamp_0/rf_thr]
+## 
+##   # ---- address map (v1.43 assignment, from the export)
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_dma_avg/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_dma_buf/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_dma_gen/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_dma_mr/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_dma_tproc/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_dma_tproc/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_LOW] -force
+##   assign_bd_address -offset 0xA0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs NN_axi_0/s_axi_config/Reg] -force
+##   assign_bd_address -offset 0xA0122000 -range 0x00002000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_bram_ctrl_0/S_AXI/Mem0] -force
+##   assign_bd_address -offset 0xA0170000 -range 0x00002000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_bram_ctrl_gate/S_AXI/Mem0] -force
+##   assign_bd_address -offset 0xA0150000 -range 0x00008000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_bram_ctrl_live/S_AXI/Mem0] -force
+##   assign_bd_address -offset 0xA0160000 -range 0x00002000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_bram_ctrl_seg/S_AXI/Mem0] -force
+##   assign_bd_address -offset 0xA0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_dma_avg/S_AXI_LITE/Reg] -force
+##   assign_bd_address -offset 0xA0020000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_dma_buf/S_AXI_LITE/Reg] -force
+##   assign_bd_address -offset 0xA0030000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_dma_gen/S_AXI_LITE/Reg] -force
+##   assign_bd_address -offset 0xA0040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_dma_mr/S_AXI_LITE/Reg] -force
+##   assign_bd_address -offset 0xA0050000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_dma_tproc/S_AXI_LITE/Reg] -force
+##   assign_bd_address -offset 0xA0070000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_intc_0/S_AXI/Reg] -force
+##   assign_bd_address -offset 0xA0080000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_avg_buffer_0/s_axi/reg0] -force
+##   assign_bd_address -offset 0xA0090000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_avg_buffer_1/s_axi/reg0] -force
+##   assign_bd_address -offset 0xA0120000 -range 0x00001000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ddr4/axis_buffer_ddr_0/s_axi/reg0] -force
+##   assign_bd_address -offset 0xA00A0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_signal_gen_v6_0/s_axi/reg0] -force
+##   assign_bd_address -offset 0xA00B0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_signal_gen_v6_1/s_axi/reg0] -force
+##   assign_bd_address -offset 0xA00C0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_switch_avg/S_AXI_CTRL/Reg] -force
+##   assign_bd_address -offset 0xA00D0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_switch_buf/S_AXI_CTRL/Reg] -force
+##   assign_bd_address -offset 0xA00E0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_switch_ddr4/S_AXI_CTRL/Reg] -force
+##   assign_bd_address -offset 0xA00F0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_switch_gen/S_AXI_CTRL/Reg] -force
+##   assign_bd_address -offset 0xA0100000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_switch_mr/S_AXI_CTRL/Reg] -force
+##   assign_bd_address -offset 0xA0110000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axis_weighted_buffer_0/s_axi/reg0] -force
+##   assign_bd_address -offset 0x000500000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ddr4/ddr4_0/C0_DDR4_MEMORY_MAP/C0_DDR4_ADDRESS_BLOCK] -force
+##   assign_bd_address -offset 0xA0130000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs mr_buffer_et_0/s00_axi/reg0] -force
+##   assign_bd_address -offset 0xA0140000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs qick_processor_0/s_axi/reg0] -force
+##   assign_bd_address -offset 0xA0180000 -range 0x00040000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs usp_rf_data_converter_0/s_axi/Reg] -force
+##   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces ddr4/axis_buffer_ddr_0/m_axi] [get_bd_addr_segs ddr4/ddr4_0/C0_DDR4_MEMORY_MAP/C0_DDR4_ADDRESS_BLOCK] -force
+##   if {[catch {exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces axi_dma_avg/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_dma_avg/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces axi_dma_buf/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_dma_buf/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces axi_dma_gen/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_dma_gen/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces axi_dma_mr/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_dma_mr/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces axi_dma_tproc/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_dma_tproc/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces axi_dma_tproc/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH]} e]} { puts "NOTE: $e" }
+##   if {[catch {exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_dma_tproc/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM]} e]} { puts "NOTE: $e" }
+##   return 0
+## }
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_0_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_0_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_0_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_0_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+create_bd_cell: Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 818.562 ; gain = 44.695
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_gate_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_gate_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_gate_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_gate_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_live_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_live_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_live_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_live_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_seg_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_seg_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-2] d_1_axi_bram_ctrl_seg_0: In IP Integrator, please note that memory depth value gets calculated based on the Data Width of the IP and Address range selected in the Address Editor.Incase a validation error occured on the range of this parameter, please check if the selected Data width and the Address Range are valid. For valid Data width and memory depth values, please refer to the AXI BRAM Controller Product Guide.
+INFO: [xilinx.com:ip:axi_bram_ctrl:4.1-1] d_1_axi_bram_ctrl_seg_0: In IP Integrator, The Maximum address range supported is 2G. Selecting the address range more than 2G in the address editor may resets the value of Memory depth to default value (1024). please refer to the AXI BRAM Controller Product Guide.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_box_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_mr_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_nn' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_fir' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'm_box_axis'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+WARNING: [IP_Flow 19-11770] Clock interface 'aclk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-1976] HDL Parser: Replacing 'N_REC' by 20 for port or parameter 'rec'
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'cfg_take' has a dependency on the module local parameter or undefined parameter 'RD_OK'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'dec_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'dec_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'BRAM_PORT' of definition 'xilinx.com:interface:bram:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'BRAM_PORT' of definition 'xilinx.com:interface:bram:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 's_axis'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MASTER_TYPE' with value 'BRAM_CTRL'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MEM_SIZE' with value '8192'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MEM_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MEM_ECC' with value 'NONE'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'READ_LATENCY' with value '1'.
+WARNING: [IP_Flow 19-11770] Clock interface 'aclk' has no FREQ_HZ parameter.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'take' has a dependency on the module local parameter or undefined parameter 'S_MEMW'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'm_axis'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+WARNING: [IP_Flow 19-11770] Clock interface 'aclk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_bram' of definition 'xilinx.com:interface:bram:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_bram' of definition 'xilinx.com:interface:bram:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_bram' of definition 'xilinx.com:interface:bram:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_bram' of definition 'xilinx.com:interface:bram:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 's_bram': Added interface parameter 'MASTER_TYPE' with value 'BRAM_CTRL'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_bram': Added interface parameter 'MEM_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_bram': Added interface parameter 'MEM_SIZE' with value '4'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_bram': Added interface parameter 'MEM_ECC' with value 'NONE'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_bram': Added interface parameter 'READ_LATENCY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_bram': Added interface parameter 'MASTER_TYPE' with value 'BRAM_CTRL'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_bram': Added interface parameter 'MEM_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_bram': Added interface parameter 'MEM_SIZE' with value '4'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_bram': Added interface parameter 'MEM_ECC' with value 'NONE'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_bram': Added interface parameter 'READ_LATENCY' with value '1'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 's_aclk': Added interface parameter 'ASSOCIATED_RESET' with value 's_aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'm_aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'm_axis'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+WARNING: [IP_Flow 19-5905] All packaged files should be located below the IP definition file (xml)
+WARNING: [IP_Flow 19-5661] Bus Interface 's_aclk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 's_aclk' has no FREQ_HZ parameter.
+WARNING: [IP_Flow 19-11770] Clock interface 'm_aclk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'm_axis'.
+WARNING: [IP_Flow 19-11770] Clock interface 'aclk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'BRAM_PORT' of definition 'xilinx.com:interface:bram:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'BRAM_PORT' of definition 'xilinx.com:interface:bram:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MASTER_TYPE' with value 'BRAM_CTRL'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MEM_SIZE' with value '8192'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MEM_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'MEM_ECC' with value 'NONE'.
+INFO: [IP_Flow 19-4728] Bus Interface 'BRAM_PORT': Added interface parameter 'READ_LATENCY' with value '1'.
+WARNING: [IP_Flow 19-5661] Bus Interface 'aclk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'aclk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+WARNING: [IP_Flow 19-5661] Bus Interface 'aclk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'aclk' has no FREQ_HZ parameter.
+Slave segment '/NN_axi_0/s_axi_config/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA000_0000 [ 64K ]>.
+Slave segment '/axi_bram_ctrl_0/S_AXI/Mem0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA012_2000 [ 8K ]>.
+Slave segment '/axi_bram_ctrl_gate/S_AXI/Mem0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA017_0000 [ 8K ]>.
+Slave segment '/axi_bram_ctrl_live/S_AXI/Mem0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA015_0000 [ 32K ]>.
+Slave segment '/axi_bram_ctrl_seg/S_AXI/Mem0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA016_0000 [ 8K ]>.
+Slave segment '/axi_dma_avg/S_AXI_LITE/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA001_0000 [ 64K ]>.
+Slave segment '/axi_dma_buf/S_AXI_LITE/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA002_0000 [ 64K ]>.
+Slave segment '/axi_dma_gen/S_AXI_LITE/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA003_0000 [ 64K ]>.
+Slave segment '/axi_dma_mr/S_AXI_LITE/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA004_0000 [ 64K ]>.
+Slave segment '/axi_dma_tproc/S_AXI_LITE/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA005_0000 [ 64K ]>.
+Slave segment '/axi_intc_0/S_AXI/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA007_0000 [ 64K ]>.
+Slave segment '/axis_avg_buffer_0/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA008_0000 [ 64K ]>.
+Slave segment '/axis_avg_buffer_1/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA009_0000 [ 64K ]>.
+Slave segment '/ddr4/axis_buffer_ddr_0/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA012_0000 [ 4K ]>.
+Slave segment '/axis_signal_gen_v6_0/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA00A_0000 [ 64K ]>.
+Slave segment '/axis_signal_gen_v6_1/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA00B_0000 [ 64K ]>.
+Slave segment '/axis_switch_avg/S_AXI_CTRL/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA00C_0000 [ 64K ]>.
+Slave segment '/axis_switch_buf/S_AXI_CTRL/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA00D_0000 [ 64K ]>.
+Slave segment '/axis_switch_ddr4/S_AXI_CTRL/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA00E_0000 [ 64K ]>.
+Slave segment '/axis_switch_gen/S_AXI_CTRL/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA00F_0000 [ 64K ]>.
+Slave segment '/axis_switch_mr/S_AXI_CTRL/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA010_0000 [ 64K ]>.
+Slave segment '/axis_weighted_buffer_0/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA011_0000 [ 64K ]>.
+Slave segment '/mr_buffer_et_0/s00_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA013_0000 [ 64K ]>.
+Slave segment '/qick_processor_0/s_axi/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA014_0000 [ 64K ]>.
+Slave segment '/usp_rf_data_converter_0/s_axi/Reg' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA018_0000 [ 256K ]>.
+Slave segment '/ddr4/ddr4_0/C0_DDR4_MEMORY_MAP/C0_DDR4_ADDRESS_BLOCK' is being assigned into address space '/ddr4/axis_buffer_ddr_0/m_axi' at <0x0000_0000 [ 2G ]>.
+WARNING: [BD 41-2670] Found an incomplete address path from address space '/zynq_ultra_ps_e_0/Data' to master interface '/ps8_0_axi_periph/M04_AXI'. Please either complete or remove this path to resolve.
+WARNING: [BD 41-2670] Found an incomplete address path from address space '/zynq_ultra_ps_e_0/Data' to master interface '/ps8_0_axi_periph/M21_AXI'. Please either complete or remove this path to resolve.
+WARNING: [BD 41-1629] Slave segment </zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM> is excluded from all addressing paths.
+WARNING: [BD 41-1629] Slave segment </zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH> is excluded from all addressing paths.
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs -addressables -of_objects /ps8_0_axi_periph/tier2_xbar_0/M04_AXI'
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs -addressables -of_objects /ps8_0_axi_periph/tier2_xbar_2/M05_AXI'
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+ERROR: [Common 17-233] Error initializing slave interpreter '::ipgui_xilinx_com_signal_param_interrupt_1_0'.
+'couldn't read file "C:/embedded-software/Vivado/2023.1\scripts\builtin.tcl": No error'.
+ERROR: [IP_Flow 19-883] Failed to create TCL scope '::ipgui_xilinx_com_signal_param_interrupt_1_0' for IP GUI
+ERROR: [IP_Flow 19-3428] Failed to create Customization object interrupt_temp
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+INFO: [Device 21-403] Loading part xczu48dr-ffvg1517-2-e
+INFO: [BD 5-943] Reserving offset range <0x5_0000_0000 [ 4G ]> from slave interface '/ddr4/smartconnect_0/S00_AXI' to master interface '/ddr4/smartconnect_0/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/ddr4/smartconnect_0/S01_AXI' to master interface '/ddr4/smartconnect_0/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] d_1_smartconnect_0_0: SmartConnect d_1_smartconnect_0_0 is in High-performance Mode.
+xit::source_ipfile: Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2312.293 ; gain = 50.281
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/axi_smc/S00_AXI' to master interface '/axi_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/axi_smc/S01_AXI' to master interface '/axi_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/axi_smc/S02_AXI' to master interface '/axi_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/axi_smc/S03_AXI' to master interface '/axi_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/axi_smc/S04_AXI' to master interface '/axi_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 2G ]> from slave interface '/axi_smc/S05_AXI' to master interface '/axi_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] d_1_axi_smc_0: SmartConnect d_1_axi_smc_0 is in High-performance Mode.
+create_bd_cell: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2336.352 ; gain = 6.035
+create_bd_cell: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2350.012 ; gain = 6.773
+create_bd_cell: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2374.391 ; gain = 5.922
+xit::source_ipfile: Time (s): cpu = 00:00:37 ; elapsed = 00:00:39 . Memory (MB): peak = 2386.449 ; gain = 64.207
+xit::source_ipfile: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2411.312 ; gain = 24.863
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_gen/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_avg/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_buf/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_mr/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_DDR_HIGH from address space /axi_dma_tproc/Data_S2MM.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_MM2S.
+Excluding slave segment /zynq_ultra_ps_e_0/SAXIGP0/HPC0_LPS_OCM from address space /axi_dma_tproc/Data_S2MM.
+WARNING: [BD 41-2180] Resetting the memory initialization file of </axi_bram_ctrl_live_bram> to default.
+WARNING: [BD 41-2180] Resetting the memory initialization file of </axi_bram_ctrl_0_bram> to default.
+WARNING: [BD 41-2180] Resetting the memory initialization file of </axi_bram_ctrl_gate_bram> to default.
+WARNING: [BD 41-2180] Resetting the memory initialization file of </axi_bram_ctrl_seg_bram> to default.
+WARNING: [xilinx.com:ip:axi_intc:4.1-6] /axi_intc_0: Property SENSITIVITY = "NULL" for interrupt input 7 not recognized - using default interrupt type Rising Edge. Please change this manually if necessary.
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_adc0_x2 clk_wiz propagate
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_core clk_wiz propagate
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /zynq_ultra_ps_e_0/S_AXI_HPC0_FPD(1) and /axi_smc/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /zynq_ultra_ps_e_0/S_AXI_HPC0_FPD(1) and /axi_smc/M00_AXI(0)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /ps8_0_axi_periph/s00_couplers/auto_ds/S_AXI(0) and /zynq_ultra_ps_e_0/M_AXI_HPM0_FPD(16)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /ps8_0_axi_periph/s00_couplers/auto_ds/S_AXI(0) and /zynq_ultra_ps_e_0/M_AXI_HPM0_FPD(16)
+WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /ddr4/ddr4_0/C0_DDR4_S_AXI(0) and /ddr4/smartconnect_0/M00_AXI(16)
+WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /ddr4/ddr4_0/C0_DDR4_S_AXI(0) and /ddr4/smartconnect_0/M00_AXI(16)
+CRITICAL WARNING: [BD 41-759] The input pins (listed below) are either not connected or do not have a source port, and they don't have a tie-off specified. These pins are tied-off to all 0's to avoid error in Implementation flow.
+Please check your design and connect them as needed: 
+/xlconcat_intc/In7
+
+validate_bd_design: Time (s): cpu = 00:01:55 ; elapsed = 00:02:09 . Memory (MB): peak = 2417.316 ; gain = 1593.348
+ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors.
+
+    while executing
+"validate_bd_design -force"
+    (procedure "nnq_main" line 63)
+    invoked from within
+"nnq_main [file dirname [file normalize [info script]]] $argv"
+    (file "C:/Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build1_tproc245/nnqick_from_qick_tproc245.tcl" line 88)
+INFO: [Common 17-206] Exiting Vivado at Mon Nov 16 00:28:28 2026...

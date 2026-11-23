@@ -4,11 +4,13 @@
 #   bash campaign_v144/run_all.sh     (start with launch_v144.ps1). Rerunning resumes finished chunks.
 # Both boards in parallel: load, calibrate, small tests, gate sweep, main campaign, 3 h drift, tProc path, cal repeats.
 # Then one at a time: calibration swap, 5 reloads per board for the latency groups, phase across loads.
-# NOT here: the latency study's 2 cold starts per board. They need a power cycle by hand; see README.md.
+# NOT here: the latency study's cold starts. They need a power cycle by hand; see campaign_v144/README.md and campaign_v144/final/latency/README.md.
 set -u
-cd "$(dirname "$0")/.."
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; D=campaign_v144/final; C=campaign_v144; T=$D/tests   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
-TOP=C:/qick_projects/top; BANNER="Nov  7 19:57:07"; ADV=0.1135
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
+source campaign_v144/env.sh
+host_of A > /dev/null && host_of B > /dev/null || exit 2
+DG=analysis_scripts/diagnostics; D=campaign_v144/final; C=campaign_v144; T=$D/tests
+ADV=0.1135
 export QICK_LIVE_N=576 QICK_BANNER="$BANNER" QICK_FIG7_BANNER="$BANNER" QICK_FIG7_DIR=$D/fig7 QICK_TAG=v144
 mkdir -p $D/calib $T $D/fig7 $D/fig8b $D/leak_energy $D/cal_repeat $D/latency/reloads $D/latency/cold
 rmdir $D/calib/.lock $D/.load_lock 2>/dev/null
@@ -53,8 +55,8 @@ board() { # board <A|B> <host>
 }
 
 say "START v1.44 reacquisition, git $(git rev-parse --short HEAD)"
-board A 10.1.9.26 &
-board B 10.1.4.105 &
+board A "$(host_of A)" &
+board B "$(host_of B)" &
 wait
 
 if [ "$(grep -c 'BOARD DONE' $D/run_all.log)" -eq 2 ]; then

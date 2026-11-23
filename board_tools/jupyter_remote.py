@@ -27,8 +27,8 @@ from datetime import datetime, timezone
 import requests
 import websocket
 
-# Board A by default; set QICK_NS_HOST=10.1.4.105 for board B (same as calib.py).
-BOARD_HOST = __import__("os").environ.get("QICK_NS_HOST", "10.1.9.26")
+# The board named by QICK_NS_HOST (as calib.py).
+BOARD_HOST = __import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address")
 JUPYTER_PORT = 9090
 JUPYTER_PASSWORD = __import__("os").environ.get("PYNQ_JUPYTER_PASSWORD", "xilinx")  # PYNQ default
 BASE = f"http://{BOARD_HOST}:{JUPYTER_PORT}"

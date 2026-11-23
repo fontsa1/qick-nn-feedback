@@ -1,0 +1,495 @@
+{
+ "found": [
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_10000.npz",
+   "n": 2000,
+   "row_min": 10000,
+   "row_max": 11999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_12000.npz",
+   "n": 2000,
+   "row_min": 12000,
+   "row_max": 13999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_14000.npz",
+   "n": 2000,
+   "row_min": 14000,
+   "row_max": 15999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_16000.npz",
+   "n": 2000,
+   "row_min": 16000,
+   "row_max": 17999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_18000.npz",
+   "n": 2000,
+   "row_min": 18000,
+   "row_max": 19999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_6000.npz",
+   "n": 2000,
+   "row_min": 6000,
+   "row_max": 7999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\A_axi_8000.npz",
+   "n": 2000,
+   "row_min": 8000,
+   "row_max": 9999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_10000.npz",
+   "n": 2000,
+   "row_min": 10000,
+   "row_max": 11999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_12000.npz",
+   "n": 2000,
+   "row_min": 12000,
+   "row_max": 13999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_14000.npz",
+   "n": 2000,
+   "row_min": 14000,
+   "row_max": 15999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_16000.npz",
+   "n": 2000,
+   "row_min": 16000,
+   "row_max": 17999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_18000.npz",
+   "n": 2000,
+   "row_min": 18000,
+   "row_max": 19999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_6000.npz",
+   "n": 2000,
+   "row_min": 6000,
+   "row_max": 7999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\axi\\B_axi_8000.npz",
+   "n": 2000,
+   "row_min": 8000,
+   "row_max": 9999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\board2\\swap_A_own_v144.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\board2\\swap_B_on_A_calibration_v144.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\board2\\swap_B_own_v144.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.4.105_score_end_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.4.105_score_end_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.4.105_score_end_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.4.105_score_start_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.4.105_score_start_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.4.105_score_start_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.9.26_score_end_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.9.26_score_end_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.9.26_score_end_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.9.26_score_start_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.9.26_score_start_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v144\\final\\drift_full\\drift_10.1.9.26_score_start_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_10000.npz",
+   "n": 2000,
+   "row_min": 10000,
+   "row_max": 11999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_12000.npz",
+   "n": 2000,
+   "row_min": 12000,
+   "row_max": 13999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_14000.npz",
+   "n": 2000,
+   "row_min": 14000,
+   "row_max": 15999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_16000.npz",
+   "n": 2000,
+   "row_min": 16000,
+   "row_max": 17999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_18000.npz",
+   "n": 2000,
+   "row_min": 18000,
+   "row_max": 19999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_6000.npz",
+   "n": 2000,
+   "row_min": 6000,
+   "row_max": 7999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\A_axi_8000.npz",
+   "n": 2000,
+   "row_min": 8000,
+   "row_max": 9999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_10000.npz",
+   "n": 2000,
+   "row_min": 10000,
+   "row_max": 11999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_12000.npz",
+   "n": 2000,
+   "row_min": 12000,
+   "row_max": 13999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_14000.npz",
+   "n": 2000,
+   "row_min": 14000,
+   "row_max": 15999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_16000.npz",
+   "n": 2000,
+   "row_min": 16000,
+   "row_max": 17999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_18000.npz",
+   "n": 2000,
+   "row_min": 18000,
+   "row_max": 19999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_6000.npz",
+   "n": 2000,
+   "row_min": 6000,
+   "row_max": 7999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\axi\\B_axi_8000.npz",
+   "n": 2000,
+   "row_min": 8000,
+   "row_max": 9999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\board2\\swap_A_own_v143.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\board2\\swap_B_on_A_calibration_v143.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\board2\\swap_B_own_v143.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.4.105_score_end_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.4.105_score_end_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.4.105_score_end_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.4.105_score_start_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.4.105_score_start_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.4.105_score_start_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.9.26_score_end_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.9.26_score_end_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.9.26_score_end_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.9.26_score_start_0.npz",
+   "n": 2000,
+   "row_min": 0,
+   "row_max": 1999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.9.26_score_start_2000.npz",
+   "n": 2000,
+   "row_min": 2000,
+   "row_max": 3999,
+   "dataset": "test20k_real_X"
+  },
+  {
+   "file": "campaign_v143\\final\\drift_full\\drift_10.1.9.26_score_start_4000.npz",
+   "n": 2000,
+   "row_min": 4000,
+   "row_max": 5999,
+   "dataset": "test20k_real_X"
+  }
+ ],
+ "beyond_row_19999": []
+}

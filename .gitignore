@@ -1,0 +1,4 @@
+# generator outputs (tools/figout.py); the shipped reference copies sit beside each generator
+build/
+__pycache__/
+*.pyc

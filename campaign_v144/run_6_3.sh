@@ -6,11 +6,13 @@
 # Recalibrated before each phase. Rerunning resumes: finished chunks are skipped, the in-loop run uses its checkpoint.
 # Watchdog: a log silent for 15 min has its python process tree killed, then a retry.
 set -u
-cd "$(dirname "$0")/.."
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
+source campaign_v144/env.sh
 B=$1
-case $B in A) H=10.1.9.26; R1=0; R2=50000;; B) H=10.1.4.105; R1=50000; R2=0;; *) echo "board A or B"; exit 2;; esac
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; D=campaign_v144/final   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
-BANNER="Nov  7 19:57:07"; SILENCE=900
+case $B in A) R1=0; R2=50000;; B) R1=50000; R2=0;; *) echo "board A or B"; exit 2;; esac
+H=$(host_of $B) || exit 2
+DG=analysis_scripts/diagnostics; D=campaign_v144/final
+SILENCE=900
 mkdir -p $D/logs $D/calib $D/live $D/inloop $D/axi $D/fig7 $D/drift
 RLOG=$D/runner_$B.log
 export QICK_NS_HOST=$H QICK_LIVE_N=576
@@ -48,7 +50,7 @@ calibrate() {
   $PY - "$B" "$H" "$ph" > $D/calib/${B}_${ph}.json <<'EOF'
 import datetime, hashlib, json, subprocess, sys
 print(json.dumps(dict(board=sys.argv[1], host=sys.argv[2], phase=sys.argv[3], time=datetime.datetime.now().isoformat(),
-    bit_sha256=hashlib.sha256(open("C:/qick_projects/top/OG_build_v1.44.bit", "rb").read()).hexdigest(),
+    bit_sha256=hashlib.sha256(open("$TOP/OG_build_v1.44.bit", "rb").read()).hexdigest(),
     git_head=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()), indent=1))
 EOF
   say "calibrated for $ph: $(grep -E 'k ?=|\|k\|' "$log" | tail -1 | cut -c1-100)"

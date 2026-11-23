@@ -1,0 +1,1 @@
+-debug off -timescale 1ps/1ps --mt 2 -generic_top M_PS=2034 -generic_top SKEW_PS=4270 -generic_top TOG_PS=0 -generic_top N=3000 -generic_top OFF_PS=313 tb_cdc_skew_phase -s sim_ph313_skew4270

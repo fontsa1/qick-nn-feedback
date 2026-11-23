@@ -15,8 +15,8 @@ import Pyro4
 Pyro4.config.SERIALIZER = "pickle"
 Pyro4.config.PICKLE_PROTOCOL_VERSION = 4
 
-NS_HOST, NS_PORT, PROXY = "10.1.9.26", 8888, "myqick"
-SERVER_NB = "start nameserver.ipynb"
+NS_HOST, NS_PORT, PROXY = __import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address"), 8888, "myqick"
+SERVER_NB = __import__("os").environ.get("QICK_SERVER_NB", "start nameserver.ipynb")   # the server notebook on the board
 
 
 def list_board_bitfiles():

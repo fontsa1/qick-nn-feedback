@@ -12,7 +12,7 @@ requests==2.34.2
 websocket-client==1.9.0
 tf-keras==2.21.0          # the legacy Keras API that QKeras needs (TF_USE_LEGACY_KERAS=1)
 Pillow==12.2.0            # figure assembly
-pymupdf                   # Fig. 8 assembly (PDF to image); version not recorded
+pymupdf==2.1              # Fig. 7 assembly (PDF to image)
 jupyterlab==4.5.8         # the notebooks
 # Not installed by pip: Vivado and Vitis HLS 2023.1 (firmware, HLS cores); g++ for the bit-accurate emulator (MSYS2
 # ucrt64, expected at C:/msys64/ucrt64/bin by fixed_point_emulator.py); Git Bash for the campaign .sh scripts.

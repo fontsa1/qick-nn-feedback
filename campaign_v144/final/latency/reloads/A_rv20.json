@@ -1,0 +1,248 @@
+{
+ "settings": {
+  "label": "rv20",
+  "host": "10.1.9.26",
+  "banner": "Firmware configuration (built Sat Nov  7 19:57:07 2026):",
+  "time": "2026-11-13 03:11:36",
+  "git_head": "75ffd250770cced62eff0077adcc67005ee4180b",
+  "script_sha256": "fdf4ad6da79a4085c73c8a3abdd87761ec3cc85a8f698a296678d65f50feca28",
+  "bit_sha256": "986c861a83be8d01d72db967af894e3d01de2b1c861021d1b5821bc183d7b7c6",
+  "k_sha256": "850bc97a77dc3bfb0928bf59e245b64814302197ac2569b97da2bd1aaeba14e4",
+  "c_sha256": "98d0dea5d68e3bd236fe94e2f450e024b08660083dfbc51c07d9cbe1fd9677f7",
+  "nn_advance_us": 0.1135,
+  "expect_path_adv_ns": 1.4,
+  "realised_ticks": 55,
+  "realised_adv_ns": 111.89778645833334,
+  "tick_ns": 2.0345052083333335,
+  "sample_ns": 1.808449074074074,
+  "op_slack_us": -0.064,
+  "path_ns": 113.33,
+  "box_shift": 7,
+  "box_m": 11,
+  "cp_gain": 0.6,
+  "cp_len_us": 0.2,
+  "cp_pre_us": 0.15,
+  "fb_margin_us": 0.035,
+  "rf_thr": 2048,
+  "live_n": "576",
+  "box_json": "campaign_v144/revision/latency/reloads/A_rv20.box_probe.json"
+ },
+ "delay": 29,
+ "points": {
+  "op": {
+   "n": 100,
+   "n_pulse": 100,
+   "L_50": {
+    "mean": 173.66077833617055,
+    "sd": 1.2236583003012005,
+    "sem": 0.12236583003012005
+   },
+   "L_buf": {
+    "mean": 175.1833232851028,
+    "sd": 1.1998467234063108,
+    "sem": 0.11998467234063108
+   },
+   "counter": {
+    "mean": 174.67809606481478,
+    "sd": 1.4787163565934647,
+    "sem": 0.14787163565934647
+   },
+   "lbuf_minus_l50": {
+    "mean": 1.522544948932245,
+    "sd": 0.892699169929724,
+    "sem": 0.0892699169929724
+   },
+   "l50_minus_counter": {
+    "mean": -1.017317728644204,
+    "sd": 0.6494833667115723,
+    "sem": 0.06494833667115722
+   },
+   "gap": {
+    "mean": 0.5052272202880411,
+    "sd": 1.008185835269347,
+    "sem": 0.1008185835269347
+   },
+   "plat_iq": 1619.652271447992,
+   "plat_sum": 2283.11,
+   "phase_deg": 40.39203205098733,
+   "thr_frac": 0.5001950298181286,
+   "counter_cycles": [
+    96,
+    97,
+    98,
+    99
+   ],
+   "counter_minus_sw": [
+    0
+   ],
+   "res_minus_last": [
+    9
+   ],
+   "same_all": true,
+   "segments": {
+    "S_nn": 18.084490740740648,
+    "S_cdc": 8.62856264467616,
+    "S_gate": 9.908040364583192,
+    "S_conv": 99.98914930555547,
+    "S_fe": 38.06785300925925,
+    "sum": 174.6780960648147
+   },
+   "thr": 1142,
+   "slack": -0.064,
+   "gain": 0.6,
+   "cp_phase": 0.0
+  },
+  "slack0": {
+   "n": 40,
+   "n_pulse": 40,
+   "L_50": {
+    "mean": 238.8956027264312,
+    "sd": 1.40272767255006,
+    "sem": 0.221790719110252
+   },
+   "L_buf": {
+    "mean": 240.539676380604,
+    "sd": 1.480737969603207,
+    "sem": 0.23412523009196531
+   },
+   "counter": {
+    "mean": 239.98119212962965,
+    "sd": 1.648338813612737,
+    "sem": 0.2606252503338004
+   },
+   "lbuf_minus_l50": {
+    "mean": 1.6440736541728014,
+    "sd": 1.1142844740141031,
+    "sem": 0.17618384496236356
+   },
+   "l50_minus_counter": {
+    "mean": -1.0855894031984235,
+    "sd": 0.7275713502222855,
+    "sem": 0.11503913134932386
+   },
+   "gap": {
+    "mean": 0.5584842509743779,
+    "sd": 1.0276815904720644,
+    "sem": 0.16249072676580592
+   },
+   "plat_iq": 1620.2211923681966,
+   "plat_sum": 2283.85,
+   "phase_deg": 40.3870208242812,
+   "thr_frac": 0.5000329725462302,
+   "counter_cycles": [
+    132,
+    133,
+    134,
+    135
+   ],
+   "counter_minus_sw": [
+    0
+   ],
+   "res_minus_last": [
+    9
+   ],
+   "same_all": true,
+   "segments": {
+    "S_nn": 18.084490740740648,
+    "S_cdc": 8.567527488426162,
+    "S_gate": 75.07324218749993,
+    "S_conv": 100.0072337962962,
+    "S_fe": 38.248697916666664,
+    "sum": 239.98119212962965
+   },
+   "thr": 1142,
+   "slack": 0.0,
+   "gain": 0.6,
+   "cp_phase": 0.0
+  }
+ },
+ "sensitivity": {},
+ "checks": [
+  {
+   "name": "path_minus_adv",
+   "ok": true,
+   "detail": "path 113.33 - advance 111.90 = 1.43 ns; expected 1.4 +/- 1.0"
+  },
+  {
+   "name": "op_all_pulses",
+   "ok": true,
+   "detail": "100/100 (a shot with no pulse = late decision)"
+  },
+  {
+   "name": "op_window_is_buffer",
+   "ok": true,
+   "detail": "NN_live's window == buffer 1 on every shot"
+  },
+  {
+   "name": "op_counter_is_samples",
+   "ok": true,
+   "detail": "counter - edge rule on samples: [0]"
+  },
+  {
+   "name": "op_nn_cycles",
+   "ok": true,
+   "detail": "result - last: [9] cycles"
+  },
+  {
+   "name": "op_thr_fraction",
+   "ok": true,
+   "detail": "0.500"
+  },
+  {
+   "name": "op_l50_minus_counter",
+   "ok": true,
+   "detail": "-1.02 ns; expected -0.9 +/- 0.76"
+  },
+  {
+   "name": "op_lbuf_minus_l50",
+   "ok": true,
+   "detail": "+1.52 ns; path - advance on this load 1.43 +/- 0.82"
+  },
+  {
+   "name": "op_segments_sum",
+   "ok": true,
+   "detail": "segment sum 174.68, counter 174.68 ns"
+  },
+  {
+   "name": "slack0_all_pulses",
+   "ok": true,
+   "detail": "40/40 (a shot with no pulse = late decision)"
+  },
+  {
+   "name": "slack0_window_is_buffer",
+   "ok": true,
+   "detail": "NN_live's window == buffer 1 on every shot"
+  },
+  {
+   "name": "slack0_counter_is_samples",
+   "ok": true,
+   "detail": "counter - edge rule on samples: [0]"
+  },
+  {
+   "name": "slack0_nn_cycles",
+   "ok": true,
+   "detail": "result - last: [9] cycles"
+  },
+  {
+   "name": "slack0_thr_fraction",
+   "ok": true,
+   "detail": "0.500"
+  },
+  {
+   "name": "slack0_l50_minus_counter",
+   "ok": true,
+   "detail": "-1.09 ns; expected -0.9 +/- 0.89"
+  },
+  {
+   "name": "slack0_lbuf_minus_l50",
+   "ok": true,
+   "detail": "+1.64 ns; path - advance on this load 1.43 +/- 1.04"
+  },
+  {
+   "name": "slack0_segments_sum",
+   "ok": true,
+   "detail": "segment sum 239.98, counter 239.98 ns"
+  }
+ ],
+ "passed": true
+}

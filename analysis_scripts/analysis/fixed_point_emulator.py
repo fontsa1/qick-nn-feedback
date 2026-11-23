@@ -6,7 +6,7 @@ Keras model on the same shots.
 
 The model is rebuilt from the deployed recipe (the float32 path reproduces seed 20260902 = 95.34% bit for bit) and
 converted with the same make_hls_config() the export uses. `--check-firmware` asserts the emulator's
-weights are byte-identical to neural_net4/firmware/weights, i.e. that this is
+weights are byte-identical to neural_net4_tlast/firmware/weights, i.e. that this is
 the model the bitstream carries.
 
 """
@@ -80,7 +80,8 @@ def _patch_windows_compile():
 def fixed_point_model(model, outdir):
     import hls4ml
     from export_signed_domain_model import make_hls_config, FPGA_PART, CLOCK_PERIOD_NS
-    _patch_windows_compile()
+    if __import__("os").name == "nt":   # the MSYS2 g++ patch is for Windows only
+        _patch_windows_compile()
     hm = hls4ml.converters.convert_from_keras_model(
         model=model, hls_config=make_hls_config(model), output_dir=str(outdir),
         part=FPGA_PART, io_type="io_parallel", clock_period=CLOCK_PERIOD_NS,
@@ -106,7 +107,7 @@ def main():
                     help="load this exported Keras .h5 instead of retraining "
                          "(--n-train/--seed then only label the output dir)")
     ap.add_argument("--check-firmware", action="store_true",
-                    help="assert weights match neural_net4/firmware/weights")
+                    help="assert weights match neural_net4_tlast/firmware/weights")
     ap.add_argument("--save", default="data/fixed_point_emulator_loopback20k.npz")
     ap.add_argument("--window", type=int, default=770,
                     help="score on samples [0, window) (a --window model from "
@@ -140,11 +141,11 @@ def main():
     outdir = Path(a.outdir) / (Path(a.model).stem if a.model else f"n{a.n_train}_s{a.seed}")
     hm = fixed_point_model(model, outdir)
     if a.check_firmware:
-        fw = ROOT / "neural_net4" / "firmware" / "weights"
+        fw = ROOT / "neural_net4_tlast" / "firmware" / "weights"
         bad = [f.name for f in sorted((outdir / "firmware" / "weights").iterdir())
                if not filecmp.cmp(f, fw / f.name, shallow=False)]
         assert not bad, f"emulator weights differ from deployed firmware: {bad}"
-        print("weights byte-identical to neural_net4/firmware/weights")
+        print("weights byte-identical to neural_net4_tlast/firmware/weights")
 
     t1 = time.time()
     p_fixed = np.asarray(hm.predict(np.ascontiguousarray(Xev, dtype=np.float32))).reshape(-1)

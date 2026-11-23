@@ -1,0 +1,16 @@
+2026-11-17 20:29:51 START build1 on A (10.1.9.26), bit sha256 0b5c89e82cc09944
+2026-11-17 20:30:34 banner confirmed: Nov 16 00:41:12
+2026-11-17 20:30:48 functional rc=0
+2026-11-17 20:34:23 calibration b1 rc=0 [calib] active = 10.1.9.26 (board A)  |k|=0.22226 arg(k)=-41.86 deg
+2026-11-17 20:35:50 tproc_decision rc=0
+2026-11-17 20:36:05 box_probe rc=0
+2026-11-17 20:36:50 latency rc=0
+2026-11-17 20:36:50 gate loop:             op: thr  1140  100/100 with a pulse  L_50  176.16 (sd 1.47, sem 0.15)  counter  177.32  L_buf  177.64  L_50-counter -1.16  L_buf-L_50 +1.48  phase -39
+2026-11-17 20:49:16 tproc_box rc=0
+2026-11-17 20:49:16 tproc box: nobranch: earliest clean margin: +0.035, L 316.0 ns;qick: earliest clean margin: +0.030, L 319.2 ns;
+2026-11-17 20:52:18 tproc_fir rc=0
+2026-11-17 20:52:18 tproc fir: nobranch: earliest clean margin: +0.030, L 425.4 ns;
+2026-11-17 21:03:15 threshold rc=0
+2026-11-17 21:03:15 threshold:   thr/fir: earliest clean margin +0.100, L 501.6 ns;  thr/box: earliest clean margin +0.100, L 501.8 ns;
+2026-11-17 21:07:41 calibration restore_v144 rc=0 [calib] active = 10.1.9.26 (board A)  |k|=0.22465 arg(k)=-135.64 deg
+2026-11-17 21:07:41 DONE build1 on A

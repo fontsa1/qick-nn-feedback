@@ -1,0 +1,33 @@
+BANNER: Firmware configuration (built Tue Nov 17 20:42:27 2026):
+L_buf reference: last_sample
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+gate pin 6 = ('trig', 10, 0, 'PMOD0_6'), NN pin 8 = ('trig', 11, 0, 'NN classify trigger (trig_11_o)'); clk_dac2 491.52 MHz
+gate magic 47415434 (v1.41)
+gate build parameters: EARLY_BLANK 1  SHOT_BIND 1  FAIL_SAFE 1  CFG_SAFE 0
+split: seg thr 985 (half the |I|+|Q| plateau), rf_tap thr 2048 (|x|, raw ADC)
+marker -> pulse at the gate input: [33] cycles (67.1 ns); DELAY = 29; always-pass plateau 1552
+
+slack us   stale   fresh   correct  passed  late unsafe  margin ns (med, min)  L_buf ns (passed: med [min, max])
+  -0.078  40/40   40/40     0/40     0/40     40      0                     -                                  -
+  -0.076  40/40   40/40     0/40     0/40     40      0                     -                                  -
+  -0.074  40/40   40/40     0/40     0/40     40      0                     -                                  -
+  -0.072  40/40   40/40     0/40     0/40     40      0                     -                                  -
+  -0.070  40/40   40/40     0/40     0/40     40      0                     -                                  -
+  -0.068  40/40   40/40     0/40     0/40     40      0                     -                                  -
+  -0.066   0/40   40/40    40/40    17/40      0      0           2.0,    2.0             172.8 [ 171.3,  175.5]
+         split (ns, median of 17 passed shots): S_nn   18.1  S_cdc    8.4  S_gate    8.1  S_conv   99.2  S_fe   38.0  sum  171.8  | L_buf  172.8
+  -0.064   0/40   40/40    40/40    18/40      0      0           4.1,    4.1             175.1 [ 173.7,  178.8]
+         split (ns, median of 18 passed shots): S_nn   18.1  S_cdc    8.4  S_gate   10.2  S_conv  100.8  S_fe   38.0  sum  173.6  | L_buf  175.1
+  -0.062   0/40   40/40    40/40    17/40      0      0           6.1,    6.1             177.3 [ 175.6,  181.0]
+         split (ns, median of 17 passed shots): S_nn   18.1  S_cdc    8.4  S_gate   12.2  S_conv   98.8  S_fe   38.0  sum  177.2  | L_buf  177.3
+  -0.060   0/40   40/40    40/40    17/40      0      0           8.1,    8.1             178.9 [ 177.7,  181.9]
+         split (ns, median of 17 passed shots): S_nn   18.1  S_cdc    8.4  S_gate   14.2  S_conv  100.4  S_fe   38.0  sum  179.0  | L_buf  178.9
+  -0.040   0/40   40/40    40/40    18/40      0      0          28.5,   28.5             199.6 [ 198.0,  202.4]
+         split (ns, median of 18 passed shots): S_nn   18.1  S_cdc    8.4  S_gate   34.6  S_conv   99.9  S_fe   38.0  sum  198.9  | L_buf  199.6
+   0.000   0/40   40/40    40/40    18/40      0      0          69.2,   69.2             240.1 [ 239.2,  242.7]
+         split (ns, median of 18 passed shots): S_nn   18.1  S_cdc    8.4  S_gate   75.3  S_conv   99.0  S_fe   38.0  sum  239.6  | L_buf  240.1
+
+shot binding (v1.41): decisions rejected (word 19) 25; expected shot field now 2020
+
+stale: no fresh decision when the window opened (pulse blanked).  correct: pulse came back exactly when the gate passed, the gate's decision bit equals NN_live's record, not stale.  margin: window start - decision arrival at the gate.  late: decision after its window opened (discarded, v1.40L6b).  unsafe: pulse played without this shot's own decision = 1.  gate left disabled.
+saved campaign_v144/revision2/rebuilds/build2_lda_gate/board/B_gate_probe_box.npz

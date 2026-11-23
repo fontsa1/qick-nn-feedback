@@ -1,0 +1,205 @@
+
+
+================================================================
+== Synthesis Summary Report of 'LDA_live'
+================================================================
++ General Information: 
+    * Date:           Mon Nov 16 13:10:59 2026
+    * Version:        2023.1 (Build 3854077 on May  4 2023)
+    * Project:        LDA_live_prj
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: zynquplusRFSOC
+    * Target device:  xczu48dr-ffvg1517-2-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+---------+------------+------------+-----+
+    |                                Modules                               | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |         |         |            |            |     |
+    |                                & Loops                               | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|  BRAM   |   DSP   |     FF     |     LUT    | URAM|
+    +----------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+---------+------------+------------+-----+
+    |+ LDA_live                                                            |     -|  0.08|        -|          -|         -|        -|     -|        no|  3 (~0%)|  2 (~0%)|  1236 (~0%)|  1307 (~0%)|    -|
+    | + LDA_live_Pipeline_ACC_L                                            |     -|  0.08|      587|  1.061e+03|         -|      587|     -|        no|  2 (~0%)|  2 (~0%)|   856 (~0%)|   608 (~0%)|    -|
+    |  o ACC_L                                                             |     -|  1.58|      585|  1.058e+03|        11|        1|   576|  yes(frp)|        -|        -|           -|           -|    -|
+    | + sigmoid_ap_fixed_16_6_5_0_0_ap_fixed_18_8_5_3_0_sigmoid_config8_s  |    II|  0.32|        4|      7.232|         -|        1|     -|       yes|  1 (~0%)|        -|    52 (~0%)|   165 (~0%)|    -|
+    | + LDA_live_Pipeline_DRAIN_L                                          |     -|  1.58|        -|          -|         -|        -|     -|        no|        -|        -|     2 (~0%)|    20 (~0%)|    -|
+    |  o DRAIN_L                                                           |     -|  1.58|        -|          -|         1|        1|     -|       yes|        -|        -|           -|           -|    -|
+    +----------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+---------+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AXIS
++-----------+-----------+---------------+-------+-------+-------+--------+-------+--------+
+| Interface | Direction | Register Mode | TDATA | TKEEP | TLAST | TREADY | TSTRB | TVALID |
++-----------+-----------+---------------+-------+-------+-------+--------+-------+--------+
+| in_r      | in        | off           | 32    | 4     | 1     | 1      | 4     | 1      |
++-----------+-----------+---------------+-------+-------+-------+--------+-------+--------+
+
+* BRAM
++-------------+------------+---------------+
+| Interface   | Data Width | Address Width |
++-------------+------------+---------------+
+| out_r_PORTA | 32         | 32            |
++-------------+------------+---------------+
+
+* Other Ports
++-------+--------+-----------+----------+
+| Port  | Mode   | Direction | Bitwidth |
++-------+--------+-----------+----------+
+| res_o | ap_vld | out       | 64       |
++-------+--------+-----------+----------+
+
+* TOP LEVEL CONTROL
++-----------+--------------+----------+
+| Interface | Type         | Ports    |
++-----------+--------------+----------+
+| ap_clk    | clock        | ap_clk   |
+| ap_rst_n  | reset        | ap_rst_n |
+| ap_ctrl   | ap_ctrl_none |          |
++-----------+--------------+----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+---------------------------------------------+
+| Argument | Direction | Datatype                                    |
++----------+-----------+---------------------------------------------+
+| in       | in        | stream<hls::axis<ap_uint<32>, 0, 0, 0>, 0>& |
+| res_o    | out       | ap_uint<64>*                                |
+| out      | out       | ap_uint<32>*                                |
++----------+-----------+---------------------------------------------+
+
+* SW-to-HW Mapping
++----------+--------------+-----------+
+| Argument | HW Interface | HW Type   |
++----------+--------------+-----------+
+| in       | in_r         | interface |
+| res_o    | res_o        | port      |
+| res_o    | res_o_ap_vld | port      |
+| out      | out_r_PORTA  | interface |
++----------+--------------+-----------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------------------------------------------------------+-----+--------+-----------+-----+--------+---------+
+| Name                                                                 | DSP | Pragma | Variable  | Op  | Impl   | Latency |
++----------------------------------------------------------------------+-----+--------+-----------+-----+--------+---------+
+| + LDA_live                                                           | 2   |        |           |     |        |         |
+|   add_ln110_fu_348_p2                                                | -   |        | add_ln110 | add | fabric | 0       |
+|   add_ln111_fu_370_p2                                                | -   |        | add_ln111 | add | fabric | 0       |
+|   add_ln112_fu_392_p2                                                | -   |        | add_ln112 | add | fabric | 0       |
+|   add_ln113_fu_405_p2                                                | -   |        | add_ln113 | add | fabric | 0       |
+|   add_ln114_fu_414_p2                                                | -   |        | add_ln114 | add | fabric | 0       |
+|   add_ln115_fu_423_p2                                                | -   |        | add_ln115 | add | fabric | 0       |
+|   add_ln116_fu_441_p2                                                | -   |        | add_ln116 | add | fabric | 0       |
+|   add_ln117_fu_436_p2                                                | -   |        | add_ln117 | add | fabric | 0       |
+|   add_ln118_fu_462_p2                                                | -   |        | add_ln118 | add | fabric | 0       |
+|   add_ln87_fu_354_p2                                                 | -   |        | add_ln87  | add | fabric | 0       |
+|  + LDA_live_Pipeline_ACC_L                                           | 2   |        |           |     |        |         |
+|    add_ln49_fu_338_p2                                                | -   |        | add_ln49  | add | fabric | 0       |
+|    mac_muladd_16s_16s_41s_41_4_1_U1                                  | 1   | yes    | pi        | mul | dsp48  | 3       |
+|    mac_muladd_16s_16s_41s_41_4_1_U2                                  | 1   | yes    | pq        | mul | dsp48  | 3       |
+|    mac_muladd_16s_16s_41s_41_4_1_U1                                  | 1   |        | si_acc_1  | add | dsp48  | 3       |
+|    mac_muladd_16s_16s_41s_41_4_1_U2                                  | 1   |        | sq_acc_1  | add | dsp48  | 3       |
+|    add_ln63_fu_379_p2                                                | -   |        | add_ln63  | add | fabric | 0       |
+|    d_fu_491_p2                                                       | -   |        | d         | add | fabric | 0       |
+|    v_fu_527_p2                                                       | -   |        | v         | add | fabric | 0       |
+|    add_ln74_fu_543_p2                                                | -   |        | add_ln74  | add | fabric | 0       |
+|  + sigmoid_ap_fixed_16_6_5_0_0_ap_fixed_18_8_5_3_0_sigmoid_config8_s | 0   |        |           |     |        |         |
+|    add_ln115_fu_119_p2                                               | -   |        | add_ln115 | add | fabric | 0       |
+|    index_fu_145_p2                                                   | -   |        | index     | add | fabric | 0       |
+|    add_ln113_fu_150_p2                                               | -   |        | add_ln113 | add | fabric | 0       |
++----------------------------------------------------------------------+-----+--------+-----------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++----------------------------------------------------------------------+------+------+--------+---------------+---------+------+---------+
+| Name                                                                 | BRAM | URAM | Pragma | Variable      | Storage | Impl | Latency |
++----------------------------------------------------------------------+------+------+--------+---------------+---------+------+---------+
+| + LDA_live                                                           | 3    | 0    |        |               |         |      |         |
+|  + LDA_live_Pipeline_ACC_L                                           | 2    | 0    |        |               |         |      |         |
+|    LROM_U                                                            | 2    | -    | pragma | LROM          | rom_1p  | bram | 1       |
+|  + sigmoid_ap_fixed_16_6_5_0_0_ap_fixed_18_8_5_3_0_sigmoid_config8_s | 1    | 0    |        |               |         |      |         |
+|    sigmoid_table_U                                                   | 1    | -    |        | sigmoid_table | rom_1p  | auto | 1       |
++----------------------------------------------------------------------+------+------+--------+---------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Ignored Pragmas
++------------+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+
+| Type       | Options             | Location                                                                                                                                                      | Messages                                                         |
++------------+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+
+| allocation | instances = softmax | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:402 in softmax_multidim | unexpected pragma argument 'softmax', expects function/operation |
++------------+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++----------------------+-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Type                 | Options                                       | Location                                                                                                                                                              |
++----------------------+-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| interface            | ap_ctrl_none port=return                      | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:28 in lda_live, return                          |
+| interface            | axis port=in register_mode=off                | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:30 in lda_live, in                              |
+| interface            | ap_vld port=res_o                             | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:31 in lda_live, res_o                           |
+| interface            | bram port=out storage_type=ram_1p             | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:32 in lda_live, out                             |
+| bind_storage         | variable=LROM type=rom_1p impl=bram latency=2 | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:35 in lda_live, LROM                            |
+| pipeline             | II=1 style=frp                                | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:50 in lda_live                                  |
+| bind_op              | variable=pi op=mul impl=dsp                   | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:59 in lda_live, pi                              |
+| bind_op              | variable=pq op=mul impl=dsp                   | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:60 in lda_live, pq                              |
+| pipeline             | II=1                                          | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/LDA_live.cpp:92 in lda_live                                  |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:29 in linear                    |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:40 in relu                      |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:54 in relu_max                  |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:109 in sigmoid                  |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:176 in softmax_latency          |
+| array_partition      | variable=exp_res complete                     | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:198 in softmax_latency, exp_res |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:201 in softmax_latency          |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:214 in softmax_latency          |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:221 in softmax_stable           |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:247 in softmax_stable           |
+| array_partition      | variable=exp_res complete                     | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:253 in softmax_stable, exp_res  |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:256 in softmax_stable           |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:269 in softmax_stable           |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:317 in softmax_legacy           |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:362 in softmax_argmax           |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:370 in softmax_argmax           |
+| inline               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:382 in softmax                  |
+| inline               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:401 in softmax_multidim         |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:406 in softmax_multidim         |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:408 in softmax_multidim         |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:410 in softmax_multidim         |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:415 in softmax_multidim         |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:452 in tanh                     |
+| function_instantiate | variable=table                                | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:481 in unary_lut, table         |
+| array_partition      | variable=table                                | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:482 in unary_lut, table         |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:485 in unary_lut                |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:496 in hard_sigmoid             |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:511 in hard_tanh                |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:529 in leaky_relu               |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:546 in thresholded_relu         |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:591 in softplus                 |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:640 in softsign                 |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:689 in elu                      |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:748 in selu                     |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:776 in prelu                    |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:804 in binary_tanh              |
+| pipeline             |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_activation.h:824 in ternary_tanh             |
+| unroll               |                                               | ../../../Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/hls11/firmware/nnet_utils/nnet_types.h:28 in operator=                      |
++----------------------+-----------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+

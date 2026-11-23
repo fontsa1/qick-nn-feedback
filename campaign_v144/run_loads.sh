@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Load-to-load latency study: 100 + 40 shots per bitstream load, plus a sensitivity run on each board's first load.
 # Boards alternate so load order is not tied to time.  usage: run_loads.sh <outdir> <label> [<label> ...]
-cd "${REPO_ROOT:-.}"
-PY="${PYTHON:-python}"; D=analysis_scripts/diagnostics; TOP=C:/qick_projects/top; V43="Nov  7 19:57:07"   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
+source campaign_v144/env.sh
+D=analysis_scripts/diagnostics; V43="$BANNER"
 O=$1; shift; mkdir -p $O
 export QICK_LIVE_N=576
 one() { # one <board> <host> <label> [--sensitivity]
@@ -23,8 +24,8 @@ one() { # one <board> <host> <label> [--sensitivity]
 }
 first=--sensitivity
 for l in "$@"; do
-  one A 10.1.9.26 $l $first
-  one B 10.1.4.105 $l $first
+  one A "$(host_of A)" $l $first
+  one B "$(host_of B)" $l $first
   first=
 done
 $PY $D/latency_protocol_summary.py $O --md $O/summary.md

@@ -1,0 +1,20 @@
+2026-11-18 07:41:44 START build2 on B (10.1.4.105), phases: core live1 latency restore, bit sha256 b2416b0665f34aa1
+2026-11-18 07:42:20 banner confirmed: Nov 17 20:42:27
+2026-11-18 07:42:35 functional rc=0
+2026-11-18 07:46:59 calibration core rc=0 [calib] active = 10.1.4.105 (board B)  |k|=0.23165 arg(k)=-104.78 deg
+2026-11-18 07:47:35 binding_fault rc=0
+2026-11-18 07:48:09 fail_safe rc=0
+2026-11-18 07:49:31 tproc_decision rc=0
+2026-11-18 07:50:52 leak_thr2000 rc=0
+2026-11-18 07:52:15 leak_thr8 rc=0
+2026-11-18 07:54:04 gate_sweep rc=0
+2026-11-18 07:54:25 smoke OK: pulse == gate == NN_live decision (correct): 20/20; stale 0; late 0; unsafe 0; fresh 20; binding rejects 0; DAC-clipped shots 0
+2026-11-18 08:00:13 calibration live1 rc=0 [calib] active = 10.1.4.105 (board B)  |k|=0.22696 arg(k)=-105.41 deg
+2026-11-18 11:05:05 live run1 done
+2026-11-18 11:08:29 calibration latency rc=0 [calib] active = 10.1.4.105 (board B)  |k|=0.21515 arg(k)=-106.23 deg
+2026-11-18 11:08:44 box_probe rc=0
+2026-11-18 11:10:37 latency rc=0
+2026-11-18 11:10:37 gate loop:             op: thr   967  100/100 with a pulse  L_50  173.66 (sd 1.47, sem 0.15)  counter  174.66  L_buf  175.29  L_50-counter -1.00  L_buf-L_50 +1.63  phase -104
+2026-11-18 11:15:51 calibration restore_v144 rc=0 [calib] active = 10.1.4.105 (board B)  |k|=0.22546 arg(k)=-114.80 deg
+2026-11-18 11:16:01 check: A_full: n=49400 LDA_live (board) 95.615  NN_live v1.44 95.636 B_full: n=50000 LDA_live (board) 95.459  NN_live v1.44 95.565 bit-exact vs lda_model: {'D': 0, 'logit': 0, 'dec': 0, 'n': 100000} 
+2026-11-18 11:16:01 DONE build2 on B

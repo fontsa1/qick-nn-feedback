@@ -1,0 +1,142 @@
+Fixed copy of the release audit (to_publish/tools/verify_no_leakage.py, sha256 in logs/audit_script_sha256.txt),
+for review round 2 (R2-027, D4, R2-102). The original is not edited. Run from a directory in the release layout
+(stage_release/, built by stage_release_layout.py + stage_fixed_extra.py). Every check prints what it tests.
+
+Changes against the release script:
+  B3/B4  every one of the 20,000 rows, not 500 spread-out rows.
+  C3     the scored sets are read from the v1.44 per-shot files (campaign_v144/final/{axi,live,inloop}), not the v1.40/
+         v1.41 ones; C5 (new) re-derives the v1.44 ledger fidelities from those files with rows 1000:1600 removed and
+         compares them with campaign_v144/final/analysis/v144_stats.json, i.e. it checks that the reported numbers are
+         the masked sets.
+  D      D2  the FIR-path file (0528_X_train_0_770_loopback_calibrated.npy, NN_axi) on EVERY row, not 200;
+         D2b (new) the boxcar-path file NN_live trains on (0528_X_train_box_calibrated.npy + _rows.npy), every row,
+             against kb*MA_M(x)[n-s]+cb from calibration/box_domain_map.json, with the builder's own filter code;
+         D3  (rewritten) searches each mapped training file for any row equal, within a tolerance, to a TEST row
+             pushed through the same map (or to a raw test row): mapped rows and test rows are compared in the same
+             dtype and domain, so the check can fail. The release D3 compared blake2b hashes of float32 mapped rows
+             with hashes of float64 raw test rows (always disjoint) on the first 20,000 rows only.
+         --d3-file / --d3-selftest run D3 alone on a given (e.g. deliberately corrupted) file.
+  F      F2 (new) the boxcar-path map equals the label-free refit from its recorded capture and differs from the
+         per-class fit (which needs labels).
+  G      G5 reads the v1.44 NN_live runs (each board: run 1 + run 2 = every row once).
+  R2-102 every input is checked up front; a check whose inputs are missing is recorded BLOCKED, not a traceback.
+
+==========================================================================
+inputs: {'A': 'ok', 'B': 'ok', 'C': 'ok', 'G': 'ok', 'D': 'ok', 'E': 'ok', 'F': 'ok'}
+
+A. train pool vs held-out test pool (raw row bytes, every row)
+     train (900000, 1540) unique rows 900000; test (100000, 1540) unique rows 100000
+  [PASS] A1 train pool and test pool are disjoint
+           tests: P192 (A), exact byte equality of rows; same as release
+
+B. test20k_real_X provenance
+  [PASS] B1 manifest index checksum is self-consistent
+           tests: P192 (B) the recorded index list is the one the manifest hashed
+  [PASS] B2 test20k row count matches manifest
+  [PASS] B3 test20k X rows are exactly 0528_X_test[source_indices], all 20,000 rows
+           tests: P192 (B) 'exactly the indexed rows' (release: 500 sampled rows)
+  [PASS] B4 test20k labels equal 0528_y_test[source_indices], all rows
+           tests: P192 (B) 'with their labels' (release: 500 sampled rows)
+  [PASS] B5 no test20k shot appears in the train pool
+           tests: P192 (B) 'none of them is in the training pool'
+
+C. map-fit rows vs the v1.44 scored sets
+  [PASS] C1 domain_calib_raw_X (the FIR map's fit input) is test20k_real_X[1000:1600]
+           tests: P192 (C) the (k2, c2) fit rows
+  [PASS] C2 box_domain_map.json records calib_rows 1000:1600
+           tests: P192 (C) the boxcar map's fit rows, as recorded (F2 refits it from the capture)
+     NN_axi v1.44 board A: 10 files, 20000 rows [0..19999], each once True, labels == test split True, map-fit rows inside 600
+     NN_live v1.44 run 1 board A: 50 files, 50000 rows [0..49999], each once True, labels == test split True, map-fit rows inside 600
+     NN_live v1.44 run 2 board A: 50 files, 50000 rows [50000..99999], each once True, labels == test split True, map-fit rows inside 0
+     in-loop v1.44 board A: 1 files, 99400 rows [0..99999], each once True, labels == test split True, map-fit rows inside 0
+     NN_axi v1.44 board B: 10 files, 20000 rows [0..19999], each once True, labels == test split True, map-fit rows inside 600
+     NN_live v1.44 run 1 board B: 50 files, 50000 rows [50000..99999], each once True, labels == test split True, map-fit rows inside 0
+     NN_live v1.44 run 2 board B: 50 files, 50000 rows [0..49999], each once True, labels == test split True, map-fit rows inside 600
+     in-loop v1.44 board B: 1 files, 99400 rows [0..99999], each once True, labels == test split True, map-fit rows inside 0
+  [PASS] C3 every v1.44 per-shot file indexes test rows once with the test split's labels
+           tests: P192 (C) 'every scored set, read from the per-shot result files themselves' (release: v1.40/v1.41 files)
+  [PASS] C4 no row outside 1000:1600 has the content of a map-fit row
+           tests: P192 (C) disjointness by content, so a duplicate trace elsewhere in the split would be caught
+     re-derived (masked) vs v144_stats.json, n: {'live/headline': (95.6005, 95.6005, 99400), 'live/A_all': (95.5471, 95.5471, 99400), 'live/B_all': (95.6155, 95.6155, 99400), 'axi/A/subset19400': (95.5454, 95.5454, 19400), 'axi/B/subset19400': (95.4473, 95.4473, 19400)}
+     in-loop: {'inloop rows inside 1000:1600, board A': 0, 'inloop rows inside 1000:1600, board B': 0}
+  [PASS] C5 the v1.44 headline numbers (95.60, 95.55, 95.62, NN_axi 95.55/95.45) are the fidelities of the per-shot sets with rows 1000:1600 removed; the in-loop runs never replay those rows  -- all equal to 1e-9; in-loop rows inside the slice: 0 and 0
+           tests: P192 (C)/(G) that the scored sets that carry the reported numbers exclude the map rows (not tested by the release script)
+
+G. test100k_real (the full split replayed for NN_live)
+  [PASS] G1 test100k_real_X / _y match the manifest sha256
+           tests: P192 (G) 'matches its manifest'
+  [PASS] G2 test100k_real is 0528_X_test[source_indices], every row and label, indices unique
+           tests: P192 (G)
+  [PASS] G3 its rows 0..19,999 are test20k_real in the same order
+           tests: P192 (G) 'its first 20,000 rows are the subset'
+  [PASS] G4 no test100k_real shot is in the train pool
+  [PASS] G5 v1.44: each board's NN_live runs 1 + 2 cover every test100k row exactly once; headline set (rows 1000:1600 removed) shares no content with the map-fit rows (C4)
+           tests: P192 (G) 'the NN_live headline set shares no row with the map rows', on the v1.44 runs (release: v1.41 runs)
+
+D. the mapped training files the deployed models consume
+  [PASS] D1 FIR-path file has the train pool's row count and width
+  [PASS] D2 FIR-path file (NN_axi): every one of 900,000 rows == k2*raw_row + c2 (recorded k2, c2), to float32 rounding  -- worst abs deviation 6.1e-05; 0 of 900000 rows bit-identical to the recomputation
+           tests: P192 (D) 'each mapped training row equals the map applied to its raw row' for the FIR path (release: 200 rows)
+  [PASS] D1b boxcar-path file (NN_live) has 200,000 rows whose recorded source rows are 0:10000 + 110000:300000 of the train pool
+           tests: P192 (D) for the file NN_live trains on (not in the release script)
+  [PASS] D2b boxcar-path file (NN_live): every one of 200,000 rows == kb*MA_M(raw)[n-s] + cb with box_domain_map.json's coefficients  -- worst abs deviation 0; 200000 of 200000 rows bit-identical to the recomputation
+           tests: P192 (D) for NN_live's map (not in the release script)
+     D3: mapping the 100,000 test rows through each map and searching each training file for them
+     D3 0528_X_train_box_calibrated.npy: 200000 training rows searched against test rows through the same map (100000 rows), raw test rows (100000 rows); tol 0.001; 229 candidate pairs after fingerprints; 0 hits
+  [PASS] D3 0528_X_train_box_calibrated.npy: no row equals (max abs diff <= 1e-3) a test row, raw or through the same map  -- 0 hits
+           tests: P192 (D) 'none equals a test row', in the training file's own dtype and domain; can fail (see --d3-selftest)
+     D3 0528_X_train_0_770_loopback_calibrated.npy: 900000 training rows searched against test rows through the same map (100000 rows), raw test rows (100000 rows); tol 0.001; 1543 candidate pairs after fingerprints; 0 hits
+  [PASS] D3 0528_X_train_0_770_loopback_calibrated.npy: no row equals (max abs diff <= 1e-3) a test row, raw or through the same map  -- 0 hits
+           tests: P192 (D) 'none equals a test row', in the training file's own dtype and domain; can fail (see --d3-selftest)
+
+E. synthetic generator fit pool (0528_X_train_0_770[10000:110000])
+  [PASS] E1 generator fit pool vs the 200,000 training rows
+           tests: P192 (E)
+  [PASS] E2 generator fit pool vs the 20k test subset
+           tests: P192 (E)
+  [PASS] E2b generator fit pool vs all 100k test rows
+           tests: P192 (E), the full split (new)
+  [PASS] E4 fit pool = gap between the training ranges
+           tests: constants only: the generator script's actual slice is not read (same as release)
+  [PASS] E3 x_synth_v2.npy exists
+           tests: file existence only (same as release)
+
+F. label use in the map fits
+  [PASS] F1 FIR-path (k2, c2) equals the label-free fit, not the per-class one  -- distance label-free 0.0e+00, per-class 7.88e-01
+           tests: P192 (F) for NN_axi's map; same as release
+  [PASS] F2 boxcar-path map (NN_live) equals the label-free refit from its recorded capture (rows 1000:1600), not the per-class fit  -- 600 shots; label-free refit identical (k 0.30714+0.01028j, s -0.25); per-class fit k 0.31122+0.00758j c -1.011-0.642j s -0.25 differs (distance 0.471)
+           tests: P189/P192 (F) 'the deployed map coefficients equal the label-free fit, not the per-class one', for NN_live (release: FIR map only)
+
+==========================================================================
+  PASS  A1 train pool and test pool are disjoint
+  PASS  B1 manifest index checksum is self-consistent
+  PASS  B2 test20k row count matches manifest
+  PASS  B3 test20k X rows are exactly 0528_X_test[source_indices], all 20,000 rows
+  PASS  B4 test20k labels equal 0528_y_test[source_indices], all rows
+  PASS  B5 no test20k shot appears in the train pool
+  PASS  C1 domain_calib_raw_X (the FIR map's fit input) is test20k_real_X[1000:1600]
+  PASS  C2 box_domain_map.json records calib_rows 1000:1600
+  PASS  C3 every v1.44 per-shot file indexes test rows once with the test split's labels
+  PASS  C4 no row outside 1000:1600 has the content of a map-fit row
+  PASS  C5 the v1.44 headline numbers (95.60, 95.55, 95.62, NN_axi 95.55/95.45) are the fidelities of the per-shot sets with rows 1000:1600 removed; the in-loop runs never replay those rows
+  PASS  G1 test100k_real_X / _y match the manifest sha256
+  PASS  G2 test100k_real is 0528_X_test[source_indices], every row and label, indices unique
+  PASS  G3 its rows 0..19,999 are test20k_real in the same order
+  PASS  G4 no test100k_real shot is in the train pool
+  PASS  G5 v1.44: each board's NN_live runs 1 + 2 cover every test100k row exactly once; headline set (rows 1000:1600 removed) shares no content with the map-fit rows (C4)
+  PASS  D1 FIR-path file has the train pool's row count and width
+  PASS  D2 FIR-path file (NN_axi): every one of 900,000 rows == k2*raw_row + c2 (recorded k2, c2), to float32 rounding
+  PASS  D1b boxcar-path file (NN_live) has 200,000 rows whose recorded source rows are 0:10000 + 110000:300000 of the train pool
+  PASS  D2b boxcar-path file (NN_live): every one of 200,000 rows == kb*MA_M(raw)[n-s] + cb with box_domain_map.json's coefficients
+  PASS  D3 0528_X_train_box_calibrated.npy: no row equals (max abs diff <= 1e-3) a test row, raw or through the same map
+  PASS  D3 0528_X_train_0_770_loopback_calibrated.npy: no row equals (max abs diff <= 1e-3) a test row, raw or through the same map
+  PASS  E1 generator fit pool vs the 200,000 training rows
+  PASS  E2 generator fit pool vs the 20k test subset
+  PASS  E2b generator fit pool vs all 100k test rows
+  PASS  E4 fit pool = gap between the training ranges
+  PASS  E3 x_synth_v2.npy exists
+  PASS  F1 FIR-path (k2, c2) equals the label-free fit, not the per-class one
+  PASS  F2 boxcar-path map (NN_live) equals the label-free refit from its recorded capture (rows 1000:1600), not the per-class fit
+==========================================================================
+VERDICT: 29/29 checks passed, 0 failed, 0 blocked
+exit 0

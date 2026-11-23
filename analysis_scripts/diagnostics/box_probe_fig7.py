@@ -123,7 +123,7 @@ def main():
         print("boxcar cfg restored:", soc.box_get(), flush=True)
 
     OUTDIR.mkdir(parents=True, exist_ok=True)
-    stem = OUTDIR / f"fig7_capture_{a.board}_{__import__("os").environ.get("QICK_TAG", "v143")}"
+    stem = OUTDIR / f"fig7_capture_{a.board}_{__import__("os").environ.get("QICK_TAG", "v144")}"
     arrays = dict(A_fir=A0, A_box=A1, D_sel0=np.array(Dd[0]), D_sel1=np.array(Dd[1]))
     for m, v in B.items():
         arrays[f"B{m}_fir"] = v['fir']; arrays[f"B{m}_box"] = v['box']; arrays[f"B{m}_shift"] = np.array(v['shift'])

@@ -29,7 +29,7 @@ import sys as _sys
 _sys.path.insert(0, "board_tools")
 import calib                                  # board-scoped (k, c) store
 
-ns_host = __import__("os").environ.get("QICK_NS_HOST", "10.1.9.26")
+ns_host = __import__("os").environ.get("QICK_NS_HOST") or __import__("sys").exit("set QICK_NS_HOST to the board's IP address")
 ns_port = 8888
 proxy_name = "myqick"
 print(f"calibrating against {ns_host} ({calib.KNOWN.get(ns_host, 'unknown board')})")

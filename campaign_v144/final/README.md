@@ -60,3 +60,62 @@ draft's figure numbers. In the paper they are Fig. 6 and Fig. 7(b).
     (`make_v144_exempt.py`) and the check of every number in the paper (`check_paper_v144.py`).
   - **Logs:** the runs that regenerated the figures and tables (`regen_figs.log`, `regen_tabs.log`) and
     `run_analyses.log`.
+
+
+## Measurements and checks added after the main campaign
+
+These come from the same v1.44 build and boards. Each one sits next to the campaign folder it extends, and each
+script's docstring gives its question and the command that ran it. File names start with the board (`A_`, `B_`). A
+`.log` is the console output of the run that wrote the file of the same name. Captures over 5 MB are listed in
+`DATA_MANIFEST.csv`.
+
+- **`latency/reloads/` (`rv*`), `latency/stability/`**: 20 further loads per board, and 20 runs on one load of each
+  board (`latency_protocol.py` results).
+- **`latency/carrier/`**: converter latency against the pulse carrier (`carrier_edge.py`).
+- **`latency/jitter/`**: capture-delay jitter without a replayed trace (`jitter_probe.py`).
+- **`tests/spacing/`**: the minimum spacing between classified windows (`shot_spacing.py`).
+- **`tests/logit_check/`**: NN_live's on-chip sums and logit against the integer reference (`d22_check.py`,
+  `nn_live_ref.py`, `d22_v144_logit.py`).
+- **`board3/threshold/`**: QICK's own threshold feedback on the same build (`threshold_baseline.py`).
+- **`inloop/arms/`**: the conditional pulse's gain arms. It holds the 15,000-row arms (`inloop_arms.py`,
+  `arms_analysis.py`) and the full-split arms (`arms_full_analysis.py`).
+- **`fig8b/path_slack_sweep.py`**: the loop on QICK's FIR readout against the boxcar path, swept through the late edge.
+- **`analysis/offline/`**: analyses without the boards:
+  - `lda_99400.py`: LDA paired with NN_live on all 99,400 rows;
+  - `window_live.py`: fidelity at live-readout window lengths;
+  - `map_trainrows.py` and `map_seeds.sh`: the boxcar domain map refit on training rows, five seeds;
+  - `keras_vs_hls4ml.py`: floating-point against fixed-point decisions.
+- **`analysis/stats/`**: the paired statistics behind the paper's comparisons. Run them in this order:
+  `emulate_live_captures.py`, `t1_holm.py`, `t2346_paired.py`, `t4_find_axi.py`, `t5_estimators.py`,
+  `report_tables.py`, `holm_printed.py`, `holm_pass11.py`.
+  - `holm_pass11.py` applies the Holm correction over every p-value the paper prints (51 tests); `holm_printed.py`
+    is the same count over the 44 printed before the last text pass.
+  - `holm_pass*.json` are the recounts after each text pass.
+- **`analysis/protocol/`**: the boxcar domain map refit on training rows, scored per board
+  (`task2_trainrow_map_perboard.py`, then `task2_summarize.py`). `logs/` holds the leakage audit's run
+  (`tools/verify_no_leakage.py`, 29 checks) and its D3 self-test.
+
+The timing of the routed v1.44 design is in `firmware_v1.44/reports/`, and the two variant builds are in
+`firmware_v1.44/variants/`. The clock-crossing simulations are in `rtl/sim/`, and the v1.44 scaling recheck is in
+`scaling_study/v144/`.
+
+**Older folder names in recorded files.** These files were produced in a working tree that kept them in
+`campaign_v144/revision/` and `campaign_v144/revision2/`. Logs, JSON results and reports keep the paths as they were
+recorded; the results ledger checks the hashes of several of them. Map those paths as follows:
+
+| Recorded path | Now |
+|---|---|
+| `campaign_v144/revision/latency/` | `campaign_v144/final/latency/` |
+| `campaign_v144/revision/{carrier,jitter}/` | `campaign_v144/final/latency/{carrier,jitter}/` |
+| `campaign_v144/revision/spacing/` | `campaign_v144/final/tests/spacing/` |
+| `campaign_v144/revision/d22/`, `revision/analysis/d22_v144_logit.*` | `campaign_v144/final/tests/logit_check/` |
+| `campaign_v144/revision/threshold/` | `campaign_v144/final/board3/threshold/` |
+| `campaign_v144/revision/arms/`, `revision/analysis/arms_analysis.*`, `revision2/arms/` | `campaign_v144/final/inloop/arms/` |
+| `campaign_v144/revision/offline/`, `revision/trainrows/` | `campaign_v144/final/analysis/offline/` (`trainrows/` in the manifest) |
+| `campaign_v144/revision/scripts/` | beside each result, as listed above |
+| `campaign_v144/revision2/stats/`, `revision2/paper_pass/` | `campaign_v144/final/analysis/stats/` |
+| `campaign_v144/revision2/protocol/` | `campaign_v144/final/analysis/protocol/` |
+| `campaign_v144/revision2/fpga/{reports,tcl}/` | `firmware_v1.44/reports/` |
+| `campaign_v144/revision2/fpga/sim/` | `rtl/sim/` |
+| `campaign_v144/revision2/fpga/scaling/` | `scaling_study/v144/` |
+| `campaign_v144/revision2/rebuilds/build1_tproc245/`, `build2_lda_gate/` | `firmware_v1.44/variants/tproc245/`, `lda_gate/` |

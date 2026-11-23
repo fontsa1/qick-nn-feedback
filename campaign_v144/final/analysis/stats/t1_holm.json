@@ -1,0 +1,2177 @@
+{
+ "a_printed": {
+  "summary": {
+   "n": 30,
+   "nominal": 7,
+   "holm_all": 4,
+   "survivors_holm_all": [
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_gru trained on augmented data vs LDA, board A replay, 16,000"
+   ]
+  },
+  "tests": [
+   {
+    "paragraphs": "P93, P194",
+    "printed": "p = 0.008",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "b": 35,
+    "c": 62,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.007959455422446682,
+    "holm_all": 0.19898638556116707
+   },
+   {
+    "paragraphs": "P93, P194",
+    "printed": "p = 0.19",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board B",
+    "b": 36,
+    "c": 49,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.19276043534155876,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P194",
+    "printed": "p = 0.31",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board A",
+    "b": 52,
+    "c": 64,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3070896636491835,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P194",
+    "printed": "p = 0.76",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board B",
+    "b": 51,
+    "c": 47,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.7620362195292433,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P95",
+    "printed": "p >= 0.10 (bound)",
+    "test": "retrain of [16] vs our variant, exact_s32_lr0.001 vs ours_s20260901, 100,000 offline",
+    "b": 344,
+    "c": 364,
+    "source": "paper_tables/table2/table2_values.json",
+    "p": 0.47521335198825515,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P95",
+    "printed": "p >= 0.10 (bound)",
+    "test": "retrain of [16] vs our variant, exact_s33_lr0.001 vs ours_s20260902, 100,000 offline",
+    "b": 426,
+    "c": 379,
+    "source": "paper_tables/table2/table2_values.json",
+    "p": 0.1048975097893018,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P95",
+    "printed": "p >= 0.10 (bound)",
+    "test": "retrain of [16] vs our variant, exact_s34_lr0.001 vs ours_s20260903, 100,000 offline",
+    "b": 360,
+    "c": 349,
+    "source": "paper_tables/table2/table2_values.json",
+    "p": 0.707273866543828,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P139",
+    "printed": "p = 0.58",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 19,400",
+    "b": 62,
+    "c": 55,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.579290250187703,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P139, P193",
+    "printed": "p = 0.0007",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "b": 343,
+    "c": 259,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0007046806687671671,
+    "holm_all": 0.019026378056713512
+   },
+   {
+    "paragraphs": "P149",
+    "printed": "p = 0.07",
+    "test": "NN_axi: Board A, vs NN_live run on the same rows",
+    "b": 147,
+    "c": 117,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.07408936428582724,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p = 0.84",
+    "test": "cnn1d vs LDA, loop20k",
+    "b": 109,
+    "c": 105,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.8375731060432168,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 73,
+    "c": 31,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 4.6569869697466e-05,
+    "holm_all": 0.001303956351529048
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 72,
+    "c": 27,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 6.9006990857724845e-06,
+    "holm_all": 0.00020012027348740205
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "bin_gru trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 76,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 2.7367805899850523e-06,
+    "holm_all": 8.210341769955157e-05
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "cnn1d trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 57,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 0.0021949089077805926,
+    "holm_all": 0.05706763160229541
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p = 0.20",
+    "test": "Linear baselines: LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 241,
+    "c": 271,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.1999251874159079,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p = 0.09",
+    "test": "Linear baselines: LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 474,
+    "c": 423,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.09497305325693504,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.052",
+    "test": "NN_live: Boards A vs B, identical 99,400 traces",
+    "b": 560,
+    "c": 628,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.051865749949687484,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.31",
+    "test": "In the loop: Boards A vs B",
+    "b": 622,
+    "c": 586,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3139286500025151,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.24",
+    "test": "NN_axi: Boards A vs B",
+    "b": 127,
+    "c": 108,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.24025633441844135,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.02",
+    "test": "In the loop: Board B, vs its gate-idle run",
+    "b": 539,
+    "c": 620,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.01874018818316327,
+    "holm_all": 0.4497645163959185
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.53",
+    "test": "In the loop: Board A, vs its gate-idle run",
+    "b": 617,
+    "c": 594,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.5272769876293527,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.90",
+    "test": "In the loop: Board A, vs gate-idle, 19,400 subset",
+    "b": 132,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9015070808432797,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.33",
+    "test": "In the loop: Board B, vs gate-idle, 19,400 subset",
+    "b": 113,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3349399687352154,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p >= 0.19 (bound)",
+    "test": "pulse-gain arm zero vs nominal, board A, 15,000",
+    "b": 87,
+    "c": 86,
+    "source": "campaign_v144/revision/analysis/arms_analysis.json",
+    "p": 1.0,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p >= 0.19 (bound)",
+    "test": "pulse-gain arm max vs nominal, board A, 15,000",
+    "b": 84,
+    "c": 77,
+    "source": "campaign_v144/revision/analysis/arms_analysis.json",
+    "p": 0.6364457777116773,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p >= 0.19 (bound)",
+    "test": "pulse-gain arm gateoff vs nominal, board A, 15,000",
+    "b": 94,
+    "c": 79,
+    "source": "campaign_v144/revision/analysis/arms_analysis.json",
+    "p": 0.2871181950978105,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p >= 0.19 (bound)",
+    "test": "pulse-gain arm zero vs nominal, board B, 15,000",
+    "b": 90,
+    "c": 83,
+    "source": "campaign_v144/revision/analysis/arms_analysis.json",
+    "p": 0.6483930753373636,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p >= 0.19 (bound)",
+    "test": "pulse-gain arm max vs nominal, board B, 15,000",
+    "b": 90,
+    "c": 92,
+    "source": "campaign_v144/revision/analysis/arms_analysis.json",
+    "p": 0.9409380458482176,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p >= 0.19 (bound)",
+    "test": "pulse-gain arm gateoff vs nominal, board B, 15,000",
+    "b": 95,
+    "c": 77,
+    "source": "campaign_v144/revision/analysis/arms_analysis.json",
+    "p": 0.1947474830642826,
+    "holm_all": 1.0
+   }
+  ]
+ },
+ "a2_printed_bounds_not_expanded": {
+  "summary": {
+   "n": 21,
+   "nominal": 7,
+   "holm_all": 5,
+   "survivors_holm_all": [
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_gru trained on augmented data vs LDA, board A replay, 16,000",
+    "cnn1d trained on augmented data vs LDA, board A replay, 16,000"
+   ]
+  },
+  "tests": [
+   {
+    "paragraphs": "P93, P194",
+    "printed": "p = 0.008",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "b": 35,
+    "c": 62,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.007959455422446682,
+    "holm_all": 0.12735128675914692
+   },
+   {
+    "paragraphs": "P93, P194",
+    "printed": "p = 0.19",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board B",
+    "b": 36,
+    "c": 49,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.19276043534155876,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P194",
+    "printed": "p = 0.31",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board A",
+    "b": 52,
+    "c": 64,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3070896636491835,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P194",
+    "printed": "p = 0.76",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board B",
+    "b": 51,
+    "c": 47,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.7620362195292433,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P139",
+    "printed": "p = 0.58",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 19,400",
+    "b": 62,
+    "c": 55,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.579290250187703,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P139, P193",
+    "printed": "p = 0.0007",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "b": 343,
+    "c": 259,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0007046806687671671,
+    "holm_all": 0.01268425203780901
+   },
+   {
+    "paragraphs": "P149",
+    "printed": "p = 0.07",
+    "test": "NN_axi: Board A, vs NN_live run on the same rows",
+    "b": 147,
+    "c": 117,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.07408936428582724,
+    "holm_all": 0.9631617357157541
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p = 0.84",
+    "test": "cnn1d vs LDA, loop20k",
+    "b": 109,
+    "c": 105,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.8375731060432168,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 73,
+    "c": 31,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 4.6569869697466e-05,
+    "holm_all": 0.0008848275242518541
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 72,
+    "c": 27,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 6.9006990857724845e-06,
+    "holm_all": 0.0001380139817154497
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "bin_gru trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 76,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 2.7367805899850523e-06,
+    "holm_all": 5.74723923896861e-05
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p <= 0.002 (bound)",
+    "test": "cnn1d trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 57,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 0.0021949089077805926,
+    "holm_all": 0.03731345143227008
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p = 0.20",
+    "test": "Linear baselines: LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 241,
+    "c": 271,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.1999251874159079,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P178",
+    "printed": "p = 0.09",
+    "test": "Linear baselines: LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 474,
+    "c": 423,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.09497305325693504,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.052",
+    "test": "NN_live: Boards A vs B, identical 99,400 traces",
+    "b": 560,
+    "c": 628,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.051865749949687484,
+    "holm_all": 0.7261204992956247
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.31",
+    "test": "In the loop: Boards A vs B",
+    "b": 622,
+    "c": 586,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3139286500025151,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.24",
+    "test": "NN_axi: Boards A vs B",
+    "b": 127,
+    "c": 108,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.24025633441844135,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.02",
+    "test": "In the loop: Board B, vs its gate-idle run",
+    "b": 539,
+    "c": 620,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.01874018818316327,
+    "holm_all": 0.2811028227474491
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.53",
+    "test": "In the loop: Board A, vs its gate-idle run",
+    "b": 617,
+    "c": 594,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.5272769876293527,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.90",
+    "test": "In the loop: Board A, vs gate-idle, 19,400 subset",
+    "b": 132,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9015070808432797,
+    "holm_all": 1.0
+   },
+   {
+    "paragraphs": "P201",
+    "printed": "p = 0.33",
+    "test": "In the loop: Board B, vs gate-idle, 19,400 subset",
+    "b": 113,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3349399687352154,
+    "holm_all": 1.0
+   }
+  ]
+ },
+ "b_S4_verbatim": {
+  "summary": {
+   "n": 41,
+   "nominal": 15,
+   "holm_all": 10,
+   "holm_family": 11,
+   "survivors_holm_all": [
+    "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_hgb vs LDA, loop20k",
+    "seg_hgb vs LDA, src20k",
+    "seg_mlp vs LDA, src20k",
+    "bin_mlp vs LDA, src20k",
+    "cnn1d vs LDA, src20k",
+    "bin_gru vs LDA, loop20k",
+    "bin_gru vs LDA, src20k"
+   ],
+   "survivors_holm_family": [
+    "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_hgb vs LDA, loop20k",
+    "seg_hgb vs LDA, src20k",
+    "seg_mlp vs LDA, src20k",
+    "bin_mlp vs LDA, src20k",
+    "cnn1d vs LDA, src20k",
+    "bin_gru vs LDA, loop20k",
+    "bin_gru vs LDA, src20k"
+   ]
+  },
+  "tests": [
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_live: Boards A vs B, identical 99,400 traces",
+    "b": 560,
+    "c": 628,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.051865749949687484,
+    "holm_family": 0.6223889993962498,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board A, vs its gate-idle run",
+    "b": 617,
+    "c": 594,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.5272769876293527,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board B, vs its gate-idle run",
+    "b": 539,
+    "c": 620,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.01874018818316327,
+    "holm_family": 0.26236263456428577,
+    "family_size": 14,
+    "holm_all": 0.5434654573117349
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Boards A vs B",
+    "b": 622,
+    "c": 586,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3139286500025151,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Boards A vs B, 19,400 subset",
+    "b": 131,
+    "c": 127,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8518854392846705,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board A, vs gate-idle, 19,400 subset",
+    "b": 132,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9015070808432797,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board B, vs gate-idle, 19,400 subset",
+    "b": 113,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3349399687352154,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board A, vs NN_live in the same session",
+    "b": 89,
+    "c": 78,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.4391289287803373,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board A, vs NN_live run on the same rows",
+    "b": 147,
+    "c": 117,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.07408936428582724,
+    "holm_family": 0.8149830071440997,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board B, vs NN_live in the same session",
+    "b": 76,
+    "c": 83,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.6343339062839161,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board B, vs NN_live run on the same rows",
+    "b": 140,
+    "c": 144,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8587493586772409,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Boards A vs B",
+    "b": 127,
+    "c": 108,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.24025633441844135,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "Timing checks: Board A, NN_live vs NN_axi, 20,000 rows",
+    "b": 118,
+    "c": 152,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.04440957612562782,
+    "holm_family": 0.5773244896331616,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "Timing checks: Board B, NN_live vs NN_axi, 20,000 rows",
+    "b": 147,
+    "c": 143,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8602022103000708,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "b": 35,
+    "c": 62,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.007959455422446682,
+    "holm_family": 0.07959455422446682,
+    "family_size": 13,
+    "holm_all": 0.23878366267340048
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board A",
+    "b": 52,
+    "c": 64,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3070896636491835,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board B",
+    "b": 36,
+    "c": 49,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.19276043534155876,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board B",
+    "b": 51,
+    "c": 47,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.7620362195292433,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 241,
+    "c": 271,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.1999251874159079,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, window 576, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 271,
+    "c": 294,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3546918166144983,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 237,
+    "c": 287,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.03220977022195478,
+    "holm_family": 0.289887931997593,
+    "family_size": 13,
+    "holm_all": 0.9018735662147338
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 474,
+    "c": 423,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.09497305325693504,
+    "holm_family": 0.7597844260554804,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 530,
+    "c": 422,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0005180369309913827,
+    "holm_family": 0.006216443171896592,
+    "family_size": 13,
+    "holm_all": 0.01709521872271563
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, window 770, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 483,
+    "c": 446,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.23753780916730527,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 571,
+    "c": 677,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0029415020846745173,
+    "holm_family": 0.03235652293141969,
+    "family_size": 13,
+    "holm_all": 0.09118656462491004
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: matched filter, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 608,
+    "c": 657,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.17712997482713813,
+    "holm_family": 1.0,
+    "family_size": 13,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 572,
+    "c": 707,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.00017678265096389116,
+    "holm_family": 0.002298174462530585,
+    "family_size": 13,
+    "holm_all": 0.00618739278373619
+   },
+   {
+    "family": "F3 drift",
+    "test": "Drift, 3 h: Board A, end minus start, 6,000 paired shots",
+    "b": 37,
+    "c": 27,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.2604354765766535,
+    "holm_family": 0.520870953153307,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F3 drift",
+    "test": "Drift, 3 h: Board B, end minus start, 6,000 paired shots",
+    "b": 34,
+    "c": 36,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9049745264594623,
+    "holm_family": 0.9049745264594623,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F4 front end",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 19,400",
+    "b": 62,
+    "c": 55,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.579290250187703,
+    "holm_family": 0.579290250187703,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F4 front end",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "b": 343,
+    "c": 259,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0007046806687671671,
+    "holm_family": 0.0014093613375343343,
+    "family_size": 2,
+    "holm_all": 0.02254978140054935
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "seg_hgb vs LDA, loop20k",
+    "b": 150,
+    "c": 334,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.7240577219481694e-17,
+    "holm_family": 1.8620288609740846e-16,
+    "family_size": 5,
+    "holm_all": 1.5268636659987494e-15
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "seg_hgb vs LDA, src20k",
+    "b": 84,
+    "c": 39,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 6.0996362368444804e-05,
+    "holm_family": 0.00012199272473688961,
+    "family_size": 5,
+    "holm_all": 0.002195869045264013
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "seg_mlp vs LDA, loop20k",
+    "b": 115,
+    "c": 147,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.05526111912461528,
+    "holm_family": 0.16578335737384584,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "seg_mlp vs LDA, src20k",
+    "b": 81,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.778053497089469e-07,
+    "holm_family": 1.5112213988357877e-06,
+    "family_size": 5,
+    "holm_all": 1.473440863864893e-05
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "bin_mlp vs LDA, loop20k",
+    "b": 142,
+    "c": 156,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.4514633751759356,
+    "holm_family": 0.9029267503518712,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "bin_mlp vs LDA, src20k",
+    "b": 91,
+    "c": 37,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 2.006129945030041e-06,
+    "holm_family": 6.018389835090123e-06,
+    "family_size": 5,
+    "holm_all": 7.623293791114156e-05
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "cnn1d vs LDA, loop20k",
+    "b": 109,
+    "c": 105,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.8375731060432168,
+    "holm_family": 0.9029267503518712,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "cnn1d vs LDA, src20k",
+    "b": 69,
+    "c": 31,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.00018314322488235366,
+    "holm_family": 0.00018314322488235366,
+    "family_size": 5,
+    "holm_all": 0.006226869646000025
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "bin_gru vs LDA, loop20k",
+    "b": 153,
+    "c": 247,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.0064415075171103e-06,
+    "holm_family": 1.2025766030068441e-05,
+    "family_size": 5,
+    "holm_all": 0.00011123833577813308
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "bin_gru vs LDA, src20k",
+    "b": 105,
+    "c": 38,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 1.885862502707226e-08,
+    "holm_family": 9.42931251353613e-08,
+    "family_size": 5,
+    "holm_all": 7.543450010828904e-07
+   }
+  ]
+ },
+ "b2_S4_F7_split": {
+  "summary": {
+   "n": 41,
+   "nominal": 15,
+   "holm_all": 10,
+   "holm_family": 12,
+   "survivors_holm_all": [
+    "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_hgb vs LDA, loop20k",
+    "seg_hgb vs LDA, src20k",
+    "seg_mlp vs LDA, src20k",
+    "bin_mlp vs LDA, src20k",
+    "cnn1d vs LDA, src20k",
+    "bin_gru vs LDA, loop20k",
+    "bin_gru vs LDA, src20k"
+   ],
+   "survivors_holm_family": [
+    "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_hgb vs LDA, loop20k",
+    "seg_hgb vs LDA, src20k",
+    "seg_mlp vs LDA, src20k",
+    "bin_mlp vs LDA, src20k",
+    "cnn1d vs LDA, src20k",
+    "bin_gru vs LDA, loop20k",
+    "bin_gru vs LDA, src20k"
+   ]
+  },
+  "tests": [
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_live: Boards A vs B, identical 99,400 traces",
+    "b": 560,
+    "c": 628,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.051865749949687484,
+    "holm_family": 0.6223889993962498,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board A, vs its gate-idle run",
+    "b": 617,
+    "c": 594,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.5272769876293527,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board B, vs its gate-idle run",
+    "b": 539,
+    "c": 620,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.01874018818316327,
+    "holm_family": 0.26236263456428577,
+    "family_size": 14,
+    "holm_all": 0.5434654573117349
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Boards A vs B",
+    "b": 622,
+    "c": 586,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3139286500025151,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Boards A vs B, 19,400 subset",
+    "b": 131,
+    "c": 127,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8518854392846705,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board A, vs gate-idle, 19,400 subset",
+    "b": 132,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9015070808432797,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board B, vs gate-idle, 19,400 subset",
+    "b": 113,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3349399687352154,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board A, vs NN_live in the same session",
+    "b": 89,
+    "c": 78,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.4391289287803373,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board A, vs NN_live run on the same rows",
+    "b": 147,
+    "c": 117,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.07408936428582724,
+    "holm_family": 0.8149830071440997,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board B, vs NN_live in the same session",
+    "b": 76,
+    "c": 83,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.6343339062839161,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board B, vs NN_live run on the same rows",
+    "b": 140,
+    "c": 144,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8587493586772409,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Boards A vs B",
+    "b": 127,
+    "c": 108,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.24025633441844135,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "Timing checks: Board A, NN_live vs NN_axi, 20,000 rows",
+    "b": 118,
+    "c": 152,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.04440957612562782,
+    "holm_family": 0.5773244896331616,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "Timing checks: Board B, NN_live vs NN_axi, 20,000 rows",
+    "b": 147,
+    "c": 143,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8602022103000708,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "b": 35,
+    "c": 62,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.007959455422446682,
+    "holm_family": 0.03183782168978673,
+    "family_size": 4,
+    "holm_all": 0.23878366267340048
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board A",
+    "b": 52,
+    "c": 64,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3070896636491835,
+    "holm_family": 0.614179327298367,
+    "family_size": 4,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board B",
+    "b": 36,
+    "c": 49,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.19276043534155876,
+    "holm_family": 0.5782813060246763,
+    "family_size": 4,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board B",
+    "b": 51,
+    "c": 47,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.7620362195292433,
+    "holm_family": 0.7620362195292433,
+    "family_size": 4,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 241,
+    "c": 271,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.1999251874159079,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 576, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 271,
+    "c": 294,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3546918166144983,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 237,
+    "c": 287,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.03220977022195478,
+    "holm_family": 0.19325862133172866,
+    "family_size": 9,
+    "holm_all": 0.9018735662147338
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 474,
+    "c": 423,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.09497305325693504,
+    "holm_family": 0.47486526628467524,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 530,
+    "c": 422,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0005180369309913827,
+    "holm_family": 0.004144295447931061,
+    "family_size": 9,
+    "holm_all": 0.01761325565370701
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 770, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 483,
+    "c": 446,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.23753780916730527,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 571,
+    "c": 677,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0029415020846745173,
+    "holm_family": 0.020590514592721623,
+    "family_size": 9,
+    "holm_all": 0.09118656462491004
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: matched filter, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 608,
+    "c": 657,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.17712997482713813,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 572,
+    "c": 707,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.00017678265096389116,
+    "holm_family": 0.0015910438586750205,
+    "family_size": 9,
+    "holm_all": 0.006364175434700082
+   },
+   {
+    "family": "F3 drift",
+    "test": "Drift, 3 h: Board A, end minus start, 6,000 paired shots",
+    "b": 37,
+    "c": 27,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.2604354765766535,
+    "holm_family": 0.520870953153307,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F3 drift",
+    "test": "Drift, 3 h: Board B, end minus start, 6,000 paired shots",
+    "b": 34,
+    "c": 36,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9049745264594623,
+    "holm_family": 0.9049745264594623,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F4 front end",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 19,400",
+    "b": 62,
+    "c": 55,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.579290250187703,
+    "holm_family": 0.579290250187703,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F4 front end",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "b": 343,
+    "c": 259,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0007046806687671671,
+    "holm_family": 0.0014093613375343343,
+    "family_size": 2,
+    "holm_all": 0.023254462069316514
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "seg_hgb vs LDA, loop20k",
+    "b": 150,
+    "c": 334,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.7240577219481694e-17,
+    "holm_family": 1.8620288609740846e-16,
+    "family_size": 5,
+    "holm_all": 1.6758259748766762e-15
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "seg_hgb vs LDA, src20k",
+    "b": 84,
+    "c": 39,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 6.0996362368444804e-05,
+    "holm_family": 0.00012199272473688961,
+    "family_size": 5,
+    "holm_all": 0.0022568654076324576
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "seg_mlp vs LDA, loop20k",
+    "b": 115,
+    "c": 147,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.05526111912461528,
+    "holm_family": 0.16578335737384584,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "seg_mlp vs LDA, src20k",
+    "b": 81,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.778053497089469e-07,
+    "holm_family": 1.5112213988357877e-06,
+    "family_size": 5,
+    "holm_all": 1.624563003748472e-05
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "bin_mlp vs LDA, loop20k",
+    "b": 142,
+    "c": 156,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.4514633751759356,
+    "holm_family": 0.9029267503518712,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "bin_mlp vs LDA, src20k",
+    "b": 91,
+    "c": 37,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 2.006129945030041e-06,
+    "holm_family": 6.018389835090123e-06,
+    "family_size": 5,
+    "holm_all": 8.425745769126172e-05
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "cnn1d vs LDA, loop20k",
+    "b": 109,
+    "c": 105,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.8375731060432168,
+    "holm_family": 0.9029267503518712,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "cnn1d vs LDA, src20k",
+    "b": 69,
+    "c": 31,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.00018314322488235366,
+    "holm_family": 0.00018314322488235366,
+    "family_size": 5,
+    "holm_all": 0.006410012870882378
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "bin_gru vs LDA, loop20k",
+    "b": 153,
+    "c": 247,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.0064415075171103e-06,
+    "holm_family": 1.2025766030068441e-05,
+    "family_size": 5,
+    "holm_all": 0.00012025766030068441
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "bin_gru vs LDA, src20k",
+    "b": 105,
+    "c": 38,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 1.885862502707226e-08,
+    "holm_family": 9.42931251353613e-08,
+    "family_size": 5,
+    "holm_all": 8.297795011911795e-07
+   }
+  ]
+ },
+ "c_S4_plus_P178": {
+  "summary": {
+   "n": 45,
+   "nominal": 19,
+   "holm_all": 13,
+   "holm_family": 16,
+   "survivors_holm_all": [
+    "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_hgb vs LDA, loop20k",
+    "seg_hgb vs LDA, src20k",
+    "seg_mlp vs LDA, src20k",
+    "bin_mlp vs LDA, src20k",
+    "cnn1d vs LDA, src20k",
+    "bin_gru vs LDA, loop20k",
+    "bin_gru vs LDA, src20k",
+    "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_gru trained on augmented data vs LDA, board A replay, 16,000"
+   ],
+   "survivors_holm_family": [
+    "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+    "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "seg_hgb vs LDA, loop20k",
+    "seg_hgb vs LDA, src20k",
+    "seg_mlp vs LDA, src20k",
+    "bin_mlp vs LDA, src20k",
+    "cnn1d vs LDA, src20k",
+    "bin_gru vs LDA, loop20k",
+    "bin_gru vs LDA, src20k",
+    "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "bin_gru trained on augmented data vs LDA, board A replay, 16,000",
+    "cnn1d trained on augmented data vs LDA, board A replay, 16,000"
+   ]
+  },
+  "tests": [
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_live: Boards A vs B, identical 99,400 traces",
+    "b": 560,
+    "c": 628,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.051865749949687484,
+    "holm_family": 0.6223889993962498,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board A, vs its gate-idle run",
+    "b": 617,
+    "c": 594,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.5272769876293527,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board B, vs its gate-idle run",
+    "b": 539,
+    "c": 620,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.01874018818316327,
+    "holm_family": 0.26236263456428577,
+    "family_size": 14,
+    "holm_all": 0.5434654573117349
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Boards A vs B",
+    "b": 622,
+    "c": 586,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3139286500025151,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Boards A vs B, 19,400 subset",
+    "b": 131,
+    "c": 127,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8518854392846705,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board A, vs gate-idle, 19,400 subset",
+    "b": 132,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9015070808432797,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "In the loop: Board B, vs gate-idle, 19,400 subset",
+    "b": 113,
+    "c": 129,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3349399687352154,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board A, vs NN_live in the same session",
+    "b": 89,
+    "c": 78,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.4391289287803373,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board A, vs NN_live run on the same rows",
+    "b": 147,
+    "c": 117,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.07408936428582724,
+    "holm_family": 0.8149830071440997,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board B, vs NN_live in the same session",
+    "b": 76,
+    "c": 83,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.6343339062839161,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Board B, vs NN_live run on the same rows",
+    "b": 140,
+    "c": 144,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8587493586772409,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "NN_axi: Boards A vs B",
+    "b": 127,
+    "c": 108,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.24025633441844135,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "Timing checks: Board A, NN_live vs NN_axi, 20,000 rows",
+    "b": 118,
+    "c": 152,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.04440957612562782,
+    "holm_family": 0.5773244896331616,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F1 hardware equivalence",
+    "test": "Timing checks: Board B, NN_live vs NN_axi, 20,000 rows",
+    "b": 147,
+    "c": 143,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8602022103000708,
+    "holm_family": 1.0,
+    "family_size": 14,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board A",
+    "b": 35,
+    "c": 62,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.007959455422446682,
+    "holm_family": 0.03183782168978673,
+    "family_size": 4,
+    "holm_all": 0.23878366267340048
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board A",
+    "b": 52,
+    "c": 64,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3070896636491835,
+    "holm_family": 0.614179327298367,
+    "family_size": 4,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 576 vs 640 samples, board B",
+    "b": 36,
+    "c": 49,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.19276043534155876,
+    "holm_family": 0.5782813060246763,
+    "family_size": 4,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F2 window length",
+    "test": "Linear baselines: LDA, 770 vs 640 samples, board B",
+    "b": 51,
+    "c": 47,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.7620362195292433,
+    "holm_family": 0.7620362195292433,
+    "family_size": 4,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 576, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 241,
+    "c": 271,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.1999251874159079,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 576, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 271,
+    "c": 294,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.3546918166144983,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 237,
+    "c": 287,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.03220977022195478,
+    "holm_family": 0.19325862133172866,
+    "family_size": 9,
+    "holm_all": 0.9018735662147338
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 770, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 474,
+    "c": 423,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.09497305325693504,
+    "holm_family": 0.47486526628467524,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 530,
+    "c": 422,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0005180369309913827,
+    "holm_family": 0.004144295447931061,
+    "family_size": 9,
+    "holm_all": 0.01761325565370701
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: LDA, window 770, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 483,
+    "c": 446,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.23753780916730527,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots",
+    "b": 571,
+    "c": 677,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0029415020846745173,
+    "holm_family": 0.020590514592721623,
+    "family_size": 9,
+    "holm_all": 0.09118656462491004
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: matched filter, board A, 99,400 rows, vs NN_live on the same shots",
+    "b": 608,
+    "c": 657,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.17712997482713813,
+    "holm_family": 0.7085198993085525,
+    "family_size": 9,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F7 linear vs NN_live, 99,400",
+    "test": "Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots",
+    "b": 572,
+    "c": 707,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.00017678265096389116,
+    "holm_family": 0.0015910438586750205,
+    "family_size": 9,
+    "holm_all": 0.006364175434700082
+   },
+   {
+    "family": "F3 drift",
+    "test": "Drift, 3 h: Board A, end minus start, 6,000 paired shots",
+    "b": 37,
+    "c": 27,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.2604354765766535,
+    "holm_family": 0.520870953153307,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F3 drift",
+    "test": "Drift, 3 h: Board B, end minus start, 6,000 paired shots",
+    "b": 34,
+    "c": 36,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.9049745264594623,
+    "holm_family": 0.9049745264594623,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F4 front end",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 19,400",
+    "b": 62,
+    "c": 55,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.579290250187703,
+    "holm_family": 0.579290250187703,
+    "family_size": 2,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F4 front end",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "b": 343,
+    "c": 259,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0007046806687671671,
+    "holm_family": 0.0014093613375343343,
+    "family_size": 2,
+    "holm_all": 0.023254462069316514
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "seg_hgb vs LDA, loop20k",
+    "b": 150,
+    "c": 334,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.7240577219481694e-17,
+    "holm_family": 1.8620288609740846e-16,
+    "family_size": 5,
+    "holm_all": 1.6758259748766762e-15
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "seg_hgb vs LDA, src20k",
+    "b": 84,
+    "c": 39,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 6.0996362368444804e-05,
+    "holm_family": 0.00012199272473688961,
+    "family_size": 5,
+    "holm_all": 0.0022568654076324576
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "seg_mlp vs LDA, loop20k",
+    "b": 115,
+    "c": 147,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.05526111912461528,
+    "holm_family": 0.16578335737384584,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "seg_mlp vs LDA, src20k",
+    "b": 81,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.778053497089469e-07,
+    "holm_family": 1.5112213988357877e-06,
+    "family_size": 5,
+    "holm_all": 1.624563003748472e-05
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "bin_mlp vs LDA, loop20k",
+    "b": 142,
+    "c": 156,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.4514633751759356,
+    "holm_family": 0.9029267503518712,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "bin_mlp vs LDA, src20k",
+    "b": 91,
+    "c": 37,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 2.006129945030041e-06,
+    "holm_family": 6.018389835090123e-06,
+    "family_size": 5,
+    "holm_all": 8.425745769126172e-05
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "cnn1d vs LDA, loop20k",
+    "b": 109,
+    "c": 105,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.8375731060432168,
+    "holm_family": 0.9029267503518712,
+    "family_size": 5,
+    "holm_all": 1.0
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "cnn1d vs LDA, src20k",
+    "b": 69,
+    "c": 31,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 0.00018314322488235366,
+    "holm_family": 0.00018314322488235366,
+    "family_size": 5,
+    "holm_all": 0.006410012870882378
+   },
+   {
+    "family": "F5 networks after replay",
+    "test": "bin_gru vs LDA, loop20k",
+    "b": 153,
+    "c": 247,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 3.0064415075171103e-06,
+    "holm_family": 1.2025766030068441e-05,
+    "family_size": 5,
+    "holm_all": 0.00012025766030068441
+   },
+   {
+    "family": "F6 networks on raw traces",
+    "test": "bin_gru vs LDA, src20k",
+    "b": 105,
+    "c": 38,
+    "source": "campaign_v144/final/analysis/arch/arch_sweep2_src_v144.json",
+    "p": 1.885862502707226e-08,
+    "holm_family": 9.42931251353613e-08,
+    "family_size": 5,
+    "holm_all": 8.297795011911795e-07
+   },
+   {
+    "family": "F8 augmentation vs LDA (P178)",
+    "test": "seg_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 73,
+    "c": 31,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 4.6569869697466e-05,
+    "holm_family": 9.3139739394932e-05,
+    "family_size": 4,
+    "holm_all": 0.0017696550485037082
+   },
+   {
+    "family": "F8 augmentation vs LDA (P178)",
+    "test": "bin_mlp trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 72,
+    "c": 27,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 6.9006990857724845e-06,
+    "holm_family": 2.0702097257317454e-05,
+    "family_size": 4,
+    "holm_all": 0.0002691272643451269
+   },
+   {
+    "family": "F8 augmentation vs LDA (P178)",
+    "test": "bin_gru trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 76,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 2.7367805899850523e-06,
+    "holm_family": 1.094712235994021e-05,
+    "family_size": 4,
+    "holm_all": 0.00011220800418938714
+   },
+   {
+    "family": "F8 augmentation vs LDA (P178)",
+    "test": "cnn1d trained on augmented data vs LDA, board A replay, 16,000",
+    "b": 57,
+    "c": 28,
+    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
+    "p": 0.0021949089077805926,
+    "holm_family": 0.0021949089077805926,
+    "family_size": 4,
+    "holm_all": 0.07023708504897896
+   }
+  ]
+ },
+ "d_headline": {
+  "summary": {
+   "n": 12,
+   "nominal": 6,
+   "holm_all": 4,
+   "survivors_holm_all": [
+    "NN_live vs LDA fir770, A_full",
+    "NN_live vs LDA box576, A_full",
+    "NN_live vs LDA box576, B_full",
+    "Boxcar vs FIR: Boxcar vs FIR, 99,400"
+   ]
+  },
+  "tests": [
+   {
+    "claim": "P7/P14/P178/P184: at the level of linear discrimination",
+    "test": "NN_live vs LDA fir770, A_full",
+    "b": 422,
+    "c": 530,
+    "source": "campaign_v144/revision/offline/lda_99400.json",
+    "p": 0.0005180369309913827,
+    "holm_all": 0.0056984062409052095
+   },
+   {
+    "claim": "P7/P14/P178/P184: at the level of linear discrimination",
+    "test": "NN_live vs LDA fir576, A_full",
+    "b": 294,
+    "c": 271,
+    "source": "campaign_v144/revision/offline/lda_99400.json",
+    "p": 0.3546918166144983,
+    "holm_all": 1.0
+   },
+   {
+    "claim": "P7/P14/P178/P184: at the level of linear discrimination",
+    "test": "NN_live vs LDA box576, A_full",
+    "b": 383,
+    "c": 301,
+    "source": "campaign_v144/revision/offline/lda_99400.json",
+    "p": 0.0019327855845227414,
+    "holm_all": 0.01739507026070467
+   },
+   {
+    "claim": "P7/P14/P178/P184: at the level of linear discrimination",
+    "test": "NN_live vs LDA fir770, B_full",
+    "b": 446,
+    "c": 483,
+    "source": "campaign_v144/revision/offline/lda_99400.json",
+    "p": 0.23753780916730527,
+    "holm_all": 0.9501512366692211
+   },
+   {
+    "claim": "P7/P14/P178/P184: at the level of linear discrimination",
+    "test": "NN_live vs LDA fir576, B_full",
+    "b": 287,
+    "c": 237,
+    "source": "campaign_v144/revision/offline/lda_99400.json",
+    "p": 0.03220977022195478,
+    "holm_all": 0.22546839155368345
+   },
+   {
+    "claim": "P7/P14/P178/P184: at the level of linear discrimination",
+    "test": "NN_live vs LDA box576, B_full",
+    "b": 409,
+    "c": 269,
+    "source": "campaign_v144/revision/offline/lda_99400.json",
+    "p": 8.48099421733911e-08,
+    "holm_all": 1.0177193060806932e-06
+   },
+   {
+    "claim": "P139: boxcar costs no fidelity",
+    "test": "Boxcar vs FIR: Boxcar vs FIR, 99,400",
+    "b": 343,
+    "c": 259,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.0007046806687671671,
+    "holm_all": 0.007046806687671671
+   },
+   {
+    "claim": "P201: boards differ by < 0.14 points",
+    "test": "NN_live: Boards A vs B, identical 99,400 traces",
+    "b": 560,
+    "c": 628,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.051865749949687484,
+    "holm_all": 0.3111944996981249
+   },
+   {
+    "claim": "P149: shorter window costs little (NN_axi vs NN_live)",
+    "test": "NN_axi: Board A, vs NN_live run on the same rows",
+    "b": 147,
+    "c": 117,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.07408936428582724,
+    "holm_all": 0.3704468214291362
+   },
+   {
+    "claim": "P149: shorter window costs little (NN_axi vs NN_live)",
+    "test": "NN_axi: Board B, vs NN_live run on the same rows",
+    "b": 140,
+    "c": 144,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.8587493586772409,
+    "holm_all": 1.0
+   },
+   {
+    "claim": "P201: the loop does not change fidelity",
+    "test": "In the loop: Board A, vs its gate-idle run",
+    "b": 617,
+    "c": 594,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.5272769876293527,
+    "holm_all": 1.0
+   },
+   {
+    "claim": "P201: the loop does not change fidelity",
+    "test": "In the loop: Board B, vs its gate-idle run",
+    "b": 539,
+    "c": 620,
+    "source": "paper_notes/V144_RESULTS.md",
+    "p": 0.01874018818316327,
+    "holm_all": 0.14992150546530617
+   }
+  ]
+ }
+}

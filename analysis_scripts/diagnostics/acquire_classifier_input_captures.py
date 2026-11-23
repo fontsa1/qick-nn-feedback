@@ -45,7 +45,7 @@ BRAM_WORDS = 2048
 # in_local[2i] = (word & 0xFFFF) * scaling_factor, in_local[2i+1] = (word >> 16) * scaling_factor);
 # slot [770] the sigmoid (a float).
 
-NS_HOST, NS_PORT, PROXY_NAME = os.environ.get("QICK_NS_HOST", "10.1.9.26"), 8888, "myqick"
+NS_HOST, NS_PORT, PROXY_NAME = os.environ.get("QICK_NS_HOST") or sys.exit("set QICK_NS_HOST to the board's IP address"), 8888, "myqick"
 ns = Pyro4.locateNS(host=NS_HOST, port=NS_PORT)
 soc = Pyro4.Proxy(ns.lookup(PROXY_NAME))
 soccfg = QickConfig(soc.get_cfg())

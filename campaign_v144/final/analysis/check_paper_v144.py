@@ -86,10 +86,10 @@ for n, t in paras:
             if len(raw) == 1 or re.match(r"^(19|20)\d\d$", raw):   # single digits and years carry no result
                 count["trivial"] += 1
                 continue
-            if raw in LED:
-                v = "v1.44"
-            elif (f"P{n}", raw) in exempt or ("*", raw) in exempt:
+            if (f"P{n}", raw) in exempt or ("*", raw) in exempt:   # a written exemption wins over a chance ledger match
                 v = "OPEN" if exempt.get((f"P{n}", raw)) == "open" else "EXEMPT"
+            elif raw in LED:
+                v = "v1.44"
             elif raw in OLD:
                 v = "STALE"
             elif CITE.search(s):
@@ -101,8 +101,11 @@ for n, t in paras:
                 extra = f"  <- {LED[raw][0]}" if v == "v1.44" else ""
                 lines[v].append(f"P{n}: {m[0].strip()}  | {s[max(0, m.start() - 45):m.end() + 35]}{extra}")
 
-ver = subprocess.run([sys.executable, str(ROOT / "campaign_v144/final/analysis/make_v144_ledger.py"), "--verify"], capture_output=True, text=True).stdout.strip()
-print(ver)
+vr = subprocess.run([sys.executable, str(ROOT / "campaign_v144/final/analysis/make_v144_ledger.py"), "--verify"], capture_output=True, text=True)
+ver = vr.stdout.strip()
+print(ver or "LEDGER VERIFY DID NOT COMPLETE")
+if vr.returncode != 0:
+    print("ledger --verify exited", vr.returncode, "(a capture listed in DATA_MANIFEST.csv may be missing):", vr.stderr.strip()[-600:])
 print("counts:", dict(count))
 for k in ("OTHER BUILD", "STALE", "UNCLASSED", "OPEN") + (("v1.44",) if "--all" in sys.argv else ()):
     print(f"\n== {k} ({len(lines.get(k, []))})")

@@ -25,7 +25,7 @@ from qick.asm_v2 import AveragerProgramV2       # noqa: E402
 sys.path.insert(0, "analysis_scripts/diagnostics")
 import phrst_probe as P                         # noqa: E402
 
-HOST = os.environ.get("QICK_NS_HOST", "10.1.9.26")
+HOST = os.environ.get("QICK_NS_HOST") or sys.exit("set QICK_NS_HOST to the board's IP address")
 
 class LoopbackProgram(AveragerProgramV2):       # as in tools/run_calibration.py
     def __init__(self, soccfg, cfg):

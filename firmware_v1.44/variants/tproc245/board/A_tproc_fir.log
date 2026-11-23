@@ -1,0 +1,17 @@
+BANNER: Firmware configuration (built Mon Nov 16 00:41:12 2026):
+BANNER: Mon Nov 16 00:41:12 2026
+readout path: {'sel': 0, 'shift': 7, 'm': 11, 'word': 2672}
+[calib] WARNING: root k.npy/c.npy hold 10.1.4.105, not 10.1.9.26
+ nobranch margin +0.000: L 400.5 [387.5, 405.2]  forced 391.4 / 400.7  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.005: L 401.1 [399.6, 416.7]  forced 403.7 / 400.4  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.010: L 401.9 [399.5, 414.8]  forced 401.1 / 401.1  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.015: L 412.6 [400.1, 416.5]  forced 413.2 / 412.8  fresh 0/40  br==dec 0  played==br 40
+ nobranch margin +0.020: L 413.4 [411.8, 429.1]  forced 413.4 / 413.5  fresh 12/40  br==dec 12  played==br 40
+ nobranch margin +0.025: L 425.2 [411.9, 429.0]  forced 424.9 / 425.5  fresh 30/40  br==dec 30  played==br 40
+ nobranch margin +0.030: L 425.4 [423.8, 441.1]  forced 425.5 / 425.8  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.035: L 427.0 [424.0, 440.7]  forced 432.3 / 432.0  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.040: L 437.4 [424.5, 440.1]  forced 437.3 / 437.6  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.045: L 438.2 [436.2, 453.1]  forced 438.5 / 437.7  fresh 40/40  br==dec 40  played==br 40
+ nobranch margin +0.050: L 449.2 [436.5, 451.8]  forced 449.1 / 449.7  fresh 40/40  br==dec 40  played==br 40
+nobranch: earliest clean margin: +0.030, L 425.4 ns
+saved campaign_v144/revision2/rebuilds/build1_tproc245/board/A_tproc_fir_t245.json ; boxcar path restored

@@ -1,0 +1,6 @@
+BANNER: Firmware configuration (built Sat Nov  7 19:57:07 2026):
+box host : edge 229.76 samples, sd 0.774 samples (1.40 ns), range 3.16
+box tproc: edge 229.83 samples, sd 0.779 samples (1.41 ns), range 3.18
+fir host : edge 229.89 samples, sd 0.766 samples (1.39 ns), range 3.17
+fir tproc: edge 229.85 samples, sd 0.747 samples (1.35 ns), range 3.19
+JITTER DONE; boxcar path restored

@@ -9,7 +9,7 @@ The manifest records the seed and the source row indices, so any result can be
 traced back to exact rows in the source file.
 
 """
-import argparse, json, hashlib
+import argparse, json, hashlib, sys
 import numpy as np
 from pathlib import Path
 
@@ -17,7 +17,7 @@ BASE = Path(".")
 
 def build(tag, xsrc, ysrc, n, seed):
     X = np.load(BASE / xsrc, mmap_mode="r")
-    y = np.load(BASE / ysrc).astype(int)
+    y = np.load(BASE / ysrc).astype(np.int32)
     rng = np.random.default_rng(seed)
 
     # stratified: exactly n/2 per class, then shuffle so class is decorrelated
@@ -56,8 +56,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=20000)
     ap.add_argument("--seed", type=int, default=20260902)
-    ap.add_argument("--which", default="both", choices=["real", "synth", "both"])
+    ap.add_argument("--which", default="real", choices=["real", "synth", "both"],
+                    help="synth needs x_synth_v2.npy from the generator (README, Data)")
+    ap.add_argument("--force", action="store_true", help="overwrite existing subset files and manifests")
     a = ap.parse_args()
+    for tag in ([] if a.which == "synth" else ["data/test20k_real"]) + ([] if a.which == "real" else ["data/test20k_synth"]):
+        old = [p for p in (BASE / f"{tag}_X.npy", BASE / f"{tag}_y.npy", BASE / f"{tag}_manifest.json") if p.exists()]
+        if old and not a.force:
+            sys.exit(f"{old[0]} exists (the shipped manifest is what the leakage audit compares with); rerun with --force to overwrite")
 
     print("=== building shuffled, balanced test subsets (n=%d, seed=%d) ===" % (a.n, a.seed))
     if a.which in ("real", "both"):

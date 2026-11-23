@@ -1,0 +1,1 @@
+hls/*.log: rerun of the 1.0 flow at 12:56-13:03 (project dir hls_lda11, same sources); original 1.0 synth/export logs in logs_v1.0/

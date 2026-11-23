@@ -12,306 +12,328 @@ P13	32.25	ok	value reported by [16]
 P13	16.3	ok	design constant or clock, not a measurement
 P17	176	ok	rounded form of a ledger value
 P17	450	ok	rounded form of a ledger value: ledger 'tProc path', FIR path 447.6 / 450.0 ns
-P23	0.2	ok	property of the public dataset or source device, measured offline or cited
-P23	6.32	ok	property of the public dataset or source device, measured offline or cited
-P23	1.5	ok	property of the public dataset or source device, measured offline or cited
-P23	0.4	ok	property of the public dataset or source device, measured offline or cited
-P23	32	ok	property of the public dataset or source device, measured offline or cited
-P23	2.5	ok	property of the public dataset or source device, measured offline or cited
-P23	770	ok	property of the public dataset or source device, measured offline or cited
-P23	3.25	ok	property of the public dataset or source device, measured offline or cited
-P23	4.50	ok	property of the public dataset or source device, measured offline or cited
-P38	16.3	ok	design constant or clock, not a measurement
-P38	552.96	ok	design constant or clock, not a measurement
-P39	1.808	ok	design constant or clock, not a measurement
-P39	10	ok	the 10-90% definition
-P39	90	ok	the 10-90% definition
-P39	50	ok	the 50% point, a definition
-P39	16	ok	arithmetic from design constants: 10-90% rise of the 11-sample moving sum, 0.8 x 11 x 1.808 ns = 15.9 ns
-P50	96.06	ok	value reported by [41]
-P51	31	ok	value reported by [47]
-P51	52	ok	value reported by [47]
-P51	860	ok	value reported by [43]
-P51	620	ok	value reported by [43]
-P51	270	ok	value reported by [43]
-P51	10	ok	value reported by [43]: 9.93% rounded
-P62	3.0	ok	PYNQ version (3.0.1) read from both boards 2026-11-07: campaign_v144/final/board_versions/board_A.json, board_B.json
-P62	0.2	ok	QICK host software version (0.2.414), as installed
-P62	7864.32	ok	design constant or clock, not a measurement
-P62	4423.68	ok	design constant or clock, not a measurement
-P62	552.96	ok	design constant or clock, not a measurement
-P62	1.808	ok	design constant or clock, not a measurement
-P62	50	ok	design constant or clock, not a measurement: 50 MHz carrier
-P62	200	ok	design constant or clock, not a measurement: tProc core clock
-P63	770	ok	property of the public dataset or source device, measured offline or cited
-P63	11,000	ok	design constant or clock, not a measurement
-P63	99	ok	design constant or clock, not a measurement
-P63	3.25	ok	property of the public dataset or source device, measured offline or cited
-P63	2.5	ok	property of the public dataset or source device, measured offline or cited
-P63	1.808	ok	design constant or clock, not a measurement
-P63	1.39	ok	arithmetic from design constants
-P63	50	ok	design constant or clock, not a measurement: 50 MHz carrier
-P64	500	ok	design constant or clock, not a measurement: calibration shots
-P69	770	ok	property of the public dataset or source device, measured offline or cited
-P69	95	ok	statistical convention
-P70	20	ok	qualitative band edge
-P70	60	ok	rounded form of a ledger value: 0.34 of 0.56
-P73	20	ok	phrst shots per program
-P73	4,000	ok	sample size, row index or training-set size
-P73	−164	ok	phase of the swap session, in the ledger as arg(k)
-P73	−143	ok	phase of the swap session, in the ledger as arg(k)
-P77	900,000	ok	property of the public dataset or source device, measured offline or cited
+P22	0.2	ok	property of the public dataset or source device, measured offline or cited
+P22	6.32	ok	property of the public dataset or source device, measured offline or cited
+P22	1.5	ok	property of the public dataset or source device, measured offline or cited
+P22	0.4	ok	property of the public dataset or source device, measured offline or cited
+P22	32	ok	property of the public dataset or source device, measured offline or cited
+P22	4.50	ok	property of the public dataset or source device, measured offline or cited
+P37	16.3	ok	design constant or clock, not a measurement
+P37	552.96	ok	design constant or clock, not a measurement
+P38	1.808	ok	design constant or clock, not a measurement
+P38	50	ok	the 50% point, a definition
+P49	860	ok	value reported by [43]
+P49	620	ok	value reported by [43]
+P56	96.00	ok	offline result on raw traces, no hardware involved: Table II, our variant on the 100,000 raw test traces (as in P178)
+P60	3.0	ok	PYNQ version (3.0.1) on both boards, recorded in requirements.txt
+P60	0.2	ok	QICK host software version (0.2.414), as installed
+P60	7864.32	ok	design constant or clock, not a measurement
+P60	4423.68	ok	design constant or clock, not a measurement
+P60	552.96	ok	design constant or clock, not a measurement
+P60	1.808	ok	design constant or clock, not a measurement
+P60	50	ok	design constant or clock, not a measurement: 50 MHz carrier
+P60	200	ok	design constant or clock, not a measurement: tProc core clock
+P61	2.5	ok	property of the public dataset or source device, measured offline or cited
+P61	770	ok	property of the public dataset or source device, measured offline or cited
+P61	11,000	ok	design constant or clock, not a measurement
+P61	99	ok	design constant or clock, not a measurement
+P61	3.25	ok	property of the public dataset or source device, measured offline or cited
+P61	1.808	ok	design constant or clock, not a measurement
+P61	1.39	ok	arithmetic from design constants
+P61	50	ok	design constant or clock, not a measurement: 50 MHz carrier
+P62	500	ok	design constant or clock, not a measurement: calibration shots
+P64	769	ok	property of the public dataset or source device, measured offline or cited: last sample index of a 770-sample trace
+P67	770	ok	property of the public dataset or source device, measured offline or cited
+P67	95	ok	statistical convention
+P67	±0.9	ok	arithmetic from design constants: half-width of the 95% intervals of ledger 'Calibration swap' (0.84-0.89 points)
+P68	20	ok	qualitative band edge
+P68	60	ok	rounded form of a ledger value: 0.34 of 0.56
+P68	1.4	ok	v1.44 latency study: campaign_v144/final/latency
+P68	500	ok	design constant or clock, not a measurement: carrier frequency of the converter sweep
+P68	1,500	ok	design constant or clock, not a measurement: carrier frequency of the converter sweep
+P68	0.5	ok	rounded form of a ledger value: 0.49-0.53 ns, edge s.d. at the 500 and 1,500 MHz carriers
+P71	20	ok	phrst shots per program
+P71	4,000	ok	sample size, row index or training-set size
+P71	−164	ok	phase of the swap session, in the ledger as arg(k)
+P71	−143	ok	phase of the swap session, in the ledger as arg(k)
+P75	900,000	ok	property of the public dataset or source device, measured offline or cited
+P75	0.2	ok	property of the public dataset or source device, measured offline or cited
+P75	1,540	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P77	3.25	ok	property of the public dataset or source device, measured offline or cited
 P77	0.2	ok	property of the public dataset or source device, measured offline or cited
-P77	1.808	ok	design constant or clock, not a measurement
-P77	1.80	ok	arithmetic from design constants
-P77	1,540	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P77	3.86	ok	paper_figures/fig2/fig2_values.json (offline, real training data): model_d.real_jit 3.861
-P77	3.80	ok	paper_figures/fig2/fig2_values.json (offline, real training data): real_d_range 3.797
-P77	3.93	ok	paper_figures/fig2/fig2_values.json (offline, real training data): real_d_range 3.927
-P79	3.25	ok	property of the public dataset or source device, measured offline or cited
-P79	865	ok	property of the public dataset or source device, measured offline or cited
-P79	0.2	ok	property of the public dataset or source device, measured offline or cited
-P79	3.80	ok	offline result on raw traces, no hardware involved
-P79	3.93	ok	offline result on raw traces, no hardware involved
-P80	9,999	ok	sample size, row index or training-set size
-P80	110,000	ok	sample size, row index or training-set size
-P80	299,999	ok	sample size, row index or training-set size
-P80	20	ok	validation split
-P80	10,000	ok	sample size, row index or training-set size
-P80	109,999	ok	sample size, row index or training-set size
-P80	1,000	ok	sample size, row index or training-set size
-P80	1,599	ok	sample size, row index or training-set size
-P80	50,000	ok	sample size, row index or training-set size
-P81	576	ok	design constant or clock, not a measurement
-P81	640	ok	window length compared
-P83	23	ok	tools/verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v143/final/analysis/verify_no_leakage.log
-P85	+0.32	ok	offline result on raw traces, no hardware involved
-P85	1,540	ok	property of the public dataset or source device, measured offline or cited
-P85	4.0	ok	offline result on raw traces, no hardware involved
-P85	8.2	ok	offline result on raw traces, no hardware involved
-P85	3.80	ok	offline result on raw traces, no hardware involved
-P85	3.93	ok	offline result on raw traces, no hardware involved
-P85	3.86	ok	offline result on raw traces, no hardware involved
-P85	1.5	ok	offline result on raw traces, no hardware involved: common-mode offset ratio
-P85	1.9	ok	offline result on raw traces, no hardware involved: common-mode offset ratio
-P86	10,000	ok	sample size, row index or training-set size
-P86	50,000	ok	sample size, row index or training-set size
-P92	770	ok	design constant or clock, not a measurement
-P92	576	ok	design constant or clock, not a measurement
-P93	±0.2	ok	seed spread at 10,000 rows, from the retrained networks
-P93	10,000	ok	sample size, row index or training-set size
-P93	10	ok	training hyperparameter: learning rate 10^-3
-P93	32,	ok	training hyperparameter: batch size
-P93	50	ok	training hyperparameter: at most 50 epochs
-P94	16,6	ok	design constant or clock, not a measurement
-P94	32,20	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P94	48,32	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P94	40,8	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P94	32,16	ok	design constant or clock, not a measurement
-P94	18,8	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P95	576	ok	design constant or clock, not a measurement
-P95	770	ok	design constant or clock, not a measurement
-P95	351	ok	arithmetic from design constants: 194 samples at 1.808 ns
-P95	1.87	ok	arithmetic from design constants
-P95	640	ok	window length compared
-P95	1,035	ok	arithmetic from design constants: 1.87 us / 1.808 ns
-P97	95	ok	statistical convention
-P97	3.25	ok	property of the public dataset or source device, measured offline or cited
-P97	576	ok	design constant or clock, not a measurement
-P97	0.10	ok	rounded form of a ledger value
-P97	640	ok	window length compared
-P97	100	ok	unit of the axis
-P97	32	ok	property of the public dataset or source device, measured offline or cited
-P97	544	ok	read off Fig. 5(b), ledger
-P99	96.01	ok	offline result on raw traces, no hardware involved
-P99	96.00	ok	offline result on raw traces, no hardware involved
-P99	500	ok	offline result on raw traces, no hardware involved
-P99	100,	ok	sample size, row index or training-set size
-P99	100	ok	sample size, row index or training-set size
-P99	95	ok	statistical convention
-P99	95.78	ok	offline result on raw traces, no hardware involved
-P99	95.80	ok	value reported by [16]
-P99	96.04	ok	value reported by [16]
-P104	600	ok	sample size, row index or training-set size
-P106	770	ok	design constant or clock, not a measurement
-P106	1,540	ok	design constant or clock, not a measurement
-P106	15.5	ok	arithmetic from design constants: 1,540 cycles at 100 MHz plus inference
-P106	15.4	ok	arithmetic from design constants: 1,540 cycles at 100 MHz
-P106	14	ok	NN_axi DSP count, ledger table
-P106	95.5	ok	rounded form of a ledger value
-P106	50	ok	design constant or clock, not a measurement: 5 cycles at 100 MHz
-P107	770,	ok	property of the public dataset or source device, measured offline or cited
-P107	770	ok	design constant or clock, not a measurement
-P107	32	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P107	16,384	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P107	2023.1	ok	tool version
-P107	10	ok	design constant or clock, not a measurement: HLS clock target
-P107	15.5	ok	arithmetic from design constants
-P109	99.6	ok	arithmetic from design constants
-P109	1,152	ok	design constant or clock, not a measurement
-P111	−1,0,	ok	design constant or clock, not a measurement
-P119	16.3	ok	design constant or clock, not a measurement
-P119	552.96	ok	design constant or clock, not a measurement
-P122	576	ok	design constant or clock, not a measurement
-P122	63	ok	design constant or clock, not a measurement
-P122	16	ok	design constant or clock, not a measurement: bit index
-P122	15	ok	design constant or clock, not a measurement
-P122	552.96	ok	design constant or clock, not a measurement
-P122	491.52	ok	design constant or clock, not a measurement
-P122	31	ok	design constant or clock, not a measurement
-P122	16.3	ok	design constant or clock, not a measurement
-P122	44	ok	design constant or clock, not a measurement: bit index
-P125	576	ok	design constant or clock, not a measurement
-P128	640	ok	equation layout artefact
-P131	0.5	ok	design constant or clock, not a measurement
-P132	15	ok	design constant or clock, not a measurement
-P132	16	ok	design constant or clock, not a measurement
-P132	63	ok	design constant or clock, not a measurement
-P132	512	ok	design constant or clock, not a measurement
-P132	44	ok	design constant or clock, not a measurement: bit index
-P134	176	ok	rounded form of a ledger value
-P134	25	ok	arithmetic from design constants: 16.3 + 9.0 ns, both stated in Sec. VIII
-P134	120	ok	design constant or clock, not a measurement: QICK readout FIR length
-P136	11	ok	design constant or clock, not a measurement
-P143	4423.68	ok	design constant or clock, not a measurement
-P143	552.96	ok	design constant or clock, not a measurement
-P143	16	ok	design constant or clock, not a measurement
-P143	100.5	ok	arithmetic from design constants
-P143	11,	ok	design constant or clock, not a measurement
-P143	−100	ok	design constant or clock, not a measurement
+P77	3.80	ok	offline result on raw traces, no hardware involved
+P77	3.93	ok	offline result on raw traces, no hardware involved
+P77	836	ok	property of the public dataset or source device, measured offline or cited: per-sample noise s.d. over 20,000 fit-pool rows, 836.2-837.3 (campaign_v144/final/analysis/stats/t5_estimators.json)
+P78	9,999	ok	sample size, row index or training-set size
+P78	110,000	ok	sample size, row index or training-set size
+P78	299,999	ok	sample size, row index or training-set size
+P78	20	ok	validation split
+P78	10,000	ok	sample size, row index or training-set size
+P78	109,999	ok	sample size, row index or training-set size
+P78	1,000	ok	sample size, row index or training-set size
+P78	1,599	ok	sample size, row index or training-set size
+P78	50,000	ok	sample size, row index or training-set size
+P81	23	ok	verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v144/final/analysis/verify_no_leakage.log
+P81	13	ok	v1.44 leakage audit, 13 checks: campaign_v144/final/analysis/verify_no_leakage_v144.log
+P88	770	ok	design constant or clock, not a measurement
+P88	576	ok	design constant or clock, not a measurement
+P89	±0.2	ok	seed spread at 10,000 rows, from the retrained networks
+P89	10,000	ok	sample size, row index or training-set size
+P89	10	ok	training hyperparameter: learning rate 10^-3
+P89	32,	ok	training hyperparameter: batch size
+P89	50	ok	training hyperparameter: at most 50 epochs
+P89	20260904	ok	design constant or clock, not a measurement: the deployed training seed, recorded by the export (results/last_export_seed_w576_box.txt)
+P90	16,6	ok	design constant or clock, not a measurement
+P91	576	ok	design constant or clock, not a measurement
+P91	770	ok	design constant or clock, not a measurement
+P91	351	ok	arithmetic from design constants: 194 samples at 1.808 ns
+P91	1.87	ok	arithmetic from design constants
+P91	640	ok	window length compared
+P91	1,035	ok	arithmetic from design constants: 1.87 us / 1.808 ns
+P93	95	ok	statistical convention
+P93	3.25	ok	property of the public dataset or source device, measured offline or cited
+P93	576	ok	design constant or clock, not a measurement
+P93	0.10	ok	rounded form of a ledger value
+P93	640	ok	equation layout artefact
+P93	100	ok	unit of the axis
+P93	32	ok	property of the public dataset or source device, measured offline or cited
+P93	544	ok	read off Fig. 5(b), ledger
+P95	96.01	ok	offline result on raw traces, no hardware involved
+P95	96.00	ok	offline result on raw traces, no hardware involved
+P95	500	ok	offline result on raw traces, no hardware involved
+P95	100,	ok	sample size, row index or training-set size
+P95	100	ok	sample size, row index or training-set size
+P95	95.78	ok	offline result on raw traces, no hardware involved
+P95	95.80	ok	value reported by [16]
+P95	96.04	ok	value reported by [16]
+P100	600	ok	sample size, row index or training-set size
+P102	770	ok	design constant or clock, not a measurement
+P102	1,540	ok	design constant or clock, not a measurement
+P102	15.5	ok	arithmetic from design constants: 1,540 cycles at 100 MHz plus inference
+P102	15.4	ok	arithmetic from design constants: 1,540 cycles at 100 MHz
+P102	14	ok	NN_axi DSP count, ledger table
+P102	95.5	ok	rounded form of a ledger value
+P102	50	ok	design constant or clock, not a measurement: 5 cycles at 100 MHz
+P103	770,	ok	property of the public dataset or source device, measured offline or cited
+P103	770	ok	design constant or clock, not a measurement
+P103	32	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P103	16,384	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P103	2023.1	ok	tool version
+P103	10	ok	design constant or clock, not a measurement: HLS clock target
+P103	15.5	ok	arithmetic from design constants
+P103	2,048	ok	design constant or clock, not a measurement: NN_axi's result buffer, 2,048 32-bit words (8 KB) in the block design (NN_axi.h)
+P105	99.6	ok	arithmetic from design constants
+P105	1,152	ok	design constant or clock, not a measurement
+P107	−1,0,	ok	design constant or clock, not a measurement
+P115	10	ok	value reported by [43]: 9.93% rounded
+P115	16.3	ok	design constant or clock, not a measurement
+P115	552.96	ok	design constant or clock, not a measurement
+P119	576	ok	design constant or clock, not a measurement
+P121	31	ok	design constant or clock, not a measurement
+P121	576	ok	design constant or clock, not a measurement
+P121	63	ok	design constant or clock, not a measurement
+P121	16	ok	design constant or clock, not a measurement: bit index
+P121	15	ok	design constant or clock, not a measurement
+P121	552.96	ok	design constant or clock, not a measurement
+P121	491.52	ok	design constant or clock, not a measurement
+P121	16.3	ok	design constant or clock, not a measurement
+P121	44	ok	design constant or clock, not a measurement: bit index
+P124	640	ok	design constant or clock, not a measurement: Eq. (6) flattened to text, where the threshold 1/64 runs into the case value 0
+P127	0.5	ok	design constant or clock, not a measurement
+P127	16,6	ok	design constant or clock, not a measurement: logit type ap_fixed<16,6>, as in P199
+P128	15	ok	design constant or clock, not a measurement
+P128	16	ok	design constant or clock, not a measurement
+P128	63	ok	design constant or clock, not a measurement
+P128	512	ok	design constant or clock, not a measurement
+P128	44	ok	design constant or clock, not a measurement: bit index
+P130	176	ok	rounded form of a ledger value
+P130	25	ok	arithmetic from design constants: 16.3 + 9.0 ns, both stated in Sec. VIII
+P130	120	ok	design constant or clock, not a measurement: QICK readout FIR length
+P132	11	ok	design constant or clock, not a measurement
+P139	4423.68	ok	design constant or clock, not a measurement
+P139	552.96	ok	design constant or clock, not a measurement
+P139	16	ok	design constant or clock, not a measurement
+P139	100.5	ok	arithmetic from design constants
+P139	11,	ok	design constant or clock, not a measurement
+P139	−100	ok	design constant or clock, not a measurement
+P139	16.3	ok	design constant or clock, not a measurement
+P139	9.0	ok	arithmetic from design constants
+P141	20	ok	shots in the capture
+P141	−100	ok	design constant or clock, not a measurement
+P141	11	ok	design constant or clock, not a measurement
+P141	100	ok	design constant or clock, not a measurement
+P141	50	ok	design constant or clock, not a measurement: 50 MHz pulse and the 50% crossing
+P141	−30	ok	threshold of the comparison band
 P143	16.3	ok	design constant or clock, not a measurement
-P143	9.0	ok	arithmetic from design constants
-P145	20	ok	shots in the capture
-P145	−100	ok	design constant or clock, not a measurement
-P145	11	ok	design constant or clock, not a measurement
-P145	100	ok	design constant or clock, not a measurement
-P145	50	ok	design constant or clock, not a measurement: 50 MHz pulse and the 50% crossing
-P145	−30	ok	threshold of the comparison band
-P147	16.3	ok	design constant or clock, not a measurement
-P151	15.5	ok	arithmetic from design constants
-P151	50	ok	design constant or clock, not a measurement: 5 cycles at 100 MHz
-P151	0.35	ok	v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)
-P151	2.00	ok	design constant or clock, not a measurement: set_bus_skew constraint
-P153	49,400	ok	sample size, row index or training-set size: board A run 1, rows 0-49,999 less the 600 map rows
-P153	50,000	ok	sample size, row index or training-set size: board B run 1, rows 50,000-99,999
-P155	160	ok	rounded form of a ledger value: 337 minus 176
-P155	450	ok	rounded form of a ledger value: ledger 'tProc path', FIR path 447.6 / 450.0 ns
-P155	25	ok	arithmetic from design constants: boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns
-P155	114	ok	arithmetic from design constants: 175.9 - 62 ns, ledger 'Loop latency'
-P157	576	ok	design constant or clock, not a measurement
-P157	16.3	ok	design constant or clock, not a measurement
-P157	16	ok	design constant or clock, not a measurement
-P157	491.52	ok	design constant or clock, not a measurement
-P157	200	ok	design constant or clock, not a measurement
-P157	256	ok	design constant or clock, not a measurement
-P157	245.76	ok	QICK design constant: clk_core in firmware/projects/qick_tprocv2_4x2_standard/bd_2023-1.tcl at commit 779dffa
-P157	204.8	ok	QICK design constant: clk_core in the same file on QICK main since 2026-09-16 (commit a24cc8e, merged in #432)
-P157	552.96	ok	design constant or clock, not a measurement
-P157	0.42	ok	QICK tProc IP alone, out-of-context place and route at c_clk 5.0 ns; a property of QICK's IP, not of a build of ours
-P157	0.32	ok	v1.44 routed timing, tProc clock domain slack in the full design (paper_tables/table3/data/v1.44_routed_timing.rpt, clk_core WNS)
-P159	95	ok	statistical convention
-P159	50	ok	the 50% point, a definition
-P159	0.26	ok	rounded form of a ledger value: 0.251% and 0.265%
-P166	2.03	ok	design constant or clock, not a measurement: tProc tick
-P166	176	ok	rounded form of a ledger value
-P166	0.2	ok	v1.44 latency study, same entry
-P166	50	ok	the 50% point, a definition
-P166	10	ok	number of loads, ledger row name
-P166	1.2	ok	v1.44 latency study, per-shot s.d. 1.24-1.48 ns over 14 loads (campaign_v144/final/latency)
-P166	1.5	ok	same
-P166	0.7	ok	v1.44 latency study, largest sensitivity shift 0.74 ns (campaign_v144/final/latency/cold/B_c2.json)
-P166	400	ok	sample size, row index or training-set size: 4 loads x 100 shots
-P170	10	ok	equation number
-P172	50	ok	the 50% point, a definition
-P175	2	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
-P175	100	ok	shots per load
-P175	40	ok	traces per slack
-P175	17	ok	traces with decision 1
-P175	−66	ok	slack value
-P175	10	ok	number of loads, ledger row name
-P175	25	ok	arithmetic from design constants: boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns
-P176	1039.9	ok	arithmetic from design constants
-P176	575	ok	arithmetic from design constants
-P176	1.22	ok	arithmetic from design constants
-P180	1.808	ok	design constant or clock, not a measurement
-P180	3.25	ok	property of the public dataset or source device, measured offline or cited
-P180	576	ok	design constant or clock, not a measurement
-P180	1.04	ok	arithmetic from design constants: 576 x 1.808 ns
-P180	1,035	ok	arithmetic from design constants: 1.87 us / 1.808 ns
-P180	1.87	ok	arithmetic from design constants: 576 x 3.25 ns of recorded readout
-P181	0.3	ok	detectable size at this n
-P181	0.018	ok	earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text; campaign_v144/final/analysis/s2/arch_aug_v144.json repeats it on v1.44
-P181	16,000	ok	earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text
-P181	95.59	ok	earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text
-P181	0.2	ok	offline result on raw traces, no hardware involved: campaign_v140L1/arch_sweep.json, raw traces
-P182	16	ok	arithmetic from design constants: 16 DAC samples per 491.52 MHz cycle
-P182	491.52	ok	design constant or clock, not a measurement
-P182	+0.002	ok	scaling_study/FINDINGS.md: out-of-context runs of the classifier kernel (v1.41 RTL, unchanged in v1.44), not an SoC build
-P182	32	ok	unit count that failed timing
-P184	100	ok	design constant or clock, not a measurement
-P184	0.35	ok	v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)
-P184	2.00	ok	design constant or clock, not a measurement: set_bus_skew constraint
-P186	32	ok	property of the public dataset or source device, measured offline or cited
-P186	4.4	ok	assignment error, rounded from the headline (100 - 95.60)
-P186	0.2	ok	offline result on raw traces, no hardware involved: the raw-trace gain of P181
-P186	0.3	ok	offline result on raw traces, no hardware involved: the raw-trace gain of P181
-P186	200	ok	arithmetic from design constants: 0.2-0.3 points at the T1 = 32 us rate of t/T1 to t/(3 T1)
-P186	300	ok	arithmetic from design constants: same
-P188	96	ok	value reported by [16]
-P188	16.3	ok	design constant or clock, not a measurement
-P188	176	ok	rounded form of a ledger value
-P188	100	ok	rounded form of a ledger value: ledger 'Loop latency' S_conv of the two load groups, 100-102 ns
-P189	17	ok	arithmetic from design constants: moving-sum rise
-P191	500	ok	design constant or clock, not a measurement: calibration shots
-P191	127	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
-P191	−121	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
-P191	125	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
-P191	58	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
-P191	−34	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
-P191	0.33	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json): per-shot s.d. per load without phrst, 0.33-0.40 deg
-P191	0.40	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json): per-shot s.d. per load without phrst, 0.33-0.40 deg
-P191	32	ok	arithmetic from design constants: separation of the two phrst clusters from the ledger means (-1.9 vs -33.5 deg)
-P191	9	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json): per-shot s.d. with phrst, 8.7-9.2 deg
-P192	0.10	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
-P192	0.87	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
-P192	1.00	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
-P192	0.05	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
-P192	100	ok	design constant or clock, not a measurement: the 100 MHz mixing image
-P192	0.086	ok	rounded form of a ledger value: ledger 'Drift, 3 h' s.d.
-P192	0.084	ok	rounded form of a ledger value: ledger 'Drift, 3 h' s.d.
-P192	0.26	ok	ledger 'Drift, 3 h', p of the paired comparison
-P193	600	ok	sample size, row index or training-set size
-P193	1,000	ok	sample size, row index or training-set size
-P193	1,599	ok	sample size, row index or training-set size
-P193	11	ok	design constant or clock, not a measurement: boxcar length M
-P193	−0.25	ok	boxcar map delay s (calibration/box_domain_map.json)
-P193	+0.37	ok	earlier build, offline: domain-map ablation of 2026-10-01 (analysis_scripts/analysis/phase0_calibration_ablation.py, results/phase0_calibration_ablation.json); said so in the text
+P147	15.5	ok	arithmetic from design constants
+P147	50	ok	design constant or clock, not a measurement: 5 cycles at 100 MHz
+P147	0.35	ok	v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)
+P147	2.00	ok	design constant or clock, not a measurement: set_bus_skew constraint
+P147	3.98	ok	arithmetic from design constants: 2 x 2.035 ns (DAC clock) - 0.035 - 0.051 ns clock uncertainty (firmware_v1.44/reports/v144_worst_setup_per_group.rpt)
+P149	49,400	ok	sample size, row index or training-set size: board A run 1, rows 0-49,999 less the 600 map rows
+P149	50,000	ok	sample size, row index or training-set size: board B run 1, rows 50,000-99,999
+P152	160	ok	rounded form of a ledger value: 337 minus 176
+P152	450	ok	rounded form of a ledger value: ledger 'tProc path', FIR path 447.6 / 450.0 ns
+P152	25	ok	arithmetic from design constants: boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns
+P152	114	ok	arithmetic from design constants: 175.9 - 62 ns, ledger 'Loop latency'
+P152	200	ok	design constant or clock, not a measurement: tProc core clock of v1.44 (clk_core, 5.001 ns in the routed timing report)
+P152	245.76	ok	design constant or clock, not a measurement: QICK's stock tProc core clock, used by the round-2 build 1
+P152	576	ok	design constant or clock, not a measurement: NN_live's window length, shared by the LDA core
+P154	576	ok	design constant or clock, not a measurement
+P154	16.3	ok	design constant or clock, not a measurement
+P154	16	ok	design constant or clock, not a measurement
+P154	491.52	ok	design constant or clock, not a measurement
+P154	200	ok	design constant or clock, not a measurement
+P154	256	ok	design constant or clock, not a measurement
+P154	245.76	ok	QICK design constant: clk_core in firmware/projects/qick_tprocv2_4x2_standard/bd_2023-1.tcl at commit 779dffa
+P154	204.8	ok	QICK design constant: clk_core in the same file on QICK main since 2026-09-16 (commit a24cc8e, merged in #432)
+P154	552.96	ok	design constant or clock, not a measurement
+P154	0.42	ok	QICK tProc IP alone, out-of-context place and route at c_clk 5.0 ns; a property of QICK's IP, not of a build of ours
+P154	0.32	ok	v1.44 routed timing, tProc clock domain slack in the full design
+P154	32	ok	design constant or clock, not a measurement: two 256-bit words of 16 samples
+P156	95	ok	statistical convention
+P156	50	ok	the 50% point, a definition
+P156	0.26	ok	rounded form of a ledger value: 0.251% and 0.265%
+P156	0.0030	ok	arithmetic from design constants: exact zero-event one-sided 95% bound 1 - 0.05^(1/99,400)
+P156	2.03	ok	design constant or clock, not a measurement: one DAC-fabric cycle at 491.52 MHz
+P160	50	ok	subscript of L_50 in its defining equation
+P163	2.03	ok	design constant or clock, not a measurement: tProc tick
+P163	176	ok	rounded form of a ledger value
+P163	0.2	ok	v1.44 latency study, same entry
+P163	50	ok	the 50% point, a definition
+P163	10	ok	number of loads, ledger row name
+P163	1.2	ok	v1.44 latency study, per-shot s.d. 1.24-1.48 ns over 14 loads (campaign_v144/final/latency)
+P163	1.5	ok	same
+P163	0.7	ok	v1.44 latency study, largest sensitivity shift 0.74 ns (campaign_v144/final/latency/cold/B_c2.json)
+P163	400	ok	sample size, row index or training-set size: 4 loads x 100 shots
+P166	50	ok	subscript of L_50 in its defining equation
+P167	10	ok	equation number
+P169	50	ok	the 50% point, a definition
+P172	2	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P172	100	ok	shots per load
+P172	40	ok	traces per slack
+P172	17	ok	traces with decision 1
+P172	−66	ok	slack value
+P172	10	ok	number of loads, ledger row name
+P172	25	ok	arithmetic from design constants: boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns
+P172	16.3	ok	arithmetic from design constants: 9 cycles at 552.96 MHz, as in P121
+P173	1039.9	ok	arithmetic from design constants
+P173	575	ok	arithmetic from design constants
+P173	1.22	ok	arithmetic from design constants
+P175	63	ok	design constant or clock, not a measurement: live_res_cdc word layout
+P175	60	ok	design constant or clock, not a measurement: live_res_cdc word layout
+P175	32	ok	design constant or clock, not a measurement: live_res_cdc word layout
+P175	31	ok	design constant or clock, not a measurement: live_res_cdc word layout
+P177	1.808	ok	design constant or clock, not a measurement
+P177	3.25	ok	property of the public dataset or source device, measured offline or cited
+P177	576	ok	design constant or clock, not a measurement
+P177	1.04	ok	arithmetic from design constants: 576 x 1.808 ns
+P177	1,035	ok	arithmetic from design constants: 1.87 us / 1.808 ns
+P177	1.87	ok	arithmetic from design constants: 576 x 3.25 ns of recorded readout
+P177	320	ok	sample size, row index or training-set size: window of 320 recorded samples, campaign_v144/final/analysis/s3/s3_live_window_lda.json
+P178	0.3	ok	detectable size at this n
+P178	0.018	ok	earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text; S2 carries it to v1.44
+P178	16,000	ok	sample size, row index or training-set size: shots scored in S2 (ledger 'Replay-channel augmentation')
+P178	95.59	ok	earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text
+P178	0.2	ok	offline result on raw traces, no hardware involved: campaign_v140L1/arch_sweep.json, raw traces
+P178	576	ok	design constant or clock, not a measurement: NN_live window
+P178	770	ok	property of the public dataset or source device, measured offline or cited
+P178	96.00	ok	offline result on raw traces, no hardware involved: Table II, our variant on the 100,000 raw test traces
+P179	16	ok	arithmetic from design constants: 16 DAC samples per 491.52 MHz cycle
+P179	491.52	ok	design constant or clock, not a measurement
+P179	+0.002	ok	scaling_study/FINDINGS.md: out-of-context runs of the classifier kernel (v1.41 RTL, unchanged in v1.44), not an SoC build
+P179	32	ok	unit count that failed timing
+P179	50	ok	design constant or clock, not a measurement: 50 MHz carrier
+P179	4.8	ok	rounded form of a ledger value: ledger 'Readout path', carriers up to 4800 MHz
+P182	32	ok	property of the public dataset or source device, measured offline or cited
+P182	4.4	ok	assignment error, rounded from the headline (100 - 95.60)
+P182	0.2	ok	offline result on raw traces, no hardware involved: the raw-trace gain of P181
+P182	0.3	ok	offline result on raw traces, no hardware involved: the raw-trace gain of P181
+P182	200	ok	arithmetic from design constants: 0.2-0.3 points at the T1 = 32 us rate of t/T1 to t/(3 T1)
+P182	300	ok	arithmetic from design constants: same
+P184	96	ok	value reported by [16]
+P184	16.3	ok	design constant or clock, not a measurement
+P184	176	ok	rounded form of a ledger value
+P184	100	ok	rounded form of a ledger value: ledger 'Loop latency' S_conv of the two load groups, 100-102 ns
+P185	17	ok	arithmetic from design constants: moving-sum rise
+P185	1,035	ok	arithmetic from design constants: 576 samples x 3.25 / 1.808 ns, as in P177
+P187	500	ok	design constant or clock, not a measurement: calibration shots
+P187	127	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
+P187	−121	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
+P187	125	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
+P187	58	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
+P187	−34	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json), ledger 'Phase across loads'
+P187	0.33	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json): per-shot s.d. per load without phrst, 0.33-0.40 deg
+P187	0.40	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json): per-shot s.d. per load without phrst, 0.33-0.40 deg
+P187	32	ok	arithmetic from design constants: separation of the two phrst clusters from the ledger means (-1.9 vs -33.5 deg)
+P187	9	ok	v1.44 phase across loads, board A (campaign_v144/final/board2/A_phrst_probe_v144.json): per-shot s.d. with phrst, 8.7-9.2 deg
+P188	0.10	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
+P188	0.87	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
+P188	1.00	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
+P188	0.05	ok	v1.44 calibration repeats, 8 per board on one load: s.d. of arg k and of the probe phase (campaign_v144/final/cal_repeat/cal_repeat_<host>.json)
+P188	100	ok	design constant or clock, not a measurement: the 100 MHz mixing image
+P188	0.086	ok	rounded form of a ledger value: ledger 'Drift, 3 h' s.d.
+P188	0.084	ok	rounded form of a ledger value: ledger 'Drift, 3 h' s.d.
+P188	0.26	ok	ledger 'Drift, 3 h', p of the paired comparison
+P189	600	ok	sample size, row index or training-set size
+P189	1,000	ok	sample size, row index or training-set size
+P189	1,599	ok	sample size, row index or training-set size
+P189	11	ok	design constant or clock, not a measurement: boxcar length M
+P189	−0.25	ok	boxcar map delay s (box_domain_map.json)
+P189	+0.37	ok	earlier build, offline: domain-map ablation of 2026-10-01 (results/phase0_calibration_ablation.json); said so in the text
+P191	9,999	ok	sample size, row index or training-set size
+P191	110,000	ok	sample size, row index or training-set size
+P191	299,999	ok	sample size, row index or training-set size
+P191	10,000	ok	sample size, row index or training-set size
+P191	109,999	ok	sample size, row index or training-set size
+P191	1,000	ok	sample size, row index or training-set size
+P191	1,599	ok	sample size, row index or training-set size
+P191	20	ok	validation split
+P191	12	ok	arithmetic from design constants: sum of the ledger's DAC-clipped shots, 7 + 5
+P191	5,000	ok	property of the public dataset or source device, measured offline or cited: class-block length of the released test file
+P192	23	ok	verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v144/final/analysis/verify_no_leakage.log
+P192	1,000	ok	sample size, row index or training-set size
+P192	1,599,	ok	sample size, row index or training-set size
+P192	1,599	ok	sample size, row index or training-set size
+P193	95	ok	statistical convention
+P193	0.0030	ok	rounded form of a ledger value: ledger 'Late-rate 95% upper bound'
+P194	576	ok	design constant or clock, not a measurement
+P194	640	ok	window length compared
+P194	770	ok	window length compared
+P194	500	ok	offline result on raw traces, no hardware involved: matched-filter fidelity peaks near 500 samples, real data, 5 seeds (audit_fixes/R8_R1/out/fig3_truncation_curves.npz)
+P195	+0.32	ok	offline result on raw traces, no hardware involved
+P195	1,540	ok	property of the public dataset or source device, measured offline or cited
+P195	4.0	ok	offline result on raw traces, no hardware involved
+P195	8.2	ok	offline result on raw traces, no hardware involved
+P195	3.80	ok	paper_figures/fig2/fig2_values.json (offline, real training data): real_d_range 3.797
+P195	3.93	ok	paper_figures/fig2/fig2_values.json (offline, real training data): real_d_range 3.927
+P195	3.86	ok	paper_figures/fig2/fig2_values.json (offline, real training data): model_d.real_jit 3.861
 P195	10,000	ok	sample size, row index or training-set size
-P195	9,999	ok	sample size, row index or training-set size
-P195	110,000	ok	sample size, row index or training-set size
-P195	299,999	ok	sample size, row index or training-set size
-P195	109,999	ok	sample size, row index or training-set size
-P195	1,000	ok	sample size, row index or training-set size
-P195	1,599	ok	sample size, row index or training-set size
-P195	20	ok	validation split
-P195	12	ok	arithmetic from design constants: sum of the ledger's DAC-clipped shots, 7 + 5
-P195	5,000	ok	property of the public dataset or source device, measured offline or cited: class-block length of the released test file (tools/make_test_subsets.py)
-P196	23	ok	tools/verify_no_leakage.py re-run 2026-11-06, 23/23: campaign_v143/final/analysis/verify_no_leakage.log
-P196	1,000	ok	sample size, row index or training-set size
-P196	1,599,	ok	sample size, row index or training-set size
-P196	1,599	ok	sample size, row index or training-set size
-P197	95	ok	statistical convention
-P197	0.0030	ok	rounded form of a ledger value: ledger 'Late-rate 95% upper bound'
-P198	576	ok	design constant or clock, not a measurement
-P198	640	ok	window length compared
-P198	770	ok	window length compared
-P200	200	ok	ledger 'Boxcar vs raw buffer', 200/200 per board
-P200	400	ok	v1.44 tProc decision test, 400/400 per board (campaign_v144/final/tests/<board>_tproc_decision.json)
-P200	0.4	ok	design constant or clock, not a measurement: fault trigger offset of the binding-fault test (binding_fault_check.py)
-P200	25	ok	v1.44 binding-fault test counts (campaign_v144/final/tests/<board>_binding_fault.json)
-P201	50	ok	the 50% point, a definition
-P202	21.5	ok	ledger 'Phase difference of the boards in that session'
-P202	95	ok	statistical convention
-P231	91	ok	arithmetic from design constants
-P255	2.0	ok	offline result on raw traces, no hardware involved
-P265	29	ok	design constant or clock, not a measurement
+P195	50,000	ok	sample size, row index or training-set size
+P195	1.5	ok	offline result on raw traces, no hardware involved: common-mode offset ratio
+P195	1.9	ok	offline result on raw traces, no hardware involved: common-mode offset ratio
+P195	0.1	ok	offline result on raw traces, no hardware involved: phase jitter of the generator, 0.1 rad (audit_fixes/R14)
+P195	4.8	ok	offline result on raw traces, no hardware involved: d of the three named noise models (audit_fixes/R14)
+P197	200	ok	ledger 'Boxcar vs raw buffer', 200/200 per board
+P197	400	ok	v1.44 tProc decision test, 400/400 per board (campaign_v144/final/tests/<board>_tproc_decision.json)
+P197	0.4	ok	design constant or clock, not a measurement: fault trigger offset of the binding-fault test (binding_fault_check.py)
+P197	25	ok	v1.44 binding-fault test counts (campaign_v144/final/tests/<board>_binding_fault.json)
+P197	2023.1	ok	tool version
+P198	50	ok	the 50% point, a definition
+P199	32,20	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P199	48,32	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P199	40,8	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P199	32,16	ok	design constant or clock, not a measurement
+P199	18,8	ok	NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp
+P199	16,6	ok	design constant or clock, not a measurement: fixed-point type ap_fixed<16,6>
+P200	10	ok	the 10-90% definition
+P200	90	ok	the 10-90% definition
+P200	16	ok	arithmetic from design constants: 10-90% rise of the 11-sample moving sum, 0.8 x 11 x 1.808 ns = 15.9 ns
+P200	50	ok	the 50% point, a definition
+P201	21.5	ok	ledger 'Phase difference of the boards in that session'
+P201	95	ok	statistical convention
+P201	1.0	ok	design constant or clock, not a measurement: maximum pulse gain of the #27 arms (campaign_v144/final/inloop/arms/arms_analysis.json, arm_def)
+P201	0.1	ok	rounded form of a ledger value: the session differences just listed, 0.06-0.12 points (ledger rows: board B in-loop vs gate-idle, board A nominal arm vs run 2, same LDA in a later session)
+P230	91	ok	arithmetic from design constants
+P254	2.0	ok	offline result on raw traces, no hardware involved
+P264	29	ok	design constant or clock, not a measurement

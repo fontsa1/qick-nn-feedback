@@ -1,0 +1,17 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date              : Mon Nov 16 00:42:41 2026
+| Host              : Yugger running 64-bit major release  (build 9200)
+| Command           : report_exceptions -from [get_cells d_1_i/live_res_cdc_0/*] -file C:/Users/fonte/coding/qick_project/campaign_v144/revision2/fpga/reports/v144_exceptions_live_res_cdc_0.rpt
+| Design            : d_1_wrapper
+| Device            : xczu48dr-ffvg1517
+| Speed File        : -2  PRODUCTION 1.32 01-31-2021
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Exceptions Report
+
+No valid timing exceptions found.
+

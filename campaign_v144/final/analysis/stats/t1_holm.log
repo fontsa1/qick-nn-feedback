@@ -1,0 +1,75 @@
+a_printed {"n": 30, "nominal": 7, "holm_all": 4}
+   Linear baselines: LDA, 576 vs 640 samples, board A: 35 vs 62, p 0.00796, Holm-all 0.199
+   Boxcar vs FIR: Boxcar vs FIR, 99,400: 343 vs 259, p 0.000705, Holm-all 0.019
+   seg_mlp trained on augmented data vs LDA, board A replay, 16,000: 73 vs 31, p 4.66e-05, Holm-all 0.0013
+   bin_mlp trained on augmented data vs LDA, board A replay, 16,000: 72 vs 27, p 6.9e-06, Holm-all 0.0002
+   bin_gru trained on augmented data vs LDA, board A replay, 16,000: 76 vs 28, p 2.74e-06, Holm-all 8.21e-05
+   cnn1d trained on augmented data vs LDA, board A replay, 16,000: 57 vs 28, p 0.00219, Holm-all 0.0571
+   In the loop: Board B, vs its gate-idle run: 539 vs 620, p 0.0187, Holm-all 0.45
+a2_printed_bounds_not_expanded {"n": 21, "nominal": 7, "holm_all": 5}
+   Linear baselines: LDA, 576 vs 640 samples, board A: 35 vs 62, p 0.00796, Holm-all 0.127
+   Boxcar vs FIR: Boxcar vs FIR, 99,400: 343 vs 259, p 0.000705, Holm-all 0.0127
+   seg_mlp trained on augmented data vs LDA, board A replay, 16,000: 73 vs 31, p 4.66e-05, Holm-all 0.000885
+   bin_mlp trained on augmented data vs LDA, board A replay, 16,000: 72 vs 27, p 6.9e-06, Holm-all 0.000138
+   bin_gru trained on augmented data vs LDA, board A replay, 16,000: 76 vs 28, p 2.74e-06, Holm-all 5.75e-05
+   cnn1d trained on augmented data vs LDA, board A replay, 16,000: 57 vs 28, p 0.00219, Holm-all 0.0373
+   In the loop: Board B, vs its gate-idle run: 539 vs 620, p 0.0187, Holm-all 0.281
+b_S4_verbatim {"n": 41, "nominal": 15, "holm_all": 10, "holm_family": 11}
+   In the loop: Board B, vs its gate-idle run: 539 vs 620, p 0.0187, Holm-all 0.543, Holm-family 0.262
+   Timing checks: Board A, NN_live vs NN_axi, 20,000 rows: 118 vs 152, p 0.0444, Holm-all 1, Holm-family 0.577
+   Linear baselines: LDA, 576 vs 640 samples, board A: 35 vs 62, p 0.00796, Holm-all 0.239, Holm-family 0.0796
+   Linear baselines: LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots: 237 vs 287, p 0.0322, Holm-all 0.902, Holm-family 0.29
+   Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots: 530 vs 422, p 0.000518, Holm-all 0.0171, Holm-family 0.00622
+   Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots: 571 vs 677, p 0.00294, Holm-all 0.0912, Holm-family 0.0324
+   Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots: 572 vs 707, p 0.000177, Holm-all 0.00619, Holm-family 0.0023
+   Boxcar vs FIR: Boxcar vs FIR, 99,400: 343 vs 259, p 0.000705, Holm-all 0.0225, Holm-family 0.00141
+   seg_hgb vs LDA, loop20k: 150 vs 334, p 3.72e-17, Holm-all 1.53e-15, Holm-family 1.86e-16
+   seg_hgb vs LDA, src20k: 84 vs 39, p 6.1e-05, Holm-all 0.0022, Holm-family 0.000122
+   seg_mlp vs LDA, src20k: 81 vs 28, p 3.78e-07, Holm-all 1.47e-05, Holm-family 1.51e-06
+   bin_mlp vs LDA, src20k: 91 vs 37, p 2.01e-06, Holm-all 7.62e-05, Holm-family 6.02e-06
+   cnn1d vs LDA, src20k: 69 vs 31, p 0.000183, Holm-all 0.00623, Holm-family 0.000183
+   bin_gru vs LDA, loop20k: 153 vs 247, p 3.01e-06, Holm-all 0.000111, Holm-family 1.2e-05
+   bin_gru vs LDA, src20k: 105 vs 38, p 1.89e-08, Holm-all 7.54e-07, Holm-family 9.43e-08
+b2_S4_F7_split {"n": 41, "nominal": 15, "holm_all": 10, "holm_family": 12}
+   In the loop: Board B, vs its gate-idle run: 539 vs 620, p 0.0187, Holm-all 0.543, Holm-family 0.262
+   Timing checks: Board A, NN_live vs NN_axi, 20,000 rows: 118 vs 152, p 0.0444, Holm-all 1, Holm-family 0.577
+   Linear baselines: LDA, 576 vs 640 samples, board A: 35 vs 62, p 0.00796, Holm-all 0.239, Holm-family 0.0318
+   Linear baselines: LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots: 237 vs 287, p 0.0322, Holm-all 0.902, Holm-family 0.193
+   Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots: 530 vs 422, p 0.000518, Holm-all 0.0171, Holm-family 0.00414
+   Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots: 571 vs 677, p 0.00294, Holm-all 0.0912, Holm-family 0.0206
+   Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots: 572 vs 707, p 0.000177, Holm-all 0.00619, Holm-family 0.00159
+   Boxcar vs FIR: Boxcar vs FIR, 99,400: 343 vs 259, p 0.000705, Holm-all 0.0225, Holm-family 0.00141
+   seg_hgb vs LDA, loop20k: 150 vs 334, p 3.72e-17, Holm-all 1.53e-15, Holm-family 1.86e-16
+   seg_hgb vs LDA, src20k: 84 vs 39, p 6.1e-05, Holm-all 0.0022, Holm-family 0.000122
+   seg_mlp vs LDA, src20k: 81 vs 28, p 3.78e-07, Holm-all 1.47e-05, Holm-family 1.51e-06
+   bin_mlp vs LDA, src20k: 91 vs 37, p 2.01e-06, Holm-all 7.62e-05, Holm-family 6.02e-06
+   cnn1d vs LDA, src20k: 69 vs 31, p 0.000183, Holm-all 0.00623, Holm-family 0.000183
+   bin_gru vs LDA, loop20k: 153 vs 247, p 3.01e-06, Holm-all 0.000111, Holm-family 1.2e-05
+   bin_gru vs LDA, src20k: 105 vs 38, p 1.89e-08, Holm-all 7.54e-07, Holm-family 9.43e-08
+c_S4_plus_P178 {"n": 45, "nominal": 19, "holm_all": 13, "holm_family": 16}
+   In the loop: Board B, vs its gate-idle run: 539 vs 620, p 0.0187, Holm-all 0.543, Holm-family 0.262
+   Timing checks: Board A, NN_live vs NN_axi, 20,000 rows: 118 vs 152, p 0.0444, Holm-all 1, Holm-family 0.577
+   Linear baselines: LDA, 576 vs 640 samples, board A: 35 vs 62, p 0.00796, Holm-all 0.239, Holm-family 0.0318
+   Linear baselines: LDA, window 576, board B, 99,400 rows, vs NN_live on the same shots: 237 vs 287, p 0.0322, Holm-all 0.902, Holm-family 0.193
+   Linear baselines: LDA, window 770, board A, 99,400 rows, vs NN_live on the same shots: 530 vs 422, p 0.000518, Holm-all 0.0176, Holm-family 0.00414
+   Linear baselines: matched filter, run 1, 99,400 rows, vs NN_live on the same shots: 571 vs 677, p 0.00294, Holm-all 0.0912, Holm-family 0.0206
+   Linear baselines: matched filter, board B, 99,400 rows, vs NN_live on the same shots: 572 vs 707, p 0.000177, Holm-all 0.00636, Holm-family 0.00159
+   Boxcar vs FIR: Boxcar vs FIR, 99,400: 343 vs 259, p 0.000705, Holm-all 0.0233, Holm-family 0.00141
+   seg_hgb vs LDA, loop20k: 150 vs 334, p 3.72e-17, Holm-all 1.68e-15, Holm-family 1.86e-16
+   seg_hgb vs LDA, src20k: 84 vs 39, p 6.1e-05, Holm-all 0.00226, Holm-family 0.000122
+   seg_mlp vs LDA, src20k: 81 vs 28, p 3.78e-07, Holm-all 1.62e-05, Holm-family 1.51e-06
+   bin_mlp vs LDA, src20k: 91 vs 37, p 2.01e-06, Holm-all 8.43e-05, Holm-family 6.02e-06
+   cnn1d vs LDA, src20k: 69 vs 31, p 0.000183, Holm-all 0.00641, Holm-family 0.000183
+   bin_gru vs LDA, loop20k: 153 vs 247, p 3.01e-06, Holm-all 0.00012, Holm-family 1.2e-05
+   bin_gru vs LDA, src20k: 105 vs 38, p 1.89e-08, Holm-all 8.3e-07, Holm-family 9.43e-08
+   seg_mlp trained on augmented data vs LDA, board A replay, 16,000: 73 vs 31, p 4.66e-05, Holm-all 0.00177, Holm-family 9.31e-05
+   bin_mlp trained on augmented data vs LDA, board A replay, 16,000: 72 vs 27, p 6.9e-06, Holm-all 0.000269, Holm-family 2.07e-05
+   bin_gru trained on augmented data vs LDA, board A replay, 16,000: 76 vs 28, p 2.74e-06, Holm-all 0.000112, Holm-family 1.09e-05
+   cnn1d trained on augmented data vs LDA, board A replay, 16,000: 57 vs 28, p 0.00219, Holm-all 0.0702, Holm-family 0.00219
+d_headline {"n": 12, "nominal": 6, "holm_all": 4}
+   NN_live vs LDA fir770, A_full: 422 vs 530, p 0.000518, Holm-all 0.0057
+   NN_live vs LDA box576, A_full: 383 vs 301, p 0.00193, Holm-all 0.0174
+   NN_live vs LDA fir576, B_full: 287 vs 237, p 0.0322, Holm-all 0.225
+   NN_live vs LDA box576, B_full: 409 vs 269, p 8.48e-08, Holm-all 1.02e-06
+   Boxcar vs FIR: Boxcar vs FIR, 99,400: 343 vs 259, p 0.000705, Holm-all 0.00705
+   In the loop: Board B, vs its gate-idle run: 539 vs 620, p 0.0187, Holm-all 0.15

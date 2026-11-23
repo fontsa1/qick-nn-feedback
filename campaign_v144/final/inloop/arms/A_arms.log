@@ -1,0 +1,67 @@
+BANNER: Firmware configuration (built Sat Nov  7 19:57:07 2026):
+host 10.1.9.26 | banner Sat Nov  7 19:57:07 2026
+boxcar path: {'sel': 1, 'shift': 7, 'm': 11, 'word': 2673}
+calibration |k| 0.22429 arg 36.73 deg
+marker -> pulse [33] cycles, DELAY 29; plateau 1546
+block 1/60  4.09 shots/s  NN_live decision F: nominal 95.25  zero 94.84  max 96.05  gateoff 95.66
+block 2/60  4.06 shots/s  NN_live decision F: nominal 95.73  zero 95.73  max 95.71  gateoff 96.16
+block 3/60  3.88 shots/s  NN_live decision F: nominal 95.90  zero 95.76  max 96.03  gateoff 96.04
+block 4/60  3.70 shots/s  NN_live decision F: nominal 96.49  zero 96.29  max 96.49  gateoff 96.48
+block 5/60  3.71 shots/s  NN_live decision F: nominal 96.12  zero 96.13  max 96.21  gateoff 96.20
+block 6/60  3.86 shots/s  NN_live decision F: nominal 95.86  zero 95.88  max 96.01  gateoff 95.94
+block 7/60  3.98 shots/s  NN_live decision F: nominal 95.93  zero 96.00  max 96.05  gateoff 96.05
+block 8/60  4.07 shots/s  NN_live decision F: nominal 95.88  zero 95.99  max 96.09  gateoff 95.98
+block 9/60  4.06 shots/s  NN_live decision F: nominal 95.80  zero 95.95  max 95.90  gateoff 95.90
+block 10/60  4.13 shots/s  NN_live decision F: nominal 95.76  zero 96.05  max 95.92  gateoff 95.89
+block 11/60  4.18 shots/s  NN_live decision F: nominal 95.75  zero 95.90  max 95.82  gateoff 95.79
+block 12/60  4.23 shots/s  NN_live decision F: nominal 95.83  zero 95.84  max 95.87  gateoff 95.84
+block 13/60  4.26 shots/s  NN_live decision F: nominal 95.81  zero 95.81  max 95.81  gateoff 95.78
+block 14/60  4.29 shots/s  NN_live decision F: nominal 95.89  zero 95.95  max 95.88  gateoff 95.94
+block 15/60  4.33 shots/s  NN_live decision F: nominal 95.94  zero 95.96  max 95.88  gateoff 95.99
+block 16/60  4.35 shots/s  NN_live decision F: nominal 95.97  zero 95.99  max 95.92  gateoff 96.02
+block 17/60  4.38 shots/s  NN_live decision F: nominal 95.90  zero 95.95  max 95.90  gateoff 96.04
+block 18/60  4.38 shots/s  NN_live decision F: nominal 95.79  zero 95.88  max 95.85  gateoff 95.97
+block 19/60  4.40 shots/s  NN_live decision F: nominal 95.76  zero 95.89  max 95.84  gateoff 95.99
+block 20/60  4.42 shots/s  NN_live decision F: nominal 95.79  zero 95.91  max 95.89  gateoff 96.03
+block 21/60  4.43 shots/s  NN_live decision F: nominal 95.77  zero 95.90  max 95.82  gateoff 95.98
+block 22/60  4.45 shots/s  NN_live decision F: nominal 95.91  zero 96.02  max 95.96  gateoff 96.07
+block 23/60  4.45 shots/s  NN_live decision F: nominal 95.93  zero 96.05  max 95.98  gateoff 96.10
+block 24/60  4.46 shots/s  NN_live decision F: nominal 95.91  zero 96.03  max 96.00  gateoff 96.13
+block 25/60  4.46 shots/s  NN_live decision F: nominal 95.85  zero 96.00  max 95.96  gateoff 96.09
+block 26/60  4.46 shots/s  NN_live decision F: nominal 95.88  zero 96.05  max 96.02  gateoff 96.13
+block 27/60  4.47 shots/s  NN_live decision F: nominal 95.86  zero 95.99  max 95.98  gateoff 96.11
+block 28/60  4.48 shots/s  NN_live decision F: nominal 95.88  zero 96.03  max 96.02  gateoff 96.12
+block 29/60  4.48 shots/s  NN_live decision F: nominal 95.92  zero 96.07  max 96.08  gateoff 96.18
+block 30/60  4.49 shots/s  NN_live decision F: nominal 95.99  zero 96.08  max 96.12  gateoff 96.24
+block 31/60  4.49 shots/s  NN_live decision F: nominal 95.91  zero 95.99  max 96.03  gateoff 96.12
+block 32/60  4.49 shots/s  NN_live decision F: nominal 95.94  zero 96.00  max 96.07  gateoff 96.13
+block 33/60  4.50 shots/s  NN_live decision F: nominal 95.95  zero 95.98  max 96.04  gateoff 96.10
+block 34/60  4.49 shots/s  NN_live decision F: nominal 95.90  zero 95.95  max 95.99  gateoff 96.04
+block 35/60  4.50 shots/s  NN_live decision F: nominal 95.86  zero 95.91  max 95.99  gateoff 96.01
+block 36/60  4.50 shots/s  NN_live decision F: nominal 95.90  zero 95.94  max 96.00  gateoff 96.05
+block 37/60  4.50 shots/s  NN_live decision F: nominal 95.92  zero 95.96  max 96.04  gateoff 96.08
+block 38/60  4.50 shots/s  NN_live decision F: nominal 95.90  zero 95.93  max 95.99  gateoff 96.03
+block 39/60  4.50 shots/s  NN_live decision F: nominal 95.88  zero 95.90  max 95.95  gateoff 96.01
+block 40/60  4.51 shots/s  NN_live decision F: nominal 95.86  zero 95.87  max 95.94  gateoff 96.01
+block 41/60  4.52 shots/s  NN_live decision F: nominal 95.84  zero 95.85  max 95.93  gateoff 96.00
+block 42/60  4.53 shots/s  NN_live decision F: nominal 95.84  zero 95.84  max 95.89  gateoff 95.96
+block 43/60  4.52 shots/s  NN_live decision F: nominal 95.83  zero 95.82  max 95.90  gateoff 95.93
+block 44/60  4.52 shots/s  NN_live decision F: nominal 95.83  zero 95.83  max 95.89  gateoff 95.93
+block 45/60  4.53 shots/s  NN_live decision F: nominal 95.84  zero 95.85  max 95.91  gateoff 95.95
+block 46/60  4.53 shots/s  NN_live decision F: nominal 95.91  zero 95.89  max 95.96  gateoff 96.00
+block 47/60  4.54 shots/s  NN_live decision F: nominal 95.92  zero 95.91  max 95.97  gateoff 96.04
+block 48/60  4.54 shots/s  NN_live decision F: nominal 95.93  zero 95.93  max 95.98  gateoff 96.07
+block 49/60  4.55 shots/s  NN_live decision F: nominal 95.91  zero 95.92  max 95.97  gateoff 96.05
+block 50/60  4.55 shots/s  NN_live decision F: nominal 95.94  zero 95.94  max 96.00  gateoff 96.08
+block 51/60  4.55 shots/s  NN_live decision F: nominal 95.95  zero 95.92  max 96.00  gateoff 96.07
+block 52/60  4.55 shots/s  NN_live decision F: nominal 95.95  zero 95.93  max 96.02  gateoff 96.06
+block 53/60  4.56 shots/s  NN_live decision F: nominal 95.96  zero 95.96  max 96.05  gateoff 96.08
+block 54/60  4.56 shots/s  NN_live decision F: nominal 95.98  zero 96.00  max 96.06  gateoff 96.10
+block 55/60  4.57 shots/s  NN_live decision F: nominal 96.02  zero 96.02  max 96.09  gateoff 96.14
+block 56/60  4.58 shots/s  NN_live decision F: nominal 96.02  zero 96.02  max 96.08  gateoff 96.13
+block 57/60  4.58 shots/s  NN_live decision F: nominal 95.98  zero 96.00  max 96.06  gateoff 96.09
+block 58/60  4.59 shots/s  NN_live decision F: nominal 95.97  zero 95.99  max 96.04  gateoff 96.08
+block 59/60  4.60 shots/s  NN_live decision F: nominal 95.94  zero 95.97  max 96.00  gateoff 96.06
+block 60/60  4.60 shots/s  NN_live decision F: nominal 95.95  zero 95.95  max 95.99  gateoff 96.05
+gate left disabled
+ARMS DONE

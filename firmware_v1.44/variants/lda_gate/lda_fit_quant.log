@@ -1,0 +1,17 @@
+  ridge 0.0001: validation 96.135
+  ridge 0.001: validation 96.145
+  ridge 0.01: validation 96.145
+  ridge 0.1: validation 96.135
+box576 LDA: ridge 0.001, validation 96.145, t -0.671939 (28s)
+deploy WB=16: F=22, T1=-2818315, SH=12, |S| bound 117091500032 -> ACC_W 38
+('A', 'run1'): 49400 rows (32s)
+('A', 'run2'): 50000 rows (33s)
+('B', 'run1'): 50000 rows (34s)
+('B', 'run2'): 49400 rows (35s)
+headline_mosaic n=99400: NN_live 95.600  LDA float(box) 95.472  float(window) 95.472  LDA q16 95.473 (flips 1); agree lda_99400 1.0
+   by WB: 6:95.464/186  8:95.476/36  10:95.477/15  12:95.471/1  14:95.471/1  16:95.473/1  18:95.472/0
+A_full n=99400: NN_live 95.547  LDA float(box) 95.465  float(window) 95.465  LDA q16 95.466 (flips 1); agree lda_99400 1.0
+   by WB: 6:95.476/171  8:95.464/47  10:95.468/11  12:95.465/2  14:95.464/1  16:95.466/1  18:95.465/0
+B_full n=99400: NN_live 95.616  LDA float(box) 95.475  float(window) 95.475  LDA q16 95.475 (flips 0); agree lda_99400 1.0
+   by WB: 6:95.449/208  8:95.473/28  10:95.478/11  12:95.476/1  14:95.475/0  16:95.475/0  18:95.475/0
+done (56s)

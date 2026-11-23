@@ -5,8 +5,9 @@
 # swap: board A and board B on board A's calibration, and on their own (run after A and B).
 # phrst: phase across four bitstream loads on board A, then recalibrate (run last).
 set -u
-cd "$(dirname "$0")/.."
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; D=campaign_v144/final/board2; V43="Nov  7 19:57:07"   # set PYTHON to your environment's interpreter, e.g. PYTHON=.venv/bin/python
+cd "${REPO_ROOT:-$(dirname "$0")/..}"
+source campaign_v144/env.sh
+DG=analysis_scripts/diagnostics; D=campaign_v144/final/board2; V43="$BANNER"
 mkdir -p $D
 export QICK_LIVE_N=576
 say() { echo "$(date '+%F %T') $*" | tee -a $D/runner.log; }
@@ -39,10 +40,10 @@ score() { # host tag: 2,000 rows that are not domain-map rows, as the NN_axi cam
   say "swap $2: $(grep 'FIDELITY (live)' $D/swap_$2.log | tail -1 | cut -c1-90)"
 }
 case $1 in
-  A) board A 10.1.9.26;;
-  B) board B 10.1.4.105;;
+  A) board A "$(host_of A)";;
+  B) board B "$(host_of B)";;
   swap)
-    A=10.1.9.26; B=10.1.4.105
+    A=$(host_of A); B=$(host_of B)
     score $A A_own; score $B B_own
     cp calib/k_$B.npy $D/k_B_saved.npy; cp calib/c_$B.npy $D/c_B_saved.npy
     trap 'cp '$D'/k_B_saved.npy calib/k_'$B'.npy; cp '$D'/c_B_saved.npy calib/c_'$B'.npy' EXIT
@@ -50,7 +51,7 @@ case $1 in
     score $B B_on_A_calibration
     say "swap done; board B calibration restored at exit";;
   phrst)
-    export QICK_NS_HOST=10.1.9.26
+    export QICK_NS_HOST=$A
     try $D/A_phrst.log $PY -u $DG/phrst_probe.py --loads 4 --out $D/A_phrst_probe_v144.json
     say "phrst: $(tail -1 $D/A_phrst.log | cut -c1-120)"
     $PY board_tools/deploy_and_verify.py --expect-banner-contains "$V43" > $D/A_verify_after_phrst.log 2>&1 < /dev/null

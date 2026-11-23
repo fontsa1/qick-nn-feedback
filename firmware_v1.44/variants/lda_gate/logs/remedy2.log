@@ -1,0 +1,416 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Mon Nov 16 14:24:45 2026
+# Process ID: 9024
+# Current directory: C:/qick_projects/r2_rebuilds/b2
+# Command line: vivado.exe -mode batch -nojournal -log remedy2.log -source C:/Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/b2_remedy_physopt.tcl
+# Log file: C:/qick_projects/r2_rebuilds/b2/remedy2.log
+# Journal file: 
+# Running On: Yugger, OS: Windows, CPU Frequency: 3294 MHz, CPU Physical cores: 16, Host memory: 29734 MB
+#-----------------------------------------------------------
+Sourcing tcl script 'C:/Users/fonte/AppData/Roaming/Xilinx/Vivado/Vivado_init.tcl'
+Vivado_init.tcl: set general.maxThreads = 6
+source C:/Users/fonte/coding/qick_project/campaign_v144/revision2/rebuilds/build2_lda_gate/b2_remedy_physopt.tcl
+# set_param general.maxThreads 6
+# set T v1.44lda
+# open_checkpoint ${T}_routed.dcp
+Command: open_checkpoint v1.44lda_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.067 . Memory (MB): peak = 308.742 ; gain = 7.613
+INFO: [Device 21-403] Loading part xczu48dr-ffvg1517-2-e
+Netlist sorting complete. Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 3029.570 ; gain = 67.723
+INFO: [Netlist 29-17] Analyzing 21527 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 10 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2023.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+WARNING: [Constraints 18-550] Could not create 'DRIVE' constraint because net 'd_1_i/ddr4/ddr4_0/inst/u_ddr4_mem_intfc/u_mig_ddr4_phy/cal_RESET_n[0]' is not directly connected to top level port. Synthesis is ignored for DRIVE but preserved for implementation.
+WARNING: [Constraints 18-550] Could not create 'SLEW' constraint because net 'd_1_i/ddr4/ddr4_0/inst/u_ddr4_mem_intfc/u_mig_ddr4_phy/cal_RESET_n[0]' is not directly connected to top level port. Synthesis is ignored for SLEW but preserved for implementation.
+WARNING: [Constraints 18-550] Could not create 'IBUF_LOW_PWR' constraint because net 'd_1_i/ddr4/ddr4_0/inst/u_ddr4_mem_intfc/u_mig_ddr4_phy/mmcm_clk_in' is not directly connected to top level port. Synthesis is ignored for IBUF_LOW_PWR but preserved for implementation.
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF Files: Time (s): cpu = 00:01:28 ; elapsed = 00:01:30 . Memory (MB): peak = 6643.309 ; gain = 504.594
+Restored from archive | CPU: 90.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:01:29 ; elapsed = 00:01:31 . Memory (MB): peak = 6643.309 ; gain = 504.594
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/embedded-software/Vivado/2023.1/data/ip'.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.263 . Memory (MB): peak = 6643.309 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 2590 instances were transformed.
+  BUFG => BUFGCE: 2 instances
+  DSP48E => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 112 instances
+  DSP48E1 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 4 instances
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 265 instances
+  DSP48E2 => DSP48E2 (inverted pins: RSTA, RSTB) (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 102 instances
+  DSP48E2 => DSP48E2 (inverted pins: RSTA, RSTB, RSTM, RSTP) (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 54 instances
+  DSP48E2 => DSP48E2 (inverted pins: RSTA, RSTB, RSTP) (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD, DSP_PREADD_DATA): 3 instances
+  IBUF => IBUF (IBUFCTRL, INBUF): 1 instance 
+  IBUFDS => IBUFDS (DIFFINBUF, IBUFCTRL): 1 instance 
+  IOBUFDS => IOBUFDS (DIFFINBUF, IBUFCTRL, INV, OBUFT(x2)): 8 instances
+  IOBUFE3 => IOBUFE3 (IBUFCTRL, INBUF, OBUFT_DCIEN): 72 instances
+  LUT6_2 => LUT6_2 (LUT5, LUT6): 31 instances
+  OBUFDS => OBUFDS_DUAL_BUF (INV, OBUF(x2)): 1 instance 
+  RAM16X1D => RAM32X1D (RAMD32(x2)): 6 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 226 instances
+  RAM32M16 => RAM32M16 (RAMD32(x14), RAMS32(x2)): 661 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 17 instances
+  SRLC32E => SRL16E: 1024 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2023.1 (64-bit) build 3865809
+open_checkpoint: Time (s): cpu = 00:05:23 ; elapsed = 00:05:11 . Memory (MB): peak = 6643.309 ; gain = 6345.090
+# proc wns {} { return [get_property SLACK [get_timing_paths -setup -max_paths 1]] }
+# proc whs {} { return [get_property SLACK [get_timing_paths -hold -max_paths 1]] }
+get_timing_paths: Time (s): cpu = 00:07:53 ; elapsed = 00:02:18 . Memory (MB): peak = 11168.262 ; gain = 4524.953
+# set w0 [wns];
+# set h0 [whs]
+# puts "REMEDY_START WNS $w0 WHS $h0"
+REMEDY_START WNS -0.094 WHS 0.009
+# set best $w0
+# for {set i 1} {$i <= 3} {incr i} {
+#     puts "STEP: round $i phys_opt_design -directive AggressiveExplore"
+#     if {[catch {phys_opt_design -directive AggressiveExplore} e]} { puts "WARNING: phys_opt failed ($e)" }
+#     puts "REMEDY_ROUND $i after phys_opt WNS [wns]"
+#     puts "STEP: round $i route_design -directive Default -tns_cleanup"
+#     route_design -directive Default -tns_cleanup
+#     set w [wns]; set h [whs]
+#     puts "REMEDY_ROUND $i after route WNS $w WHS $h"
+#     write_checkpoint -force ${T}r_round${i}.dcp
+#     if {$w >= 0 && $h >= 0} { break }
+#     if {$w <= $best} { puts "REMEDY: round $i did not improve ($w vs $best); stopping"; break }
+#     set best $w
+# }
+STEP: round 1 phys_opt_design -directive AggressiveExplore
+Command: phys_opt_design -directive AggressiveExplore
+Attempting to get a license for feature 'Implementation' and/or device 'xczu48dr'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu48dr'
+INFO: [Vivado_Tcl 4-241] Physical synthesis in post route mode 
+INFO: [Vivado_Tcl 4-137] Directive used for phys_opt_design is: AggressiveExplore
+
+Starting Initial Update Timing Task
+
+Time (s): cpu = 00:02:13 ; elapsed = 00:00:52 . Memory (MB): peak = 11379.531 ; gain = 0.000
+INFO: [Vivado_Tcl 4-1435] PhysOpt_Tcl_Interface Runtime Before Starting Physical Synthesis Task | CPU: 172.00s |  WALL: 85.50s
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.261 . Memory (MB): peak = 11379.531 ; gain = 0.000
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 6 CPUs
+INFO: [Place 30-3164] Check ILP status : ILP-based clock placer is skipped.
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.094 | TNS=-27.801 | WHS=0.009 | THS=0.000 |
+Phase 1 Physical Synthesis Initialization | Checksum: 29a9d0c15
+
+Time (s): cpu = 00:02:55 ; elapsed = 00:02:59 . Memory (MB): peak = 12542.844 ; gain = 1163.312
+
+Phase 2 Critical Path Optimization
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.094 | TNS=-27.801 | WHS=0.009 | THS=0.000 |
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state.
+Nodegraph reading from file.  Time (s): cpu = 00:00:06 ; elapsed = 00:00:03 . Memory (MB): peak = 12759.230 ; gain = 216.387
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/boxcar_tap_0/inst/m_box_axis_tdata[14].
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state0_carry_n_0.
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state0_carry_i_9_n_0.
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state_i_1_n_0.
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state.
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/boxcar_tap_0/inst/m_box_axis_tdata[14].
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state0_carry_n_0.
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state0_carry_i_9_n_0.
+INFO: [Physopt 32-953] Path group WNS did not improve. Path group: clk_out1_d_1_clk_adc0_x2_0. Processed net: d_1_i/axis_avg_buffer_1/inst/avg_buffer_i/avg_top_i/avg_i/high_state_i_1_n_0.
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.094 | TNS=-27.801 | WHS=0.009 | THS=0.000 |
+Phase 2 Critical Path Optimization | Checksum: 29a9d0c15
+
+Time (s): cpu = 00:09:50 ; elapsed = 00:06:53 . Memory (MB): peak = 13643.684 ; gain = 2264.152
+
+Phase 3 Hold Fix Optimization
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.094 | TNS=-27.801 | WHS=0.009 | THS=0.000 |
+INFO: [Physopt 32-66] No high hold slack nets found for hold slack optimization.
+INFO: [Physopt 32-668] Current Timing Summary | WNS=-0.094 | TNS=-27.801 | WHS=0.009 | THS=0.000 |
+Phase 3 Hold Fix Optimization | Checksum: 29a9d0c15
+
+Time (s): cpu = 00:10:19 ; elapsed = 00:07:14 . Memory (MB): peak = 13643.684 ; gain = 2264.152
+INFO: [Physopt 32-715] Performed route finalization on the design.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.268 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Physopt 32-669] Post Physical Optimization Timing Summary | WNS=-0.094 | TNS=-27.801 | WHS=0.009 | THS=0.000 |
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization   |  WNS Gain (ns)  |  TNS Gain (ns)  |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Critical Path  |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:03:50  |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Summary of Hold Fix Optimizations
+=================================
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization               |  WHS Gain (ns)  |  THS Gain (ns)  |  Added LUTs  |  Added FFs  |  Optimized Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  LUT1 and ZHOLD Insertion   |          0.000  |          0.000  |           0  |          0  |               0  |           0  |           0  |  00:00:00  |
+|  Total                      |          0.000  |          0.000  |           0  |          0  |               0  |           0  |           0  |  00:00:00  |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.268 . Memory (MB): peak = 13763.602 ; gain = 0.000
+Ending Physical Synthesis Task | Checksum: 29a9d0c15
+
+Time (s): cpu = 00:11:17 ; elapsed = 00:08:13 . Memory (MB): peak = 13763.602 ; gain = 2384.070
+INFO: [Common 17-83] Releasing license: Implementation
+25 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+phys_opt_design: Time (s): cpu = 00:14:06 ; elapsed = 00:09:41 . Memory (MB): peak = 13763.602 ; gain = 2595.340
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+get_timing_paths: Time (s): cpu = 00:02:58 ; elapsed = 00:00:58 . Memory (MB): peak = 13763.602 ; gain = 0.000
+REMEDY_ROUND 1 after phys_opt WNS -0.094
+STEP: round 1 route_design -directive Default -tns_cleanup
+Command: route_design -directive Default -tns_cleanup
+Attempting to get a license for feature 'Implementation' and/or device 'xczu48dr'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu48dr'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 6 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors, 1 Warnings
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-270] Using Router directive 'Default'.
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 6 CPUs
+
+Phase 1 Build RT Design
+Checksum: PlaceDB: 1622d891 ConstDB: 0 ShapeSum: e0c3b178 RouteDB: fcdf0b20
+Nodegraph reading from file.  Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 13763.602 ; gain = 0.000
+Post Restoration Checksum: NetGraph: 37e7d6fa | NumContArr: cc6c1620 | Constraints: 190a55ad | Timing: 0
+Phase 1 Build RT Design | Checksum: 11d5e42c7
+
+Time (s): cpu = 00:07:04 ; elapsed = 00:03:24 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 2 Router Initialization
+
+Phase 2.1 Fix Topology Constraints
+Phase 2.1 Fix Topology Constraints | Checksum: 11d5e42c7
+
+Time (s): cpu = 00:07:15 ; elapsed = 00:03:34 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 2.2 Pre Route Cleanup
+Phase 2.2 Pre Route Cleanup | Checksum: 11d5e42c7
+
+Time (s): cpu = 00:07:21 ; elapsed = 00:03:39 . Memory (MB): peak = 13763.602 ; gain = 0.000
+Phase 2 Router Initialization | Checksum: 11d5e42c7
+
+Time (s): cpu = 00:07:47 ; elapsed = 00:03:48 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-558] -tns_cleanup is called on fully routed design. This will optimize the tns and all other options are ignored.
+
+Phase 3 TNS Cleanup
+
+Phase 3.1 Timing Verification
+
+Phase 3.1.1 Update Timing
+Phase 3.1.1 Update Timing | Checksum: 17ca0134b
+
+Time (s): cpu = 00:15:02 ; elapsed = 00:07:34 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.137 | TNS=-29.272| WHS=0.010  | THS=0.000  |
+
+Phase 3.1 Timing Verification | Checksum: 17ca0134b
+
+Time (s): cpu = 00:15:05 ; elapsed = 00:07:36 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 3.2 Delay CleanUp
+
+Phase 3.2.1 Update Timing
+Phase 3.2.1 Update Timing | Checksum: 218350e25
+
+Time (s): cpu = 00:18:54 ; elapsed = 00:09:03 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.137 | TNS=-29.272| WHS=0.010  | THS=0.000  |
+
+
+Phase 3.2.2 Update Timing
+Phase 3.2.2 Update Timing | Checksum: 1db356596
+
+Time (s): cpu = 00:22:37 ; elapsed = 00:10:25 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.137 | TNS=-29.272| WHS=0.010  | THS=0.000  |
+
+ Number of Nodes with overlaps = 0
+
+Phase 3.2.3 Update Timing
+Phase 3.2.3 Update Timing | Checksum: f4b80f0d
+
+Time (s): cpu = 00:26:18 ; elapsed = 00:11:36 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.137 | TNS=-29.184| WHS=N/A    | THS=N/A    |
+
+ Number of Nodes with overlaps = 0
+
+Phase 3.2.4 Update Timing
+Phase 3.2.4 Update Timing | Checksum: 13c3ce373
+
+Time (s): cpu = 00:30:01 ; elapsed = 00:12:48 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.137 | TNS=-29.155| WHS=N/A    | THS=N/A    |
+
+Phase 3.2 Delay CleanUp | Checksum: 112f021ed
+
+Time (s): cpu = 00:30:18 ; elapsed = 00:12:57 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 3.3 Timing Verification
+
+Phase 3.3.1 Update Timing
+Phase 3.3.1 Update Timing | Checksum: 17454d015
+
+Time (s): cpu = 00:41:56 ; elapsed = 00:17:45 . Memory (MB): peak = 13763.602 ; gain = 0.000
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-0.137 | TNS=-29.155| WHS=0.010  | THS=0.000  |
+
+Phase 3.3 Timing Verification | Checksum: 17454d015
+
+Time (s): cpu = 00:41:59 ; elapsed = 00:17:47 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 3.4 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 28.6428 %
+  Global Horizontal Routing Utilization  = 23.8594 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+
+--GLOBAL Congestion:
+Utilization threshold used for congestion level computation: 0.85
+Congestion Report
+North Dir 1x1 Area, Max Cong = 90.6103%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_X71Y261 -> INT_X71Y261
+South Dir 2x2 Area, Max Cong = 87.2038%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_X64Y106 -> INT_X65Y107
+   INT_X68Y106 -> INT_X69Y107
+East Dir 1x1 Area, Max Cong = 85.5769%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_X35Y95 -> INT_X35Y95
+West Dir 1x1 Area, Max Cong = 85.5769%, Congestion bounded by tiles (Lower Left Tile -> Upper Right Tile):
+   INT_X65Y145 -> INT_X65Y145
+
+------------------------------
+Reporting congestion hotspots
+------------------------------
+Direction: North
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 1 Aspect Ratio: 0.5 Sparse Ratio: 0.5
+Direction: South
+----------------
+Congested clusters found at Level 1
+Effective congestion level: 3 Aspect Ratio: 0.6 Sparse Ratio: 0.5625
+Direction: East
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 1
+Direction: West
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 1
+
+Phase 3.4 Route finalize | Checksum: 17454d015
+
+Time (s): cpu = 00:42:07 ; elapsed = 00:17:51 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 3.5 Verifying routed nets
+
+ Verification completed successfully
+Phase 3.5 Verifying routed nets | Checksum: 17454d015
+
+Time (s): cpu = 00:42:11 ; elapsed = 00:17:55 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 3.6 Depositing Routes
+Phase 3.6 Depositing Routes | Checksum: 17454d015
+
+Time (s): cpu = 00:43:20 ; elapsed = 00:18:45 . Memory (MB): peak = 13763.602 ; gain = 0.000
+Phase 3 TNS Cleanup | Checksum: 17454d015
+
+Time (s): cpu = 00:43:23 ; elapsed = 00:18:47 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 4 Resolve XTalk
+Phase 4 Resolve XTalk | Checksum: 17454d015
+
+Time (s): cpu = 00:43:30 ; elapsed = 00:18:54 . Memory (MB): peak = 13763.602 ; gain = 0.000
+
+Phase 5 Post Router Timing
+INFO: [Route 35-20] Post Routing Timing Summary | WNS=-0.094 | TNS=-27.681| WHS=0.009  | THS=0.000  |
+
+Phase 5 Post Router Timing | Checksum: 15dc3a13a
+
+Time (s): cpu = 00:54:27 ; elapsed = 00:22:18 . Memory (MB): peak = 14009.457 ; gain = 245.855
+CRITICAL WARNING: [Route 35-39] The design did not meet timing requirements. Please run report_timing_summary for detailed reports.
+Resolution: Verify that the timing was met or had small violations at all previous steps (synthesis, placement, power_opt, and phys_opt). Run report_timing_summary and analyze individual timing paths.
+INFO: [Route 35-253] TNS is the sum of the worst slack violation on every endpoint in the design. Review the paths with the biggest WNS violations in the timing reports and modify your constraints or your design to improve both WNS and TNS.
+INFO: [Route 35-16] Router Completed Successfully
+
+Phase 6 Post-Route Event Processing
+Phase 6 Post-Route Event Processing | Checksum: f6e68a09
+
+Time (s): cpu = 00:54:40 ; elapsed = 00:22:31 . Memory (MB): peak = 14009.457 ; gain = 245.855
+
+Time (s): cpu = 00:54:40 ; elapsed = 00:22:31 . Memory (MB): peak = 14009.457 ; gain = 245.855
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+43 Infos, 0 Warnings, 1 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:55:58 ; elapsed = 00:23:17 . Memory (MB): peak = 14009.457 ; gain = 245.855
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+get_timing_paths: Time (s): cpu = 00:00:22 ; elapsed = 00:00:05 . Memory (MB): peak = 14009.457 ; gain = 0.000
+REMEDY_ROUND 1 after route WNS -0.094 WHS 0.009
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:04:26 ; elapsed = 00:01:53 . Memory (MB): peak = 14010.605 ; gain = 1.148
+INFO: [Common 17-1381] The checkpoint 'C:/qick_projects/r2_rebuilds/b2/v1.44ldar_round1.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:05:09 ; elapsed = 00:02:41 . Memory (MB): peak = 14010.605 ; gain = 1.148
+REMEDY: round 1 did not improve (-0.094 vs -0.094); stopping
+# report_timing_summary -file ${T}r_routed_timing.rpt
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+report_timing_summary: Time (s): cpu = 00:01:07 ; elapsed = 00:00:31 . Memory (MB): peak = 14320.215 ; gain = 309.609
+# report_bus_skew -file ${T}r_routed_bus_skew.rpt
+# report_utilization -file ${T}r_routed_utilization.rpt
+report_utilization: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 14320.215 ; gain = 0.000
+# report_utilization -hierarchical -file ${T}r_routed_util_hier.rpt
+report_utilization: Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 14467.562 ; gain = 147.348
+get_pins: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 14552.141 ; gain = 84.578
+# set cclk [get_clocks -of_objects [get_pins -hier -filter "NAME =~ d_1_i/clk_core/clk_out1"]]
+# set wp [get_timing_paths -group $cclk -max_paths 1 -setup];
+# set whp [get_timing_paths -group $cclk -max_paths 1 -hold]
+# puts "CORE_CLK_TIMING: period [get_property PERIOD $cclk] WNS [get_property SLACK $wp] WHS [get_property SLACK $whp]"
+CORE_CLK_TIMING: period 5.001 WNS 0.251 WHS 0.015
+# set aclk [get_clocks clk_out1_d_1_clk_adc0_x2_0]
+# puts "ADC0X2_WNS: [get_property SLACK [get_timing_paths -setup -max_paths 1 -group $aclk]] WHS: [get_property SLACK [get_timing_paths -hold -max_paths 1 -group $aclk]]"
+ADC0X2_WNS: -0.094 WHS: 0.010
+# set w [wns];
+# set h [whs]
+# puts "REMEDY_END WNS $w WHS $h (start $w0 / $h0)"
+REMEDY_END WNS -0.094 WHS 0.009 (start -0.094 / 0.009)
+# if {$w >= 0 && $h >= 0} {
+#     write_checkpoint -force ${T}r_routed.dcp
+#     write_bitstream -force -file OG_build_${T}r.bit
+#     file copy -force OG_build_${T}.hwh OG_build_${T}r.hwh
+#     puts "BUILD_COMPLETE_${T}r"
+# } else {
+#     puts "REMEDY_NOT_CLOSED: no bitstream written"
+# }
+REMEDY_NOT_CLOSED: no bitstream written
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov 16 15:10:42 2026...

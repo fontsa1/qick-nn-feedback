@@ -186,9 +186,6 @@ From the repository root, with `PYTHON` set to your interpreter:
    The paired statistics are in `campaign_v144/final/analysis/stats/` (run order in its README).
 4. **Results ledger.** `python campaign_v144/final/analysis/make_v144_ledger.py` writes `paper_notes/V144_RESULTS.md`;
    (it overwrites the shipped copy); `--verify` is the read-only check against its sources. `check_paper_v144.py <draft.txt>` checks a draft's numbers against it.
-5. **Figures and tables.** One generator per figure and table; `paper_figures/README.md` and `paper_tables/README.md`
-   give the order, inputs and outputs. Most run on shipped files alone; the ones that need the dataset or a
-   capture listed in `DATA_MANIFEST.csv` say so.
 
 Other READMEs: `campaign_v144/README.md` (running the campaign, cold starts), `campaign_v144/final/README.md` (what
 each result folder holds), `campaign_v144/final/latency/README.md`,

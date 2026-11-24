@@ -19,7 +19,8 @@ Scored on loopback shots [N_FIT, 20000) only; LDA trained on clean and on
 augmented data are both reported, and arms are paired against the clean LDA
 (the deployed 4-1 equals it) and against the augmented LDA.
 
-Writes campaign_v140L1/arch_aug.json.
+Writes campaign_v140L1/arch_aug.json. AUG_LOOP_X / AUG_LOOP_Y (replayed shots and labels), AUG_T4_CLEAN (the deployed
+network's probabilities on them), AUG_OUT and AUG_PRED override the inputs and outputs (v1.44: campaign_v144/run_s2_aug.sh).
 """
 import json
 import os
@@ -93,11 +94,11 @@ def apply_channel(X, ch, rng, chunk=20000):
 
 def main():
     t0 = time.time()
-    out_path = ROOT / "campaign_v140L1" / "arch_aug.json"
+    out_path = Path(os.environ.get("AUG_OUT", str(ROOT / "campaign_v140L1" / "arch_aug.json")))
     k2 = complex(np.load(ROOT / "calibration/k2_loopback.npy"))
     c2 = complex(np.load(ROOT / "calibration/c2_loopback.npy"))
     src = T.apply_affine(np.load(ROOT / "data/test20k_real_X.npy")[:N_FIT].astype(np.float64), k2, c2)
-    Lraw = np.load(ROOT / "data/loopback20k_real.npy").astype(np.float64)
+    Lraw = np.load(os.environ.get("AUG_LOOP_X", str(ROOT / "data/loopback20k_real.npy"))).astype(np.float64)
     ch = fit_channel(cplx(src), cplx(Lraw[:N_FIT]))
     # check the generated noise power against the measured residual
     f = np.abs(np.fft.fftfreq(len(ch["H"]), 1 / 552.96))
@@ -108,7 +109,7 @@ def main():
     rng = np.random.default_rng(0)
     test = apply_channel(src.astype(np.float32), ch, rng)
     zl = cplx(Lraw[:N_FIT])
-    y4 = np.load(ROOT / "data/loopback20k_real_y.npy")[:N_FIT]
+    y4 = np.load(os.environ.get("AUG_LOOP_Y", str(ROOT / "data/loopback20k_real_y.npy")))[:N_FIT]
     zt = cplx(test.astype(np.float64))
     for nm, z in (("loop", zl), ("channel(src)", zt)):
         m0, m1 = z[y4 == 0].mean(0), z[y4 == 1].mean(0)
@@ -125,7 +126,7 @@ def main():
     Xa = apply_channel(Xc, ch, rng)
     Xc = T.hw_raw_transform(Xc)
     Xe = T.hw_raw_transform(Lraw[N_FIT:].astype(np.float32))
-    ye = np.load(ROOT / "data/loopback20k_real_y.npy")[N_FIT:].astype(int)
+    ye = np.load(os.environ.get("AUG_LOOP_Y", str(ROOT / "data/loopback20k_real_y.npy")))[N_FIT:].astype(int)
     print(f"data ready ({time.time() - t0:.0f}s)", flush=True)
 
     res, preds = {}, {}
@@ -161,8 +162,8 @@ def main():
             tf.keras.backend.clear_session()
     # the deployed recipe (ternary 1540-4-1, raw input), clean (arch_sweep's
     # selected seed) and retrained on the augmented set (2 seeds, lowest val_loss)
-    preds["t4_clean"] = np.load(A.ROOT / "campaign_v140L1" / "arch_sweep_preds"
-                                / "t4_20260904_loop20k.npy")[N_FIT:] > 0.5
+    preds["t4_clean"] = np.load(os.environ.get("AUG_T4_CLEAN", str(A.ROOT / "campaign_v140L1" / "arch_sweep_preds"
+                                / "t4_20260904_loop20k.npy")))[N_FIT:] > 0.5
     Xtr, ytr, Xva, yva = Xa[:-A.N_VAL], y[:-A.N_VAL], Xa[-A.N_VAL:], y[-A.N_VAL:]
     best = None
     for seed in (20260904, 20260905):
@@ -180,7 +181,7 @@ def main():
             best = (vl, p)
         tf.keras.backend.clear_session()
     preds["t4_aug"] = best[1]
-    pd = A.ROOT / "campaign_v140L1" / "arch_sweep_preds"
+    pd = Path(os.environ.get("AUG_PRED", str(A.ROOT / "campaign_v140L1" / "arch_sweep_preds"))); pd.mkdir(parents=True, exist_ok=True)
     for k, v in preds.items():
         np.save(pd / f"aug_{k}_loop16k.npy", v)
     for k in ("t4_clean", "t4_aug"):

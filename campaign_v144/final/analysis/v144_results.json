@@ -2096,6 +2096,39 @@
    "note": ""
   },
   {
+   "section": "Replay channel",
+   "key": "Class SNR per sample, replayed board B (rms mean separation over rms noise)",
+   "value": "0.20",
+   "text": [
+    "0.20"
+   ],
+   "source": "campaign_v144/final/analysis/channel_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board A: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there",
+   "value": "56% (white 32.5%); 2.19x",
+   "text": [
+    "56"
+   ],
+   "source": "campaign_v144/final/analysis/channel_noise_v144.json",
+   "kind": "name+date",
+   "note": "residual of arch_aug.fit_channel on 4,000 fit shots"
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board B: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there",
+   "value": "56% (white 32.5%); 2.08x",
+   "text": [
+    "56"
+   ],
+   "source": "campaign_v144/final/analysis/channel_noise_v144.json",
+   "kind": "name+date",
+   "note": "residual of arch_aug.fit_channel on 4,000 fit shots"
+  },
+  {
    "section": "Readout path",
    "key": "Boxcar saves, board A",
    "value": "108.0 ns",
@@ -2634,6 +2667,18 @@
   },
   {
    "section": "Safety and tests",
+   "key": "40 further loads (20 per board), stale decisions blanked: pulses played / shots per load; no late decision",
+   "value": "4,000/4,000, 100 shots per load",
+   "text": [
+    "40",
+    "100"
+   ],
+   "source": "campaign_v144/final/latency/reloads/summary_A.md",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Safety and tests",
    "key": "Fail-safe test, board B",
    "value": "PASS",
    "text": [],
@@ -2739,6 +2784,79 @@
    ],
    "source": "campaign_v144/final/analysis/s2/arch_aug_v144.json",
    "kind": "bracketed",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "seg_mlp trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots",
+   "value": "95.71%, +0.21 points (p = 0.001); +0.31 points (p = 3e-05)",
+   "text": [
+    "95.71",
+    "0.21",
+    "0.001",
+    "0.31",
+    "3e-05"
+   ],
+   "source": "campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "bin_mlp trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots",
+   "value": "95.68%, +0.17 points (p = 0.007); +0.28 points (p = 0.0003)",
+   "text": [
+    "95.68",
+    "0.17",
+    "0.007",
+    "0.28",
+    "0.0003"
+   ],
+   "source": "campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "bin_gru trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots",
+   "value": "95.75%, +0.25 points (p = 0.0001); +0.35 points (p = 1e-06)",
+   "text": [
+    "95.75",
+    "0.25",
+    "0.0001",
+    "0.35",
+    "1e-06"
+   ],
+   "source": "campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "cnn1d trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots",
+   "value": "95.63%, +0.12 points (p = 0.03); +0.23 points (p = 0.003)",
+   "text": [
+    "95.63",
+    "0.12",
+    "0.03",
+    "0.23",
+    "0.003"
+   ],
+   "source": "campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay-channel augmentation",
+   "key": "Board B: deployed 4-unit network, chip (clean) / retrained on augmented data; LDA",
+   "value": "95.41% / 95.41%; 95.50%",
+   "text": [
+    "95.41",
+    "95.41",
+    "95.50"
+   ],
+   "source": "campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json",
+   "kind": "name+date",
    "note": ""
   },
   {
@@ -3094,6 +3212,18 @@
    ],
    "source": "campaign_v144/final/analysis/loop_groups_values_v144.json",
    "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Round-2 statistics",
+   "key": "Holm over every p-value printed after pass 18: tests / survivors / largest surviving adjusted p (rounded up)",
+   "value": "59 / 22 / 0.0450",
+   "text": [
+    "59",
+    "0.046"
+   ],
+   "source": "campaign_v144/final/analysis/stats/holm_pass18.json",
+   "kind": "name+date",
    "note": ""
   },
   {
@@ -3730,6 +3860,18 @@
    "kind": "name+date",
    "sha256": "c60bb06a9d8a78a5"
   },
+  "campaign_v144/final/analysis/channel_noise_v144.json": {
+   "kind": "name+date",
+   "sha256": "c5c425bf99ec4d87"
+  },
+  "campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json": {
+   "kind": "name+date",
+   "sha256": "927d09f408841f59"
+  },
+  "campaign_v144/final/analysis/stats/holm_pass18.json": {
+   "kind": "name+date",
+   "sha256": "44ace741d9f60c3d"
+  },
   "campaign_v144/final/analysis/linear_v144_A.json": {
    "kind": "banner",
    "sha256": "4b86f785e5fef4f5"
@@ -3917,5 +4059,5 @@
  },
  "pending": 0,
  "waiting_for": [],
- "md_sha256": "e9cdeecaa02e1372f0ddb22b5484dce798de4f1ec80b2e96f7e5992a83a85c1e"
+ "md_sha256": "e60122a6ad1f67ada616899380e7376df7a16763820b3b771449196702389c30"
 }

@@ -1,0 +1,41 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795485988.178464   51808 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795485999.278033   51808 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+channel |H|: 0-5 MHz 1.34  5-20 MHz 1.29  20-60 MHz 0.89  60-150 MHz 0.27  150-277 MHz 0.03
+channel: lags {4: 0.066, 5: 0.452, 6: 0.352, 7: 0.13} resid std 132.1
+sanity loop: |mu1-mu0| 56.9  within-class 160.3
+sanity channel(src): |mu1-mu0| 49.6  within-class 134.7
+sanity (fit shots): loop std 161.9 vs channel(src) std 135.2
+data ready (45s)
+[lda_clean] loop16k 95.524
+[lda_aug] loop16k 95.524
+    seed 20260904: val_loss 0.16155 (33 ep)
+    seed 20260905: val_loss 0.16108 (26 ep)
+[seg_mlp_aug] loop16k 95.787  vs clean LDA +0.263 (p=4.7e-05)  vs aug LDA +0.263 (p=1.4e-05)  (62s)
+    seed 20260904: val_loss 0.16313 (23 ep)
+    seed 20260905: val_loss 0.16280 (16 ep)
+[bin_mlp_aug] loop16k 95.805  vs clean LDA +0.281 (p=6.9e-06)  vs aug LDA +0.281 (p=1.4e-06)  (40s)
+    seed 20260904: val_loss 0.15928 (36 ep)
+    seed 20260905: val_loss 0.15925 (40 ep)
+[bin_gru_aug] loop16k 95.824  vs clean LDA +0.300 (p=2.7e-06)  vs aug LDA +0.300 (p=7.3e-07)  (465s)
+    seed 20260904: val_loss 0.17036 (9 ep)
+    seed 20260905: val_loss 0.16950 (10 ep)
+[cnn1d_aug] loop16k 95.705  vs clean LDA +0.181 (p=0.0022)  vs aug LDA +0.181 (p=0.00091)  (90s)
+  t4_aug seed 20260904: val_loss 0.19131  loop16k 95.524  (90s)
+  t4_aug seed 20260905: val_loss 0.19359  loop16k 95.499  (190s)
+[t4] clean 95.562  aug 95.524  (loop16k)
+     lda_clean vs t4_clean: -0.038 pts  b=56 c=62  p=0.65
+     lda_clean vs t4_aug: +0.000 pts  b=52 c=52  p=1
+       lda_aug vs t4_clean: -0.038 pts  b=62 c=68  p=0.66
+       lda_aug vs t4_aug: -0.000 pts  b=20 c=20  p=1
+   seg_mlp_aug vs t4_clean: +0.225 pts  b=73 c=37  p=0.00077
+   seg_mlp_aug vs t4_aug: +0.263 pts  b=71 c=29  p=3.2e-05
+   bin_mlp_aug vs t4_clean: +0.243 pts  b=72 c=33  p=0.00018
+   bin_mlp_aug vs t4_aug: +0.281 pts  b=68 c=23  p=2.5e-06
+   bin_gru_aug vs t4_clean: +0.262 pts  b=74 c=32  p=5.5e-05
+   bin_gru_aug vs t4_aug: +0.300 pts  b=73 c=25  p=1.3e-06
+     cnn1d_aug vs t4_clean: +0.143 pts  b=68 c=45  p=0.038
+     cnn1d_aug vs t4_aug: +0.181 pts  b=58 c=29  p=0.0025
+wrote campaign_v144\final\analysis\s2\rerun_2026-11-23\arch_aug_v144.json (1023s)
+rc=0

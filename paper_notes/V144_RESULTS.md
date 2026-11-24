@@ -5,7 +5,7 @@ which refuses any source that fails a build check. `--verify` fails if this file
 
 Build: `OG_build_v1.44.bit`, sha256 `986c861a83be8d01...`, banner `Nov  7 19:57:07 2026`.
 
-Status: **254 of 254 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
+Status: **264 of 264 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
 
 Evidence: **banner** = the v1.44 banner read from the board during that run; **bracketed** = banner logged before and after by the same uninterrupted runner; **build-file** = the report saved from the v1.44 build; **name+date** = named v1.44 and dated after the build, no banner (weakest).
 
@@ -37,6 +37,9 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Class SNR per sample, source / replayed board A (rms mean separation over rms noise) | 0.21 / 0.20 | banner | `campaign_v144/final/analysis/channel_v144.json` |
 | Capture delay against the aligned source, 4,000 shots | 4-7 samples | banner | `campaign_v144/final/analysis/channel_v144.json` |
 | Domain map fit on training rows vs test rows: headline change, 5 seeds | -0.016 ± 0.042 points | name+date | `campaign_v144/final/analysis/offline/map_trainrows_s20260905.json` |
+| Class SNR per sample, replayed board B (rms mean separation over rms noise) | 0.20 | banner | `campaign_v144/final/analysis/channel_v144.json` |
+| Board A: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there | 56% (white 32.5%); 2.19x | name+date | `campaign_v144/final/analysis/channel_noise_v144.json` |
+| Board B: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there | 56% (white 32.5%); 2.08x | name+date | `campaign_v144/final/analysis/channel_noise_v144.json` |
 
 ## In the loop
 
@@ -177,6 +180,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | tProc decision test, board B | PASS | banner | `campaign_v144/final/tests/B_tproc_decision.json` |
 | QICK functional suite, board A | 19 pass, 1 warning, 2 fail, 1 not wired | banner | `campaign_v144/final/tests/A_functional.json` |
 | QICK functional suite, board B | 20 pass, 1 warning, 1 fail, 1 not wired | banner | `campaign_v144/final/tests/B_functional.json` |
+| 40 further loads (20 per board), stale decisions blanked: pulses played / shots per load; no late decision | 4,000/4,000, 100 shots per load | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
 | Fail-safe test, board B | PASS | banner | `campaign_v144/final/tests/B_fail_safe.json` |
 | Leaked energy, DELAY from the 2000-amplitude crossing, leads 2-4, both boards: mean range; largest upper 95% bound | 0.251–0.430%; 0.450% | banner | `campaign_v144/final/leak_energy/B_v144_leak_thr2000.json` |
 | Leak of the 2000-crossing calibration at its largest upper 95% bound, as a share of the Gaussian pulse's area; flip probability on a pi pulse | 0.450% of energy = 3.12% of area; 0.239% | banner | `campaign_v144/final/leak_energy/B_v144_leak_thr2000.json` |
@@ -301,6 +305,11 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | cnn1d trained on augmented data vs LDA, board A replay, 16,000 shots | 95.70%, +0.18 points, b 57 vs c 28, p = 0.002 | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
 | Deployed 4-unit network: chip (clean) / retrained on augmented data | 95.56% / 95.52% | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
 | LDA on the same 16,000 shots | 95.52% | bracketed | `campaign_v144/final/analysis/s2/arch_aug_v144.json` |
+| seg_mlp trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots | 95.71%, +0.21 points (p = 0.001); +0.31 points (p = 3e-05) | name+date | `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json` |
+| bin_mlp trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots | 95.68%, +0.17 points (p = 0.007); +0.28 points (p = 0.0003) | name+date | `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json` |
+| bin_gru trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots | 95.75%, +0.25 points (p = 0.0001); +0.35 points (p = 1e-06) | name+date | `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json` |
+| cnn1d trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots | 95.63%, +0.12 points (p = 0.03); +0.23 points (p = 0.003) | name+date | `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json` |
+| Board B: deployed 4-unit network, chip (clean) / retrained on augmented data; LDA | 95.41% / 95.41%; 95.50% | name+date | `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json` |
 
 ## Paired statistics
 
@@ -352,6 +361,12 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 |---|---|---|---|
 | QICK stock front end inside S_fe (S_fe minus the boxcar path's 9 + 5 cycles), low / high group | 13.0 / 12.9 ns | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 
+## Round-2 statistics
+
+| Result | Value | Evidence | Source |
+|---|---|---|---|
+| Holm over every p-value printed after pass 18: tests / survivors / largest surviving adjusted p (rounded up) | 59 / 22 / 0.0450 | name+date | `campaign_v144/final/analysis/stats/holm_pass18.json` |
+
 ## Variant builds
 
 | Result | Value | Evidence | Source |
@@ -382,6 +397,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 
 These carry no banner. Confirm them or re-measure before submission.
 
+- `campaign_v144/final/analysis/channel_noise_v144.json`
 - `campaign_v144/final/analysis/offline/keras_vs_hls4ml.json`
 - `campaign_v144/final/analysis/offline/lda_box_vs_fir.json`
 - `campaign_v144/final/analysis/offline/map_trainrows_s20260901.json`
@@ -392,8 +408,10 @@ These carry no banner. Confirm them or re-measure before submission.
 - `campaign_v144/final/analysis/protocol/REPORT.md`
 - `campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log`
 - `campaign_v144/final/analysis/protocol/task2_summary.json`
+- `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json`
 - `campaign_v144/final/analysis/s3/s3_live_window_lda.json`
 - `campaign_v144/final/analysis/stats/holm_pass11.json`
+- `campaign_v144/final/analysis/stats/holm_pass18.json`
 - `campaign_v144/final/analysis/stats/holm_pass7.json`
 - `campaign_v144/final/analysis/stats/holm_pass8.json`
 - `campaign_v144/final/analysis/stats/holm_pass9.json`

@@ -974,8 +974,38 @@ def pass12():
         "leak taken as the pulse's leading part")
 
 
+def pass18():
+    """Pass 18 (2026-11-23): numbers the comment replies put into the text."""
+    q = src("campaign_v144/final/latency/reloads/summary_A.md", "banner")
+    pulses = [(int(a), int(b)) for a, b in re.findall(r"^\| rv\d+ \| pass \| (\d+)/(\d+) \|", Path(q).read_text(encoding="utf-8"), re.M)]
+    assert len(pulses) == 40 and all(a == b for a, b in pulses), pulses
+    n = {b for _, b in pulses}; assert n == {100}, n
+    row("Safety and tests", "40 further loads (20 per board), stale decisions blanked: pulses played / shots per load; no late decision",
+        f"{sum(a for a, _ in pulses):,}/{sum(b for _, b in pulses):,}, 100 shots per load", ["40", "100"], q)
+    q = src(D + "analysis/channel_v144.json", "banner", D + "axi/A_axi_0.log"); J = json.load(open(q))
+    row("Replay channel", "Class SNR per sample, replayed board B (rms mean separation over rms noise)", f"{J['snr_B']:.2f}", [f"{J['snr_B']:.2f}"], q)
+    q = src(D + "analysis/channel_noise_v144.json", "name+date"); J = json.load(open(q))
+    for b in "AB":
+        x = [y for y in J["boards"][b]["bands"] if (y["lo"], y["hi"]) == (60, 150)][0]
+        row("Replay channel", f"Board {b}: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there",
+            f"{100 * x['share']:.0f}% (white {100 * x['white_share']:.1f}%); {x['vs_source']:.2f}x", [f"{100 * x['share']:.0f}"], q,
+            "residual of arch_aug.fit_channel on 4,000 fit shots")
+    q = src(D + "analysis/s2/board_B/arch_aug_v144_B.json", "name+date"); J = json.load(open(q))
+    for arm in ("seg_mlp", "bin_mlp", "bin_gru", "cnn1d"):
+        r = J[f"{arm}_aug"]; v = r["vs_lda_clean"]; t = J["paired_vs_t4"][f"{arm}_aug_vs_t4_clean"]
+        row("Replay-channel augmentation", f"{arm} trained on augmented data vs LDA / vs the chip's 4-unit network, board B replay, 16,000 shots",
+            f"{r['loop16k']:.2f}%, {v['delta']:+.2f} points (p = {pv(v['p'])}); {t['delta']:+.2f} points (p = {pv(t['p'])})",
+            [f"{r['loop16k']:.2f}", f"{abs(v['delta']):.2f}", pv(v["p"]), f"{abs(t['delta']):.2f}", pv(t["p"])], q)
+    q2 = src("campaign_v144/final/analysis/stats/holm_pass18.json", "name+date"); H = json.load(open(q2))
+    mh = -(-H["max_surviving_adjusted"] * 1000 // 1) / 1000
+    row("Round-2 statistics", "Holm over every p-value printed after pass 18: tests / survivors / largest surviving adjusted p (rounded up)",
+        f"{H['n']} / {H['survivors']} / {H['max_surviving_adjusted']:.4f}", [str(H["n"]), f"{mh:.3f}"], q2)
+    row("Replay-channel augmentation", "Board B: deployed 4-unit network, chip (clean) / retrained on augmented data; LDA", f"{J['t4_clean']:.2f}% / {J['t4_aug']:.2f}%; {J['lda_clean']:.2f}%",
+        [f"{J['t4_clean']:.2f}", f"{J['t4_aug']:.2f}", f"{J['lda_clean']:.2f}"], q)
+
+
 for fn in (s2_aug, s5_linear, rev_reloads, rev_stability, rev_arms, rev_carrier_jitter_spacing, rev_logit, rev_keras, rev_map_trainrows, rev_live_window,
-           rev2_stats, rev2_protocol, rev2_fpga, rev2_pass8):
+           rev2_stats, rev2_protocol, rev2_fpga, rev2_pass8, pass18):
     attempt(fn)
 for b in "AB":
     for fn in (linear, tproc_box, tproc_fir, boxcar_mr, tests, tproc_fir_earliest, tproc_thr):

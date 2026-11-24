@@ -1,5 +1,5 @@
-sources: campaign_v144\revision2\fpga\reports\v144_utilization.rpt, campaign_v144\revision2\fpga\reports\v144_util_hier_d3.rpt
-reference: paper_tables/table3/table3_values.json
+sources: firmware_v1.44\reports\v144_utilization.rpt, firmware_v1.44\reports\v144_util_hier_d3.rpt
+reference: firmware_v1.44/reports/v1.44_routed_*.rpt (vivado_reports.table3_reference)
 
 NN_live.lut	1343	1343	ok
 NN_axi.lut	160861	160861	ok

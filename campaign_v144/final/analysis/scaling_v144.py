@@ -6,10 +6,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 os.chdir(ROOT)
-sys.path.insert(0, str(ROOT / "paper_tables" / "table3"))
-import v141_reports as R  # noqa: E402
+sys.path.insert(0, str(ROOT / "firmware_v1.44" / "reports"))
+import vivado_reports as R  # noqa: E402
 
-D = ROOT / "paper_tables" / "table3" / "data"
+D = ROOT / "firmware_v1.44" / "reports"
 R.HIER, R.FLAT, R.TIMING = (D / f"v1.44_routed_{n}.rpt" for n in ("util_hier", "utilization", "timing"))
 os.environ["SCALING_OUT"] = "resource_scaling_v144.json"
 runpy.run_path(str(ROOT / "scaling_study" / "resource_scaling.py"), run_name="__main__")

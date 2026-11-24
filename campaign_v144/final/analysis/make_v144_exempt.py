@@ -33,7 +33,7 @@ L = {
  "P92": {"770": DESIGN, "576": DESIGN}, "P93": {"±0.2": "seed spread at 10,000 rows, from the retrained networks", "10,000": SIZE, "10": "training hyperparameter: learning rate 10^-3", "32,": "training hyperparameter: batch size"},
  "P94": {"16,6": DESIGN, "32,20": DESIGN, "48,32": DESIGN, "40,8": DESIGN, "32,16": DESIGN, "18,8": DESIGN},
  "P95": {"576": DESIGN, "770": DESIGN, "2.5": DATA, "351": CALC + ": 194 samples at 1.808 ns", "1.87": CALC},
- "P97": {"95": TEST, "3.25": DATA, "576": DESIGN, "0.10": ROUND, "640": "window length compared", "100": "unit of the axis", "32": DATA, "544": "read off Fig. 5(b), ledger"},
+ "P97": {"95": TEST, "3.25": DATA, "576": DESIGN, "0.16": ROUND, "640": "window length compared", "100": "unit of the axis", "32": DATA, "512": "read off Fig. 4(b): window_tradeoff in campaign_v144/final/analysis/linear_v144_A.json against t/(2 T1) at T1 = 32 us"},
  "P99": {"96.00": OFF, "100,": SIZE, "100": SIZE, "500": SIZE, "95": TEST, "95.78": OFF, "95.80": "value reported by [16]", "96.04": "value reported by [16]"},
  "P106": {"770": DESIGN, "1,540": DESIGN, "15.5": CALC + ": 1,540 cycles at 100 MHz plus inference", "15.4": CALC + ": 1,540 cycles at 100 MHz", "16.3": DESIGN, "14": "NN_axi DSP count, ledger table", "95.5": ROUND},
  "P107": {"770": DESIGN, "1,540": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "2": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "32,20": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "48,32": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "40,8": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "18,8": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "32": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "16,384": "NN_axi 1.41 core as built into v1.44: neural_net4_tlast/firmware defines.h, parameters.h, NN_axi.cpp", "2023.1": "tool version", "10": DESIGN + ": HLS clock target", "15.5": CALC, "16.3": DESIGN},
@@ -105,7 +105,7 @@ if True:   # required: without the map every key below is wrong
         _t.clear(); _t.update(_nt)
 # exemptions for numbers the rewrite added, keyed by the new paragraph numbers
 _TP = ROUND + ": ledger 'tProc path', FIR path 447.6 / 450.0 ns"
-_F2 = "paper_figures/fig2/fig2_values.json (offline, real training data)"
+_F2 = "audit_fixes/R14/noise_model_table.json (offline, real training data)"
 NEW = {
  "P1": {"00": "IEEE template placeholder", "0000": "IEEE template placeholder"}, "P2": {"10.1109": "IEEE DOI prefix, template"},
  "P7": {"450": _TP}, "P17": {"450": _TP}, "P155": {"450": _TP, "25": CALC + ": boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns",
@@ -114,15 +114,15 @@ NEW = {
  "P188": {"100": ROUND + ": ledger 'Loop latency' S_conv of the two load groups, 100-102 ns"},
  "P39": {"16": CALC + ": 10-90% rise of the 11-sample moving sum, 0.8 x 11 x 1.808 ns = 15.9 ns"},
  "P62": {"50": DESIGN + ": 50 MHz carrier", "200": DESIGN + ": tProc core clock"},
- "P77": {"3.86": _F2 + ": model_d.real_jit 3.861", "3.80": _F2 + ": real_d_range 3.797", "3.93": _F2 + ": real_d_range 3.927"},
+ "P77": {"3.86": _F2 + ": models.real_jit.d 3.861", "3.80": _F2 + ": real.train_rows_300k_400k_10k_per_class.d 3.797", "3.93": _F2 + ": real.fit_pool_10k_per_class.d 3.927"},
  "P85": {"1.5": OFF + ": common-mode offset ratio", "1.9": OFF + ": common-mode offset ratio"},
  "P80": {"50,000": SIZE}, "P195": {"5,000": DATA + ": class-block length of the released test file"},
  "P95": {"640": "window length compared", "1,035": CALC + ": 1.87 us / 1.808 ns"},
  "P180": {"1.04": CALC + ": 576 x 1.808 ns", "1,035": CALC + ": 1.87 us / 1.808 ns", "1.87": CALC + ": 576 x 3.25 ns of recorded readout"},
  "P134": {"120": DESIGN + ": QICK readout FIR length"},
  "P145": {"−30": "threshold of the comparison band"},
- "P151": {"0.35": "v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)", "2.00": DESIGN + ": set_bus_skew constraint"},
- "P184": {"0.35": "v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)", "2.00": DESIGN + ": set_bus_skew constraint"},
+ "P151": {"0.35": "v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (firmware_v1.44/reports/v1.44_routed_bus_skew.rpt)", "2.00": DESIGN + ": set_bus_skew constraint"},
+ "P184": {"0.35": "v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (firmware_v1.44/reports/v1.44_routed_bus_skew.rpt)", "2.00": DESIGN + ": set_bus_skew constraint"},
  "P157": {"0.32": "v1.44 routed timing, tProc clock domain slack in the full design"},
  "P166": {"400": SIZE + ": 4 loads x 100 shots"},
  "P181": {"0.018": "earlier build (v1.40L1), offline: campaign_v140L1/arch_aug.json; said so in the text; S2 carries it to v1.44",

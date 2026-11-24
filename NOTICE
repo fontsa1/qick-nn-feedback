@@ -32,8 +32,8 @@ Third-party files in this repository
    (LICENSES/QICK-MIT.txt). Two files are copied:
      audit_fixes/RB_prep/sim/buffer.sv   (QICK firmware/ip/axis_avg_buffer/src/buffer.sv, commit 779dffa; unmodified
        apart from a header comment; for RTL simulation)
-     paper_figures/fig7/qick_readout_fir.coe   (the coefficients of QICK's readout FIR, commit 779dffa, unmodified;
-       for Fig. 6)
+     campaign_v144/final/fig7/qick_readout_fir.coe   (the coefficients of QICK's readout FIR, commit 779dffa,
+       unmodified; for Fig. 6)
    The firmware build uses QICK's IP from a QICK checkout; it is not copied here.
 
 Tool output

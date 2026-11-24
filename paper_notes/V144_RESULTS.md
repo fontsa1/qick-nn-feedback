@@ -5,7 +5,7 @@ which refuses any source that fails a build check. `--verify` fails if this file
 
 Build: `OG_build_v1.44.bit`, sha256 `986c861a83be8d01...`, banner `Nov  7 19:57:07 2026`.
 
-Status: **246 of 246 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
+Status: **254 of 254 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
 
 Evidence: **banner** = the v1.44 banner read from the board during that run; **bracketed** = banner logged before and after by the same uninterrupted runner; **build-file** = the report saved from the v1.44 build; **name+date** = named v1.44 and dated after the build, no banner (weakest).
 
@@ -160,6 +160,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Measured saving against the tProc branch on the FIR path, A / B: total; boxcar path; gate (200 MHz); gate (245.76 MHz); tProc branch range at 200 MHz | 263.7 / 266.5; 103.3 / 105.3; 160.4 / 161.2; 139.8 / 139.7; 335.1–340.3 ns | banner | `campaign_v144/final/board2/A_tproc_box_v144.json` |
 | Gate saving 140 / 160 ns at T1 = 32 us: t/(3T1); t/(2T1), points | 0.146 / 0.167; 0.219 / 0.250 | banner | `campaign_v144/final/board2/A_tproc_box_v144.json` |
 | QICK threshold feedback fed from the boxcar path, earliest clean margin, A / B | 520.5 / 520.7 ns | banner | `campaign_v144/final/board3/threshold/A_threshold.json` |
+| tProc routes (branch on the boxcar path, both forms; branch on the FIR path; QICK threshold feedback), both boards: per-shot s.d. range | 5.08–9.58 ns over 8 medians | banner | `campaign_v144/final/board2/A_tproc_box_v144.json` |
 
 ## Safety and tests
 
@@ -178,6 +179,7 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | QICK functional suite, board B | 20 pass, 1 warning, 1 fail, 1 not wired | banner | `campaign_v144/final/tests/B_functional.json` |
 | Fail-safe test, board B | PASS | banner | `campaign_v144/final/tests/B_fail_safe.json` |
 | Leaked energy, DELAY from the 2000-amplitude crossing, leads 2-4, both boards: mean range; largest upper 95% bound | 0.251–0.430%; 0.450% | banner | `campaign_v144/final/leak_energy/B_v144_leak_thr2000.json` |
+| Leak of the 2000-crossing calibration at its largest upper 95% bound, as a share of the Gaussian pulse's area; flip probability on a pi pulse | 0.450% of energy = 3.12% of area; 0.239% | banner | `campaign_v144/final/leak_energy/B_v144_leak_thr2000.json` |
 
 ## Calibration swap
 
@@ -255,18 +257,18 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 
 | Result | Value | Evidence | Source |
 |---|---|---|---|
-| NN_live LUT / FF | 1,343 / 1,221 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
-| NN_axi LUT / FF | 160,861 / 148,120 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
-| WNS / failing setup endpoints | 0.000 ns / 0 | build-file | `paper_tables/table3/data/v1.44_routed_timing.rpt` |
-| Classifier units that fit with a per-tone front end (scaling_study/resource_scaling.py, SCALING_OUT=resource_scaling_v144.json) | 17 to 35 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
-| NN_axi clock (clk_pl_0) WNS | +0.187 ns | build-file | `paper_tables/table3/data/v1.44_routed_timing.rpt` |
-| NN_live LUT, rounded for prose | about 1,340 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
-| Failing endpoints: NN_live / its clock crossing / stock readouts 1 and 2 | 0 / 0 / 0 | build-file | `paper_tables/table3/data/v1.44_routed_timing.rpt` |
-| Real-time path LUT (NN_live + loop logic, Table III) | 3,303 (about 3,300) | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
+| NN_live LUT / FF | 1,343 / 1,221 | build-file | `firmware_v1.44/reports/v1.44_routed_util_hier.rpt` |
+| NN_axi LUT / FF | 160,861 / 148,120 | build-file | `firmware_v1.44/reports/v1.44_routed_util_hier.rpt` |
+| WNS / failing setup endpoints | 0.000 ns / 0 | build-file | `firmware_v1.44/reports/v1.44_routed_timing.rpt` |
+| Classifier units that fit with a per-tone front end (scaling_study/resource_scaling.py, SCALING_OUT=resource_scaling_v144.json) | 17 to 35 | build-file | `firmware_v1.44/reports/v1.44_routed_util_hier.rpt` |
+| NN_axi clock (clk_pl_0) WNS | +0.187 ns | build-file | `firmware_v1.44/reports/v1.44_routed_timing.rpt` |
+| NN_live LUT, rounded for prose | about 1,340 | build-file | `firmware_v1.44/reports/v1.44_routed_util_hier.rpt` |
+| Failing endpoints: NN_live / its clock crossing / stock readouts 1 and 2 | 0 / 0 / 0 | build-file | `firmware_v1.44/reports/v1.44_routed_timing.rpt` |
+| Real-time path LUT (NN_live + loop logic, Table III) | 3,303 (about 3,300) | build-file | `firmware_v1.44/reports/v1.44_routed_util_hier.rpt` |
 | Setup slack inside NN_live and on its outputs (v1.44 routed) | 1 to 31 ps | name+date | `firmware_v1.44/reports/v144_decision_path_slack.tsv` |
 | Out-of-context margins, deployed RTL N = 1, 2, 4 (pblock), 16 (device); variant T N = 8 | +0.171 / +0.103 / +0.002 / +0.002 / +0.029 | name+date | `scaling_study/v144/FINDINGS_v144.md` |
 | Integration cost: OOC N = 1 margin minus the worst NN_live-path slack in v1.44 | at least 0.140 ns | name+date | `scaling_study/v144/FINDINGS_v144.md` |
-| NN_axi LUTs: whole / window load loop / NN() | 160,861 / 105,328 / 54,923 | build-file | `paper_tables/table3/data/v1.44_routed_util_hier.rpt` |
+| NN_axi LUTs: whole / window load loop / NN() | 160,861 / 105,328 / 54,923 | build-file | `firmware_v1.44/reports/v1.44_routed_util_hier.rpt` |
 
 ## Loop latency
 
@@ -279,12 +281,15 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Our logic (S_NN + S_CDC + S_gate) / converters and cable (S_conv), rounded, 176 ns group | 37 / 102 ns | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Converters and cable, mean of the two load groups | 101.1 ns (100.1 and 102.1) | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Fig. 8(b), late at -66 ns, boards A / B, of 40 | 2 / 6 | banner | `campaign_v144/final/fig8b/A_gate_probe.log` |
+| Measure-and-react time in replay time: window (575 intervals at 552.96 MS/s) + L_50 of the 176 ns group | 1039.9 + 175.9 ns = 1.22 us | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 | Board A, 20 further loads: low / high group | 10 loads 173.66–174.28 ns / 10 loads 175.77–176.35 ns | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
 | Board B, 20 further loads: low / high group | 12 loads 174.03–174.33 ns / 8 loads 175.94–176.27 ns | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
 | Both boards, 40 further loads: low / high group, gap | 22 / 18 loads; 173.66–174.33 / 175.77–176.35 ns; gap 1.44 ns | banner | `campaign_v144/final/latency/reloads/summary_A.md` |
 | Board A, one load, 20 runs: span, mean, s.d. | 110 min, 173.88 ns, s.d. 0.12 ns | banner | `campaign_v144/final/latency/stability/A_st20.json` |
 | Board B, one load, 20 runs: span, mean, s.d. | 111 min, 174.06 ns, s.d. 0.11 ns | banner | `campaign_v144/final/latency/stability/B_st20.json` |
 | Largest L_50 shift over all sensitivity sets (gain, carrier phase, no stimulus) | 0.766 ns (A_rv01.json, phase_90) | name+date | `campaign_v144/final/latency/reloads/A_rv01.json` |
+| Per-shot L_50 tail, lower / upper group: 99th percentile; largest shot | 177.24 / 179.02; 177.46 / 179.29 ns (1,000 and 400 shots) | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
+| L_50 one slack step (one tProc tick) later than the campaign's, lower / upper group | 175.9 / 177.9 ns (step 2.035 ns) | banner | `campaign_v144/final/analysis/loop_groups_values_v144.json` |
 
 ## Replay-channel augmentation
 
@@ -369,6 +374,9 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Build 2 (LDA_live 1.0, weights in logic): design WNS | -94 ps | name+date | `firmware_v1.44/variants/lda_gate/reports/v1.44lda_routed_timing.rpt` |
 | Same bit-exact LDA, headline mosaic: later board session minus stored v1.44 windows | +0.064 points | name+date | `firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json` |
 | Board A, nominal-gain arm vs gate-idle run 2 (rows 50,000-99,999): difference, exact p | +0.117, p = 0.018, n = 50,000 | name+date | `campaign_v144/final/inloop/arms/arms_full_analysis.json` |
+| Build 1 (tProc core at 245.76 MHz): failing setup endpoints, all in the ADC-side readout clock; tProc core clock WNS | 658 endpoints; core +0.024 ns | name+date | `firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt` |
+| LDA_live 1.1 in NN_live's slot (build 2b): RAMB36 + RAMB18 as 36-kb tiles; DSP | 1 + 1 = 1.5 tiles; 2 DSP | name+date | `firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt` |
+| LDA_live on the boards: bit-exact shots per board, A / B | 50,000 / 50,000 | name+date | `firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json` |
 
 ## Sources with weak build evidence
 

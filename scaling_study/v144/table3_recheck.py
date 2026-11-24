@@ -1,6 +1,7 @@
 """Table III recheck: recompute every Table III resource number from the utilization
 reports regenerated here from the v1.44 routed checkpoint (reports/v144_utilization.rpt, reports/v144_util_hier_d3.rpt)
-and compare with paper_tables/table3/table3_values.json. Read-only on the repo; writes only next to this script.
+and compare with the paper's numbers, computed from the routed reports (vivado_reports.table3_reference()).
+Read-only on the repo; writes only next to this script.
 
 """
 import json
@@ -10,13 +11,13 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 REP = ROOT / "firmware_v1.44" / "reports"
-sys.path.insert(0, str(ROOT / "paper_tables" / "table3"))
-import v141_reports as R  # noqa: E402
+sys.path.insert(0, str(ROOT / "firmware_v1.44" / "reports"))
+import vivado_reports as R  # noqa: E402
+ref = R.table3_reference()
 
 R.FLAT = REP / "v144_utilization.rpt"
 R.HIER = REP / "v144_util_hier_d3.rpt"
 blk, tot = R.blocks(), R.totals()
-ref = json.loads((ROOT / "paper_tables" / "table3" / "table3_values.json").read_text())
 
 LOOP = ["boxcar_tap_0", "dac_gate_0", "live_gate_0", "live_res_cdc_0", "live_res_cdc_1", "trig_sync_0"]
 rows, bad = [], 0
@@ -55,7 +56,7 @@ printed = {
 out = HERE / "table3_recheck.txt"
 with out.open("w", encoding="utf-8") as f:
     f.write(f"sources: {R.FLAT.relative_to(ROOT)}, {R.HIER.relative_to(ROOT)}\n")
-    f.write(f"reference: paper_tables/table3/table3_values.json\n\n")
+    f.write("reference: firmware_v1.44/reports/v1.44_routed_*.rpt (vivado_reports.table3_reference)\n\n")
     for r in rows:
         f.write("\t".join(str(x) for x in r) + "\n")
     f.write(f"\n{len(rows)} values compared, {bad} different\n\nprinted cells recomputed:\n")

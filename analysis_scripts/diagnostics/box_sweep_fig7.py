@@ -26,7 +26,7 @@ import deploy_and_verify as D                                    # noqa: E402
 from qick.asm_v2 import AveragerProgramV2                        # noqa: E402
 
 BANNER = __import__("os").environ.get("QICK_FIG7_BANNER", "built Wed Nov  4 23:39:37 2026")                        # v1.43
-OUTDIR = Path(__import__("os").environ.get("QICK_FIG7_DIR", ROOT / "paper_figures" / "fig7"))
+OUTDIR = Path(__import__("os").environ.get("QICK_FIG7_DIR", ROOT / "campaign_v144" / "final" / "fig7"))
 FS = 552.96
 # readout frequency f; the image sits at 2f. Uniform 1 MHz grid in f (2 MHz in 2f) plus the M = 11 nulls
 # (2f = k*FS/11) and their immediate neighbourhood, where the response changes fastest.

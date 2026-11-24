@@ -93,11 +93,9 @@ P91	1,035	ok	arithmetic from design constants: 1.87 us / 1.808 ns
 P93	95	ok	statistical convention
 P93	3.25	ok	property of the public dataset or source device, measured offline or cited
 P93	576	ok	design constant or clock, not a measurement
-P93	0.10	ok	rounded form of a ledger value
 P93	640	ok	equation layout artefact
 P93	100	ok	unit of the axis
 P93	32	ok	property of the public dataset or source device, measured offline or cited
-P93	544	ok	read off Fig. 5(b), ledger
 P95	96.01	ok	offline result on raw traces, no hardware involved
 P95	96.00	ok	offline result on raw traces, no hardware involved
 P95	500	ok	offline result on raw traces, no hardware involved
@@ -167,7 +165,7 @@ P141	−30	ok	threshold of the comparison band
 P143	16.3	ok	design constant or clock, not a measurement
 P147	15.5	ok	arithmetic from design constants
 P147	50	ok	design constant or clock, not a measurement: 5 cycles at 100 MHz
-P147	0.35	ok	v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (paper_tables/table3 BUS_SKEW_MISS_NS)
+P147	0.35	ok	v1.44 routed bus-skew report, 2.352 ns against 2.00 ns (firmware_v1.44/reports/v1.44_routed_bus_skew.rpt)
 P147	2.00	ok	design constant or clock, not a measurement: set_bus_skew constraint
 P147	3.98	ok	arithmetic from design constants: 2 x 2.035 ns (DAC clock) - 0.035 - 0.051 ns clock uncertainty (firmware_v1.44/reports/v144_worst_setup_per_group.rpt)
 P149	49,400	ok	sample size, row index or training-set size: board A run 1, rows 0-49,999 less the 600 map rows
@@ -177,7 +175,7 @@ P152	450	ok	rounded form of a ledger value: ledger 'tProc path', FIR path 447.6 
 P152	25	ok	arithmetic from design constants: boxcar path, (9 + 5) cycles at 552.96 MHz = 25.3 ns
 P152	114	ok	arithmetic from design constants: 175.9 - 62 ns, ledger 'Loop latency'
 P152	200	ok	design constant or clock, not a measurement: tProc core clock of v1.44 (clk_core, 5.001 ns in the routed timing report)
-P152	245.76	ok	design constant or clock, not a measurement: QICK's stock tProc core clock, used by the round-2 build 1
+P152	245.76	ok	design constant or clock, not a measurement: QICK's stock tProc core clock, used by variant build tproc245
 P152	576	ok	design constant or clock, not a measurement: NN_live's window length, shared by the LDA core
 P154	576	ok	design constant or clock, not a measurement
 P154	16.3	ok	design constant or clock, not a measurement
@@ -305,9 +303,9 @@ P195	+0.32	ok	offline result on raw traces, no hardware involved
 P195	1,540	ok	property of the public dataset or source device, measured offline or cited
 P195	4.0	ok	offline result on raw traces, no hardware involved
 P195	8.2	ok	offline result on raw traces, no hardware involved
-P195	3.80	ok	paper_figures/fig2/fig2_values.json (offline, real training data): real_d_range 3.797
-P195	3.93	ok	paper_figures/fig2/fig2_values.json (offline, real training data): real_d_range 3.927
-P195	3.86	ok	paper_figures/fig2/fig2_values.json (offline, real training data): model_d.real_jit 3.861
+P195	3.80	ok	audit_fixes/R14/noise_model_table.json (offline, real training data): real.train_rows_300k_400k_10k_per_class.d 3.797
+P195	3.93	ok	audit_fixes/R14/noise_model_table.json (offline, real training data): real.fit_pool_10k_per_class.d 3.927
+P195	3.86	ok	audit_fixes/R14/noise_model_table.json (offline, real training data): models.real_jit.d 3.861
 P195	10,000	ok	sample size, row index or training-set size
 P195	50,000	ok	sample size, row index or training-set size
 P195	1.5	ok	offline result on raw traces, no hardware involved: common-mode offset ratio
@@ -332,7 +330,7 @@ P200	16	ok	arithmetic from design constants: 10-90% rise of the 11-sample moving
 P200	50	ok	the 50% point, a definition
 P201	21.5	ok	ledger 'Phase difference of the boards in that session'
 P201	95	ok	statistical convention
-P201	1.0	ok	design constant or clock, not a measurement: maximum pulse gain of the #27 arms (campaign_v144/final/inloop/arms/arms_analysis.json, arm_def)
+P201	1.0	ok	design constant or clock, not a measurement: maximum pulse gain of the pulse-gain arms (campaign_v144/final/inloop/arms/arms_analysis.json, arm_def)
 P201	0.1	ok	rounded form of a ledger value: the session differences just listed, 0.06-0.12 points (ledger rows: board B in-loop vs gate-idle, board A nominal arm vs run 2, same LDA in a later session)
 P230	91	ok	arithmetic from design constants
 P254	2.0	ok	offline result on raw traces, no hardware involved

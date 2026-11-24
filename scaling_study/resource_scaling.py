@@ -7,16 +7,16 @@ the largest number of units that fits in the resources the build leaves free, fo
                FIR is trimmed): what the boxcar path needs per tone
   stock     -- + a full stock readout (axis_dyn_readout_v1_0, FIR included), if every tone keeps QICK's FIR path
 and two baselines: the design as built, and without NN_axi and the time tagger (a scaling build would drop them).
-Writes resource_scaling.json (or $SCALING_OUT) and prints a table. Needs paper_tables/table3/v141_reports.py and the
-routed reports it reads (not in this repository).
+Writes resource_scaling.json (or $SCALING_OUT) and prints a table. Needs firmware_v1.44/reports/vivado_reports.py and the
+routed reports beside it.
 """
 import json
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent / "paper_tables" / "table3"))
-import v141_reports as R                                              # noqa: E402
+sys.path.insert(0, str(HERE.parent / "firmware_v1.44" / "reports"))
+import vivado_reports as R                                              # noqa: E402
 
 B = R.blocks()
 T = R.totals()

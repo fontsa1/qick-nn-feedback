@@ -23,7 +23,7 @@ Run every script from this folder's root; paths in the scripts are relative to i
 | `neural_net4_tlast/` | NN_axi HLS source (hls4ml network + wrapper), testbench, scripts, synthesis reports; packaged core `NN_axi 1.41` (zip) |
 | `vivado_scripts/v1.43/from_qick/` | Building our design from QICK's: `nnqick_from_qick.tcl`, the block-design delta, and the implementation script. These made v1.44 |
 | `vivado_scripts/v1.43/` | The same design built earlier in our own project (v1.43): block-design edit (stage 1) and implementation with the full report set (stage 2). Kept for reference |
-| `audit_fixes/RB_prep/sim/`, `audit_fixes/RB_prep/hls/rtl_sim/` | RTL simulation: custom blocks against reference models (`final_regression.sh`), and window gate + NN_live kernel on a continuous stream (`run_tb.sh`), with logs |
+| `audit_fixes/RB_prep/sim/`, `audit_fixes/RB_prep/hls/rtl_sim/` | RTL simulation: custom blocks against reference models (`final_regression.sh`), and window gate + NN_live kernel on a continuous stream (`run_tb.sh`) and on a stream with gaps, one valid sample in 2 or 3 cycles or a random half (`run_tb_gap.sh`), with logs |
 | `scaling_study/` | Multi-classifier resource count (`resource_scaling.py`) and out-of-context timing runs (`run_ooc*.tcl`, `rtl/`); findings |
 | `host/` | Board-side server: `nnqick_server.py` (same as `start_nameserver.ipynb`). This holds the QICK metadata patches for the added blocks, the `NNQickSoc` class and the Pyro server |
 | `board_tools/` | Host tools: deploy and verify a bitstream, Jupyter access, server start, calibration storage |
@@ -146,7 +146,7 @@ bus-skew constraint misses: on the decision's crossing into the DAC domain (`liv
 against the 2.000 ns set in `rtl/constraints/live_res_cdc.xdc` (slack −0.352 ns). In RTL simulation of the crossing
 at 491.52 MHz (`audit_fixes/RB_prep/sim/tb_cdc_skew.sv`), 4.0 ns of skew corrupted none of 3,000 results and 4.5 ns
 corrupted 664. No corrupted result appeared in the bit-exact or in-loop runs on either board. The routed timing,
-utilization and bus-skew reports are in `paper_tables/table3/data/`; they are the v1.44 build's (the build scripts are
+utilization and bus-skew reports are in `firmware_v1.44/reports/` (`v1.44_routed_*.rpt`); they are the v1.44 build's (the build scripts are
 v1.43's, so the checkpoint inside them is named `v1.43_routed.dcp`).
 
 ## Running on a board
@@ -188,7 +188,7 @@ From the repository root, with `PYTHON` set to your interpreter:
 
 Other READMEs: `campaign_v144/README.md` (running the campaign, cold starts), `campaign_v144/final/README.md` (what
 each result folder holds), `campaign_v144/final/latency/README.md`,
-`firmware_v1.44/variants/README.md`, `paper_figures/README.md`, `paper_tables/README.md`.
+`firmware_v1.44/variants/README.md`.
 
 ## Notebooks
 

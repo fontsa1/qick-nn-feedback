@@ -61,7 +61,7 @@ def resp(h, f, rate):
     return abs(np.sum(h * np.exp(-2j * np.pi * f / rate * n))) / abs(np.sum(h))
 
 
-coe = np.array([int(x) for x in re.findall(r"-?\d+", (HERE.parents[2] / "paper_figures" / "fig7" / "qick_readout_fir.coe").read_text().split("=")[2])], float)
+coe = np.array([int(x) for x in re.findall(r"-?\d+", (HERE / "qick_readout_fir.coe").read_text().split("=")[2])], float)
 fir_theory = 20 * np.log10(resp(coe, F_IMG, FS_IN))
 Ms = np.arange(1, 17)
 box_theory = np.array([20 * np.log10(resp(np.ones(8), F_IMG, FS_IN) * resp(np.ones(m), F_IMG, FS)) for m in Ms])

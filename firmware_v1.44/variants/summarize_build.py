@@ -5,13 +5,15 @@ Read-only on the build folders (v1.44's reports are read from $V144_BUILD_DIR, t
 
   python firmware_v1.44/variants/summarize_build.py <build dir> <tag> <out.json> [--md out.md]
 """
-import argparse, hashlib, json, re
+import argparse, hashlib, json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 REF_DIR, REF_TAG = Path(os.environ.get("V144_BUILD_DIR", "v144_build")), "v1.43"
 COLS = ["lut", "logic_lut", "lutram", "srl", "ff", "ramb36", "ramb18", "uram", "dsp"]
-T3 = json.loads((ROOT / "paper_tables/table3/table3_values.json").read_text())
+sys.path.insert(0, str(ROOT / "firmware_v1.44" / "reports"))
+import vivado_reports  # noqa: E402
+T3 = vivado_reports.table3_reference()   # the v1.44 numbers of the paper's Table III, from the routed reports
 LOOP = ["boxcar_tap_0", "dac_gate_0", "live_gate_0", "live_res_cdc_0", "live_res_cdc_1", "trig_sync_0"]
 
 

@@ -25,7 +25,7 @@ from qick.asm_v2 import AveragerProgramV2                        # noqa: E402
 
 F = 50.0
 BANNER = __import__("os").environ.get("QICK_FIG7_BANNER", "built Wed Nov  4 23:39:37 2026")                        # v1.43
-OUTDIR = Path(__import__("os").environ.get("QICK_FIG7_DIR", ROOT / "paper_figures" / "fig7"))
+OUTDIR = Path(__import__("os").environ.get("QICK_FIG7_DIR", ROOT / "campaign_v144" / "final" / "fig7"))
 
 soc, soccfg = D.connect()
 soccfg['tprocs'][0]['output_pins'].append(('trig', 11, 0, 'NN classify trigger (trig_11_o)'))

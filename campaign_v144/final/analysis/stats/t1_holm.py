@@ -58,7 +58,10 @@ L = {(t["section"], t["test"]): t for t in led}
 ARCH = json.load(open(AN / "arch/arch_sweep2_src_v144.json"))
 AUG = json.load(open(AN / "s2/arch_aug_v144.json"))
 ARMS = json.load(open(ROOT / "campaign_v144/final/inloop/arms/arms_analysis.json"))
-T2 = json.load(open(ROOT / "paper_tables/table2/table2_values.json"))
+_R5 = json.load(open(ROOT / "audit_fixes/R5/evaluate_results.json"))   # the three offline seed pairs of Table II
+T2 = {"paired_offline_seed_mcnemar": [m for m in _R5["mcnemar"] if m["set"] == "test100k" and m["b"].startswith("ours_")
+                                      and m["a"] in _R5["groups"]["exact_lr1e-3"]["test100k"]["runs"]]}
+assert len(T2["paired_offline_seed_mcnemar"]) == 3
 LDA = json.load(open(ROOT / "campaign_v144/final/analysis/offline/lda_99400.json"))
 
 def lt(sec, test):
@@ -81,7 +84,7 @@ def arm(board, a):
 def seed(i):
     r = T2["paired_offline_seed_mcnemar"][i]
     return dict(test=f"retrain of [16] vs our variant, {r['a']} vs {r['b']}, 100,000 offline", b=r["a_only_correct"],
-                c=r["b_only_correct"], source="paper_tables/table2/table2_values.json")
+                c=r["b_only_correct"], source="audit_fixes/R5/evaluate_results.json")
 
 def ldat(st, mk):
     r = LDA["sets"][st][f"NN_live_vs_{mk}"]

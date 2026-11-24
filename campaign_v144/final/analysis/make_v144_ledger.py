@@ -48,7 +48,7 @@ REPORTS = Path(os.environ["V144_REPORTS"]) if os.environ.get("V144_REPORTS") els
 D = "campaign_v144/final/"
 B2 = D + "board2/"
 LK = D + "leak_energy/"
-TR = "paper_tables/table3/data/"
+TR = "firmware_v1.44/reports/"
 HOSTS = (("10.1.9.26", "A"), ("10.1.4.105", "B"))
 
 
@@ -384,8 +384,8 @@ def fig7():
 
 
 # ----------------------------------------------------------------------- Table III
-sys.path.insert(0, "paper_tables/table3")
-import v141_reports as R3  # noqa: E402
+sys.path.insert(0, "firmware_v1.44/reports")
+import vivado_reports as R3  # noqa: E402
 R3.HIER, R3.FLAT, R3.TIMING = (Path(TR) / f"v1.44_{r}.rpt" for r in ("routed_util_hier", "routed_utilization", "routed_timing"))
 
 
@@ -441,6 +441,10 @@ def latency():
         row("Loop latency", f"Segments, {name} group: S_fe, S_NN, S_CDC, S_gate, S_conv", ", ".join(f"{v:.1f}" for v in x["segs"].values()) + " ns", [f"{v:.1f}" for v in x["segs"].values()], g)
     _h = G["high"]["segs"]
     row("Loop latency", f"Our logic (S_NN + S_CDC + S_gate) / converters and cable (S_conv), rounded, {G['high']['L_50']:.0f} ns group", f"{_h['S_nn'] + _h['S_cdc'] + _h['S_gate']:.0f} / {_h['S_conv']:.0f} ns", [f"{_h['S_nn'] + _h['S_cdc'] + _h['S_gate']:.0f}", f"{_h['S_conv']:.0f}", f"{G['high']['L_50']:.0f}", f"{G['low']['L_50']:.0f}"], g)
+    _win = 575 / 552.96e6 * 1e9          # window's first to last sample: 575 intervals at the decimated rate (design constant)
+    _mr = (_win + G["high"]["L_50"]) / 1000
+    row("Loop latency", f"Measure-and-react time in replay time: window (575 intervals at 552.96 MS/s) + L_50 of the {G['high']['L_50']:.0f} ns group",
+        f"{_win:.1f} + {G['high']['L_50']:.1f} ns = {_mr:.2f} us", [f"{_win:.1f}", f"{_mr:.2f}"], g)
     _sc = (G["low"]["segs"]["S_conv"] + _h["S_conv"]) / 2
     row("Loop latency", "Converters and cable, mean of the two load groups", f"{_sc:.1f} ns ({G['low']['segs']['S_conv']:.1f} and {_h['S_conv']:.1f})", [f"{_sc:.0f}"], g)
 
@@ -908,6 +912,68 @@ def pass11():
     row("Paired statistics", "Holm-adjusted p after pass 11: board B in-loop vs gate-idle; zero vs nominal gain, board A", f"{a1:.3f}; {a2:.3f}", [f"{a1:.2f}", f"{a2:.2f}"], q)
 
 
+def pass12():
+    """Numbers the paper quotes since its twelfth revision: the per-shot spread of the tProc routes, the failing
+    endpoints of the 245.76 MHz build, the LDA core's block RAM and per-board counts, the loop's per-shot tail, the
+    2000-crossing leak as pulse area, and L_50 one slack step later."""
+    sd = []
+    for b in "AB":   # the tProc routes at the points the text quotes
+        q = src(f"{B2}{b}_tproc_box_v144.json", "banner"); P = json.load(open(q))["points"]
+        sd += [_clean(P, v)[0]["L_sd"] for v in ("nobranch", "qick")]
+        q = src(f"{B2}{b}_tproc_fir_v144.json", "banner"); sd.append(_clean(json.load(open(q))["points"], "nobranch")[0]["L_sd"])
+        q = src(f"{D}board3/{b}_tproc_thr_v144.json", "banner", f"{D}board3/{b}_tproc_thr.log"); pts = json.load(open(q))["points"]
+        fine = f"{D}board3/{b}_tproc_thr_fine_v144.json"
+        if Path(fine).exists():
+            pts += json.load(open(src(fine, "banner", f"{D}board3/{b}_tproc_thr_fine.log")))["points"]
+        sd.append(_clean(sorted(pts, key=lambda x: x["margin"]), "qickthr")[0]["L_sd"])
+    row("tProc path", "tProc routes (branch on the boxcar path, both forms; branch on the FIR path; QICK threshold feedback), both boards: per-shot s.d. range",
+        f"{min(sd):.2f}\u2013{max(sd):.2f} ns over {len(sd)} medians", [f"{max(sd):.0f}"], src(f"{B2}A_tproc_box_v144.json", "banner"))
+    q = src("firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt", "name+date"); t = Path(q).read_text(encoding="utf-8", errors="ignore")
+    intra = t[t.index("Intra Clock Table"):t.index("Inter Clock Table")]
+    fail = {m[1]: (float(m[2]), int(m[4])) for m in re.finditer(r"^\s+(\S+)\s+(-?[\d.]+)\s+(-?[\d.]+)\s+(\d+)\s+\d+", intra, flags=re.M)}
+    bad = {k: v for k, v in fail.items() if v[1] > 0}
+    assert list(bad) == ["clk_out1_d_1_clk_adc0_x2_0"] and fail["clk_out1_d_1_clk_core_0"][0] >= 0, fail
+    row("Variant builds", "Build 1 (tProc core at 245.76 MHz): failing setup endpoints, all in the ADC-side readout clock; tProc core clock WNS",
+        f"{bad['clk_out1_d_1_clk_adc0_x2_0'][1]} endpoints; core {fail['clk_out1_d_1_clk_core_0'][0]:+.3f} ns", [f"{bad['clk_out1_d_1_clk_adc0_x2_0'][1]}"], q)
+    q = src("firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt", "name+date")
+    m = re.search(r"^\|\s+NN_live_0\s+\|\s+\S+\s+\|\s+(\d+)\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+\d+\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+\d+\s+\|\s+(\d+)",
+                  Path(q).read_text(encoding="utf-8", errors="ignore"), flags=re.M)
+    bram = int(m[2]) + int(m[3]) / 2
+    row("Variant builds", "LDA_live 1.1 in NN_live's slot (build 2b): RAMB36 + RAMB18 as 36-kb tiles; DSP", f"{m[2]} + {m[3]} = {bram:g} tiles; {m[4]} DSP", [f"{bram:g}"], q)
+    lv = "firmware_v1.44/variants/lda_gate/board/live/"
+    q = src(lv + "check_board_lda.json", "name+date"); n_all = json.load(open(q))["bit_exact_vs_lda_model"]["n"]
+    nb = {}
+    for b, (lo, hi) in (("A", (0, 50000)), ("B", (50000, 100000))):   # one capture file per 1,000 rows (data archive)
+        nb[b] = sum(e - s for s, e in ((s, s + 1000) for s in range(lo, hi, 1000)) if need(f"{lv}{b}_run1_{s}_{e}.npz"))
+    assert nb["A"] + nb["B"] == n_all, (nb, n_all)
+    row("Variant builds", "LDA_live on the boards: bit-exact shots per board, A / B", f"{nb['A']:,} / {nb['B']:,}", [f"{nb['A']:,}"], q)
+    G = loop_groups(); tail = {}
+    for name in ("low", "high"):   # every shot of the group's campaign loads at the operating slack
+        a = []
+        for load in G[name]["loads"]:
+            z = np.load(need(f"{D}latency/{'cold' if '_c' in load else 'reloads'}/{load}.npz"), allow_pickle=False)
+            col = list(z["columns"]).index("L_50"); x = z["row_op"][:, col]; a += list(x[np.isfinite(x)])
+        a = np.array(a); tail[name] = (np.percentile(a, 99), a.max(), len(a))
+    g = src(D + "analysis/loop_groups_values_v144.json", "banner", f"{D}latency/reloads/{G['low']['loads'][0]}.json")
+    row("Loop latency", "Per-shot L_50 tail, lower / upper group: 99th percentile; largest shot",
+        f"{tail['low'][0]:.2f} / {tail['high'][0]:.2f}; {tail['low'][1]:.2f} / {tail['high'][1]:.2f} ns ({tail['low'][2]:,} and {tail['high'][2]:,} shots)",
+        [f"{tail['low'][0]:.1f}", f"{tail['high'][0]:.1f}", f"{tail['low'][1]:.1f}", f"{tail['high'][1]:.1f}"], g)
+    step = json.load(open(src(f"{D}latency/reloads/{G['low']['loads'][0]}.json", "banner")))["settings"]["tick_ns"]
+    lo, hi = G["low"]["L_50"] + step, G["high"]["L_50"] + step
+    row("Loop latency", "L_50 one slack step (one tProc tick) later than the campaign's, lower / upper group", f"{lo:.1f} / {hi:.1f} ns (step {step:.3f} ns)",
+        [f"{lo:.0f}", f"{hi:.0f}", f"{step:.2f}"], g)
+    # the leak of the 2000-crossing calibration as a share of the Gaussian pulse's area (its rotation), taking the leak
+    # as the pulse's leading part; the pulse shape is the measurement's own (sigma, length), centred as QICK draws it
+    q = src(f"{LK}B_v144_leak_thr2000.json", "banner", f"{LK}B_v144_leak_thr2000.log"); J = json.load(open(q))
+    ub = max(json.load(open(src(f"{LK}{b}_v144_leak_thr2000.json", "banner")))["leads"][k]["frac_ci"][1] for b in "AB" for k in ("2", "3", "4"))
+    tt = np.linspace(0, J["cp_len_us"], 200001); g_ = np.exp(-(tt - J["cp_len_us"] / 2) ** 2 / (2 * J["sigma_us"] ** 2))
+    E = np.cumsum(g_ ** 2); E /= E[-1]; A_ = np.cumsum(g_); A_ /= A_[-1]
+    area = A_[np.searchsorted(E, ub)]; flip = math.sin(math.pi * area / 2) ** 2
+    row("Safety and tests", "Leak of the 2000-crossing calibration at its largest upper 95% bound, as a share of the Gaussian pulse's area; flip probability on a pi pulse",
+        f"{100 * ub:.3f}% of energy = {100 * area:.2f}% of area; {100 * flip:.3f}%", [f"{100 * area:.1f}", f"{100 * flip:.2f}"], q,
+        "leak taken as the pulse's leading part")
+
+
 for fn in (s2_aug, s5_linear, rev_reloads, rev_stability, rev_arms, rev_carrier_jitter_spacing, rev_logit, rev_keras, rev_map_trainrows, rev_live_window,
            rev2_stats, rev2_protocol, rev2_fpga, rev2_pass8):
     attempt(fn)
@@ -919,6 +985,7 @@ for h, b in HOSTS:
 attempt(rev2_board)
 attempt(pass9b)
 attempt(pass11)
+attempt(pass12)
 for t, lab in (("A_own", "Board A, own calibration"), ("B_own", "Board B, own calibration"), ("B_on_A_calibration", "Board B on board A's calibration")):
     attempt(swap, t, lab)
 

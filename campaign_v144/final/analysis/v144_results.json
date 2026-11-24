@@ -1601,6 +1601,17 @@
    "note": ""
   },
   {
+   "section": "tProc path",
+   "key": "tProc routes (branch on the boxcar path, both forms; branch on the FIR path; QICK threshold feedback), both boards: per-shot s.d. range",
+   "value": "5.08\u20139.58 ns over 8 medians",
+   "text": [
+    "10"
+   ],
+   "source": "campaign_v144/final/board2/A_tproc_box_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
    "section": "Calibration swap",
    "key": "Board A, own calibration, 2,000 shots, arg(k) -164.2 deg",
    "value": "95.95% [95.09, 96.82], P(1|0) 1.96, P(0|1) 6.14, n = 2,000",
@@ -2198,7 +2209,7 @@
     "1,343",
     "1,221"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2211,7 +2222,7 @@
     "148,120",
     "37.8"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2223,7 +2234,7 @@
     "0.000",
     "0"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_timing.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_timing.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2235,7 +2246,7 @@
     "17",
     "35"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2247,7 +2258,7 @@
     "0.187",
     "0.19"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_timing.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_timing.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2346,6 +2357,18 @@
   },
   {
    "section": "Loop latency",
+   "key": "Measure-and-react time in replay time: window (575 intervals at 552.96 MS/s) + L_50 of the 176 ns group",
+   "value": "1039.9 + 175.9 ns = 1.22 us",
+   "text": [
+    "1039.9",
+    "1.22"
+   ],
+   "source": "campaign_v144/final/analysis/loop_groups_values_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
    "key": "Board A, 20 further loads: low / high group",
    "value": "10 loads 173.66\u2013174.28 ns / 10 loads 175.77\u2013176.35 ns",
    "text": [
@@ -2428,13 +2451,40 @@
    "note": ""
   },
   {
+   "section": "Loop latency",
+   "key": "Per-shot L_50 tail, lower / upper group: 99th percentile; largest shot",
+   "value": "177.24 / 179.02; 177.46 / 179.29 ns (1,000 and 400 shots)",
+   "text": [
+    "177.2",
+    "179.0",
+    "177.5",
+    "179.3"
+   ],
+   "source": "campaign_v144/final/analysis/loop_groups_values_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
+   "section": "Loop latency",
+   "key": "L_50 one slack step (one tProc tick) later than the campaign's, lower / upper group",
+   "value": "175.9 / 177.9 ns (step 2.035 ns)",
+   "text": [
+    "176",
+    "178",
+    "2.03"
+   ],
+   "source": "campaign_v144/final/analysis/loop_groups_values_v144.json",
+   "kind": "banner",
+   "note": ""
+  },
+  {
    "section": "Implementation",
    "key": "NN_live LUT, rounded for prose",
    "value": "about 1,340",
    "text": [
     "1,340"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2445,7 +2495,7 @@
    "text": [
     "0"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_timing.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_timing.rpt",
    "kind": "build-file",
    "note": "zero failing setup endpoints in the whole design"
   },
@@ -2457,7 +2507,7 @@
     "3,303",
     "3,300"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2507,7 +2557,7 @@
     "105,328",
     "54,923"
    ],
-   "source": "paper_tables/table3/data/v1.44_routed_util_hier.rpt",
+   "source": "firmware_v1.44/reports/v1.44_routed_util_hier.rpt",
    "kind": "build-file",
    "note": ""
   },
@@ -2603,6 +2653,18 @@
    "source": "campaign_v144/final/leak_energy/B_v144_leak_thr2000.json",
    "kind": "banner",
    "note": ""
+  },
+  {
+   "section": "Safety and tests",
+   "key": "Leak of the 2000-crossing calibration at its largest upper 95% bound, as a share of the Gaussian pulse's area; flip probability on a pi pulse",
+   "value": "0.450% of energy = 3.12% of area; 0.239%",
+   "text": [
+    "3.1",
+    "0.24"
+   ],
+   "source": "campaign_v144/final/leak_energy/B_v144_leak_thr2000.json",
+   "kind": "banner",
+   "note": "leak taken as the pulse's leading part"
   },
   {
    "section": "Replay-channel augmentation",
@@ -3248,6 +3310,39 @@
    "source": "campaign_v144/final/inloop/arms/arms_full_analysis.json",
    "kind": "name+date",
    "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "Build 1 (tProc core at 245.76 MHz): failing setup endpoints, all in the ADC-side readout clock; tProc core clock WNS",
+   "value": "658 endpoints; core +0.024 ns",
+   "text": [
+    "658"
+   ],
+   "source": "firmware_v1.44/variants/tproc245/reports/v1.44t245_routed_timing.rpt",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "LDA_live 1.1 in NN_live's slot (build 2b): RAMB36 + RAMB18 as 36-kb tiles; DSP",
+   "value": "1 + 1 = 1.5 tiles; 2 DSP",
+   "text": [
+    "1.5"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/reports/v1.44lda11_routed_util_hier.rpt",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Variant builds",
+   "key": "LDA_live on the boards: bit-exact shots per board, A / B",
+   "value": "50,000 / 50,000",
+   "text": [
+    "50,000"
+   ],
+   "source": "firmware_v1.44/variants/lda_gate/board/live/check_board_lda.json",
+   "kind": "name+date",
+   "note": ""
   }
  ],
  "sources": {
@@ -3343,15 +3438,15 @@
    "kind": "banner",
    "sha256": "c500b1856a7b9268"
   },
-  "paper_tables/table3/data/v1.44_routed_timing.rpt": {
+  "firmware_v1.44/reports/v1.44_routed_timing.rpt": {
    "kind": "build-file",
    "sha256": "31c65d1a52a705bc"
   },
-  "paper_tables/table3/data/v1.44_routed_util_hier.rpt": {
+  "firmware_v1.44/reports/v1.44_routed_util_hier.rpt": {
    "kind": "build-file",
    "sha256": "5c0cf132e6571f21"
   },
-  "paper_tables/table3/data/v1.44_routed_utilization.rpt": {
+  "firmware_v1.44/reports/v1.44_routed_utilization.rpt": {
    "kind": "build-file",
    "sha256": "1b381e69f82332e4"
   },
@@ -3811,6 +3906,10 @@
    "kind": "name+date",
    "sha256": "61a5349082f7e93f"
   },
+  "campaign_v144/final/latency/reloads/A_r2.json": {
+   "kind": "banner",
+   "sha256": "8ab63fde1f6d3b6d"
+  },
   "campaign_v144/final/board2/swap_B_on_A_calibration_v144.npz": {
    "kind": "banner",
    "sha256": "11ddffdcbe914ec8"
@@ -3818,5 +3917,5 @@
  },
  "pending": 0,
  "waiting_for": [],
- "md_sha256": "3f804845e43f4f2d046fcf85f9cbe8437cb4ee0405e24d5dc5734478e688d767"
+ "md_sha256": "e9cdeecaa02e1372f0ddb22b5484dce798de4f1ec80b2e96f7e5992a83a85c1e"
 }

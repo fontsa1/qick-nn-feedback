@@ -1,0 +1,27 @@
+run                     ep best                        test100k                          sub20k                        sub19400
+exact_s32_lr0.0001      17    7  96.015 [95.89,96.13] 2.70/5.27  96.005 [95.72,96.27] 2.63/5.36  95.958 [95.67,96.23] 2.68/5.40
+exact_s32_lr0.001       25   15  96.003 [95.88,96.12] 2.72/5.27  95.945 [95.66,96.21] 2.75/5.36  95.917 [95.63,96.19] 2.77/5.39
+exact_s33_lr0.001       18    8  96.006 [95.88,96.13] 2.76/5.23  95.930 [95.65,96.20] 2.78/5.36  95.896 [95.61,96.17] 2.82/5.38
+exact_s34_lr0.001       20   10  96.015 [95.89,96.13] 2.64/5.33  95.940 [95.66,96.20] 2.60/5.52  95.906 [95.62,96.18] 2.64/5.55
+ours_s20260901           6    1  96.023 [95.90,96.14] 2.28/5.68  95.900 [95.62,96.17] 2.20/6.00  95.844 [95.56,96.12] 2.25/6.06
+ours_s20260902           9    4  95.959 [95.84,96.08] 2.15/5.93  95.860 [95.57,96.13] 2.01/6.27  95.808 [95.52,96.08] 2.05/6.33
+ours_s20260903           6    1  96.004 [95.88,96.12] 2.28/5.71  95.905 [95.62,96.17] 2.14/6.05  95.844 [95.56,96.12] 2.19/6.12
+exact_lr1e-3         test100k: 96.008 +- 0.006  sub20k: 95.938 +- 0.008  sub19400: 95.907 +- 0.010   (n_runs 3)
+exact_lr1e-4         test100k: 96.015  sub20k: 96.005  sub19400: 95.958   (n_runs 1)
+ours_task51_rerun    test100k: 95.995 +- 0.033  sub20k: 95.888 +- 0.025  sub19400: 95.832 +- 0.021   (n_runs 3)
+McNemar exact_s32_lr0.001 vs ours_s20260901 [test100k]: dF -0.020  a-only 344  b-only 364  p_exact 0.475  decision agreement 99.29%
+McNemar exact_s32_lr0.001 vs ours_s20260901 [sub20k]: dF +0.045  a-only 91  b-only 82  p_exact 0.543  decision agreement 99.13%
+McNemar exact_s32_lr0.001 vs ours_s20260901 [sub19400]: dF +0.072  a-only 91  b-only 77  p_exact 0.316  decision agreement 99.13%
+McNemar exact_s33_lr0.001 vs ours_s20260902 [test100k]: dF +0.047  a-only 426  b-only 379  p_exact 0.105  decision agreement 99.19%
+McNemar exact_s33_lr0.001 vs ours_s20260902 [sub20k]: dF +0.070  a-only 107  b-only 93  p_exact 0.358  decision agreement 99.00%
+McNemar exact_s33_lr0.001 vs ours_s20260902 [sub19400]: dF +0.088  a-only 107  b-only 90  p_exact 0.254  decision agreement 98.98%
+McNemar exact_s34_lr0.001 vs ours_s20260903 [test100k]: dF +0.011  a-only 360  b-only 349  p_exact 0.707  decision agreement 99.29%
+McNemar exact_s34_lr0.001 vs ours_s20260903 [sub20k]: dF +0.035  a-only 86  b-only 79  p_exact 0.641  decision agreement 99.17%
+McNemar exact_s34_lr0.001 vs ours_s20260903 [sub19400]: dF +0.062  a-only 86  b-only 74  p_exact 0.385  decision agreement 99.18%
+McNemar exact_s32_lr0.0001 vs ours_s20260901 [test100k]: dF -0.008  a-only 350  b-only 358  p_exact 0.793  decision agreement 99.29%
+McNemar exact_s32_lr0.0001 vs ours_s20260901 [sub20k]: dF +0.105  a-only 91  b-only 70  p_exact 0.115  decision agreement 99.19%
+McNemar exact_s32_lr0.0001 vs ours_s20260901 [sub19400]: dF +0.114  a-only 91  b-only 69  p_exact 0.0966  decision agreement 99.18%
+McNemar exact_s32_lr0.0001 vs exact_s32_lr0.001 [test100k]: dF +0.012  a-only 146  b-only 134  p_exact 0.511  decision agreement 99.72%
+McNemar exact_s32_lr0.0001 vs exact_s32_lr0.001 [sub20k]: dF +0.060  a-only 35  b-only 23  p_exact 0.148  decision agreement 99.71%
+McNemar exact_s32_lr0.0001 vs exact_s32_lr0.001 [sub19400]: dF +0.041  a-only 31  b-only 23  p_exact 0.341  decision agreement 99.72%
+saved C:\Users\fonte\coding\qick_project\audit_fixes\R5\evaluate_results.json

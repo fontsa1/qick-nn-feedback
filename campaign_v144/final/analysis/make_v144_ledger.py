@@ -13,9 +13,12 @@ The rules that keep other results out:
        name+date  named v1.44 and dated after the build, with no banner; weakest, listed at the end of the file
   4. A result whose source does not exist yet is shown as PENDING with no value. A source that exists and fails a check
      stops the script. --verify fails while anything is pending, so a partial file cannot pass for a finished one.
+  5. In a checkout without the board captures listed in DATA_MANIFEST.csv, --verify recomputes every result it can and
+     reports the rest as not rechecked; any other missing or changed source, or an edited .md, still fails.
 
   .venv/Scripts/python.exe campaign_v144/final/analysis/make_v144_ledger.py [--verify]
 """
+import fnmatch
 import functools
 import glob
 import hashlib
@@ -1082,13 +1085,40 @@ text = "\n".join(out)
 payload = dict(rows=final, sources=SRC, pending=len(pending), waiting_for=sorted(set(BLOCKED)), md_sha256=hashlib.sha256(text.encode()).hexdigest())
 if "--verify" in sys.argv:
     old = json.load(open(JS))
-    bad = [p + (" (missing: see DATA_MANIFEST.csv)" if not Path(p).exists() else "") for p, v in old["sources"].items()
-           if not Path(p).exists() or sha(p)[:16] != v["sha256"]]
-    if MD.read_text(encoding="utf-8") != text or old["md_sha256"] != payload["md_sha256"]:
-        bad.append(str(MD))
-    if pending:
-        bad.append(f"{len(pending)} results still pending")
-    print("VERIFY", "FAILED: " + ", ".join(bad) if bad else f"OK: {len(final)} results, {len(SRC)} sources")
+    # Board captures too large for the repository are listed in DATA_MANIFEST.csv and not shipped. Their results
+    # cannot be recomputed here; they are counted as not rechecked, and every other result must still match.
+    listed = {l.split(",")[0] for l in Path("DATA_MANIFEST.csv").read_text(encoding="utf-8").splitlines()[1:] if l}
+    unshipped = {p for p in old["sources"] if not Path(p).exists() and p in listed}
+    blocked = {b.replace("\\", "/") for b in BLOCKED}
+    unshipped |= {b for b in blocked if b in listed or (any(c in b for c in "*?") and fnmatch.filter(listed, b))}
+    bad = [p + ("" if Path(p).exists() else " (missing)") for p, v in old["sources"].items()
+           if p not in unshipped and (not Path(p).exists() or sha(p)[:16] != v["sha256"])]
+    bad += [f"{b} (missing, and not in DATA_MANIFEST.csv)" for b in sorted(blocked - unshipped)]
+    if hashlib.sha256(MD.read_text(encoding="utf-8").encode()).hexdigest() != old["md_sha256"]:
+        bad.append(f"{MD} was edited after it was generated")
+    skipped = 0
+    if not unshipped:                                # every source present: the file must regenerate exactly
+        if MD.read_text(encoding="utf-8") != text or old["md_sha256"] != payload["md_sha256"]:
+            bad.append(f"{MD} differs from what its sources give")
+        if pending:
+            bad.append(f"{len(pending)} results still pending")
+    else:                                            # compare row by row, skipping rows whose source is not shipped
+        now = {(r["section"], norm(r["key"])): r for r in final if r["kind"] != "pending"}
+        for r in old["rows"]:
+            if r["source"] in unshipped:
+                skipped += 1
+                continue
+            n = now.pop((r["section"], norm(r["key"])), None)
+            if n is None and blocked and blocked <= unshipped:   # its group stopped at a capture that is not shipped
+                skipped += 1
+                continue
+            if n is None or str(n["value"]) != str(r["value"]):
+                bad.append(f"result '{r['key']}' ({r['value']}) not reproduced")
+        bad += [f"result '{r['key']}' not in the ledger" for r in now.values()]
+    note = (f"; {skipped} rest on {len(unshipped)} board captures not shipped (DATA_MANIFEST.csv) and were not rechecked"
+            if skipped else "")
+    print("VERIFY", "FAILED: " + ", ".join(bad) if bad else f"OK: {len(old['rows']) - skipped} of {len(old['rows'])} results "
+          f"rechecked against {len(old['sources']) - len(unshipped)} sources{note}")
     sys.exit(1 if bad else 0)
 MD.write_text(text, encoding="utf-8")
 JS.write_text(json.dumps(payload, indent=1, default=str))

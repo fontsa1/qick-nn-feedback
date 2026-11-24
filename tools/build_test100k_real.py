@@ -1,6 +1,6 @@
 """Builder for data/test100k_real_X.npy / _y.npy from the public dataset arrays alone.
 
-Inputs (public test split of the reference dataset [16],[55]): 0528_X_test_0_770.npy, 0528_y_test_0_770.npy.
+Inputs (public test split of the reference dataset of [16], Zenodo record 14427490): 0528_X_test_0_770.npy, 0528_y_test_0_770.npy.
 Recipe (the one that wrote the shipped files; step 1 is tools/make_test_subsets.py's):
   1. test20k_real indices: default_rng(20260902); for class 0 then class 1, rng.choice(where(y == s), 10000,
      replace=False); concatenate; rng.shuffle  (make_test_subsets.build, seed 20260902, n 20000)

@@ -25,7 +25,7 @@ Both boards ran `firmware_v1.44/variants/board_queue.sh` (b1, arms, lda) to comp
 - **Bitstream:** sha256 b2416b0665f34aa1…, banner `Nov 17 20:42:27`.
 - **Checks:** functional, binding-fault, fail-safe, leak and gate-sweep all rc=0, and smoke 20/20 on both boards.
 - **Bit-exact:** D, logit and decision equal `lda_model.py` on all 100,000 shots.
-- **Output:** `rebuilds/build2_lda_gate/board/live/check_board_lda.json`.
+- **Output:** `lda_gate/board/live/check_board_lda.json`.
 
 | Set | n | LDA_live (board) | NN_live v1.44, same rows | NN − LDA [95% CI] | Exact McNemar p |
 |---|---|---|---|---|---|

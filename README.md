@@ -1,12 +1,24 @@
 # Streaming neural-network qubit readout with feedback on QICK
 
-Code, firmware sources and results behind the qick feedback classifier project. Everything here
-belongs to the final build, **v1.44**, on the Xilinx RFSoC 4x2 (XCZU48DR) running QICK (tProc v2). Two classifiers are
-built from the same recorded readout data [16]:
+Code, firmware sources and results behind the qick feedback classifier project. The paper's results come from build
+**v1.44** on the Xilinx RFSoC 4x2 (XCZU48DR) running QICK (tProc v2); folders of earlier builds are kept where current
+scripts read them (see the layout below).
 
-- **NN_live**, a streaming classifier on the readout's decimated stream. It decides 16.3 ns after the last sample, and its
-  decision drives a pulse gate (`dac_gate`) on signal generator 0 and the tProc. Measured loop latency is ~176 ns.
-- **NN_axi**, a buffered hls4ml classifier in the conventional QICK deployment, whose results the host reads afterwards.
+The work builds on [16]: G. Di Guglielmo et al., "End-to-end workflow for machine-learning-based qubit readout with
+QICK and hls4ml", IEEE Transactions on Quantum Engineering (arXiv:2501.14663), code at
+[fastmachinelearning/ml-quantum-readout](https://github.com/fastmachinelearning/ml-quantum-readout). Its recorded
+readout data (B. Du, Zenodo, [doi:10.5281/zenodo.14427490](https://doi.org/10.5281/zenodo.14427490), CC BY 4.0) is the
+data both classifiers are trained and tested on, and both use its network family (N → 4 → 1, ternary QKeras),
+retrained by us. It is built on QICK ([openquantumhardware/qick](https://github.com/openquantumhardware/qick);
+Stefanazzi et al., Rev. Sci. Instrum. 93, 044709, 2022) and hls4ml ([fastmachinelearning/hls4ml](https://github.com/fastmachinelearning/hls4ml)).
+
+- **NN_live**, a streaming classifier on the readout's decimated stream, whose decision drives a pulse gate (`dac_gate`)
+  on signal generator 0 and the tProc. Its segment of the loop is 18.1 ns. The measured loop latency, from the window's
+  last ADC sample to the gated pulse back at the ADC, is 173.9 or 175.9 ns depending on the bitstream load (two load
+  groups), of which about 100 ns are converters and cable (`paper_notes/V144_RESULTS.md`, Loop latency).
+- **NN_axi**, the buffered hls4ml classifier of [16]'s deployment: it reads QICK's buffered readout window and writes its
+  result to BRAM, where the host reads it. Its wrapper `neural_net4_tlast/firmware/NN_axi.cpp` is derived from the
+  `NN_axi.cpp` of [16]'s code (signed sample reading, TLAST restart, capture mode, a ring buffer of results, counters).
 
 Run every script from this folder's root; paths in the scripts are relative to it. Some folder names are historical
 (`campaign_v140L1/`, `campaign_v143/`, `audit_fixes/`). The paths below say what each one holds.
@@ -40,11 +52,12 @@ Run every script from this folder's root; paths in the scripts are relative to i
 | `firmware_v1.44/reports/`, `firmware_v1.44/variants/`, `rtl/sim/`, `scaling_study/v144/` | Timing reports of the routed v1.44 design; two variant builds with their board runs (tProc at 245.76 MHz, an LDA core in NN_live's place); clock-crossing simulations; the v1.44 scaling recheck |
 | `audit_fixes/R18/`, `audit_fixes/R9/`, `audit_fixes/R3_R2/`, `audit_fixes/R10/`, `campaign_v140L1/` | In-loop campaign, synthetic-data study, linear baselines, fixed-point scoring, architecture and window sweeps (scripts called by the campaign and the analysis) |
 | `audit_fixes/R18_full/` | The in-loop analysis on all 99,400 rows per board (`analyze_full.py`; its six per-shot inputs are in `DATA_MANIFEST.csv`) |
-| `audit_fixes/R5/`, `audit_fixes/R14/`, `audit_fixes/R8_R1/` | Stored results that generators read: the offline baselines of Table II (`R5/evaluate_results.json`), the noise-model separations quoted in Appendix B (`R14/noise_model_table.json`), the matched-filter truncation curves (`R8_R1/out/`) |
+| `audit_fixes/R5/` | The retrain of [16]'s released network: `train_exact.py` (its header lists every setting taken from [16]'s `train.ipynb`: seed, window [100, 500), architecture, optimizer, early stopping, all 900,000 training rows), our recipe rerun on raw data (`reproduce_ours.py`), [16]'s released checkpoints scored on the same split (`eval_ref_checkpoints.py`, needs a clone of [16]'s code), the scoring (`evaluate.py` → `evaluate_results.json`), the run order (`run_all.py`), the per-run logs and outputs (`logs/`, `runs/`) |
+| `audit_fixes/R14/`, `audit_fixes/R8_R1/` | Stored results that generators read: the noise-model separations quoted in Appendix B (`R14/noise_model_table.json`), the matched-filter truncation curves (`R8_R1/out/`) |
 | `audit_fixes/R13/` | Classifies the failing setup endpoints of an earlier build (v1.40L10) from a Vivado dump that is not shipped; kept as the method, not used for any v1.44 number |
 | `campaign_v140/` | Aligned captures of the v1.40 runs, read by `campaign_v140L1/live20k_stats.py` for the earlier builds' scored sets |
 | `analysis_scripts/acquisition/` | Training-set construction (domain maps) and model training/export (`export_signed_domain_model.py`) |
-| `models/` | The three deployed networks: NN_live on the boxcar path (`..._w576_box`), NN_live on the FIR path (`..._w576`), NN_axi (`model_v140_200k_...`); and `model_v140L3_w576_...`, an earlier 576-sample network that `campaign_v140L1/check_live_bitexact.py --l3` checks |
+| `models/` | The three deployed networks: NN_live on the boxcar path (`..._w576_box`), NN_live on the FIR path (`..._w576`), NN_axi (`model_v140_200k_...`); and `model_v140L3_w576_seed20260904.h5`, the name under which `campaign_v140L1/check_live_bitexact.py --l3` reads the FIR-path network (the same file as `..._w576`, byte for byte, kept under the name that script and its logs use) |
 | `campaign_v144/final/analysis/` | Analysis of the v1.44 data, and the results ledger: `make_v144_ledger.py` writes `paper_notes/V144_RESULTS.md`, `check_paper_v144.py` checks a draft's numbers against it |
 | `campaign_v143/` | Files of the v1.43 campaign that the v1.44 scripts still read, among them the results ledger's row template (`final/analysis/v143_results.json`). The v1.43 ledger scripts here are kept for reference; most of their inputs are not shipped, so they do not run |
 
@@ -144,8 +157,10 @@ add the block design, then QICK's `ios.xdc` and `timing.xdc` and our `rtl/constr
 The v1.44 build meets all setup and hold constraints at sign-off (WNS 0.000 ns, WHS 0.010 ns; paper Table III). One
 bus-skew constraint misses: on the decision's crossing into the DAC domain (`live_res_cdc_1`), the skew is 2.352 ns
 against the 2.000 ns set in `rtl/constraints/live_res_cdc.xdc` (slack −0.352 ns). In RTL simulation of the crossing
-at 491.52 MHz (`audit_fixes/RB_prep/sim/tb_cdc_skew.sv`), 4.0 ns of skew corrupted none of 3,000 results and 4.5 ns
-corrupted 664. No corrupted result appeared in the bit-exact or in-loop runs on either board. The routed timing,
+at 491.52 MHz (`rtl/sim/tb_cdc_skew.sv`, logs in `rtl/sim/logs/`), 4.0 ns of skew corrupted none of 3,000 results and 4.5 ns
+corrupted 664; at the two clock phases simulated the first corruption is at 4.08 and 4.27 ns (`run_sweep.txt`, `run_phase.txt`). The
+destination takes the data bits two clock edges after it captures the toggle, so the crossing tolerates about two
+destination periods of skew; the 2.000 ns bound is a margin target at about half of that. No corrupted result appeared in the bit-exact or in-loop runs on either board. The routed timing,
 utilization and bus-skew reports are in `firmware_v1.44/reports/` (`v1.44_routed_*.rpt`); they are the v1.44 build's (the build scripts are
 v1.43's, so the checkpoint inside them is named `v1.43_routed.dcp`).
 
@@ -164,7 +179,7 @@ The campaign runners read their settings from `campaign_v144/env.sh`: the two bo
 `QICK_BOARD_B`, required), the folder with the bitstream (`QICK_TOP`, default `firmware_v1.44`), the build timestamp
 the board must report (`QICK_BANNER`, read from the `.hwh` by default, so a rebuilt bitstream needs no edit) and
 `PYTHON`. Hand runs of the diagnostics also read `QICK_LIVE_N` (576 for the deployed build) and `QICK_TAG` (the
-build tag in output file names, default `v144`). The campaign uses two boards; the single-board steps (`run_6_3.sh A`, `run_drift_full.sh B`, ...) run alone.
+build tag in output file names, default `v144`). The campaign uses two boards; the single-board steps (`run_6_3.sh A`, `run_drift_full.sh B`, ...) run alone. The addresses `10.1.9.26` (board A) and `10.1.4.105` (board B) that appear in logs, result files, file names and the older scripts are our boards on a private lab network; set your own.
 The latency study's cold starts need a power cycle by hand: `campaign_v144/README.md` gives the procedure.
 
 We ran the scripts on Windows 11 with Git Bash. The v1.44 campaign scripts change to `$REPO_ROOT`, or to the repository
@@ -184,7 +199,8 @@ From the repository root, with `PYTHON` set to your interpreter:
 3. **Analyses of the campaign data.** `bash campaign_v144/run_analyses.sh` (log in `campaign_v144/final/analysis/`).
    The paired statistics are in `campaign_v144/final/analysis/stats/` (run order in its README).
 4. **Results ledger.** `python campaign_v144/final/analysis/make_v144_ledger.py` writes `paper_notes/V144_RESULTS.md`;
-   (it overwrites the shipped copy); `--verify` is the read-only check against its sources. `check_paper_v144.py <draft.txt>` checks a draft's numbers against it.
+   (it overwrites the shipped copy); `--verify` is the read-only check against its sources. Without the board
+   captures of `DATA_MANIFEST.csv` it rechecks 250 of the 264 results and lists the rest as not rechecked. `check_paper_v144.py <draft.txt>` checks a draft's numbers against it.
 
 Other READMEs: `campaign_v144/README.md` (running the campaign, cold starts), `campaign_v144/final/README.md` (what
 each result folder holds), `campaign_v144/final/latency/README.md`,
@@ -217,4 +233,10 @@ The MIT licence in `LICENSE` covers this repository except for the third-party f
 - one QICK file, `audit_fixes/RB_prep/sim/buffer.sv`, used in RTL simulation, under QICK's MIT licence
   (`LICENSES/QICK-MIT.txt`). The firmware build takes QICK's IP from a QICK checkout and does not copy it.
 
-The recorded traces are the public dataset of [16], Zenodo record 14427490, under the licence stated on that record.
+The recorded traces are the public dataset of [16] (B. Du, Zenodo record 14427490, CC BY 4.0); `data/` holds labels,
+row indices and manifests selected from it.
+
+`neural_net4_live576s/firmware/` is hls4ml output with one code edit, line 33 of `defines.h`: the logit type
+`q_output_alpha_result_t` saturates (`AP_SAT`) where hls4ml's default wraps. No recorded shot reaches the wrap point (|logit| ≥ 32), so the
+fresh hls4ml conversions the analysis scripts emulate give the same decisions on every shot. The only other change is a
+corrected comment header in `weights/b6.h` (its values are as generated).

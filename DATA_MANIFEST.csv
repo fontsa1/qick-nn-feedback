@@ -1,10 +1,10 @@
 path,bytes,sha256,earlier_build,note
-0528_X_test_0_770.npy,1232000128,9aa99a285acc1a3baa758f0f324407e53b729017725cf0a0a54093bb2c7651b2,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
-0528_X_train_0_770.npy,11088000128,fe68feec7f5e13c9de36bb6237cb5c2102478f7bc12107ecd148754bb3240514,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
+0528_X_test_0_770.npy,1232000128,9aa99a285acc1a3baa758f0f324407e53b729017725cf0a0a54093bb2c7651b2,,public dataset file of [16] (Zenodo 14427490), unchanged; download into the repository root
+0528_X_train_0_770.npy,11088000128,fe68feec7f5e13c9de36bb6237cb5c2102478f7bc12107ecd148754bb3240514,,public dataset file of [16] (Zenodo 14427490), unchanged; download into the repository root
 0528_X_train_0_770_loopback_calibrated.npy,5544000128,510a94cb0950b3dfe7c99ba450ebd516ef278192974ce0816d965786f1dbc547,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
 0528_X_train_box_calibrated.npy,1232000128,eda37fa218b6101ba9658f4173e4346040129ecb2038676dae7ff7c89d40dd35,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
-0528_y_test_0_770.npy,800128,cebbf84d731b4526b97ded31fa8190fce94c95d842cd0e22b732577503842ca1,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
-0528_y_train_0_770.npy,7200128,43517f104f1de18d9669f8171aa4edb8d86e1bac69e43cf73af139af4618e0b6,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
+0528_y_test_0_770.npy,800128,cebbf84d731b4526b97ded31fa8190fce94c95d842cd0e22b732577503842ca1,,public dataset file of [16] (Zenodo 14427490), unchanged; download into the repository root
+0528_y_train_0_770.npy,7200128,43517f104f1de18d9669f8171aa4edb8d86e1bac69e43cf73af139af4618e0b6,,public dataset file of [16] (Zenodo 14427490), unchanged; download into the repository root
 Phi.npy,308000128,c093e22e62aafb4b996d88642571c36ab8423fb463718c85ea5a3839be0f46e5,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
 Phi_heldout.npy,308000128,d8080ff8564a5e5928141a174c7ee5d01dfb54ee614cfcde28490c6c7c6dda42,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts
 Phi_heldout_measnoise.npy,308000128,0c7a0bfb7fb8f3aa0f3d444e2bdca1f32a8fa17d59f4a03f563c7da5d7a0f1ce,,derived from the public dataset (Zenodo 14427490); regenerate with make_test_subsets.py / the dataset scripts

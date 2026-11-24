@@ -1,0 +1,61 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792483990.852344   17792 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792483998.119043   17792 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+[exact_s32_lr0.001] fit rows [0,855000) val rows [855000,900000) (val class-1 frac 0.5556); seed 32 lr 0.001 batch 256 epochs 50 patience 10; threads intra 4 inter 1
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\backend.py:873: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ fc1 (QDense)                (None, 4)                 3204      
+                                                                 
+ batchnorm1 (BatchNormaliza  (None, 4)                 16        
+ tion)                                                           
+                                                                 
+ fc2 (QDense)                (None, 1)                 5         
+                                                                 
+=================================================================
+Total params: 3225 (12.60 KB)
+Trainable params: 3217 (12.57 KB)
+Non-trainable params: 8 (32.00 Byte)
+_________________________________________________________________
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
+
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
+
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+epoch 1: loss 0.19575 accuracy 0.95583 val_loss 0.18120 val_accuracy 0.95784  (19 s)
+epoch 2: loss 0.18074 accuracy 0.95914 val_loss 0.18524 val_accuracy 0.95753  (16 s)
+epoch 3: loss 0.17859 accuracy 0.95959 val_loss 0.17803 val_accuracy 0.95822  (16 s)
+epoch 4: loss 0.17822 accuracy 0.95980 val_loss 0.17720 val_accuracy 0.95844  (15 s)
+epoch 5: loss 0.17915 accuracy 0.95947 val_loss 0.18224 val_accuracy 0.95782  (17 s)
+epoch 6: loss 0.17925 accuracy 0.95930 val_loss 0.17915 val_accuracy 0.95811  (14 s)
+epoch 7: loss 0.17842 accuracy 0.95974 val_loss 0.17752 val_accuracy 0.95807  (16 s)
+epoch 8: loss 0.17809 accuracy 0.95985 val_loss 0.17790 val_accuracy 0.95831  (17 s)
+epoch 9: loss 0.17787 accuracy 0.96001 val_loss 0.17751 val_accuracy 0.95820  (15 s)
+epoch 10: loss 0.17775 accuracy 0.96006 val_loss 0.17751 val_accuracy 0.95853  (14 s)
+epoch 11: loss 0.17784 accuracy 0.95996 val_loss 0.17773 val_accuracy 0.95860  (15 s)
+epoch 12: loss 0.17784 accuracy 0.95987 val_loss 0.17719 val_accuracy 0.95853  (15 s)
+epoch 13: loss 0.17780 accuracy 0.95991 val_loss 0.17735 val_accuracy 0.95882  (14 s)
+epoch 14: loss 0.17790 accuracy 0.95994 val_loss 0.17789 val_accuracy 0.95831  (14 s)
+epoch 15: loss 0.17777 accuracy 0.95994 val_loss 0.17707 val_accuracy 0.95847  (14 s)
+epoch 16: loss 0.17779 accuracy 0.95990 val_loss 0.17811 val_accuracy 0.95847  (14 s)
+epoch 17: loss 0.17783 accuracy 0.95998 val_loss 0.17807 val_accuracy 0.95836  (15 s)
+epoch 18: loss 0.17771 accuracy 0.95997 val_loss 0.17744 val_accuracy 0.95856  (14 s)
+epoch 19: loss 0.17783 accuracy 0.95994 val_loss 0.17749 val_accuracy 0.95847  (16 s)
+epoch 20: loss 0.17781 accuracy 0.95986 val_loss 0.17730 val_accuracy 0.95840  (15 s)
+epoch 21: loss 0.17791 accuracy 0.95990 val_loss 0.17758 val_accuracy 0.95889  (15 s)
+epoch 22: loss 0.17763 accuracy 0.95999 val_loss 0.17793 val_accuracy 0.95853  (15 s)
+epoch 23: loss 0.17769 accuracy 0.96000 val_loss 0.17773 val_accuracy 0.95840  (14 s)
+epoch 24: loss 0.17783 accuracy 0.95997 val_loss 0.17781 val_accuracy 0.95842  (14 s)
+epoch 25: loss 0.17787 accuracy 0.95999 val_loss 0.17725 val_accuracy 0.95851  (14 s)
+[exact_s32_lr0.001] DONE: 25 epochs (best 15, val_loss 0.17707), test balanced fidelity 96.003% (acc 96.003%), P(1|0) 2.72 P(0|1) 5.27; train 6.3 min

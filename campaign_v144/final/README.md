@@ -49,9 +49,11 @@ draft's figure numbers. In the paper they are Fig. 6 and Fig. 7(b).
 - **`logs/`**: console logs of the main campaign's long steps (each phase's calibration, the two NN_live runs and the
   Fig. 6 capture and sweep) that do not sit next to their outputs.
 - **`analysis/`**: everything computed from the folders above.
-  - **The headline:** `analyze_v144.py` writes `v144_stats.json` and the git-ignored `merged_live.npz`.
+  - **The headline:** `analyze_v144.py` writes `v144_stats.json` and `merged_live.npz`.
   - **Table II and the linear baselines:** the NN_axi emulator (`analyze_axi_emu_v144.py`), the linear baselines
-    (`linear_v144.py`, `linear_*`) and the boxcar against the FIR readout (`box_vs_fir_*`).
+    (`linear_v144.py`, `linear_*`) on the 19,400-row subset, the same baselines on all 99,400 replayed rows of the
+    NN_live campaign (`s5_linear_99400_v144.py`, `s5_linear_99400_v144.json`; reads the `live/` captures of
+    `DATA_MANIFEST.csv`) and the boxcar against the FIR readout (`box_vs_fir_*`).
   - **The figures and their numbers:** the replay channel's class SNR (`channel_v144.*`), the panels of Fig. 2 with the
     per-shot capture delay (`fig4_lags_v144.py`, `fig2_lags_v144.json`), the loop groups (`loop_groups_*`) and the
     resource scaling (`scaling_v144.*`).

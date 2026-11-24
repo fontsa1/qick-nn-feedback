@@ -1,0 +1,27 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792484700.228569   29668 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1792484705.101325   29668 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+[ours_s20260903] train rows [0,200000), 1540 inputs; threads intra 4
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\backend.py:1400: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+Epoch 1/50
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\utils\tf_utils.py:492: The name tf.ragged.RaggedTensorValue is deprecated. Please use tf.compat.v1.ragged.RaggedTensorValue instead.
+
+WARNING:tensorflow:From C:\Users\fonte\coding\qick_project\.venv\Lib\site-packages\tf_keras\src\engine\base_layer_utils.py:384: The name tf.executing_eagerly_outside_functions is deprecated. Please use tf.compat.v1.executing_eagerly_outside_functions instead.
+
+5000/5000 - 16s - loss: 0.2102 - accuracy: 0.9511 - val_loss: 0.1744 - val_accuracy: 0.9595 - 16s/epoch - 3ms/step
+Epoch 2/50
+5000/5000 - 13s - loss: 0.1801 - accuracy: 0.9579 - val_loss: 0.1745 - val_accuracy: 0.9597 - 13s/epoch - 3ms/step
+Epoch 3/50
+5000/5000 - 13s - loss: 0.1805 - accuracy: 0.9581 - val_loss: 0.1751 - val_accuracy: 0.9595 - 13s/epoch - 3ms/step
+Epoch 4/50
+5000/5000 - 13s - loss: 0.1816 - accuracy: 0.9576 - val_loss: 0.1747 - val_accuracy: 0.9596 - 13s/epoch - 3ms/step
+Epoch 5/50
+5000/5000 - 13s - loss: 0.1822 - accuracy: 0.9575 - val_loss: 0.1783 - val_accuracy: 0.9597 - 13s/epoch - 3ms/step
+Epoch 6/50
+5000/5000 - 13s - loss: 0.1824 - accuracy: 0.9576 - val_loss: 0.1786 - val_accuracy: 0.9590 - 13s/epoch - 3ms/step
+[ours_s20260903] DONE: 6 epochs, test balanced fidelity 96.004% (task51 original 96.004); train 1.3 min

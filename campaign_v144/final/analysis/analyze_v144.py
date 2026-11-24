@@ -4,7 +4,7 @@ campaign_v140L1/check_live_bitexact.py and live20k_stats.py, audit_fixes/R18_ful
 Reads only campaign_v144/final/{live,axi,inloop}. Run 1 = each board's own half (A rows 0-49,999, B rows 50,000-99,999),
 run 2 = the halves swapped, so every trace is scored on both boards. Headline set = run 1, minus rows 1000-1599.
 
-Writes campaign_v144/final/analysis/v144_stats.json and, git-ignored, merged per-shot files in the same folder.
+Writes campaign_v144/final/analysis/v144_stats.json and the merged per-shot file merged_live.npz in the same folder.
 """
 import glob
 import json

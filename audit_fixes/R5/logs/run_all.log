@@ -1,0 +1,15 @@
+02:13:10 start exact_s32_lr0.001
+02:19:59 end exact_s32_lr0.001 rc=0
+02:19:59 start ours_s20260901
+02:22:13 end ours_s20260901 rc=0
+02:22:13 start ours_s20260902
+02:24:59 end ours_s20260902 rc=0
+02:24:59 start ours_s20260903
+02:26:45 end ours_s20260903 rc=0
+02:26:45 start exact_s33_lr0.001
+02:30:32 end exact_s33_lr0.001 rc=0
+02:30:32 start exact_s34_lr0.001
+02:34:24 end exact_s34_lr0.001 rc=0
+02:34:24 start exact_s32_lr0.0001
+02:37:40 end exact_s32_lr0.0001 rc=0
+02:37:40 ALL DONE

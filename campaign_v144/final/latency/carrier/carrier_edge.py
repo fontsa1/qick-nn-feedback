@@ -14,7 +14,7 @@ import argparse, json, os, sys
 from pathlib import Path
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "jitter"))
 import jitter_probe as J  # noqa: E402  (brings up soc; EdgeProg, edges)
 
 soc, soccfg, FS = J.soc, J.soccfg, J.FS

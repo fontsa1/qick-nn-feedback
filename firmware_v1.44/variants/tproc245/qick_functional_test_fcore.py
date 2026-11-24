@@ -25,7 +25,7 @@ from pathlib import Path
 import numpy as np
 
 import os  # R2 build1 copy: QICK_EXPECT_FCORE = expected tProc core clock in MHz (default 200.0)
-ROOT = Path(__file__).resolve().parents[3]   # R2 build1 copy lives in firmware_v1.44/variants/build1_tproc245
+ROOT = Path(__file__).resolve().parents[3]   # this file is firmware_v1.44/variants/tproc245/
 sys.path.insert(0, str(ROOT / "board_tools"))
 import deploy_and_verify as D                                    # noqa: E402
 from qick.asm_v2 import AveragerProgramV2, QickSweep1D, QickSpan, AsmV2   # noqa: E402

@@ -1,5 +1,9 @@
 // NN_axi: the deployed classifier (hls4ml NN(), 2 x 770 inputs) on QICK's buffered readout stream, for comparison
 // with NN_live. Runs free (ap_ctrl_none) on the 100 MHz PL clock.
+// Derived from the NN_axi wrapper of [16] (G. Di Guglielmo et al., fastmachinelearning/ml-quantum-readout,
+// hls_models/TEMPLATE_hls4ml_prj/firmware/NN_axi.cpp): same interface pattern and loop structure. Our changes:
+// signed sample reading, TLAST restart, capture mode, a ring buffer of results with host reset, counters, idle flush;
+// his trigger delay and in-stream window offset are removed.
 //
 // Per trigger: one window of N_IQ_WINDOW_IN words is read from `in` (readout 0's decimated buffer readback,
 // TLAST at the end of each transfer), each {Q, I} word multiplied by scaling_factor into the network input, and

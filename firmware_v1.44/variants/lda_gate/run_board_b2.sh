@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # R2 build 2 (LDA_live through the same gate): one board session. NOT RUN YET.
-# Uses the board only with R2_BOARD_APPROVED=1:   R2_BOARD_APPROVED=1 R2_B2_BANNER='...' bash run_board_b2.sh A|B [phases]
+# Uses the board only with BOARD_APPROVED=1:   BOARD_APPROVED=1 B2_BANNER='...' bash run_board_b2.sh A|B [phases]
 # phases (default "core live1 latency"): any of
 #   core     deploy check, functional, safety (binding fault, fail-safe, tProc decision, leak energy), gate slack sweep,
 #            20-shot in-loop smoke
@@ -11,14 +11,14 @@
 #   inloop   in-loop campaign over 100,000 rows (pulse == gate == decision, every shot)
 #   restore  redeploy v1.44 (qick67) and recalibrate  (always run last; the default list ends with it)
 set -u
-[ "${R2_BOARD_APPROVED:-0}" = 1 ] || { echo "board time not approved (set R2_BOARD_APPROVED=1 to use the board)"; exit 2; }
+[ "${BOARD_APPROVED:-0}" = 1 ] || { echo "board time not approved (set BOARD_APPROVED=1 to use the board)"; exit 2; }
 cd "${QICK_REPO:?set QICK_REPO to the repository root}"
 B=$1; PH=${2:-"core live1 latency restore"}
 case $B in A) H="${QICK_BOARD_A:?set QICK_BOARD_A}"; R1=0; R2=50000;; B) H="${QICK_BOARD_B:?set QICK_BOARD_B}"; R1=50000; R2=0;; *) echo "board A or B"; exit 2;; esac
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; R=firmware_v1.44/variants/build2_lda_gate; O=$R/board
+PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; R=firmware_v1.44/variants/lda_gate; O=$R/board
 DEP=${QICK_WORK:?set QICK_WORK}/deploy
-BIT=${R2_B2_BIT:-$DEP/OG_build_v1.44lda.bit}; HWH=${R2_B2_HWH:-$DEP/OG_build_v1.44lda.hwh}   # build 2b: set both to the OG_build_v1.44lda11 files
-BANNER="${R2_B2_BANNER:?set R2_B2_BANNER to the TIMESTAMP in build2 REPORT.md}"
+BIT=${B2_BIT:-$DEP/OG_build_v1.44lda.bit}; HWH=${B2_HWH:-$DEP/OG_build_v1.44lda.hwh}   # build 2b: set both to the OG_build_v1.44lda11 files
+BANNER="${B2_BANNER:?set B2_BANNER to the TIMESTAMP in build2 REPORT.md}"
 V44="${QICK_BANNER:-Nov  7 19:57:07}"; TOP="${QICK_TOP:-firmware_v1.44}"; ADV=0.1135; SILENCE=900
 mkdir -p $O $O/live $O/inloop; LOG=$O/runner_$B.log
 export QICK_NS_HOST=$H QICK_LIVE_N=576 QICK_BANNER="$BANNER"
@@ -79,7 +79,7 @@ for p in $PH; do case $p in
   latency)
     calibrate latency
     step box_probe 600 $PY $DG/box_probe.py --out $O/${B}_b2.box_probe.json
-    QICK_RES_MINUS_LAST=${R2_RES_MINUS_LAST:-8} step latency 1500 $PY $R/latency_protocol_lda.py --expect-path-adv 1.4 --label b2 \
+    QICK_RES_MINUS_LAST=${RES_MINUS_LAST:-8} step latency 1500 $PY $R/latency_protocol_lda.py --expect-path-adv 1.4 --label b2 \
          --box-json $O/${B}_b2.box_probe.json --expect-banner "$BANNER" --bit $BIT --sens-shots 40 --sensitivity --out $O/${B}_b2_latency.npz
     say "gate loop: $(grep -E '^ +op:' $O/${B}_latency.log)"; grep -E '^  FAIL' $O/${B}_latency.log | tee -a $LOG ;;
   inloop)

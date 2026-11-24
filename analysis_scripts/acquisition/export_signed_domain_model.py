@@ -16,6 +16,15 @@ The three deployed networks (models/), run from the repository root:
   NN_live, boxcar path (v1.44):   export_signed_domain_model.py --window 576 --tag _box
                                   --xcal 0528_X_train_box_calibrated.npy             (all 200,000 mapped rows)
 Without --rows or --n-train these are the defaults, so the commands above need no row argument.
+
+The network family is that of Di Guglielmo et al. [16] (fastmachinelearning/ml-quantum-readout, final/train.ipynb):
+QDense(4, ternary) -> BatchNormalization -> QDense(1, ternary) -> sigmoid. Our changes against that notebook: a ReLU
+after the batch norm; L2 (1e-3) on the batch-norm gamma/beta and on the output layer; the window [0, N) of the
+calibrated loopback-domain data instead of [100, 500) of the raw traces; at most 200,000 training rows instead of
+900,000; validation on 20% of a seeded shuffle instead of the last 5%; batch size 32 instead of 256; early-stopping
+patience 5 instead of 10; 5-seed selection by val_loss instead of seed 32. Unchanged: the ternary quantizers on kernel
+and bias, Adam at 1e-3, binary cross-entropy, at most 50 epochs, restore_best_weights. His exact configuration,
+retrained as released, is in audit_fixes/R5/train_exact.py.
 """
 import os
 os.environ["KERAS_BACKEND"] = "tensorflow"

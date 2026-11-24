@@ -1,0 +1,2 @@
+0528_X_test_0_770.npy -> Xte_w100_500_f32.npy: 100000 rows, window [100,500), range -4527..4596, non-integer values 0
+0528_X_train_0_770.npy -> Xtr_w100_500_f32.npy: 900000 rows, window [100,500), range -4883..4654, non-integer values 0

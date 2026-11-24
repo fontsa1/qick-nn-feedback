@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 # R2 build 1 (tProc core at QICK's stock 245.76 MHz): one board session. NOT RUN YET.
-# Uses the board only with R2_BOARD_APPROVED=1:   R2_BOARD_APPROVED=1 bash run_board_b1.sh A|B
+# Uses the board only with BOARD_APPROVED=1:   BOARD_APPROVED=1 bash run_board_b1.sh A|B
 # One board per process; A and B may run in parallel (calibration is serialised by the lock, as run_6_3.sh does).
 # Steps (BOARD_PLAN.md): deploy qick68 + banner, functional (core 245.76), calibrate, tproc_decision, box_probe +
 # latency_protocol (gate loop must be unchanged), tProc path on boxcar and FIR (wider margin sweep), QICK threshold
 # feedback (read_and_jump), then restore v1.44 (qick67) and recalibrate.
 set -u
-[ "${R2_BOARD_APPROVED:-0}" = 1 ] || { echo "board time not approved (set R2_BOARD_APPROVED=1 to use the board)"; exit 2; }
+[ "${BOARD_APPROVED:-0}" = 1 ] || { echo "board time not approved (set BOARD_APPROVED=1 to use the board)"; exit 2; }
 cd "${QICK_REPO:?set QICK_REPO to the repository root}"
 B=$1
 case $B in A) H="${QICK_BOARD_A:?set QICK_BOARD_A}";; B) H="${QICK_BOARD_B:?set QICK_BOARD_B}";; *) echo "board A or B"; exit 2;; esac
-PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; R=firmware_v1.44/variants/build1_tproc245; O=$R/board
+PY="${PYTHON:-python}"; DG=analysis_scripts/diagnostics; R=firmware_v1.44/variants/tproc245; O=$R/board
 DEP=${QICK_WORK:?set QICK_WORK}/deploy
 BIT=$DEP/OG_build_v1.44t245.bit; HWH=$DEP/OG_build_v1.44t245.hwh
-BANNER="${R2_B1_BANNER:?set R2_B1_BANNER to the TIMESTAMP in build1 REPORT.md (date part, e.g. 'Nov 16 00:3x:xx')}"
+BANNER="${B1_BANNER:?set B1_BANNER to the TIMESTAMP in build1 REPORT.md (date part, e.g. 'Nov 16 00:3x:xx')}"
 V44="${QICK_BANNER:-Nov  7 19:57:07}"; TOP="${QICK_TOP:-firmware_v1.44}"
 mkdir -p $O; LOG=$O/runner_$B.log
 export QICK_NS_HOST=$H QICK_LIVE_N=576 QICK_BANNER="$BANNER"

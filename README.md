@@ -16,9 +16,11 @@ Stefanazzi et al., Rev. Sci. Instrum. 93, 044709, 2022) and hls4ml ([fastmachine
   on signal generator 0 and the tProc. Its segment of the loop is 18.1 ns. The measured loop latency, from the window's
   last ADC sample to the gated pulse back at the ADC, is 173.9 or 175.9 ns depending on the bitstream load (two load
   groups), of which about 100 ns are converters and cable (`paper_notes/V144_RESULTS.md`, Loop latency).
-- **NN_axi**, the buffered hls4ml classifier of [16]'s deployment: it reads QICK's buffered readout window and writes its
-  result to BRAM, where the host reads it. Its wrapper `neural_net4_tlast/firmware/NN_axi.cpp` is derived from the
-  `NN_axi.cpp` of [16]'s code (signed sample reading, TLAST restart, capture mode, a ring buffer of results, counters).
+- **NN_axi**, a buffer-readback variant of [16]'s wrapper: it runs free on the 100 MHz PL clock with its trigger tied
+  to 1, reads the readout buffer's readback after each shot, and writes its result to BRAM, where the host reads it.
+  [16]'s own deployment instead taps the live readout stream on the readout clock and starts on the tProc trigger. The
+  wrapper `neural_net4_tlast/firmware/NN_axi.cpp` is derived from the `NN_axi.cpp` of [16]'s code (signed sample
+  reading, TLAST restart, capture mode, a ring buffer of results, counters).
 
 Run every script from this folder's root; paths in the scripts are relative to it. Some folder names are historical
 (`campaign_v140L1/`, `campaign_v143/`, `audit_fixes/`). The paths below say what each one holds.

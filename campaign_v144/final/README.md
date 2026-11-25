@@ -57,6 +57,10 @@ draft's figure numbers. In the paper they are Fig. 6 and Fig. 7(b).
   - **The figures and their numbers:** the replay channel's class SNR (`channel_v144.*`), the panels of Fig. 2 with the
     per-shot capture delay (`fig4_lags_v144.py`, `fig2_lags_v144.json`), the loop groups (`loop_groups_*`) and the
     resource scaling (`scaling_v144.*`).
+  - **The replay channel's noise and resampling:** the noise the channel adds, per band (`channel_noise_v144.*`), and
+    what the linear interpolation of `tools/run_loopback.py` accounts for: its part of the channel's low-pass response,
+    the 0.6% time stretch it leaves and the noise power of the replayed traces (`replay_interp_v144.*`). Both read
+    `replay20k_A.npy` and `replay20k_B.npy` of `DATA_MANIFEST.csv`.
   - **Subfolders:** the synthetic-data arms (`r9/`) and the architecture sweep on replayed shots (`arch/`).
   - **The number check:** the results ledger (`make_v144_ledger.py`, `v144_results.json`), the exemptions
     (`make_v144_exempt.py`) and the check of every number in the paper (`check_paper_v144.py`).

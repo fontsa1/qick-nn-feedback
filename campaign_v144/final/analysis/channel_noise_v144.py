@@ -1,7 +1,7 @@
-"""Spectrum of the noise the replay channel adds, per board (pass 18, 2026-11-23; answers the authors' "colored, mostly
-high-frequency noise" comment). Same linear time-invariant fit as campaign_v140L1/arch_aug.py's fit_channel, on the same
-4,000 fit shots: L(f) = H(f) S(f) + N(f), with S the source trace under the board's loopback calibration, aligned by the
-best integer lag, and L the replayed trace (replay20k_<board>.npy, rows 0-3,999). The residual N is what the channel adds.
+"""Spectrum of the noise the replay channel adds, per board. Same linear time-invariant fit as
+campaign_v140L1/arch_aug.py's fit_channel, on the same 4,000 fit shots: L(f) = H(f) S(f) + N(f), with S the source
+trace under the board's loopback calibration, aligned by the best integer lag, and L the replayed trace
+(replay20k_<board>.npy, rows 0-3,999). The residual N is what the channel adds.
 For comparison, the source's own within-class noise (deviation from its class mean) is analysed the same way.
 
 Reports, per band of the 552.96 MS/s complex stream: the share of the residual's power, the share a white noise would

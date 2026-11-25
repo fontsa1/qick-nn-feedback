@@ -5,7 +5,7 @@ which refuses any source that fails a build check. `--verify` fails if this file
 
 Build: `OG_build_v1.44.bit`, sha256 `986c861a83be8d01...`, banner `Nov  7 19:57:07 2026`.
 
-Status: **264 of 264 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
+Status: **271 of 271 results filled, 0 pending.** A PENDING row has no value yet; its Source column names the file it is waiting for.
 
 Evidence: **banner** = the v1.44 banner read from the board during that run; **bracketed** = banner logged before and after by the same uninterrupted runner; **build-file** = the report saved from the v1.44 build; **name+date** = named v1.44 and dated after the build, no banner (weakest).
 
@@ -40,6 +40,13 @@ Evidence: **banner** = the v1.44 banner read from the board during that run; **b
 | Class SNR per sample, replayed board B (rms mean separation over rms noise) | 0.20 | banner | `campaign_v144/final/analysis/channel_v144.json` |
 | Board A: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there | 56% (white 32.5%); 2.19x | name+date | `campaign_v144/final/analysis/channel_noise_v144.json` |
 | Board B: share of the added noise's power at 60-150 MHz (white noise: share of bins); added / source noise power there | 56% (white 32.5%); 2.08x | name+date | `campaign_v144/final/analysis/channel_noise_v144.json` |
+| Linear interpolation's power response at 60-150 MHz, relative to 0-20 MHz (sinc^4 formula, checked by simulation) | -1.08 dB | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
+| Board A: replay channel's power response at 60-150 MHz relative to 0-20 MHz; the interpolation's part of it | -11.38 dB; 9% | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
+| Board A: time stretch of the replayed traces, fitted on the class means (expected 0.57%) | 0.59%, 4.5 samples over samples 8-759 | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
+| Board A: within-class noise power, replayed over source scaled by the fitted gain squared | 1.121 (+0.50 dB) | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
+| Board B: replay channel's power response at 60-150 MHz relative to 0-20 MHz; the interpolation's part of it | -11.42 dB; 9% | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
+| Board B: time stretch of the replayed traces, fitted on the class means (expected 0.57%) | 0.58%, 4.4 samples over samples 8-759 | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
+| Board B: within-class noise power, replayed over source scaled by the fitted gain squared | 1.112 (+0.46 dB) | name+date | `campaign_v144/final/analysis/replay_interp_v144.json` |
 
 ## In the loop
 
@@ -408,6 +415,7 @@ These carry no banner. Confirm them or re-measure before submission.
 - `campaign_v144/final/analysis/protocol/REPORT.md`
 - `campaign_v144/final/analysis/protocol/logs/fixed_verify_no_leakage.log`
 - `campaign_v144/final/analysis/protocol/task2_summary.json`
+- `campaign_v144/final/analysis/replay_interp_v144.json`
 - `campaign_v144/final/analysis/s2/board_B/arch_aug_v144_B.json`
 - `campaign_v144/final/analysis/s3/s3_live_window_lda.json`
 - `campaign_v144/final/analysis/stats/holm_pass11.json`

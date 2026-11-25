@@ -1007,8 +1007,27 @@ def pass18():
         [f"{J['t4_clean']:.2f}", f"{J['t4_aug']:.2f}", f"{J['lda_clean']:.2f}"], q)
 
 
+def replay_interp():
+    """The replay's linear interpolation: its part of the replay channel's low-pass response, the time stretch it leaves
+    and the noise power of the replayed traces (replay_interp_v144.py)."""
+    q = src(D + "analysis/replay_interp_v144.json", "name+date"); J = json.load(open(q))
+    i = [k for k, bd in enumerate(J["bands_MHz"]) if tuple(bd) == (60, 150)][0]
+    iv = J["interp_dB"][i]
+    row("Replay channel", "Linear interpolation's power response at 60-150 MHz, relative to 0-20 MHz (sinc^4 formula, checked by simulation)",
+        f"{iv:+.2f} dB", [f"{abs(iv):.1f}"], q)
+    for b in "AB":
+        r = J["boards"][b]
+        row("Replay channel", f"Board {b}: replay channel's power response at 60-150 MHz relative to 0-20 MHz; the interpolation's part of it",
+            f"{r['channel_dB'][i]:+.2f} dB; {100 * r['interp_share'][i]:.0f}%", [f"{abs(r['channel_dB'][i]):.1f}"], q)
+        st = 100 * (1 / r["stretch_a"] - 1)
+        row("Replay channel", f"Board {b}: time stretch of the replayed traces, fitted on the class means (expected {100 * (1 / J['stretch_expected_a'] - 1):.2f}%)",
+            f"{st:.2f}%, {r['drift_over_fit_samples']:.1f} samples over samples 8-759", [f"{st:.1f}", f"{r['drift_over_fit_samples']:.1f}"], q)
+        row("Replay channel", f"Board {b}: within-class noise power, replayed over source scaled by the fitted gain squared",
+            f"{r['noise_power_ratio']:.3f} ({r['noise_power_ratio_dB']:+.2f} dB)", [f"{100 * (r['noise_power_ratio'] - 1):.0f}"], q)
+
+
 for fn in (s2_aug, s5_linear, rev_reloads, rev_stability, rev_arms, rev_carrier_jitter_spacing, rev_logit, rev_keras, rev_map_trainrows, rev_live_window,
-           rev2_stats, rev2_protocol, rev2_fpga, rev2_pass8, pass18):
+           rev2_stats, rev2_protocol, rev2_fpga, rev2_pass8, pass18, replay_interp):
     attempt(fn)
 for b in "AB":
     for fn in (linear, tproc_box, tproc_fir, boxcar_mr, tests, tproc_fir_earliest, tproc_thr):

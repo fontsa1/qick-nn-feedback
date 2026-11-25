@@ -2129,6 +2129,85 @@
    "note": "residual of arch_aug.fit_channel on 4,000 fit shots"
   },
   {
+   "section": "Replay channel",
+   "key": "Linear interpolation's power response at 60-150 MHz, relative to 0-20 MHz (sinc^4 formula, checked by simulation)",
+   "value": "-1.08 dB",
+   "text": [
+    "1.1"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board A: replay channel's power response at 60-150 MHz relative to 0-20 MHz; the interpolation's part of it",
+   "value": "-11.38 dB; 9%",
+   "text": [
+    "11.4"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board A: time stretch of the replayed traces, fitted on the class means (expected 0.57%)",
+   "value": "0.59%, 4.5 samples over samples 8-759",
+   "text": [
+    "0.6",
+    "4.5"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board A: within-class noise power, replayed over source scaled by the fitted gain squared",
+   "value": "1.121 (+0.50 dB)",
+   "text": [
+    "12"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board B: replay channel's power response at 60-150 MHz relative to 0-20 MHz; the interpolation's part of it",
+   "value": "-11.42 dB; 9%",
+   "text": [
+    "11.4"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board B: time stretch of the replayed traces, fitted on the class means (expected 0.57%)",
+   "value": "0.58%, 4.4 samples over samples 8-759",
+   "text": [
+    "0.6",
+    "4.4"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
+   "section": "Replay channel",
+   "key": "Board B: within-class noise power, replayed over source scaled by the fitted gain squared",
+   "value": "1.112 (+0.46 dB)",
+   "text": [
+    "11"
+   ],
+   "source": "campaign_v144/final/analysis/replay_interp_v144.json",
+   "kind": "name+date",
+   "note": ""
+  },
+  {
    "section": "Readout path",
    "key": "Boxcar saves, board A",
    "value": "108.0 ns",
@@ -3872,6 +3951,10 @@
    "kind": "name+date",
    "sha256": "44ace741d9f60c3d"
   },
+  "campaign_v144/final/analysis/replay_interp_v144.json": {
+   "kind": "name+date",
+   "sha256": "6064c9f596741fe4"
+  },
   "campaign_v144/final/analysis/linear_v144_A.json": {
    "kind": "banner",
    "sha256": "4b86f785e5fef4f5"
@@ -4059,5 +4142,5 @@
  },
  "pending": 0,
  "waiting_for": [],
- "md_sha256": "e60122a6ad1f67ada616899380e7376df7a16763820b3b771449196702389c30"
+ "md_sha256": "01e97c871238c94ffc7ec2ac9c13dc0de7876648340f177936078c1549a28a08"
 }
